@@ -1,0 +1,83 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: ankane/pgvector:latest
+    container_name: deepneed-postgres
+    environment:
+      POSTGRES_DB: deepneed
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./infra/sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - deepneed-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: deepneed-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - deepneed-network
+
+  api:
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile
+    container_name: deepneed-api
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/deepneed
+      REDIS_URL: redis://redis:6379
+      DEEPSEEK_API_KEY: sk-dc146c694369404abbc1eb7bac2eb41d
+      CLAUDE_API_KEY: dummy-claude-key
+      OPENAI_API_KEY: dummy-openai-key
+      JWT_SECRET: docker-secret-key
+      JWT_ALGORITHM: HS256
+      JWT_EXPIRE_HOURS: 24
+      ALLOWED_ORIGINS: http://localhost:5173,http://localhost:5174,http://localhost:5175
+      ENVIRONMENT: development
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - ./apps/api:/app
+      - /app/__pycache__
+    networks:
+      - deepneed-network
+    restart: unless-stopped
+
+  web:
+    build:
+      context: ./apps/web
+      dockerfile: Dockerfile.dev
+    container_name: deepneed-web
+    environment:
+      VITE_API_URL: http://localhost:8000
+    ports:
+      - "5174:5173"
+    volumes:
+      - ./apps/web:/app
+      - /app/node_modules
+    depends_on:
+      - api
+    networks:
+      - deepneed-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  deepneed-network:
+    driver: bridge 

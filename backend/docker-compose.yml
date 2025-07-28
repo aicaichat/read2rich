@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  # DeepNeed AI 后端服务
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - SECRET_KEY=deepneed-secret-key-2025
+      - DATABASE_URL=sqlite:///./deepneed.db
+      - CLAUDE_API_KEY=${CLAUDE_API_KEY:-}
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY:-}
+      - DEBUG=true
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+
+  # Redis（可选，用于缓存）
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+  # PostgreSQL（可选，替代SQLite）
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_DB=deepneed
+      - POSTGRES_USER=deepneed
+      - POSTGRES_PASSWORD=deepneed123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  redis_data:
+  postgres_data:
+
+networks:
+  default:
+    name: deepneed_network 

@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-lang="zh">
+<head>
+  <meta charset="UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>DEEPNEED · AI 时代研发专家 | Enterprise AI Development</title>
+  <!-- SEO 基础 -->
+  <meta name="description" content="DEEPNEED 专注 AI 驱动的企业级产品研发与数字化升级，提供前端/后端/大模型/云原生全栈解决方案。"/>
+  <meta name="keywords" content="DEEPNEED, AI研发, 企业级系统, 大模型, 云原生, SaaS 解决方案"/>
+  <link rel="canonical" href="https://deepneed.com/"/>
+  <link rel="alternate" href="https://deepneed.com/" hreflang="zh-CN"/>
+  <link rel="alternate" href="https://deepneed.com/en" hreflang="en"/>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="DEEPNEED · Enterprise AI Development"/>
+  <meta property="og:description" content="DEEPNEED delivers full-stack AI solutions, from LLM integration to cloud-native architecture."/>
+  <meta property="og:url" content="https://deepneed.com/"/>
+  <meta property="og:image" content="https://deepneed.com/assets/og-cover.png"/>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"DEEPNEED",
+    "url":"https://deepneed.com/",
+    "logo":"https://deepneed.com/assets/logo.svg",
+    "sameAs":[
+      "https://github.com/deepneed",
+      "https://www.linkedin.com/company/deepneed"
+    ]
+  }
+  </script>
+
+  <style>
+    :root{
+      --primary:#00ff94;
+      --primary-dark:#00cc75;
+      --secondary:#ff6b6b;
+      --accent:#ffd93d;
+      --bg:#0a0e1a;
+      --bg-secondary:#111827;
+      --card-bg:linear-gradient(135deg,rgba(17,24,39,0.8) 0%,rgba(31,41,55,0.9) 100%);
+      --glass-bg:rgba(255,255,255,0.05);
+      --glass-border:rgba(255,255,255,0.1);
+      --text:#ffffff;
+      --text-muted:#9ca3af;
+      --text-accent:#e5e7eb;
+      --shadow:0 25px 50px -12px rgba(0,0,0,0.5);
+      --glow:0 0 30px rgba(0,255,148,0.3);
+      --radius:20px;
+      font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'PingFang SC',"Noto Sans",sans-serif;
+    }
+    
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      background:radial-gradient(ellipse at top,#1f2937 0%,var(--bg) 50%),var(--bg);
+      color:var(--text);
+      line-height:1.6;
+      -webkit-font-smoothing:antialiased;
+      overflow-x:hidden;
+    }
+    
+    /* 动态背景 */
+    body::before{
+      content:'';
+      position:fixed;
+      top:0;left:0;right:0;bottom:0;
+      background:
+        radial-gradient(circle at 20% 80%,rgba(0,255,148,0.1) 0%,transparent 50%),
+        radial-gradient(circle at 80% 20%,rgba(255,107,107,0.1) 0%,transparent 50%),
+        radial-gradient(circle at 40% 40%,rgba(255,217,61,0.05) 0%,transparent 50%);
+      pointer-events:none;
+      z-index:-1;
+    }
+    
+    /* 头部导航 */
+    header{
+      position:fixed;top:0;left:0;right:0;z-index:1000;
+      backdrop-filter:blur(20px);
+      background:rgba(10,14,26,0.8);
+      border-bottom:1px solid var(--glass-border);
+      padding:15px 40px;
+      display:flex;align-items:center;justify-content:space-between;
+      max-width:1400px;margin:0 auto;
+      transition:all 0.3s ease;
+    }
+    header.scrolled{background:rgba(10,14,26,0.95);box-shadow:var(--shadow);}
+    header .logo{
+      display:flex;align-items:center;font-size:1.6rem;font-weight:800;
+      background:linear-gradient(135deg,var(--primary),var(--accent));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+      text-decoration:none;transition:all 0.3s ease;
+    }
+    header .logo:hover{transform:scale(1.05);}
+    nav{display:flex;align-items:center;gap:32px;}
+    nav a{
+      color:var(--text-muted);text-decoration:none;font-weight:500;
+      position:relative;transition:all 0.3s ease;
+    }
+    nav a:hover{color:var(--primary);transform:translateY(-2px);}
+    nav a::after{
+      content:'';position:absolute;bottom:-5px;left:0;right:0;height:2px;
+      background:var(--primary);transform:scaleX(0);transition:transform 0.3s ease;
+    }
+    nav a:hover::after{transform:scaleX(1);}
+    .lang-switch{
+      cursor:pointer;border:2px solid var(--glass-border);
+      background:var(--glass-bg);color:var(--text);
+      padding:8px 16px;border-radius:25px;font-weight:600;
+      transition:all 0.3s ease;backdrop-filter:blur(10px);
+    }
+    .lang-switch:hover{
+      border-color:var(--primary);color:var(--primary);
+      box-shadow:var(--glow);transform:translateY(-2px);
+    }
+    
+    /* 主视觉区 */
+    .hero{
+      padding:140px 20px 100px;text-align:center;
+      background:linear-gradient(135deg,rgba(0,255,148,0.05),rgba(255,107,107,0.05));
+      position:relative;overflow:hidden;
+    }
+    .hero::before{
+      content:'';position:absolute;top:50%;left:50%;
+      width:800px;height:800px;
+      background:radial-gradient(circle,rgba(0,255,148,0.1) 0%,transparent 70%);
+      transform:translate(-50%,-50%);animation:pulse 4s ease-in-out infinite;
+    }
+    @keyframes pulse{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:0.5;}50%{transform:translate(-50%,-50%) scale(1.1);opacity:0.8;}}
+    .hero-content{position:relative;z-index:2;max-width:900px;margin:0 auto;}
+    .hero h1{
+      font-size:clamp(2.5rem,5vw,4rem);margin-bottom:24px;font-weight:800;
+      background:linear-gradient(135deg,var(--text) 0%,var(--primary) 50%,var(--accent) 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+      animation:slideInUp 1s ease-out;
+    }
+    .hero p{
+      font-size:1.25rem;color:var(--text-accent);margin-bottom:40px;
+      animation:slideInUp 1s ease-out 0.2s both;
+    }
+    @keyframes slideInUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+    
+    /* CTA按钮 */
+    .cta-btn{
+      display:inline-block;margin:15px;padding:16px 40px;border-radius:50px;
+      font-weight:700;text-decoration:none;font-size:1.1rem;
+      position:relative;overflow:hidden;transition:all 0.4s ease;
+      box-shadow:0 8px 32px rgba(0,0,0,0.3);
+    }
+    .cta-btn.primary{
+      background:linear-gradient(135deg,var(--primary),var(--primary-dark));
+      color:#000;
+    }
+    .cta-btn.secondary{
+      background:var(--glass-bg);color:var(--text);
+      border:2px solid var(--glass-border);backdrop-filter:blur(10px);
+    }
+    .cta-btn:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,0.4);}
+    .cta-btn.primary:hover{box-shadow:var(--glow),0 12px 40px rgba(0,0,0,0.4);}
+    .cta-btn::before{
+      content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);
+      transition:left 0.5s ease;
+    }
+    .cta-btn:hover::before{left:100%;}
+    
+    /* 网格布局 */
+    .grid{
+      max-width:1400px;margin:120px auto;display:grid;gap:40px;padding:0 20px;
+      animation:fadeInUp 1s ease-out;
+    }
+    .grid-3{grid-template-columns:repeat(auto-fit,minmax(350px,1fr));}
+    .grid-4{grid-template-columns:repeat(auto-fit,minmax(280px,1fr));}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(40px);}to{opacity:1;transform:translateY(0);}}
+    
+    /* 卡片设计 */
+    .card{
+      background:var(--card-bg);padding:40px 32px;border-radius:var(--radius);
+      border:1px solid var(--glass-border);backdrop-filter:blur(20px);
+      transition:all 0.4s ease;position:relative;overflow:hidden;
+      box-shadow:0 8px 32px rgba(0,0,0,0.2);
+    }
+    .card::before{
+      content:'';position:absolute;top:0;left:0;right:0;height:3px;
+      background:linear-gradient(90deg,var(--primary),var(--accent),var(--secondary));
+      transform:scaleX(0);transition:transform 0.4s ease;
+    }
+    .card:hover{
+      transform:translateY(-8px);
+      box-shadow:0 20px 60px rgba(0,0,0,0.3);
+      border-color:rgba(0,255,148,0.3);
+    }
+    .card:hover::before{transform:scaleX(1);}
+    .card h3{
+      font-size:1.4rem;margin-bottom:16px;color:var(--text);
+      font-weight:700;
+    }
+    .card p{color:var(--text-muted);line-height:1.6;}
+    
+    /* 特殊效果卡片 */
+    .feature-card{
+      background:linear-gradient(135deg,rgba(0,255,148,0.1),rgba(255,107,107,0.1));
+      border:2px solid rgba(0,255,148,0.2);
+    }
+    .feature-card:hover{
+      background:linear-gradient(135deg,rgba(0,255,148,0.15),rgba(255,107,107,0.15));
+      box-shadow:var(--glow),0 20px 60px rgba(0,0,0,0.3);
+    }
+    
+    /* 统计数字 */
+    .stats{display:flex;justify-content:center;gap:60px;margin:80px 0;flex-wrap:wrap;}
+    .stat-item{text-align:center;}
+    .stat-number{
+      font-size:3rem;font-weight:800;
+      background:linear-gradient(135deg,var(--primary),var(--accent));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+      display:block;
+    }
+    .stat-label{color:var(--text-muted);font-size:0.9rem;margin-top:8px;}
+    
+    /* FAQ样式 */
+    details{margin-bottom:20px;}
+    summary{
+      cursor:pointer;font-weight:600;padding:20px;
+      background:var(--glass-bg);border:1px solid var(--glass-border);
+      border-radius:12px;transition:all 0.3s ease;
+    }
+    summary:hover{background:rgba(0,255,148,0.1);border-color:var(--primary);}
+    details[open] summary{border-bottom-left-radius:0;border-bottom-right-radius:0;}
+    details p{
+      padding:20px;margin:0;
+      background:rgba(0,255,148,0.05);
+      border:1px solid var(--glass-border);border-top:none;
+      border-bottom-left-radius:12px;border-bottom-right-radius:12px;
+    }
+    
+    /* 联系区域 */
+    #contact{
+      background:linear-gradient(135deg,rgba(0,255,148,0.1),rgba(255,107,107,0.1));
+      border-radius:var(--radius);margin:0 20px;
+      border:1px solid var(--glass-border);backdrop-filter:blur(20px);
+    }
+    .qr-container{
+      margin-top:40px;display:inline-block;
+      padding:20px;background:var(--glass-bg);
+      border-radius:20px;border:2px solid var(--glass-border);
+      transition:all 0.4s ease;
+    }
+    .qr-container:hover{
+      transform:scale(1.05);
+      box-shadow:var(--glow);
+      border-color:var(--primary);
+    }
+    .qr-container img{
+      width:160px;border-radius:16px;
+      box-shadow:0 8px 32px rgba(0,255,148,0.3);
+    }
+    
+    /* 页脚 */
+    footer{
+      padding:60px 20px;text-align:center;color:var(--text-muted);
+      background:var(--bg-secondary);border-top:1px solid var(--glass-border);
+      position:relative;
+    }
+    footer::before{
+      content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
+      width:100px;height:2px;
+      background:linear-gradient(90deg,transparent,var(--primary),transparent);
+    }
+    
+    /* 响应式设计 */
+    @media (max-width:768px){
+      header{padding:15px 20px;}
+      nav{gap:20px;}
+      .hero{padding:120px 20px 80px;}
+      .grid{margin:80px auto;gap:30px;}
+      .card{padding:30px 24px;}
+      .stats{gap:40px;}
+      .stat-number{font-size:2.5rem;}
+      .cta-btn{padding:14px 32px;margin:10px;}
+    }
+    
+    /* 滚动条美化 */
+    ::-webkit-scrollbar{width:8px;}
+    ::-webkit-scrollbar-track{background:var(--bg);}
+    ::-webkit-scrollbar-thumb{
+      background:linear-gradient(var(--primary),var(--accent));
+      border-radius:4px;
+    }
+    ::-webkit-scrollbar-thumb:hover{background:linear-gradient(var(--accent),var(--secondary));}
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="logo">DEEPNEED</a>
+    <nav>
+      <a href="#services" data-i18n="nav_services">服务</a>
+      <a href="#cases" data-i18n="nav_cases">案例</a>
+      <a href="#contact" data-i18n="nav_contact">联系</a>
+      <button class="lang-switch" id="langToggle">EN</button>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1 data-i18n="hero_title">AI 驱动的企业级产品研发专家</h1>
+      <p data-i18n="hero_sub">从战略咨询到大模型落地，助力企业抢占 AI 时代红利</p>
+      <div>
+        <a href="#contact" class="cta-btn primary" data-i18n="hero_cta">获取方案</a>
+        <a href="#services" class="cta-btn secondary" data-i18n="hero_cta2">了解服务</a>
+        <a href="/ppt/" class="cta-btn secondary" target="_blank" data-i18n="hero_ppt">查看演示PPT</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 统计数据 -->
+  <section class="stats">
+    <div class="stat-item">
+      <span class="stat-number" data-i18n="stat_projects">50+</span>
+      <div class="stat-label" data-i18n="stat_projects_label">成功项目</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number" data-i18n="stat_clients">30+</span>
+      <div class="stat-label" data-i18n="stat_clients_label">企业客户</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number" data-i18n="stat_satisfaction">98%</span>
+      <div class="stat-label" data-i18n="stat_satisfaction_label">客户满意度</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number" data-i18n="stat_delivery">100%</span>
+      <div class="stat-label" data-i18n="stat_delivery_label">按时交付</div>
+    </div>
+  </section>
+
+  <section id="services" class="grid grid-3">
+    <div class="card">
+      <h3 data-i18n="svc_ai">AI 技术咨询</h3>
+      <p data-i18n="svc_ai_desc">AI 战略规划 · 私有化大模型部署 · Copilot 培训</p>
+    </div>
+    <div class="card">
+      <h3 data-i18n="svc_dev">产品研发服务</h3>
+      <p data-i18n="svc_dev_desc">MVP 快速验证 · 云原生架构升级 · SaaS 定制</p>
+    </div>
+    <div class="card">
+      <h3 data-i18n="svc_cloud">云原生运维</h3>
+      <p data-i18n="svc_cloud_desc">Kubernetes · GitOps · Observability</p>
+    </div>
+  </section>
+
+  <section id="cases" class="grid grid-3">
+    <div class="card">
+      <h3 data-i18n="case1_title">B2B 智能选品平台</h3>
+      <p data-i18n="case1_desc">+35% 转化 · 3 个月交付</p>
+    </div>
+    <div class="card">
+      <h3 data-i18n="case2_title">企业数字运营中台</h3>
+      <p data-i18n="case2_desc">20万 DAU · 运维成本 -30%</p>
+    </div>
+    <div class="card">
+      <h3 data-i18n="case3_title">IoT 设备云管系统</h3>
+      <p data-i18n="case3_desc">百万级设备接入 · 实时监控</p>
+    </div>
+  </section>
+
+  <!-- Why DEEPNEED 实力背书 -->
+  <section id="why" class="grid grid-3">
+    <div class="card feature-card"><h3 data-i18n="why_exp_title">30+ Enterprise Deployments</h3><p data-i18n="why_exp_desc">经验沉淀，保障从 PoC 到 Production 稳定落地</p></div>
+    <div class="card feature-card"><h3 data-i18n="why_team_title">Ex-FAANG & BAT Experts</h3><p data-i18n="why_team_desc">核心成员来自阿里/字节/Meta 等一线大厂</p></div>
+    <div class="card feature-card"><h3 data-i18n="why_scale_title">100M+ User Architecture</h3><p data-i18n="why_scale_desc">亿级流量验证，性能与安全并重</p></div>
+  </section>
+
+  <!-- Tech Stack -->
+  <section id="stack" class="grid grid-3">
+    <div class="card"><h3>Front-end</h3><p>React / Next.js / SvelteKit</p></div>
+    <div class="card"><h3>Back-end</h3><p>Node.js / Go / Python</p></div>
+    <div class="card"><h3>AI & LLM</h3><p>LangChain / RAG / OpenAI & OSS Models</p></div>
+  </section>
+
+  <!-- CTA -->
+  <section style="text-align:center;padding:100px 20px">
+    <h2 data-i18n="cta_title">预订 30 分钟 AI 咨询</h2>
+    <p data-i18n="cta_sub">让资深架构师帮你评估可行性与 ROI</p>
+    <a href="mailto:vip@deepneed.com.cn" class="cta-btn primary" data-i18n="cta_btn_primary">立即沟通</a>
+    <a href="#" class="cta-btn secondary" data-i18n="cta_btn_secondary">预约日程</a>
+  </section>
+
+  <!-- FAQ -->
+  <section class="grid" style="grid-template-columns:1fr;max-width:800px">
+    <details class="card"><summary data-i18n="faq_q1">如何收费？</summary><p data-i18n="faq_a1">支持里程碑交付或长期顾问，两种模式。</p></details>
+    <details class="card"><summary data-i18n="faq_q2">交付周期多久？</summary><p data-i18n="faq_a2">MVP 通常 2-4 周，完整上线 2-3 个月。</p></details>
+  </section>
+
+  <section id="contact" style="text-align:center;padding:80px 20px;">
+    <h2 data-i18n="contact_title">联系我们</h2>
+    <p>📞 159-5800-8070 · ✉ vip@deepneed.com.cn</p>
+    <div class="qr-container">
+      <img src="assets/wechat-qr.png" alt="WeChat QR"/>
+      <p style="margin-top:10px" data-i18n="qr_caption">微信扫码咨询</p>
+    </div>
+  </section>
+
+  <footer>© 2025 DEEPNEED. All rights reserved.</footer>
+
+  <script>
+  // —— 简易中英切换 ——
+  const dict = {
+    en: {
+      nav_services:"Services", nav_cases:"Cases", nav_contact:"Contact",
+      hero_title:"Enterprise-grade AI Product Development", hero_sub:"From strategy to LLM implementation, capture AI opportunities.", hero_cta:"Get Proposal",
+      svc_ai:"AI Consulting", svc_ai_desc:"AI strategy · Private LLM deployment · Copilot training",
+      svc_dev:"Product Development", svc_dev_desc:"MVP validation · Cloud-native upgrade · SaaS customization",
+      svc_cloud:"Cloud-native Ops", svc_cloud_desc:"Kubernetes · GitOps · Observability",
+      contact_title:"Contact Us",
+      why_exp_title:"30+ Enterprise Deployments", why_exp_desc:"Proven track record from PoC to production",
+      why_team_title:"Ex-FAANG & BAT Experts",   why_team_desc:"Core team from Alibaba/ByteDance/Meta",
+      why_scale_title:"100M+ User Architecture",  why_scale_desc:"Built for massive traffic with security",
+      cta_title:"Book a 30-min AI Call", cta_sub:"Get ROI & feasibility from senior architects", cta_btn_primary:"Talk Now", cta_btn_secondary:"Schedule",
+      faq_q1:"Pricing model?", faq_a1:"Milestone billing or retainer.", faq_q2:"Typical delivery time?", faq_a2:"MVP in 2-4 weeks, full launch in 2-3 months.",
+      case1_title:"B2B Smart Sourcing Platform", case1_desc:"+35% conversion · 3-month delivery",
+      case2_title:"Enterprise Digital Ops Hub", case2_desc:"200k DAU · Ops cost -30%",
+      case3_title:"IoT Device Cloud Manager", case3_desc:"Millions devices · Real-time monitoring",
+      qr_caption:"Scan WeChat QR",
+      hero_cta2:"Learn More",
+      hero_ppt:"View PPT",
+      stat_projects:"50+", stat_projects_label:"Successful Projects",
+      stat_clients:"30+", stat_clients_label:"Enterprise Clients", 
+      stat_satisfaction:"98%", stat_satisfaction_label:"Client Satisfaction",
+      stat_delivery:"100%", stat_delivery_label:"On-time Delivery"
+    },
+    zh: {
+      nav_services:"服务", nav_cases:"案例", nav_contact:"联系",
+      hero_title:"AI 驱动的企业级产品研发专家", hero_sub:"从战略咨询到大模型落地，助力企业抢占 AI 时代红利", hero_cta:"获取方案",
+      svc_ai:"AI 技术咨询", svc_ai_desc:"AI 战略规划 · 私有化大模型部署 · Copilot 培训",
+      svc_dev:"产品研发服务", svc_dev_desc:"MVP 快速验证 · 云原生架构升级 · SaaS 定制",
+      svc_cloud:"云原生运维", svc_cloud_desc:"Kubernetes · GitOps · 可观测性",
+      contact_title:"联系我们",
+      why_exp_title:"30+ 大型交付", why_exp_desc:"经验沉淀，保障从 PoC 到生产上线",
+      why_team_title:"大厂专家团队",  why_team_desc:"核心成员来自阿里/字节/Meta 等",
+      why_scale_title:"亿级用户架构",  why_scale_desc:"性能与安全并重的成功实践",
+      cta_title:"预订 30 分钟 AI 咨询", cta_sub:"让资深架构师帮你评估可行性与 ROI", cta_btn_primary:"立即沟通", cta_btn_secondary:"预约日程",
+      faq_q1:"如何收费？", faq_a1:"支持里程碑或长期顾问两种模式。", faq_q2:"交付周期多久？", faq_a2:"MVP 2-4 周，完整上线 2-3 个月。",
+      case1_title:"B2B 智能选品平台", case1_desc:"+35% 转化 · 3 个月交付",
+      case2_title:"企业数字运营中台", case2_desc:"20万 DAU · 运维成本 -30%",
+      case3_title:"IoT 设备云管系统", case3_desc:"百万级设备接入 · 实时监控",
+      qr_caption:"微信扫码咨询",
+      hero_cta2:"了解服务",
+      hero_ppt:"查看演示PPT", 
+      stat_projects:"50+", stat_projects_label:"成功项目",
+      stat_clients:"30+", stat_clients_label:"企业客户",
+      stat_satisfaction:"98%", stat_satisfaction_label:"客户满意度", 
+      stat_delivery:"100%", stat_delivery_label:"按时交付"
+    }
+  };
+  const toggleBtn=document.getElementById('langToggle');
+  toggleBtn.addEventListener('click',()=>{
+    const html=document.documentElement;
+    const lang=html.dataset.lang==='zh'?'en':'zh';
+    html.dataset.lang=lang;
+    toggleBtn.textContent=lang==='zh'? 'EN':'中文';
+    document.querySelectorAll('[data-i18n]').forEach(el=>{
+      el.textContent=dict[lang][el.getAttribute('data-i18n')];
+    });
+  });
+  
+  // —— 滚动效果 ——
+  window.addEventListener('scroll', () => {
+    const header = document.querySelector('header');
+    if (window.scrollY > 100) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  });
+  
+  // —— 平滑滚动 ——
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+  
+  // —— 数字动画 ——
+  const animateNumbers = () => {
+    const numbers = document.querySelectorAll('.stat-number');
+    numbers.forEach(num => {
+      const finalValue = num.textContent;
+      const isPercentage = finalValue.includes('%');
+      const numValue = parseInt(finalValue);
+      let currentValue = 0;
+      const increment = numValue / 50;
+      
+      const timer = setInterval(() => {
+        currentValue += increment;
+        if (currentValue >= numValue) {
+          currentValue = numValue;
+          clearInterval(timer);
+        }
+        num.textContent = Math.floor(currentValue) + (isPercentage ? '%' : '+');
+      }, 50);
+    });
+  };
+  
+  // —— 滚动触发动画 ——
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+        
+        if (entry.target.classList.contains('stats')) {
+          setTimeout(animateNumbers, 500);
+        }
+      }
+    });
+  }, observerOptions);
+  
+  // 页面加载完成后初始化
+  document.addEventListener('DOMContentLoaded', () => {
+    // 观察所有需要动画的元素
+    document.querySelectorAll('.grid, .stats, .card').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(40px)';
+      el.style.transition = 'all 0.8s ease-out';
+      observer.observe(el);
+    });
+  });
+  </script>
+</body>
+</html> 

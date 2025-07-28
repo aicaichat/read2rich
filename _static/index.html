@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>deepneed · AI 时代研发专家</title>
+    <link rel="shortcut icon" href="./favicon.ico" />
+    <link rel="stylesheet" href="./dist/reset.css" />
+    <link rel="stylesheet" href="./dist/reveal.css" />
+    <link rel="stylesheet" href="./dist/theme/night.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/monokai.css" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section data-markdown data-separator="\r?\n---\r?\n" data-separator-vertical="\r?\n----\r?\n">
+          <textarea data-template>
+            
+
+# <span style="background: linear-gradient(135deg, #00ff94, #ffd93d); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 40px rgba(0, 255, 148, 0.7); letter-spacing: 2px; font-weight: 800;">DEEPNEED</span>
+## <span style="color: #e5e7eb; text-shadow: 0 0 20px rgba(229, 231, 235, 0.3);">AI 驱动的企业级产品研发专家</span>
+
+<div class="fragment fade-up" style="background: linear-gradient(135deg, rgba(17,24,39,0.8) 0%, rgba(31,41,55,0.9) 100%); padding: 30px; border-radius: 20px; margin-top: 40px; border: 1px solid rgba(0,255,148,0.3); box-shadow: 0 20px 60px rgba(0,0,0,0.3); position: relative; overflow: hidden; backdrop-filter: blur(20px);">
+<div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(45deg, transparent 30%, rgba(0, 255, 148, 0.1) 50%, transparent 70%); animation: shimmer 3s infinite;"></div>
+<div style="position: relative; z-index: 2;">
+<strong style="color: #00ff94; font-size: 1.1em;">使命：</strong><span style="color: #ffffff;">助力企业掌握 AI 研发红利，实现数字化转型升级</span>
+</div>
+</div>
+
+<style>
+/* 全局字体优化 */
+.reveal {
+  font-size: 28px !important;
+  line-height: 1.5 !important;
+  font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif !important;
+  background: radial-gradient(ellipse at top, #1f2937 0%, #0a0e1a 50%), #0a0e1a !important;
+}
+.reveal .backgrounds {
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(0,255,148,0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255,107,107,0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(255,217,61,0.05) 0%, transparent 50%) !important;
+}
+.reveal .slides {
+  width: 100% !important;
+  height: 100% !important;
+}
+.reveal .slides section {
+  padding: 30px 40px !important;
+  box-sizing: border-box !important;
+}
+.reveal h1 {
+  font-size: 2.0em !important;
+  line-height: 1.2 !important;
+  margin-bottom: 0.6em !important;
+  font-weight: 800 !important;
+}
+.reveal h2 {
+  font-size: 1.4em !important;
+  line-height: 1.3 !important;
+  margin-bottom: 0.5em !important;
+  font-weight: 700 !important;
+  color: #e5e7eb !important;
+}
+.reveal h3 {
+  font-size: 1.1em !important;
+  line-height: 1.3 !important;
+  margin-bottom: 0.4em !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+}
+.reveal h4 {
+  font-size: 0.95em !important;
+  line-height: 1.3 !important;
+  margin-bottom: 0.3em !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+}
+.reveal p {
+  font-size: 0.8em !important;
+  line-height: 1.5 !important;
+  margin-bottom: 0.6em !important;
+  color: #9ca3af !important;
+}
+.reveal li {
+  font-size: 0.75em !important;
+  line-height: 1.4 !important;
+  margin-bottom: 0.25em !important;
+  color: #9ca3af !important;
+}
+.reveal td, .reveal th {
+  font-size: 0.7em !important;
+  padding: 6px 10px !important;
+  line-height: 1.3 !important;
+}
+.reveal strong {
+  font-weight: 600 !important;
+  color: #00ff94 !important;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.05); opacity: 0.8; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(0,255,148,0.3); }
+  50% { box-shadow: 0 0 40px rgba(0,255,148,0.6); }
+}
+
+/* 进度条与控制按钮美化 */
+.reveal .progress {
+  height: 6px !important;
+  background: rgba(255,255,255,0.1) !important;
+}
+.reveal .progress span {
+  background: linear-gradient(90deg, #00ff94 0%, #ffd93d 100%) !important;
+  border-radius: 3px !important;
+}
+.reveal .controls button {
+  color: #00ff94 !important;
+  border: 2px solid #00ff94 !important;
+  backdrop-filter: blur(6px);
+  transition: all 0.3s ease !important;
+  background: rgba(255,255,255,0.05) !important;
+}
+.reveal .controls button:hover {
+  background: rgba(0,255,148,0.15) !important;
+  transform: scale(1.15) !important;
+  box-shadow: 0 0 20px rgba(0,255,148,0.3) !important;
+}
+
+/* 卡片与表格行悬停交互 */
+.reveal .fragment:hover {
+  transform: translateY(-8px) scale(1.02) !important;
+  box-shadow: 0 20px 60px rgba(0,255,148,0.25) !important;
+}
+</style>
+
+---
+## <span style="color: #00ff94;">▎</span>关于我们
+
+<div style="max-width: 800px; margin: 0 auto;">
+<div class="fragment fade-in card-modern" style="display: flex; align-items: center; margin: 12px 0; padding: 20px 24px;">
+<span style="color: #00ff94; font-size: 1.2em; margin-right: 15px; flex-shrink: 0;">⬢</span> 
+<div style="font-size: 0.85em; line-height: 1.4;">阿里巴巴、蚂蚁金服、字节跳动 <strong>P8/P9</strong> 技术专家团队</div>
+</div>
+
+<div class="fragment fade-in card-modern" style="display: flex; align-items: center; margin: 12px 0; padding: 20px 24px;">
+<span style="color: #00ff94; font-size: 1.2em; margin-right: 15px; flex-shrink: 0;">◆</span> 
+<div style="font-size: 0.85em; line-height: 1.4;"><strong>10+</strong> 年企业级产品设计与技术架构经验</div>
+</div>
+
+<div class="fragment fade-in card-modern" style="display: flex; align-items: center; margin: 12px 0; padding: 20px 24px;">
+<span style="color: #00ff94; font-size: 1.2em; margin-right: 15px; flex-shrink: 0;">▲</span> 
+<div style="font-size: 0.85em; line-height: 1.4;">专注 <strong>AI 赋能</strong> 与企业数字化转型解决方案</div>
+</div>
+</div>
+
+---
+## <span style="color: #00ff94;">▎</span>核心业务
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 25px 0; max-width: 900px; margin-left: auto; margin-right: auto;">
+  <div class="card-modern" style="padding: 30px; min-height: 160px;">
+    <div style="display: flex; align-items: center; margin-bottom: 18px;">
+      <span style="color: #00ff94; font-size: 2.2em; margin-right: 12px; flex-shrink: 0;">◉</span>
+      <h3 style="margin: 0; color: #ffffff; font-size: 1.0em; line-height: 1.3;">AI 技术咨询</h3>
+    </div>
+    <ul style="list-style: none; padding: 0; color: #9ca3af; margin: 0;">
+      <li style="margin: 8px 0; font-size: 0.75em; line-height: 1.4;"><span style="color: #00ff94; margin-right: 8px;">▸</span>企业 AI 战略规划</li>
+      <li style="margin: 8px 0; font-size: 0.75em; line-height: 1.4;"><span style="color: #00ff94; margin-right: 8px;">▸</span>大模型私有化部署</li>
+      <li style="margin: 8px 0; font-size: 0.75em; line-height: 1.4;"><span style="color: #00ff94; margin-right: 8px;">▸</span>AI Copilot 开发培训</li>
+    </ul>
+  </div>
+  
+  <div class="card-modern" style="padding: 30px; min-height: 160px;">
+    <div style="display: flex; align-items: center; margin-bottom: 18px;">
+      <span style="color: #00ff94; font-size: 2.2em; margin-right: 12px; flex-shrink: 0;">◎</span>
+      <h3 style="margin: 0; color: #ffffff; font-size: 1.0em; line-height: 1.3;">产品研发服务</h3>
+    </div>
+    <ul style="list-style: none; padding: 0; color: #9ca3af; margin: 0;">
+      <li style="margin: 8px 0; font-size: 0.75em; line-height: 1.4;"><span style="color: #00ff94; margin-right: 8px;">▸</span>MVP 快速验证</li>
+      <li style="margin: 8px 0; font-size: 0.75em; line-height: 1.4;"><span style="color: #00ff94; margin-right: 8px;">▸</span>企业级系统重构</li>
+      <li style="margin: 8px 0; font-size: 0.75em; line-height: 1.4;"><span style="color: #00ff94; margin-right: 8px;">▸</span>云原生架构升级</li>
+    </ul>
+  </div>
+</div>
+
+---
+## <span style="color: #00d4ff;">▎</span>技术能力矩阵
+
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 30px auto; max-width: 1000px; padding: 0 20px;">
+  <div class="fragment fade-up card-modern" style="padding: 24px 20px; min-height: 130px; display: flex; flex-direction: column; justify-content: flex-start;">
+    <div style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+      <span style="color: #00ff94; font-size: 1.8em; margin-right: 12px; flex-shrink: 0; line-height: 1;">⬢</span>
+      <div style="flex: 1;">
+        <h4 style="margin: 0 0 8px 0; color: #ffffff; font-size: 0.9em; line-height: 1.2; font-weight: 700; letter-spacing: 0.5px;">前端架构</h4>
+        <p style="margin: 0; color: #9ca3af; font-size: 0.7em; line-height: 1.4; font-weight: 400;">React/Vue/Angular<br/>Next.js/Nuxt.js</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="fragment fade-up card-modern" style="padding: 24px 20px; min-height: 130px; display: flex; flex-direction: column; justify-content: flex-start;">
+    <div style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+      <span style="color: #00ff94; font-size: 1.8em; margin-right: 12px; flex-shrink: 0; line-height: 1;">◆</span>
+      <div style="flex: 1;">
+        <h4 style="margin: 0 0 8px 0; color: #ffffff; font-size: 0.9em; line-height: 1.2; font-weight: 700; letter-spacing: 0.5px;">后端架构</h4>
+        <p style="margin: 0; color: #9ca3af; font-size: 0.7em; line-height: 1.4; font-weight: 400;">Node.js/Python/Go<br/>微服务/分布式</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="fragment fade-up card-modern" style="padding: 24px 20px; min-height: 130px; display: flex; flex-direction: column; justify-content: flex-start;">
+    <div style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+      <span style="color: #00ff94; font-size: 1.8em; margin-right: 12px; flex-shrink: 0; line-height: 1;">▲</span>
+      <div style="flex: 1;">
+        <h4 style="margin: 0 0 8px 0; color: #ffffff; font-size: 0.9em; line-height: 1.2; font-weight: 700; letter-spacing: 0.5px;">AI/ML</h4>
+        <p style="margin: 0; color: #9ca3af; font-size: 0.7em; line-height: 1.4; font-weight: 400;">LangChain/RAG<br/>大模型集成</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="fragment fade-up card-modern" style="padding: 24px 20px; min-height: 130px; display: flex; flex-direction: column; justify-content: flex-start;">
+    <div style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+      <span style="color: #00ff94; font-size: 1.8em; margin-right: 12px; flex-shrink: 0; line-height: 1;">◉</span>
+      <div style="flex: 1;">
+        <h4 style="margin: 0 0 8px 0; color: #ffffff; font-size: 0.9em; line-height: 1.2; font-weight: 700; letter-spacing: 0.5px;">云原生</h4>
+        <p style="margin: 0; color: #9ca3af; font-size: 0.7em; line-height: 1.4; font-weight: 400;">Docker/K8s<br/>AWS/阿里云</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="fragment fade-up card-modern" style="padding: 24px 20px; min-height: 130px; display: flex; flex-direction: column; justify-content: flex-start;">
+    <div style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+      <span style="color: #00ff94; font-size: 1.8em; margin-right: 12px; flex-shrink: 0; line-height: 1;">◎</span>
+      <div style="flex: 1;">
+        <h4 style="margin: 0 0 8px 0; color: #ffffff; font-size: 0.9em; line-height: 1.2; font-weight: 700; letter-spacing: 0.5px;">数据库</h4>
+        <p style="margin: 0; color: #9ca3af; font-size: 0.7em; line-height: 1.4; font-weight: 400;">MySQL/PostgreSQL<br/>MongoDB/Redis</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="fragment fade-up card-modern" style="padding: 24px 20px; min-height: 130px; display: flex; flex-direction: column; justify-content: flex-start;">
+    <div style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+      <span style="color: #00ff94; font-size: 1.8em; margin-right: 12px; flex-shrink: 0; line-height: 1;">⬟</span>
+      <div style="flex: 1;">
+        <h4 style="margin: 0 0 8px 0; color: #ffffff; font-size: 0.9em; line-height: 1.2; font-weight: 700; letter-spacing: 0.5px;">移动端</h4>
+        <p style="margin: 0; color: #9ca3af; font-size: 0.7em; line-height: 1.4; font-weight: 400;">iOS / Android<br/>Flutter / React&nbsp;Native</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div style="background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%); padding: 12px; border-radius: 6px; margin: 15px auto; text-align: center; border: 1px solid rgba(0, 212, 255, 0.3); max-width: 700px;">
+<strong style="color: #00d4ff; font-size: 0.8em;">核心优势：</strong> <span style="color: #ffffff; font-size: 0.75em;">30+大型系统研发部署 • 亿级用户系统架构</span>
+</div>
+
+---
+## <span style="color: #00d4ff;">▎</span>AI 驱动 vs 传统开发
+
+<div style="overflow-x:auto;margin:45px auto;max-width:1150px;padding:0 20px;">
+<table style="width:100%;border-collapse:separate;border-spacing:0 12px;font-size:1.05em;">
+  <thead>
+    <tr style="background:linear-gradient(90deg,#1e3c72 0%,#2a5298 100%);height:58px;color:#ffffff;border-radius:10px;">
+      <th style="padding:0 24px;text-align:left;border-top-left-radius:10px;border-bottom-left-radius:10px;font-weight:700;letter-spacing:0.6px;">对比维度</th>
+      <th style="padding:0 24px;text-align:center;font-weight:700;letter-spacing:0.6px;">传统开发模式</th>
+      <th style="padding:0 24px;text-align:center;color:#00d4ff;font-weight:700;letter-spacing:0.6px;border-top-right-radius:10px;border-bottom-right-radius:10px;">AI 驱动模式</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="fragment fade-in" style="background:rgba(0,212,255,0.05);backdrop-filter:blur(8px);">
+      <td style="padding:22px 24px;color:#00d4ff;font-weight:600;display:flex;align-items:center;gap:10px;border-left:4px solid #00d4ff;">◆ 开发目标</td>
+      <td style="padding:22px 24px;text-align:center;color:#e0e0e0;">功能完备性</td>
+      <td style="padding:22px 24px;text-align:center;color:#ffffff;font-weight:500;background:rgba(0,212,255,0.10);border-right:4px solid #00d4ff;">业务增长 + 效率提升</td>
+    </tr>
+    <tr class="fragment fade-in" style="background:rgba(0,153,204,0.05);backdrop-filter:blur(8px);">
+      <td style="padding:22px 24px;color:#00d4ff;font-weight:600;display:flex;align-items:center;gap:10px;border-left:4px solid #00d4ff;">◆ 交付周期</td>
+      <td style="padding:22px 24px;text-align:center;color:#e0e0e0;">3-6 个月</td>
+      <td style="padding:22px 24px;text-align:center;color:#ffffff;font-weight:500;background:rgba(0,153,204,0.10);border-right:4px solid #00d4ff;">2-3 周 MVP</td>
+    </tr>
+    <tr class="fragment fade-in" style="background:rgba(102,204,255,0.05);backdrop-filter:blur(8px);">
+      <td style="padding:22px 24px;color:#00d4ff;font-weight:600;display:flex;align-items:center;gap:10px;border-left:4px solid #00d4ff;">◆ 技术架构</td>
+      <td style="padding:22px 24px;text-align:center;color:#e0e0e0;">单体应用</td>
+      <td style="padding:22px 24px;text-align:center;color:#ffffff;font-weight:500;background:rgba(102,204,255,0.10);border-right:4px solid #00d4ff;">AI + 微服务 + 云原生</td>
+    </tr>
+    <tr class="fragment fade-in" style="background:rgba(0,212,255,0.04);backdrop-filter:blur(8px);">
+      <td style="padding:22px 24px;color:#00d4ff;font-weight:600;display:flex;align-items:center;gap:10px;border-left:4px solid #00d4ff;">◆ 运维方式</td>
+      <td style="padding:22px 24px;text-align:center;color:#e0e0e0;">人工监控</td>
+      <td style="padding:22px 24px;text-align:center;color:#ffffff;font-weight:500;background:rgba(0,212,255,0.10);border-right:4px solid #00d4ff;">智能监控 + 自动化</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+---
+## <span style="color: #00d4ff;">▎</span>客户价值创造
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; margin: 35px auto; max-width: 1100px; padding: 0 20px;">
+  <div class="fragment zoom-in" style="position: relative; overflow: hidden; padding: 38px 28px; border-radius: 16px; background: radial-gradient(circle at top left, rgba(0,212,255,0.18) 0%, rgba(30,60,114,0.9) 60%); box-shadow: 0 10px 30px rgba(0,212,255,0.15); transition: transform 0.4s ease;">
+    <div style="position:absolute; top:-60px; right:-60px; width:160px; height:160px; background: rgba(0,212,255,0.07); border-radius:50%; filter: blur(20px);"></div>
+    <div style="font-size: 3.2em; color:#00d4ff; margin-bottom:12px; text-shadow:0 0 20px rgba(0,212,255,0.6);">⏱</div>
+    <h3 style="color:#ffffff; font-size:1.05em; margin-bottom:6px; letter-spacing:0.5px;">时间效率</h3>
+    <div style="font-size:2.2em; font-weight:700; color:#00d4ff; margin-bottom:8px;">50-70%</div>
+    <p style="color:#b0b0b0; font-size:0.8em; line-height:1.4;">开发周期缩短</p>
+  </div>
+
+  <div class="fragment zoom-in" style="position: relative; overflow: hidden; padding: 38px 28px; border-radius: 16px; background: radial-gradient(circle at top left, rgba(0,153,204,0.18) 0%, rgba(30,60,114,0.9) 60%); box-shadow: 0 10px 30px rgba(0,153,204,0.15); transition: transform 0.4s ease;">
+    <div style="position:absolute; top:-60px; right:-60px; width:160px; height:160px; background: rgba(0,153,204,0.07); border-radius:50%; filter: blur(20px);"></div>
+    <div style="font-size: 3.2em; color:#0099cc; margin-bottom:12px; text-shadow:0 0 20px rgba(0,153,204,0.6);">💰</div>
+    <h3 style="color:#ffffff; font-size:1.05em; margin-bottom:6px; letter-spacing:0.5px;">成本优化</h3>
+    <div style="font-size:2.2em; font-weight:700; color:#0099cc; margin-bottom:8px;">20-60%</div>
+    <p style="color:#b0b0b0; font-size:0.8em; line-height:1.4;">研发成本降低</p>
+  </div>
+
+  <div class="fragment zoom-in" style="position: relative; overflow: hidden; padding: 38px 28px; border-radius: 16px; background: radial-gradient(circle at top left, rgba(102,204,255,0.18) 0%, rgba(30,60,114,0.9) 60%); box-shadow: 0 10px 30px rgba(102,204,255,0.15); transition: transform 0.4s ease;">
+    <div style="position:absolute; top:-60px; right:-60px; width:160px; height:160px; background: rgba(102,204,255,0.07); border-radius:50%; filter: blur(20px);"></div>
+    <div style="font-size: 3.2em; color:#66ccff; margin-bottom:12px; text-shadow:0 0 20px rgba(102,204,255,0.6);">📊</div>
+    <h3 style="color:#ffffff; font-size:1.05em; margin-bottom:6px; letter-spacing:0.5px;">业务增长</h3>
+    <div style="font-size:2.2em; font-weight:700; color:#66ccff; margin-bottom:8px;">30%+</div>
+    <p style="color:#b0b0b0; font-size:0.8em; line-height:1.4;">转化率提升</p>
+  </div>
+</div>
+
+---
+## <span style="color: #00d4ff;">▎</span>成功案例
+
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:30px;margin:40px auto;max-width:1100px;padding:0 20px;">
+  <!-- 案例 1-->
+  <div class="fragment slide-up" style="position:relative;overflow:hidden;padding:42px 38px;border-radius:18px;background:linear-gradient(135deg,#10204a 0%,#132a60 100%);box-shadow:0 12px 36px rgba(0,212,255,0.12);border:1px solid rgba(0,212,255,0.25);transition:transform 0.35s ease;">
+    <div style="position:absolute;top:-80px;left:-80px;width:220px;height:220px;background:radial-gradient(circle,rgba(0,212,255,0.12) 0%,transparent 70%);"></div>
+    <div style="display:flex;align-items:center;margin-bottom:24px;z-index:1;position:relative;">
+      <span style="font-size:2.4em;color:#00d4ff;margin-right:14px;">◉</span>
+      <h3 style="margin:0;color:#ffffff;font-size:1.25em;font-weight:700;letter-spacing:0.6px;">B2B 智能选品平台</h3>
+    </div>
+    <div style="display:grid;grid-template-columns:120px 1fr;row-gap:14px;column-gap:8px;z-index:1;position:relative;">
+      <span style="color:#b0b0b0;font-size:0.9em;">交付周期</span><span style="color:#00d4ff;font-size:0.95em;font-weight:600;text-align:right;">3 个月</span>
+      <span style="color:#b0b0b0;font-size:0.9em;">转化提升</span><span style="color:#00d4ff;font-size:0.95em;font-weight:600;text-align:right;">+35%</span>
+      <span style="color:#b0b0b0;font-size:0.9em;">成本节省</span><span style="color:#00d4ff;font-size:0.95em;font-weight:600;text-align:right;">-50%</span>
+    </div>
+  </div>
+  <!-- 案例 2-->
+  <div class="fragment slide-up" style="position:relative;overflow:hidden;padding:42px 38px;border-radius:18px;background:linear-gradient(135deg,#10204a 0%,#132a60 100%);box-shadow:0 12px 36px rgba(0,153,204,0.12);border:1px solid rgba(0,153,204,0.25);transition:transform 0.35s ease;">
+    <div style="position:absolute;top:-80px;left:-80px;width:220px;height:220px;background:radial-gradient(circle,rgba(0,153,204,0.12) 0%,transparent 70%);"></div>
+    <div style="display:flex;align-items:center;margin-bottom:24px;z-index:1;position:relative;">
+      <span style="font-size:2.4em;color:#0099cc;margin-right:14px;">◎</span>
+      <h3 style="margin:0;color:#ffffff;font-size:1.25em;font-weight:700;letter-spacing:0.6px;">企业数字运营中台</h3>
+    </div>
+    <div style="display:grid;grid-template-columns:120px 1fr;row-gap:14px;column-gap:8px;z-index:1;position:relative;">
+      <span style="color:#b0b0b0;font-size:0.9em;">MVP 周期</span><span style="color:#0099cc;font-size:0.95em;font-weight:600;text-align:right;">3 周</span>
+      <span style="color:#b0b0b0;font-size:0.9em;">日活用户</span><span style="color:#0099cc;font-size:0.95em;font-weight:600;text-align:right;">20万+</span>
+      <span style="color:#b0b0b0;font-size:0.9em;">运维成本</span><span style="color:#0099cc;font-size:0.95em;font-weight:600;text-align:right;">-30%</span>
+    </div>
+  </div>
+</div>
+
+---
+## <span style="color: #00d4ff;">▎</span>开启 AI 驱动的研发创新之旅
+
+<div style="display:flex;flex-direction:column;align-items:center;gap:40px;margin:60px 0;">
+  <!-- 信息卡片区 -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:30px;width:100%;max-width:900px;">
+    <div class="fragment zoom-in" style="background:linear-gradient(135deg,#10204a 0%,#132a60 100%);padding:32px 26px;border-radius:14px;box-shadow:0 8px 28px rgba(0,212,255,0.12);border:1px solid rgba(0,212,255,0.25);display:flex;flex-direction:column;align-items:center;">
+      <div style="font-size:2.6em;color:#00d4ff;margin-bottom:10px;">📞</div>
+      <h4 style="color:#ffffff;font-size:1.0em;margin-bottom:6px;font-weight:600;letter-spacing:0.4px;">联系电话</h4>
+      <div style="color:#e0e0e0;font-size:1.05em;font-weight:500;">159-5800-8070</div>
+    </div>
+    <div class="fragment zoom-in" style="background:linear-gradient(135deg,#10204a 0%,#132a60 100%);padding:32px 26px;border-radius:14px;box-shadow:0 8px 28px rgba(0,153,204,0.12);border:1px solid rgba(0,153,204,0.25);display:flex;flex-direction:column;align-items:center;">
+      <div style="font-size:2.6em;color:#0099cc;margin-bottom:10px;">✉</div>
+      <h4 style="color:#ffffff;font-size:1.0em;margin-bottom:6px;font-weight:600;letter-spacing:0.4px;">商务邮箱</h4>
+      <div style="color:#ffcc66;font-size:1.05em;font-weight:600;">vip@deepneed.com.cn</div>
+    </div>
+  </div>
+
+  <!-- 二维码 -->
+  <div class="fragment zoom-in" style="position:relative;width:240px;height:240px;padding:14px;border-radius:20px;background:radial-gradient(circle,rgba(0,212,255,0.15) 0%,transparent 60%);box-shadow:0 0 35px rgba(0,212,255,0.2),0 0 15px rgba(0,212,255,0.4) inset;">
+    <img src="images/contact-qr.png" alt="微信二维码" style="width:100%;height:100%;object-fit:cover;border-radius:12px;"/>
+  </div>
+</div>
+
+
+
+<!-- PPTT_END --> 
+          </textarea>
+        </section>
+      </div>
+    </div>
+
+    <script src="./dist/reveal.js"></script>
+
+    <script src="./mermaid/dist/mermaid.min.js"></script>
+
+    <script src="./plugin/markdown/markdown.js"></script>
+    <script src="./plugin/highlight/highlight.js"></script>
+    <script src="./plugin/zoom/zoom.js"></script>
+    <script src="./plugin/notes/notes.js"></script>
+    <script src="./plugin/math/math.js"></script>
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        slideNumber: true,
+        highlight: {
+          highlightOnLoad: false
+        },
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath
+        ]
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal().getQueryHash() || {};
+
+      var options = extend(defaultOptions, {"slideNumber":true,"width":1400,"height":900,"margin":0.05,"progress":true,"controlsTutorial":true,"pdfSeparateFragments":false,"_":["slides.md"],"static":"_static","static-dirs":"images","staticDirs":"images"}, queryOptions);
+    </script>
+
+
+    <script>
+      Reveal.initialize(options);
+      Reveal.addEventListener('ready', function (event) {
+        const blocks = Reveal.getRevealElement().querySelectorAll('pre code:not(.mermaid)');
+        const hlp = Reveal.getPlugin('highlight');
+        blocks.forEach(hlp.highlightBlock);
+      });
+    </script>
+
+    <script>
+      const mermaidOptions = extend({ startOnLoad: false }, {});
+      mermaid.startOnLoad = false;
+      mermaid.initialize(mermaidOptions);
+      const cb = function (event) {
+        mermaid.init(mermaidOptions, '.stack.present > .present pre code.mermaid');
+        mermaid.init(mermaidOptions, '.slides > .present:not(.stack) pre code.mermaid');
+      }
+      Reveal.addEventListener('ready', cb);
+      Reveal.addEventListener('slidetransitionend', cb);
+    </script>
+  </body>
+</html>

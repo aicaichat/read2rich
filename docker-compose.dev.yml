@@ -1,0 +1,124 @@
+# DeepNeed AI 开发环境 Docker Compose 配置
+version: '3.8'
+
+services:
+  # =====================================================
+  # 前端开发服务 (React + Vite)
+  # =====================================================
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/frontend.Dockerfile
+      target: development
+    container_name: deepneed-frontend-dev
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./apps/web:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - VITE_API_BASE_URL=http://localhost:8001/api
+    depends_on:
+      - backend
+    networks:
+      - deepneed-dev
+    restart: unless-stopped
+
+  # =====================================================
+  # 后端开发服务 (FastAPI + Python)
+  # =====================================================
+  backend:
+    build:
+      context: .
+      dockerfile: docker/backend.Dockerfile
+      target: development
+    container_name: deepneed-backend-dev
+    ports:
+      - "8001:8000"
+    volumes:
+      - ./backend:/app
+      - backend-data:/app/data
+    environment:
+      - PYTHONPATH=/app
+      - DEBUG=true
+      - SECRET_KEY=dev-secret-key-2025
+      - DATABASE_URL=sqlite:///./data/deepneed_dev.db
+      - CLAUDE_API_KEY=${CLAUDE_API_KEY:-}
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY:-}
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      - redis
+      - postgres
+    networks:
+      - deepneed-dev
+    restart: unless-stopped
+
+  # =====================================================
+  # Redis 缓存服务
+  # =====================================================
+  redis:
+    image: redis:7-alpine
+    container_name: deepneed-redis-dev
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes
+    networks:
+      - deepneed-dev
+    restart: unless-stopped
+
+  # =====================================================
+  # PostgreSQL 数据库服务
+  # =====================================================
+  postgres:
+    image: postgres:15-alpine
+    container_name: deepneed-postgres-dev
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      - POSTGRES_DB=deepneed_dev
+      - POSTGRES_USER=deepneed
+      - POSTGRES_PASSWORD=deepneed_dev_password
+    networks:
+      - deepneed-dev
+    restart: unless-stopped
+
+  # =====================================================
+  # 开发工具 - API文档和监控
+  # =====================================================
+  adminer:
+    image: adminer:latest
+    container_name: deepneed-adminer-dev
+    ports:
+      - "8080:8080"
+    environment:
+      - ADMINER_DEFAULT_SERVER=postgres
+    depends_on:
+      - postgres
+    networks:
+      - deepneed-dev
+    restart: unless-stopped
+
+# =====================================================
+# 数据卷定义
+# =====================================================
+volumes:
+  backend-data:
+    driver: local
+  redis-data:
+    driver: local
+  postgres-data:
+    driver: local
+
+# =====================================================
+# 网络定义
+# =====================================================
+networks:
+  deepneed-dev:
+    driver: bridge
+    name: deepneed-dev-network 
