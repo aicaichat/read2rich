@@ -5,6 +5,8 @@ export interface AIProviderConfig {
   enabled: boolean;
   priority: number;
   description: string;
+  apiKey?: string; // 添加API密钥字段
+  apiKeyConfigured?: boolean; // 添加API密钥配置状态
 }
 
 export interface AIConfig {
@@ -22,14 +24,18 @@ export const DEFAULT_AI_CONFIG: AIConfig = {
       displayName: 'Claude 3 Haiku',
       enabled: true,
       priority: 1, // 最高优先级
-      description: '最新的Claude 3模型，响应速度快，理解能力强'
+      description: '最新的Claude 3模型，响应速度快，理解能力强',
+      apiKey: '',
+      apiKeyConfigured: false
     },
     deepseek: {
       name: 'deepseek',
       displayName: 'DeepSeek Chat',
       enabled: true,
       priority: 2, // 备用选择
-      description: '专业的编程和技术问答AI'
+      description: '专业的编程和技术问答AI',
+      apiKey: '',
+      apiKeyConfigured: false
     }
   },
   defaultProvider: 'claude',
@@ -93,4 +99,26 @@ export const setProviderPriority = (providerName: string, priority: number): voi
 export const resetAIConfig = (): void => {
   localStorage.removeItem('ai-config');
   console.log('🔄 AI配置已重置为默认值');
+};
+
+// 设置API提供商API密钥
+export const setProviderAPIKey = (providerName: string, apiKey: string): void => {
+  const config = getAIConfig();
+  if (config.providers[providerName]) {
+    config.providers[providerName].apiKey = apiKey;
+    config.providers[providerName].apiKeyConfigured = !!apiKey;
+    saveAIConfig(config);
+  }
+};
+
+// 获取API提供商的API密钥
+export const getProviderAPIKey = (providerName: string): string => {
+  const config = getAIConfig();
+  return config.providers[providerName]?.apiKey || '';
+};
+
+// 检查API提供商是否已配置API密钥
+export const isProviderAPIKeyConfigured = (providerName: string): boolean => {
+  const config = getAIConfig();
+  return config.providers[providerName]?.apiKeyConfigured || false;
 }; 

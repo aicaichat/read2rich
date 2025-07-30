@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { LogOut, User, MessageSquare, BarChart3, Github, Settings } from 'lucide-react';
+import { LogOut, User, MessageSquare, BarChart3, Github, Settings, BookOpen } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import AISettingsModal from './AISettingsModal';
 
@@ -79,6 +79,28 @@ export default function Navbar() {
                     <BarChart3 className="w-4 h-4" />
                     <span>项目面板</span>
                   </Link>
+                  <Link
+                    to="/courses"
+                    className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors ${
+                      isActive('/courses') 
+                        ? 'bg-primary-500/20 text-primary-500' 
+                        : 'text-gray-300 hover:text-white hover:bg-white/10'
+                    }`}
+                  >
+                    <BookOpen className="w-4 h-4" />
+                    <span>AI课程</span>
+                  </Link>
+                  <Link
+                    to="/ai-ranking"
+                    className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors ${
+                      isActive('/ai-ranking') 
+                        ? 'bg-primary-500/20 text-primary-500' 
+                        : 'text-gray-300 hover:text-white hover:bg-white/10'
+                    }`}
+                  >
+                    <BarChart3 className="w-4 h-4" />
+                    <span>AI排行榜</span>
+                  </Link>
                 </>
               ) : (
                 <>
@@ -91,6 +113,28 @@ export default function Navbar() {
                     }`}
                   >
                     首页
+                  </Link>
+                  <Link
+                    to="/courses"
+                    className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors ${
+                      isActive('/courses') 
+                        ? 'bg-primary-500/20 text-primary-500' 
+                        : 'text-gray-300 hover:text-white hover:bg-white/10'
+                    }`}
+                  >
+                    <BookOpen className="w-4 h-4" />
+                    <span>AI课程</span>
+                  </Link>
+                  <Link
+                    to="/ai-ranking"
+                    className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors ${
+                      isActive('/ai-ranking') 
+                        ? 'bg-primary-500/20 text-primary-500' 
+                        : 'text-gray-300 hover:text-white hover:bg-white/10'
+                    }`}
+                  >
+                    <BarChart3 className="w-4 h-4" />
+                    <span>AI排行榜</span>
                   </Link>
                   <Link
                     to="/about"

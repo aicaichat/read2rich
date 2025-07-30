@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Settings, Zap, Brain, RotateCcw, Check, AlertTriangle } from 'lucide-react';
+import { X, Settings, Zap, Brain, RotateCcw, Check, AlertTriangle, Eye, EyeOff, Key } from 'lucide-react';
 import Button from './ui/Button';
 import { 
   getAIConfig, 
@@ -8,6 +8,9 @@ import {
   resetAIConfig, 
   toggleProvider, 
   setProviderPriority,
+  setProviderAPIKey,
+  getProviderAPIKey,
+  isProviderAPIKeyConfigured,
   type AIConfig 
 } from '../lib/ai-config';
 
@@ -19,6 +22,7 @@ interface AISettingsModalProps {
 const AISettingsModal: React.FC<AISettingsModalProps> = ({ isOpen, onClose }) => {
   const [config, setConfig] = useState<AIConfig | null>(null);
   const [hasChanges, setHasChanges] = useState(false);
+  const [showAPIKeys, setShowAPIKeys] = useState<Record<string, boolean>>({});
 
   // 加载配置
   useEffect(() => {
@@ -26,6 +30,13 @@ const AISettingsModal: React.FC<AISettingsModalProps> = ({ isOpen, onClose }) =>
       const currentConfig = getAIConfig();
       setConfig(currentConfig);
       setHasChanges(false);
+      
+      // 初始化API密钥显示状态
+      const initialShowState: Record<string, boolean> = {};
+      Object.keys(currentConfig.providers).forEach(name => {
+        initialShowState[name] = false;
+      });
+      setShowAPIKeys(initialShowState);
     }
   }, [isOpen]);
 
@@ -65,10 +76,45 @@ const AISettingsModal: React.FC<AISettingsModalProps> = ({ isOpen, onClose }) =>
     setHasChanges(true);
   };
 
+  const handleAPIKeyChange = (providerName: string, apiKey: string) => {
+    if (!config) return;
+    
+    const newConfig = {
+      ...config,
+      providers: {
+        ...config.providers,
+        [providerName]: {
+          ...config.providers[providerName],
+          apiKey,
+          apiKeyConfigured: !!apiKey
+        }
+      }
+    };
+    
+    setConfig(newConfig);
+    setHasChanges(true);
+  };
+
+  const toggleAPIKeyVisibility = (providerName: string) => {
+    setShowAPIKeys(prev => ({
+      ...prev,
+      [providerName]: !prev[providerName]
+    }));
+  };
+
   const handleSave = () => {
     if (!config) return;
     
+    // 保存配置到localStorage
     saveAIConfig(config);
+    
+    // 保存API密钥到localStorage（加密存储）
+    Object.entries(config.providers).forEach(([name, provider]) => {
+      if (provider.apiKey) {
+        setProviderAPIKey(name, provider.apiKey);
+      }
+    });
+    
     setHasChanges(false);
     
     // 显示保存成功提示
@@ -112,7 +158,7 @@ const AISettingsModal: React.FC<AISettingsModalProps> = ({ isOpen, onClose }) =>
           onClick={onClose}
         >
           <motion.div
-            className="bg-slate-800 rounded-2xl border border-white/10 max-w-2xl w-full max-h-[80vh] overflow-hidden"
+            className="bg-slate-800 rounded-2xl border border-white/10 max-w-3xl w-full max-h-[85vh] overflow-hidden"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
@@ -133,7 +179,7 @@ const AISettingsModal: React.FC<AISettingsModalProps> = ({ isOpen, onClose }) =>
             </div>
 
             {/* 内容 */}
-            <div className="p-6 overflow-y-auto max-h-[60vh]">
+            <div className="p-6 overflow-y-auto max-h-[65vh]">
               {/* 总览 */}
               <div className="mb-6 p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-xl">
                 <div className="flex items-center gap-2 mb-2">
@@ -160,7 +206,7 @@ const AISettingsModal: React.FC<AISettingsModalProps> = ({ isOpen, onClose }) =>
                     }`}
                     layout
                   >
-                    <div className="flex items-start justify-between">
+                    <div className="flex items-start justify-between mb-4">
                       <div className="flex items-center gap-3">
                         {getProviderIcon(name)}
                         <div>
@@ -203,6 +249,48 @@ const AISettingsModal: React.FC<AISettingsModalProps> = ({ isOpen, onClose }) =>
                         </label>
                       </div>
                     </div>
+
+                    {/* API密钥配置 */}
+                    {provider.enabled && (
+                      <div className="mt-4 p-3 bg-slate-700/50 rounded-lg">
+                        <div className="flex items-center gap-2 mb-2">
+                          <Key className="w-4 h-4 text-blue-400" />
+                          <span className="text-sm font-medium text-white">API 密钥</span>
+                          <div className={`w-2 h-2 rounded-full ${
+                            provider.apiKeyConfigured ? 'bg-green-400' : 'bg-red-400'
+                          }`} />
+                          <span className={`text-xs ${
+                            provider.apiKeyConfigured ? 'text-green-400' : 'text-red-400'
+                          }`}>
+                            {provider.apiKeyConfigured ? '已配置' : '未配置'}
+                          </span>
+                        </div>
+                        
+                        <div className="flex items-center gap-2">
+                          <input
+                            type={showAPIKeys[name] ? 'text' : 'password'}
+                            value={provider.apiKey || ''}
+                            onChange={(e) => handleAPIKeyChange(name, e.target.value)}
+                            placeholder="请输入您的API密钥"
+                            className="flex-1 bg-slate-600 text-white text-sm rounded px-3 py-2 border border-white/20 placeholder-gray-400 focus:outline-none focus:border-blue-400"
+                          />
+                          <button
+                            onClick={() => toggleAPIKeyVisibility(name)}
+                            className="p-2 text-gray-400 hover:text-white transition-colors"
+                            type="button"
+                          >
+                            {showAPIKeys[name] ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                          </button>
+                        </div>
+                        
+                        <p className="text-xs text-gray-400 mt-2">
+                          {name === 'claude' 
+                            ? 'Claude API密钥格式: sk-ant-api03-...' 
+                            : 'DeepSeek API密钥格式: sk-...'
+                          }
+                        </p>
+                      </div>
+                    )}
                     
                     {/* 状态指示 */}
                     <div className="flex items-center gap-2 mt-3">
@@ -212,6 +300,11 @@ const AISettingsModal: React.FC<AISettingsModalProps> = ({ isOpen, onClose }) =>
                       <span className={`text-sm ${getStatusColor(provider.enabled)}`}>
                         {provider.enabled ? '已启用' : '已禁用'}
                       </span>
+                      {provider.enabled && !provider.apiKeyConfigured && (
+                        <span className="text-xs text-red-400 ml-2">
+                          ⚠️ 需要配置API密钥
+                        </span>
+                      )}
                     </div>
                   </motion.div>
                 ))}
@@ -226,6 +319,19 @@ const AISettingsModal: React.FC<AISettingsModalProps> = ({ isOpen, onClose }) =>
                   </div>
                   <p className="text-red-300 text-sm mt-1">
                     至少需要启用一个 AI 服务提供商才能正常使用功能。
+                  </p>
+                </div>
+              )}
+
+              {/* API密钥配置警告 */}
+              {Object.values(config.providers).some(p => p.enabled && !p.apiKeyConfigured) && (
+                <div className="mt-6 p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-xl">
+                  <div className="flex items-center gap-2">
+                    <AlertTriangle className="w-5 h-5 text-yellow-400" />
+                    <span className="text-yellow-400 font-medium">配置提醒</span>
+                  </div>
+                  <p className="text-yellow-300 text-sm mt-1">
+                    部分启用的AI服务尚未配置API密钥，可能影响功能正常使用。
                   </p>
                 </div>
               )}

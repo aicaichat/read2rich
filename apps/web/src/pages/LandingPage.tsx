@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, MessageSquare, Sparkles, Code, BarChart3, Users, Clock, TrendingUp, Star, CheckCircle, PlayCircle, Eye } from 'lucide-react';
+import { ArrowRight, MessageSquare, Sparkles, Code, BarChart3, Users, Clock, TrendingUp, Star, CheckCircle, PlayCircle, Eye, BookOpen, Award } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import Button from '@/components/ui/Button';
 import { 
@@ -21,7 +21,7 @@ export default function LandingPage() {
     {
       icon: MessageSquare,
       title: '30分钟想法验证',
-      description: '通过AI对话快速验证商业想法可行性，比传统调研快10倍',
+      description: '通过AI对话快速验证百万应用想法可行性，比传统调研快10倍',
       metric: '10x faster'
     },
     {
@@ -38,16 +38,16 @@ export default function LandingPage() {
     },
     {
       icon: BarChart3,
-      title: '全流程项目管理',
-      description: '智能分解任务、评估风险、制定里程碑，确保项目成功',
-      metric: '98% success'
+      title: '5周百万应用创业营',
+      description: '从0到1打造可收费AI应用，实现首批真实营收或50 DAU',
+      metric: '5周变现'
     },
   ];
 
   // 成功案例数据
   const successStats = [
-    { number: '500+', label: '成功项目', icon: CheckCircle },
-    { number: '50+', label: '企业客户', icon: Users },
+    { number: '数百', label: '成功项目', icon: CheckCircle },
+    { number: '数十', label: '百万应用', icon: Users },
     { number: '30分钟', label: '平均验证时间', icon: Clock },
     { number: '95%', label: '用户满意度', icon: Star },
   ];
@@ -82,20 +82,20 @@ export default function LandingPage() {
               transition={{ delay: 0.2 }}
             >
               <Star className="w-4 h-4 text-emerald-400 fill-emerald-400" />
-              <span className="text-emerald-400 text-sm font-medium">已帮助500+项目成功落地</span>
+              <span className="text-emerald-400 text-sm font-medium">已帮助众多创新应用成功落地</span>
               <TrendingUp className="w-4 h-4 text-emerald-400" />
             </motion.div>
 
-            {/* 主标题 - 更加情感化和结果导向 */}
+            {/* 主标题 - 打造百万应用的必选神器 */}
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-              <span className="block text-white">你的创意</span>
-              <span className="text-gradient block">30分钟变现实</span>
+              <span className="block text-white">打造百万应用的</span>
+              <span className="text-gradient block">必选神器</span>
             </h1>
             
-            {/* 副标题 - 强调结果和时间价值 */}
+            {/* 副标题 - 强调AI时代的创业机会 */}
             <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
-              不懂技术？没关系！DeepNeed让任何人都能将想法快速转化为可执行的产品方案。
-              <span className="text-emerald-400 font-semibold">平均30分钟完成需求分析，1天构建MVP。</span>
+              AI时代，每个人都能成为百万应用的创造者。DeepNeed让创意快速变现，
+              <span className="text-emerald-400 font-semibold">从想法到上线只需30分钟，从0到百万只需5周。</span>
             </p>
             
             {/* 快速价值验证输入 - 重新设计为更吸引人的形式 */}
@@ -109,7 +109,7 @@ export default function LandingPage() {
                 <div className="bg-gradient-to-r from-purple-500/10 via-transparent to-emerald-500/10 p-1 rounded-2xl">
                   <div className="bg-gray-900/90 backdrop-blur-xl rounded-2xl border border-white/10 p-6">
                     <h3 className="text-xl font-semibold text-white mb-4 text-center">
-                      🚀 立即开始你的创业之旅
+                      🚀 立即开始你的百万应用之旅
                     </h3>
                     <form 
                       onSubmit={(e) => {
@@ -143,7 +143,7 @@ export default function LandingPage() {
                       </Button>
                     </form>
                     <p className="text-sm text-gray-400 mt-3 text-center">
-                      💡 30分钟内获得专业的可行性分析和实施方案
+                      💡 30分钟内获得专业的百万应用可行性分析和实施方案
                     </p>
                   </div>
                 </div>
@@ -157,12 +157,12 @@ export default function LandingPage() {
                 
                 <Link to="/login">
                   <Button variant="gradient" size="lg" className="flex items-center gap-2 px-8 py-4 text-xl font-semibold mx-auto">
-                    立即免费体验
+                    立即开始百万应用之旅
                     <ArrowRight className="w-6 h-6" />
                   </Button>
                 </Link>
                 <p className="text-sm text-gray-400 mt-3 text-center">
-                  无需信用卡，注册即送3次免费AI分析
+                  无需信用卡，注册即送3次免费AI分析，开启你的百万应用之路
                 </p>
               </div>
             )}
@@ -234,10 +234,10 @@ export default function LandingPage() {
             viewport={{ once: true }}
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              为什么选择DeepNeed？
+              为什么DeepNeed是百万应用的必选神器？
             </h2>
             <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              传统方式需要几个月的事情，我们30分钟就能完成
+              传统方式需要几个月的事情，我们30分钟就能完成，5周就能实现百万价值
             </p>
           </motion.div>
 
@@ -379,6 +379,75 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* 课程推广区域 */}
+      <section className="py-20 px-6 bg-gradient-to-r from-emerald-900/20 to-purple-900/20">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-4 py-2 mb-6">
+              <Award className="w-4 h-4 text-emerald-400" />
+              <span className="text-emerald-400 text-sm font-medium">热门课程</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              人人都该上的
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-purple-400">
+                百万应用创作课
+              </span>
+            </h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
+              从产品思维到技术实现，从0到1掌握AI时代的应用开发全流程。
+              学会用AI工具10倍提升开发效率，打造属于自己的百万级应用。
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+              <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                <div className="w-12 h-12 bg-emerald-500/20 rounded-lg flex items-center justify-center mb-4">
+                  <BookOpen className="w-6 h-6 text-emerald-400" />
+                </div>
+                <h3 className="text-lg font-semibold text-white mb-2">5周百万应用创业营</h3>
+                <p className="text-gray-300 text-sm">从0到1打造可收费AI应用，实现首批真实营收</p>
+              </div>
+              <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                <div className="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mb-4">
+                  <Users className="w-6 h-6 text-purple-400" />
+                </div>
+                <h3 className="text-lg font-semibold text-white mb-2">2847+ 学员</h3>
+                <p className="text-gray-300 text-sm">来自各行各业的学员，平均评分4.9分</p>
+              </div>
+              <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mb-4">
+                  <TrendingUp className="w-6 h-6 text-blue-400" />
+                </div>
+                <h3 className="text-lg font-semibold text-white mb-2">众多 百万应用</h3>
+                <p className="text-gray-300 text-sm">学员成功打造的应用，实现真实商业价值</p>
+              </div>
+            </div>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link to="/courses">
+                <Button variant="gradient" size="lg" className="flex items-center gap-2">
+                  <BookOpen className="w-5 h-5" />
+                  立即报名百万应用课程
+                  <ArrowRight className="w-5 h-5" />
+                </Button>
+              </Link>
+              <Link to="/ai-ranking">
+                <Button variant="secondary" size="lg" className="flex items-center gap-2">
+                  <BarChart3 className="w-5 h-5" />
+                  查看AI应用排行榜
+                  <ArrowRight className="w-5 h-5" />
+                </Button>
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-20 px-6">
         <div className="max-w-4xl mx-auto text-center">
@@ -389,10 +458,10 @@ export default function LandingPage() {
             viewport={{ once: true }}
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              准备好开始了吗？
+              准备好打造你的百万应用了吗？
             </h2>
             <p className="text-xl text-gray-300 mb-8">
-              立即体验 AI 驱动的需求分析和代码生成
+              立即体验 AI 驱动的百万应用创造神器
             </p>
             {isAuthenticated ? (
               <div className="max-w-2xl mx-auto">

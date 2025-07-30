@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  # Nginx 反向代理
+  nginx:
+    image: nginx:alpine
+    container_name: deepneed-nginx-prod
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx-prod.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+      - nginx-logs:/var/log/nginx
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - deepneed-prod
+
+  # 前端静态文件服务
+  frontend:
+    image: node:18-alpine
+    container_name: deepneed-frontend-prod
+    working_dir: /app
+    volumes:
+      - ./apps/web:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=production
+      - VITE_API_URL=https://yourdomain.com/api
+    command: sh -c "npm install -g pnpm && pnpm install && pnpm build && pnpm preview --host 0.0.0.0 --port 5173"
+    expose:
+      - "5173"
+    restart: unless-stopped
+    networks:
+      - deepneed-prod
+
+  # 后端服务（基于minimal_backend.py）
+  backend:
+    image: python:3.11-slim
+    container_name: deepneed-backend-prod
+    working_dir: /app
+    volumes:
+      - .:/app
+      - backend-data:/app/data
+    environment:
+      - PYTHONPATH=/app
+      - PYTHONUNBUFFERED=1
+      - CLAUDE_API_KEY=${CLAUDE_API_KEY}
+      - SECRET_KEY=${SECRET_KEY}
+      - CORS_ORIGINS=${CORS_ORIGINS}
+    command: sh -c "pip install --break-system-packages fastapi uvicorn httpx pydantic && python3 minimal_backend.py"
+    expose:
+      - "8001"
+    restart: unless-stopped
+    deploy:
+      replicas: 2
+    networks:
+      - deepneed-prod
+
+volumes:
+  backend-data:
+  nginx-logs:
+
+networks:
+  deepneed-prod:
+    driver: bridge

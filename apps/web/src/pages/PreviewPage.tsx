@@ -4,11 +4,13 @@ import { motion } from 'framer-motion';
 import { 
   Copy, Download, ArrowLeft, Check, Sparkles, FileText, Code, 
   Lightbulb, Target, Award, BookOpen, Palette, Users, Calendar,
-  Zap, Eye, Settings, Globe, Star, ThumbsUp, ThumbsDown, MessageSquare, Plus
+  Zap, Eye, Settings, Globe, Star, ThumbsUp, ThumbsDown, MessageSquare, Plus,
+  Globe2
 } from 'lucide-react';
 import Button from '../components/ui/Button';
 import type { GeneratedPrompts } from '../lib/prompt-generator';
 import { promptOptimizationEngine, type UserFeedback } from '../lib/prompt-optimization-engine';
+import HTMLAppGenerator from '../components/HTMLAppGenerator';
 
 const PreviewPage: React.FC = () => {
   const { sessionId } = useParams<{ sessionId: string }>();
@@ -23,6 +25,9 @@ const PreviewPage: React.FC = () => {
   const [usageResult, setUsageResult] = useState<'success' | 'partial' | 'failed' | null>(null);
   const [improvementSuggestions, setImprovementSuggestions] = useState<string[]>([]);
   const [feedbackSubmitted, setFeedbackSubmitted] = useState(false);
+  
+  // HTML应用生成器状态
+  const [showHTMLGenerator, setShowHTMLGenerator] = useState(false);
   
   // 智能数据获取：优先从location.state，然后从localStorage
   const getPromptsData = (): GeneratedPrompts | null => {
@@ -881,6 +886,15 @@ ${doc.content}
                     >
                       <Download className="w-4 h-4" />
                     </Button>
+                    <Button
+                      onClick={() => setShowHTMLGenerator(true)}
+                      variant="ghost"
+                      size="sm"
+                      className="text-emerald-400 hover:text-emerald-300 border border-emerald-500/30 hover:border-emerald-500/50"
+                    >
+                      <Globe2 className="w-4 h-4 mr-1" />
+                      生成HTML应用
+                    </Button>
                   </div>
                 </div>
                 
@@ -891,8 +905,14 @@ ${doc.content}
                   </div>
                 </div>
                 
-                <div className="mt-4 text-xs text-gray-400">
-                  文档长度: {prompts.generated_documents.prd_document.content.length} 字符
+                <div className="mt-4 flex items-center justify-between">
+                  <div className="text-xs text-gray-400">
+                    文档长度: {prompts.generated_documents.prd_document.content.length} 字符
+                  </div>
+                  <div className="text-xs text-emerald-400 flex items-center gap-1">
+                    <Globe2 className="w-3 h-3" />
+                    可基于此PRD生成HTML单页面应用
+                  </div>
                 </div>
               </motion.div>
 
@@ -1211,6 +1231,18 @@ ${doc.content}
           </motion.div>
         </motion.div>
       )}
+
+      {/* HTML应用生成器 */}
+      <HTMLAppGenerator
+        prdContent={prompts?.generated_documents?.prd_document?.content || ''}
+        projectInfo={{
+          name: prompts?.generated_documents?.prd_document?.title?.replace(' - 产品需求文档(PRD)', '') || '未命名项目',
+          type: 'Web应用',
+          description: '基于PRD文档生成的HTML单页面应用'
+        }}
+        isOpen={showHTMLGenerator}
+        onClose={() => setShowHTMLGenerator(false)}
+      />
     </div>
   );
 };
