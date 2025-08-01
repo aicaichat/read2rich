@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import Button from './ui/Button';
 import { Course, CourseFormData, courseManager } from '../lib/course-management';
+import { instructorManager } from '../lib/instructor-management';
 
 interface CourseEditModalProps {
   isOpen: boolean;
@@ -109,8 +110,8 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
 
   const loadInstructors = async () => {
     try {
-      const insts = await courseManager.getInstructors();
-      setInstructors(insts as any[]);
+      const insts = await instructorManager.getAllInstructors();
+      setInstructors(insts);
     } catch (error) {
       console.error('加载讲师失败:', error);
     }

@@ -1,3 +1,5 @@
+import { instructorManager } from './instructor-management';
+
 export interface Course {
   id: number;
   title: string;
@@ -584,61 +586,81 @@ class CourseManager {
 
   // 创建新课程
   async createCourse(data: CourseFormData): Promise<Course> {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        try {
-          const newCourse: Course = {
-            id: this.nextId++,
-            ...data,
-            instructor: {
-              id: data.instructorId,
-              name: "新讲师",
-              email: "instructor@deepneed.com",
-              avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=new",
-              bio: "新加入的讲师"
-            },
-            rating: 0,
-            students: 0,
-            duration: "0小时",
-            lessons: 0,
-            discount: data.originalPrice - data.price,
-            modules: [],
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString()
-          };
-
-          this.courses.push(newCourse);
-          resolve({ ...newCourse });
-        } catch (error) {
-          reject(error);
+    return new Promise(async (resolve, reject) => {
+      try {
+        // 从讲师管理系统中获取讲师信息
+        const instructor = await instructorManager.getInstructorById(data.instructorId);
+        if (!instructor) {
+          reject(new Error('讲师不存在'));
+          return;
         }
-      }, 500);
+
+        const newCourse: Course = {
+          id: this.nextId++,
+          ...data,
+          instructor: {
+            id: instructor.id,
+            name: instructor.name,
+            email: instructor.email,
+            avatar: instructor.avatar,
+            bio: instructor.bio
+          },
+          rating: 0,
+          students: 0,
+          duration: "0小时",
+          lessons: 0,
+          discount: data.originalPrice - data.price,
+          modules: [],
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
+        };
+
+        this.courses.push(newCourse);
+        resolve({ ...newCourse });
+      } catch (error) {
+        reject(error);
+      }
     });
   }
 
   // 更新课程
   async updateCourse(id: number, data: Partial<CourseFormData>): Promise<Course> {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        try {
-          const index = this.courses.findIndex(c => c.id === id);
-          if (index === -1) {
-            reject(new Error('课程不存在'));
+    return new Promise(async (resolve, reject) => {
+      try {
+        const index = this.courses.findIndex(c => c.id === id);
+        if (index === -1) {
+          reject(new Error('课程不存在'));
+          return;
+        }
+
+        let updatedCourse = {
+          ...this.courses[index],
+          ...data,
+          updatedAt: new Date().toISOString()
+        };
+
+        // 如果更新了讲师ID，需要从讲师管理系统中获取新的讲师信息
+        if (data.instructorId) {
+          const instructor = await instructorManager.getInstructorById(data.instructorId);
+          if (!instructor) {
+            reject(new Error('讲师不存在'));
             return;
           }
-
-          const updatedCourse = {
-            ...this.courses[index],
-            ...data,
-            updatedAt: new Date().toISOString()
+          
+          updatedCourse.instructor = {
+            id: instructor.id,
+            name: instructor.name,
+            email: instructor.email,
+            avatar: instructor.avatar,
+            bio: instructor.bio
           };
-
-          this.courses[index] = updatedCourse;
-          resolve({ ...updatedCourse });
-        } catch (error) {
-          reject(error);
         }
-      }, 400);
+
+        this.courses[index] = updatedCourse;
+        resolve({ ...updatedCourse });
+      } catch (error) {
+        reject(error);
+      }
     });
   }
 
