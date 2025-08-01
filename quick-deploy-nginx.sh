@@ -75,7 +75,7 @@ if [ -f "/etc/nginx/conf.d/deepneed.com.cn.conf" ]; then
     cat > /tmp/deepneed_update.conf << EOF
 server {
     server_name deepneed.com.cn www.deepneed.com.cn;
-    root /var/www/deepneed.com.cn;
+    root /var/www/deepneed;
     index index.html index.htm;
 
     # 日志配置
@@ -133,7 +133,7 @@ server {
      
     # PPT 演示文稿
     location /ppt/ {
-        alias /var/www/deepneed.com.cn/ppt/;
+        alias /var/www/deepneed/ppt/;
         index index.html slides.html;
         try_files \$uri \$uri/ /ppt/index.html;
         

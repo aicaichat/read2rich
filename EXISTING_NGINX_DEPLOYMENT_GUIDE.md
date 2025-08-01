@@ -12,7 +12,7 @@
 ### 当前nginx配置
 - **域名**: `deepneed.com.cn` 和 `www.deepneed.com.cn`
 - **SSL**: 已配置Let's Encrypt证书
-- **静态文件**: `/var/www/deepneed.com.cn`
+- **静态文件**: `/var/www/deepneed`
 - **PPT功能**: `/ppt/` 路径
 - **HTTPS重定向**: 已配置
 
@@ -87,12 +87,12 @@ location /api/ {
 
 ### 部署前
 ```
-用户 → nginx → /var/www/deepneed.com.cn (静态文件)
+用户 → nginx → /var/www/deepneed (静态文件)
 ```
 
 ### 部署后
 ```
-用户 → nginx → /var/www/deepneed.com.cn (静态文件)
+用户 → nginx → /var/www/deepneed (静态文件)
                 ↓
               /api/ → localhost:8000 (FastAPI后端)
 ```
