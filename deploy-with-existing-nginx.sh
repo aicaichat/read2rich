@@ -28,7 +28,7 @@ NC='\033[0m' # No Color
 
 # 配置变量
 PROJECT_NAME="deepneed"
-DOMAIN="${1:-your-domain.com}"
+DOMAIN="${1:-deepneed.com.cn}"
 WEB_PORT="3000"
 API_PORT="8000"
 NGINX_CONF_DIR="/etc/nginx/sites-available"
@@ -146,20 +146,30 @@ configure_nginx() {
     # 检查是否已有deepneed.com.cn配置
     if [ -f "/etc/nginx/conf.d/deepneed.com.cn.conf" ]; then
         echo -e "${YELLOW}⚠️  检测到现有deepneed.com.cn配置${NC}"
-        echo "是否要更新现有配置以支持新的API服务？(y/n)"
+        echo "是否要更新现有配置以支持Docker容器代理？(y/n)"
         read -r response
         if [[ "$response" =~ ^[Yy]$ ]]; then
             # 备份原配置
             cp /etc/nginx/conf.d/deepneed.com.cn.conf /etc/nginx/conf.d/deepneed.com.cn.conf.backup.$(date +%Y%m%d_%H%M%S)
             echo -e "${GREEN}✅ 已备份原配置${NC}"
             
-            # 更新现有配置，添加API代理
-            cat > /tmp/deepneed_update.conf << EOF
+            # 检查是否存在SSL证书
+            SSL_CERT_EXISTS=false
+            if [ -f "/etc/letsencrypt/live/deepneed.com.cn/fullchain.pem" ] && [ -f "/etc/letsencrypt/live/deepneed.com.cn/privkey.pem" ]; then
+                SSL_CERT_EXISTS=true
+                echo -e "${GREEN}✅ 检测到现有SSL证书${NC}"
+            else
+                echo -e "${YELLOW}⚠️  未检测到SSL证书，将创建HTTP配置${NC}"
+            fi
+            
+            # 根据SSL证书存在情况生成配置
+            if [ "$SSL_CERT_EXISTS" = true ]; then
+                # HTTPS配置 - 使用现有SSL证书
+                cat > /tmp/deepneed_update.conf << EOF
+# HTTPS配置 - 主服务器
 server {
     server_name deepneed.com.cn www.deepneed.com.cn;
-    root /var/www/deepneed;
-    index index.html index.htm;
-
+    
     # 日志配置
     access_log /var/log/nginx/deepneed.com.cn.access.log;
     error_log /var/log/nginx/deepneed.com.cn.error.log;
@@ -181,14 +191,27 @@ server {
         application/atom+xml
         image/svg+xml;
 
-    # 静态文件缓存
-    location ~* \.(jpg|jpeg|png|gif|ico|css|js|svg|woff|woff2|ttf|eot)$ {
-        expires 1y;
-        add_header Cache-Control "public, immutable";
-        add_header Vary Accept-Encoding;
+    # 前端代理 - 指向Docker容器
+    location / {
+        proxy_pass http://localhost:$WEB_PORT;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade \$http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto \$scheme;
+        proxy_cache_bypass \$http_upgrade;
+        
+        # 安全头
+        add_header X-Frame-Options "SAMEORIGIN" always;
+        add_header X-XSS-Protection "1; mode=block" always;
+        add_header X-Content-Type-Options "nosniff" always;
+        add_header Referrer-Policy "no-referrer-when-downgrade" always;
+        add_header Content-Security-Policy "default-src 'self' http: https: data: blob: 'unsafe-inline'" always;
     }
-
-    # API代理 - 新增
+    
+    # API代理 - 指向Docker容器
     location /api/ {
         proxy_pass http://localhost:$API_PORT/;
         proxy_http_version 1.1;
@@ -200,33 +223,12 @@ server {
         proxy_set_header X-Forwarded-Proto \$scheme;
         proxy_cache_bypass \$http_upgrade;
     }
-
-    # 主页面
-    location / {
-        try_files \$uri \$uri/ /index.html;
-        
-        # 安全头
-        add_header X-Frame-Options "SAMEORIGIN" always;
-        add_header X-XSS-Protection "1; mode=block" always;
-        add_header X-Content-Type-Options "nosniff" always;
-        add_header Referrer-Policy "no-referrer-when-downgrade" always;
-        add_header Content-Security-Policy "default-src 'self' http: https: data: blob: 'unsafe-inline'" always;
-    }
-     
-    # PPT 演示文稿
-    location /ppt/ {
-        alias /var/www/deepneed/ppt/;
-        index index.html slides.html;
-        try_files \$uri \$uri/ /ppt/index.html;
-        
-        # PPT 特殊缓存配置
-        location ~* \.(js|css|woff|woff2|ttf|eot)$ {
-            expires 30d;
-            add_header Cache-Control "public";
-        }
-        
-        # 允许 iframe 嵌入
-        add_header X-Frame-Options "SAMEORIGIN" always;
+    
+    # 静态文件缓存
+    location ~* \.(jpg|jpeg|png|gif|ico|css|js|svg|woff|woff2|ttf|eot)$ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+        add_header Vary Accept-Encoding;
     }
     
     # 隐藏 Nginx 版本
@@ -245,6 +247,7 @@ server {
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 }
 
+# HTTP重定向到HTTPS
 server {
     if (\$host = www.deepneed.com.cn) {
         return 301 https://\$host\$request_uri;
@@ -259,6 +262,87 @@ server {
     return 404; # managed by Certbot
 }
 EOF
+            else
+                # HTTP配置
+                cat > /tmp/deepneed_update.conf << EOF
+# HTTP配置 - 主服务器
+server {
+    server_name deepneed.com.cn www.deepneed.com.cn;
+    
+    # 日志配置
+    access_log /var/log/nginx/deepneed.com.cn.access.log;
+    error_log /var/log/nginx/deepneed.com.cn.error.log;
+
+    # Gzip 压缩
+    gzip on;
+    gzip_vary on;
+    gzip_min_length 1024;
+    gzip_proxied any;
+    gzip_comp_level 6;
+    gzip_types
+        text/plain
+        text/css
+        text/xml
+        text/javascript
+        application/json
+        application/javascript
+        application/xml+rss
+        application/atom+xml
+        image/svg+xml;
+
+    # 前端代理 - 指向Docker容器
+    location / {
+        proxy_pass http://localhost:$WEB_PORT;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade \$http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto \$scheme;
+        proxy_cache_bypass \$http_upgrade;
+        
+        # 安全头
+        add_header X-Frame-Options "SAMEORIGIN" always;
+        add_header X-XSS-Protection "1; mode=block" always;
+        add_header X-Content-Type-Options "nosniff" always;
+        add_header Referrer-Policy "no-referrer-when-downgrade" always;
+        add_header Content-Security-Policy "default-src 'self' http: https: data: blob: 'unsafe-inline'" always;
+    }
+    
+    # API代理 - 指向Docker容器
+    location /api/ {
+        proxy_pass http://localhost:$API_PORT/;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade \$http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto \$scheme;
+        proxy_cache_bypass \$http_upgrade;
+    }
+    
+    # 静态文件缓存
+    location ~* \.(jpg|jpeg|png|gif|ico|css|js|svg|woff|woff2|ttf|eot)$ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+        add_header Vary Accept-Encoding;
+    }
+    
+    # 隐藏 Nginx 版本
+    server_tokens off;
+
+    # 404 页面
+    error_page 404 /404.html;
+    location = /404.html {
+        internal;
+    }
+
+    listen 80;
+}
+EOF
+            fi
             
             # 更新配置
             cp /tmp/deepneed_update.conf /etc/nginx/conf.d/deepneed.com.cn.conf
@@ -268,13 +352,13 @@ EOF
             return 0
         fi
     else
-        # 创建新的配置文件
+        # 创建新的配置文件 - 指向Docker容器
         cat > /tmp/deepneed.conf << EOF
 server {
     listen 80;
     server_name $DOMAIN;
     
-    # 前端静态文件
+    # 前端代理 - 指向Docker容器
     location / {
         proxy_pass http://localhost:$WEB_PORT;
         proxy_http_version 1.1;
@@ -287,7 +371,7 @@ server {
         proxy_cache_bypass \$http_upgrade;
     }
     
-    # API代理
+    # API代理 - 指向Docker容器
     location /api/ {
         proxy_pass http://localhost:$API_PORT/;
         proxy_http_version 1.1;
@@ -408,9 +492,21 @@ show_deployment_info() {
     echo -e "${GREEN}🎉 部署完成！${NC}"
     echo ""
     echo -e "${BLUE}📊 部署信息:${NC}"
-    echo "  域名: http://$DOMAIN"
-    echo "  前端端口: $WEB_PORT"
-    echo "  后端端口: $API_PORT"
+    
+    # 检查SSL证书存在情况来显示正确的URL
+    if [ -f "/etc/letsencrypt/live/deepneed.com.cn/fullchain.pem" ] && [ -f "/etc/letsencrypt/live/deepneed.com.cn/privkey.pem" ]; then
+        echo "  域名: https://deepneed.com.cn (SSL已启用)"
+        SITE_URL="https://deepneed.com.cn"
+    else
+        echo "  域名: http://$DOMAIN"
+        SITE_URL="http://$DOMAIN"
+        if [ "$DOMAIN" != "deepneed.com.cn" ]; then
+            echo "  注意: 检测到自定义域名，请确认SSL证书配置"
+        fi
+    fi
+    
+    echo "  前端端口: $WEB_PORT (Docker容器)"
+    echo "  后端端口: $API_PORT (Docker容器)"
     echo "  项目目录: /opt/$PROJECT_NAME"
     echo ""
     echo -e "${BLUE}🔧 管理命令:${NC}"
@@ -420,9 +516,14 @@ show_deployment_info() {
     echo "  查看容器: docker-compose -f /opt/$PROJECT_NAME/docker-compose.production.yml ps"
     echo ""
     echo -e "${BLUE}📝 下一步:${NC}"
-    echo "  1. 访问 http://$DOMAIN 查看应用"
-    echo "  2. 如需SSL，运行: sudo certbot --nginx -d $DOMAIN"
-    echo "  3. 配置防火墙: sudo ufw allow 80,443"
+    echo "  1. 访问 $SITE_URL 查看应用"
+    if [ ! -f "/etc/letsencrypt/live/deepneed.com.cn/fullchain.pem" ]; then
+        echo "  2. 如需SSL，运行: sudo certbot --nginx -d $DOMAIN"
+        echo "  3. 配置防火墙: sudo ufw allow 80,443"
+    else
+        echo "  2. SSL证书已配置，直接使用HTTPS访问"
+        echo "  3. 如有问题，检查Docker容器状态"
+    fi
     echo ""
 }
 
