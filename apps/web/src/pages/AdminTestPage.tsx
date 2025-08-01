@@ -6,7 +6,7 @@ import {
 } from 'lucide-react';
 import Button from '../components/ui/Button';
 import { courseManager } from '../lib/course-management';
-import { instructorManager } from '../lib/instructor-management';
+import { instructorManagerFixed as instructorManager } from '../lib/instructor-management';
 import { orderManager } from '../lib/order-management';
 
 const AdminTestPage: React.FC = () => {

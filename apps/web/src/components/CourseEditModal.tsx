@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 import Button from './ui/Button';
 import { Course, CourseFormData, courseManager } from '../lib/course-management';
-import { instructorManager } from '../lib/instructor-management';
+import { instructorManagerFixed as instructorManager } from '../lib/instructor-management';
 
 interface CourseEditModalProps {
   isOpen: boolean;

@@ -8,7 +8,7 @@ import {
   Linkedin, Twitter, Github, Globe
 } from 'lucide-react';
 import Button from '../components/ui/Button';
-import { Instructor, instructorManager } from '../lib/instructor-management';
+import { Instructor, instructorManagerFixed as instructorManager } from '../lib/instructor-management';
 import InstructorEditModal from '../components/InstructorEditModal';
 
 const AdminInstructorManagement: React.FC = () => {

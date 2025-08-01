@@ -1,4 +1,4 @@
-import { instructorManager } from './instructor-management';
+import { instructorManagerFixed as instructorManager } from './instructor-management';
 
 export interface Course {
   id: number;
