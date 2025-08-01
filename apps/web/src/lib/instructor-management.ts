@@ -40,7 +40,49 @@ export interface InstructorFormData {
 
 // 模拟数据存储
 class InstructorManager {
-  private instructors: Instructor[] = [
+  private instructors: Instructor[] = [];
+  private storageKey = 'deepneed_instructors';
+  
+  constructor() {
+    this.loadFromStorage();
+  }
+  
+  // 从本地存储加载数据
+  private loadFromStorage() {
+    try {
+      if (typeof window !== 'undefined') {
+        const stored = localStorage.getItem(this.storageKey);
+        if (stored) {
+          this.instructors = JSON.parse(stored);
+        } else {
+          // 如果没有存储的数据，使用默认数据
+          this.instructors = this.getDefaultInstructors();
+          this.saveToStorage();
+        }
+      } else {
+        // 服务器端使用默认数据
+        this.instructors = this.getDefaultInstructors();
+      }
+    } catch (error) {
+      console.error('加载讲师数据失败:', error);
+      this.instructors = this.getDefaultInstructors();
+    }
+  }
+  
+  // 保存到本地存储
+  private saveToStorage() {
+    try {
+      if (typeof window !== 'undefined') {
+        localStorage.setItem(this.storageKey, JSON.stringify(this.instructors));
+      }
+    } catch (error) {
+      console.error('保存讲师数据失败:', error);
+    }
+  }
+  
+  // 获取默认讲师数据
+  private getDefaultInstructors(): Instructor[] {
+    return [
     {
       id: 1,
       name: "张教授",
@@ -183,6 +225,7 @@ class InstructorManager {
           };
 
           this.instructors.push(newInstructor);
+          this.saveToStorage(); // 保存到本地存储
           resolve({ ...newInstructor });
         } catch (error) {
           reject(error);
@@ -209,6 +252,7 @@ class InstructorManager {
           };
 
           this.instructors[index] = updatedInstructor;
+          this.saveToStorage(); // 保存到本地存储
           resolve({ ...updatedInstructor });
         } catch (error) {
           reject(error);
@@ -224,6 +268,7 @@ class InstructorManager {
         const index = this.instructors.findIndex(i => i.id === id);
         if (index !== -1) {
           this.instructors.splice(index, 1);
+          this.saveToStorage(); // 保存到本地存储
           resolve(true);
         } else {
           resolve(false);

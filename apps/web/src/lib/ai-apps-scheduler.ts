@@ -133,6 +133,13 @@ class AIAppsScheduler {
       return;
     }
 
+    // 检查是否在浏览器环境中
+    if (typeof window !== 'undefined') {
+      console.warn('⚠️ 浏览器环境：定时任务管理器已禁用，避免资源耗尽');
+      console.warn('💡 建议：将定时抓取功能移至后端服务器');
+      return;
+    }
+
     console.log('🚀 启动AI应用定时抓取任务管理器...');
     this.isRunning = true;
 
@@ -167,6 +174,12 @@ class AIAppsScheduler {
   // 调度单个任务
   private async scheduleTask(task: ScheduledTask): Promise<void> {
     try {
+      // 检查任务是否已启用
+      if (!task.enabled) {
+        console.log(`⏸️ 任务 ${task.name} 已禁用，跳过调度`);
+        return;
+      }
+
       // 计算下次运行时间
       const nextRun = this.getNextRunTime(task.cronExpression);
       task.nextRun = nextRun;
@@ -174,12 +187,19 @@ class AIAppsScheduler {
       // 计算延迟时间（毫秒）
       const delay = nextRun.getTime() - Date.now();
       
-      if (delay <= 0) {
-        // 如果延迟为负数，立即执行
-        console.log(`⚡ 任务 ${task.name} 立即执行`);
-        await this.executeTask(task);
-        // 重新调度下次执行
-        await this.scheduleTask(task);
+      // 防止延迟为负数或过小的情况
+      if (delay <= 1000) { // 小于1秒的延迟
+        console.log(`⚠️ 任务 ${task.name} 延迟过小 (${delay}ms)，设置为1分钟后执行`);
+        const adjustedDelay = 60000; // 1分钟
+        
+        const timeout = setTimeout(async () => {
+          await this.executeTask(task);
+          // 重新调度下次执行
+          await this.scheduleTask(task);
+        }, adjustedDelay);
+
+        this.intervals.set(task.id, timeout as any);
+        console.log(`⏰ 任务 ${task.name} 已调整调度，1分钟后执行`);
       } else {
         // 设置定时器
         const timeout = setTimeout(async () => {

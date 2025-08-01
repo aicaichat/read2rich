@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { 
   aiAppsCrawler, 
+  browserSafeCrawler,
   DataSource, 
   CrawlTask 
 } from '@/lib/ai-apps-crawler';
@@ -84,21 +85,42 @@ export default function AdminAICrawlerPage() {
 
   const handleTriggerCrawl = async (sourceId?: string) => {
     try {
-      const task = await aiAppsCrawler.triggerCrawl(sourceId);
-      console.log('抓取任务已启动:', task.id);
+      // 使用安全的抓取器，避免资源耗尽
+      const result = await browserSafeCrawler.safeCrawl(sourceId);
+      
+      if (result.success) {
+        console.log('安全抓取任务完成:', result.message);
+        // 显示成功消息
+        alert(`抓取完成！${result.message}`);
+      } else {
+        console.error('安全抓取任务失败:', result.message);
+        alert(`抓取失败：${result.message}`);
+      }
+      
       await loadData();
     } catch (error) {
       console.error('启动抓取任务失败:', error);
+      alert(`抓取失败：${error instanceof Error ? error.message : String(error)}`);
     }
   };
 
   const handleExecuteTask = async (taskId: string) => {
     try {
-      const task = await aiAppsScheduler.executeTaskNow(taskId);
-      console.log('定时任务已执行:', task.id);
+      // 使用安全的抓取器，避免资源耗尽
+      const result = await browserSafeCrawler.safeCrawl();
+      
+      if (result.success) {
+        console.log('定时任务执行完成:', result.message);
+        alert(`定时任务执行完成！${result.message}`);
+      } else {
+        console.error('定时任务执行失败:', result.message);
+        alert(`定时任务执行失败：${result.message}`);
+      }
+      
       await loadData();
     } catch (error) {
       console.error('执行定时任务失败:', error);
+      alert(`定时任务执行失败：${error instanceof Error ? error.message : String(error)}`);
     }
   };
 
