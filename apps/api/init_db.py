@@ -17,7 +17,7 @@ os.environ["DATABASE_URL"] = "sqlite:///./deepneed_dev.db"
 
 from sqlalchemy import create_engine
 from app.db.database import Base
-from app.db.models import User, Session, Message, GeneratedPrompt, CodeGeneration, PromptTemplate
+from app.db.models import User, Session, Message, GeneratedPrompt, CodeGeneration, PromptTemplate, Instructor, Course
 from app.core.auth import get_password_hash
 
 def init_database():
@@ -95,6 +95,78 @@ def init_database():
             print("✅ Sample prompt templates created")
         else:
             print("ℹ️  Templates already exist, skipping template creation")
+        
+        # 插入示例讲师数据
+        existing_instructor = db.query(Instructor).first()
+        if not existing_instructor:
+            instructor1 = Instructor(
+                name="张教授",
+                email="zhang@deepneed.com",
+                avatar="https://api.dicebear.com/7.x/avataaars/svg?seed=zhang",
+                bio="资深AI产品专家，拥有10年+产品开发经验，曾主导多个百万级用户产品。专注于AI时代的产品设计和商业模式创新。",
+                title="AI产品专家",
+                expertise=["AI产品设计", "产品管理", "商业模式", "用户体验"],
+                experience=12,
+                status="active",
+                social_links={
+                    "linkedin": "https://linkedin.com/in/zhang-professor",
+                    "twitter": "https://twitter.com/zhang_ai",
+                    "website": "https://zhang-ai.com"
+                }
+            )
+            
+            instructor2 = Instructor(
+                name="李老师",
+                email="li@deepneed.com",
+                avatar="https://api.dicebear.com/7.x/avataaars/svg?seed=li",
+                bio="资深产品经理，专注于AI产品设计，曾负责多个知名AI产品。擅长用户研究和产品策略制定。",
+                title="产品经理",
+                expertise=["产品设计", "AI产品", "用户体验", "用户研究"],
+                experience=8,
+                status="active",
+                social_links={
+                    "linkedin": "https://linkedin.com/in/li-pm",
+                    "github": "https://github.com/li-pm"
+                }
+            )
+            
+            db.add(instructor1)
+            db.add(instructor2)
+            db.commit()
+            print("✅ Sample instructors created")
+        else:
+            print("ℹ️  Instructors already exist, skipping instructor creation")
+        
+        # 插入示例课程数据
+        existing_course = db.query(Course).first()
+        if not existing_course:
+            course1 = Course(
+                title="价值百万的 AI 应用公开课",
+                subtitle="从0到1打造AI应用，抓住AI时代红利",
+                description="本课程将带你深入了解AI应用开发的全流程，从需求分析到产品上线，掌握AI时代的产品设计和商业模式创新。",
+                instructor_id=1,
+                price=299.0,
+                original_price=599.0,
+                level="intermediate",
+                category="AI产品设计",
+                status="published",
+                is_hot=True,
+                is_new=True,
+                tags=["AI", "产品设计", "商业模式", "创新"],
+                image="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800",
+                video_url="https://ssswork.oss-cn-hangzhou.aliyuncs.com/%E7%99%BE%E4%B8%87%E5%BA%94%E7%94%A8%E5%85%AC%E5%BC%80%E8%AF%BE.mp4",
+                modules=[
+                    {"id": 1, "title": "AI时代的产品思维", "description": "理解AI时代的产品设计理念"},
+                    {"id": 2, "title": "需求分析与用户研究", "description": "掌握AI产品的需求分析方法"},
+                    {"id": 3, "title": "商业模式设计", "description": "设计可持续的AI产品商业模式"}
+                ]
+            )
+            
+            db.add(course1)
+            db.commit()
+            print("✅ Sample courses created")
+        else:
+            print("ℹ️  Courses already exist, skipping course creation")
             
     except Exception as e:
         print(f"❌ Error initializing data: {e}")

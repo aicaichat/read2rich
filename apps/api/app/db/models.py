@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Text, DateTime, Boolean, ForeignKey, JSON
+from sqlalchemy import Column, Integer, String, Text, DateTime, Boolean, ForeignKey, JSON, Float
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
@@ -30,6 +30,87 @@ class User(Base):
     
     # 关系
     sessions = relationship("Session", back_populates="user")
+
+class Instructor(Base):
+    __tablename__ = "instructors"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, nullable=False, index=True)
+    email = Column(String, unique=True, index=True, nullable=False)
+    avatar = Column(String)
+    bio = Column(Text)
+    title = Column(String)
+    expertise = Column(JSON, default=[])  # 存储为JSON数组
+    experience = Column(Integer, default=0)  # 工作年限
+    courses = Column(Integer, default=0)  # 课程数量
+    students = Column(Integer, default=0)  # 学生总数
+    rating = Column(Float, default=0.0)  # 评分
+    status = Column(String, default="pending")  # active, inactive, pending
+    social_links = Column(JSON, default={})  # 存储为JSON对象
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+    
+    # 关系
+    courses_rel = relationship("Course", back_populates="instructor")
+
+class Course(Base):
+    __tablename__ = "courses"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String, nullable=False, index=True)
+    subtitle = Column(String)
+    description = Column(Text)
+    instructor_id = Column(Integer, ForeignKey("instructors.id"), nullable=False)
+    price = Column(Float, default=0.0)
+    original_price = Column(Float, default=0.0)
+    discount = Column(Float, default=0.0)
+    rating = Column(Float, default=0.0)
+    students = Column(Integer, default=0)
+    duration = Column(String, default="0小时")
+    lessons = Column(Integer, default=0)
+    level = Column(String, default="beginner")  # beginner, intermediate, advanced
+    category = Column(String, index=True)
+    status = Column(String, default="draft")  # draft, published, archived
+    is_hot = Column(Boolean, default=False)
+    is_new = Column(Boolean, default=False)
+    is_free = Column(Boolean, default=False)
+    tags = Column(JSON, default=[])  # 存储为JSON数组
+    image = Column(String)
+    video_url = Column(String)
+    modules = Column(JSON, default=[])  # 存储为JSON数组
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+    
+    # 关系
+    instructor = relationship("Instructor", back_populates="courses_rel")
+
+class Order(Base):
+    __tablename__ = "orders"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    order_number = Column(String, unique=True, index=True, nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    user_name = Column(String)
+    user_email = Column(String)
+    course_id = Column(Integer, ForeignKey("courses.id"), nullable=False)
+    course_title = Column(String)
+    course_image = Column(String)
+    instructor_name = Column(String)
+    amount = Column(Float, nullable=False)
+    original_amount = Column(Float, nullable=False)
+    discount = Column(Float, default=0.0)
+    payment_method = Column(String, default="other")  # alipay, wechat, card, other
+    status = Column(String, default="pending")  # pending, paid, completed, cancelled, refunded
+    payment_time = Column(DateTime(timezone=True))
+    completed_time = Column(DateTime(timezone=True))
+    refund_time = Column(DateTime(timezone=True))
+    notes = Column(Text)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+    
+    # 关系
+    user = relationship("User")
+    course = relationship("Course")
 
 class Session(Base):
     __tablename__ = "sessions"
