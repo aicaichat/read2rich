@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { 
   Copy, Download, ArrowLeft, Check, Sparkles, FileText, Code, 
   Lightbulb, Target, Award, BookOpen, Palette, Users, Calendar,
-  Zap, Eye, Settings, Globe, Star, ThumbsUp, ThumbsDown, MessageSquare, Plus,
+  Star, ThumbsUp, ThumbsDown, MessageSquare, Plus,
   Globe2
 } from 'lucide-react';
 import Button from '../components/ui/Button';
@@ -647,7 +647,7 @@ ${doc.content}
               <h3 className="text-lg font-semibold text-white">其他推荐模板</h3>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {prompts.recommended_templates.slice(1, 4).map((match, index) => (
+              {prompts.recommended_templates.slice(1, 4).map((match) => (
                 <div key={match.template.id} className="bg-black/20 rounded-lg p-4 border border-white/10">
                   <div className="flex items-center justify-between mb-2">
                     <h4 className="text-white font-medium text-sm">{match.template.name}</h4>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Presentation, ArrowLeft } from 'lucide-react';
+import { Presentation } from 'lucide-react';
 import Button from '../components/ui/Button';
 import PPTViewer from '../components/PPTViewer';
 import { millionDollarCourseSlides } from '../data/millionDollarCourseSlides';

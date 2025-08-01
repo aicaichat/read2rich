@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { 
-  Sparkles, Database, Search, TrendingUp, CheckCircle, 
-  RefreshCw, BookOpen, Star, Zap, Target, BarChart3
+  Sparkles, Database, TrendingUp, CheckCircle, 
+  RefreshCw, BookOpen, Star, Target, BarChart3
 } from 'lucide-react';
 import Button from '../components/ui/Button';
 import { promptOptimizationEngine } from '../lib/prompt-optimization-engine';
@@ -260,19 +260,19 @@ const TestPromptIntegrationPage: React.FC = () => {
             <div className="grid md:grid-cols-3 gap-6">
               <div>
                 <h4 className="text-white font-semibold mb-3">总计</h4>
-                <p className="text-2xl font-bold text-emerald-400">{crawlStats.total_prompts}</p>
+                <p className="text-2xl font-bold text-emerald-400">{crawlStats.total}</p>
                 <p className="text-gray-400 text-sm">个提示词</p>
               </div>
               
               <div>
                 <h4 className="text-white font-semibold mb-3">来源</h4>
-                <p className="text-2xl font-bold text-blue-400">{crawlStats.total_sources}</p>
+                <p className="text-2xl font-bold text-blue-400">{Object.keys(crawlStats.bySource).length}</p>
                 <p className="text-gray-400 text-sm">个GitHub仓库</p>
               </div>
               
               <div>
                 <h4 className="text-white font-semibold mb-3">分类</h4>
-                <p className="text-2xl font-bold text-purple-400">{crawlStats.total_categories}</p>
+                <p className="text-2xl font-bold text-purple-400">{Object.keys(crawlStats.byCategory).length}</p>
                 <p className="text-gray-400 text-sm">个类别</p>
               </div>
             </div>

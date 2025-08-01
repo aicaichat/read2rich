@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
-  Play, Pause, Volume2, VolumeX, Maximize, Settings,
   ChevronLeft, ChevronRight, BookOpen, CheckCircle,
   Clock, FileText, MessageCircle, Download, Share2,
   Presentation
 } from 'lucide-react';
 import Button from '../components/ui/Button';
 import PPTViewer from '../components/PPTViewer';
+import VideoPlayer from '../components/VideoPlayer';
 import { millionDollarCourseSlides } from '../data/millionDollarCourseSlides';
 
 interface Lesson {
@@ -38,6 +38,9 @@ const CourseLearningPage: React.FC = () => {
   const [notes, setNotes] = useState('');
   const [showPPT, setShowPPT] = useState(false);
 
+  // 百万应用公开课视频链接
+  const MILLION_DOLLAR_COURSE_VIDEO_URL = "https://ssswork.oss-cn-hangzhou.aliyuncs.com/%E7%99%BE%E4%B8%87%E5%BA%94%E7%94%A8%E5%88%9B%E6%96%B0%E5%85%AC%E5%BC%80%E8%AF%BE.mp4";
+
   // 模拟课程数据
   const modules: Module[] = [
     {
@@ -51,7 +54,8 @@ const CourseLearningPage: React.FC = () => {
           duration: "10:00",
           isCompleted: true,
           isCurrent: false,
-          description: "数据+案例秒杀焦虑"
+          description: "数据+案例秒杀焦虑",
+          videoUrl: MILLION_DOLLAR_COURSE_VIDEO_URL
         },
         {
           id: 2,
@@ -59,7 +63,8 @@ const CourseLearningPage: React.FC = () => {
           duration: "20:00",
           isCompleted: true,
           isCurrent: false,
-          description: "梁宁方法×产品思维"
+          description: "梁宁方法×产品思维",
+          videoUrl: MILLION_DOLLAR_COURSE_VIDEO_URL
         },
         {
           id: 3,
@@ -67,7 +72,8 @@ const CourseLearningPage: React.FC = () => {
           duration: "30:00",
           isCompleted: false,
           isCurrent: true,
-          description: "互动投票生成榜单"
+          description: "互动投票生成榜单",
+          videoUrl: MILLION_DOLLAR_COURSE_VIDEO_URL
         },
         {
           id: 4,
@@ -75,7 +81,8 @@ const CourseLearningPage: React.FC = () => {
           duration: "20:00",
           isCompleted: false,
           isCurrent: false,
-          description: "让0基础也能'跑起来'"
+          description: "让0基础也能'跑起来'",
+          videoUrl: MILLION_DOLLAR_COURSE_VIDEO_URL
         },
         {
           id: 5,
@@ -83,7 +90,8 @@ const CourseLearningPage: React.FC = () => {
           duration: "10:00",
           isCompleted: false,
           isCurrent: false,
-          description: "给出3档订阅Benchmark"
+          description: "给出3档订阅Benchmark",
+          videoUrl: MILLION_DOLLAR_COURSE_VIDEO_URL
         },
         {
           id: 6,
@@ -91,7 +99,8 @@ const CourseLearningPage: React.FC = () => {
           duration: "10:00",
           isCompleted: false,
           isCurrent: false,
-          description: "在线测完即显示适配度"
+          description: "在线测完即显示适配度",
+          videoUrl: MILLION_DOLLAR_COURSE_VIDEO_URL
         }
       ]
     },
@@ -237,47 +246,29 @@ const CourseLearningPage: React.FC = () => {
         <div className="flex-1 flex flex-col">
           {/* 视频播放器 */}
           <div className="flex-1 bg-black relative">
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center">
-                <div className="w-24 h-24 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Play className="w-12 h-12 text-emerald-400" />
-                </div>
-                <p className="text-gray-400">视频播放器</p>
-                <p className="text-sm text-gray-500 mt-2">当前课程：{currentLesson?.title}</p>
-              </div>
-            </div>
-
-            {/* 视频控制栏 */}
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-4">
-                  <button
-                    onClick={() => setIsPlaying(!isPlaying)}
-                    className="text-white hover:text-emerald-400 transition-colors"
-                  >
-                    {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6" />}
-                  </button>
-                  <button
-                    onClick={() => setIsMuted(!isMuted)}
-                    className="text-white hover:text-emerald-400 transition-colors"
-                  >
-                    {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
-                  </button>
-                  <div className="text-sm text-white">
-                    {Math.floor(currentTime / 60)}:{(currentTime % 60).toString().padStart(2, '0')} / 
-                    {Math.floor(duration / 60)}:{(duration % 60).toString().padStart(2, '0')}
+            {currentLesson?.videoUrl ? (
+              <VideoPlayer
+                src={currentLesson.videoUrl}
+                title={currentLesson.title}
+                onTimeUpdate={setCurrentTime}
+                onDurationChange={setDuration}
+                onPlay={() => setIsPlaying(true)}
+                onPause={() => setIsPlaying(false)}
+                className="w-full h-full"
+              />
+            ) : (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="text-center">
+                  <div className="w-24 h-24 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <div className="w-12 h-12 bg-emerald-400 rounded-full flex items-center justify-center">
+                      <span className="text-white text-lg">▶</span>
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <button className="text-white hover:text-emerald-400 transition-colors">
-                    <Settings className="w-5 h-5" />
-                  </button>
-                  <button className="text-white hover:text-emerald-400 transition-colors">
-                    <Maximize className="w-5 h-5" />
-                  </button>
+                  <p className="text-gray-400">视频播放器</p>
+                  <p className="text-sm text-gray-500 mt-2">当前课程：{currentLesson?.title}</p>
                 </div>
               </div>
-            </div>
+            )}
           </div>
 
           {/* 课程信息 */}

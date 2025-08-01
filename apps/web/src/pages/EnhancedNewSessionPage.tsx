@@ -87,7 +87,6 @@ const EnhancedNewSessionPage: React.FC = () => {
     budget: '',
     timeline: ''
   });
-  const [currentStep, setCurrentStep] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
 
   // 从location state中获取初始想法

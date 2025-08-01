@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import Button from '../components/ui/Button';
 import PPTViewer from '../components/PPTViewer';
+import VideoPlayer from '../components/VideoPlayer';
 import { millionDollarCourseSlides } from '../data/millionDollarCourseSlides';
 
 interface CourseModule {
@@ -61,6 +62,10 @@ const CourseDetailPage: React.FC = () => {
   const [showEnrollModal, setShowEnrollModal] = useState(false);
   const [showPPT, setShowPPT] = useState(false);
   const [course, setCourse] = useState<Course | null>(null);
+  const [showVideo, setShowVideo] = useState(false);
+
+  // 百万应用公开课视频链接
+  const MILLION_DOLLAR_COURSE_VIDEO_URL = "https://ssswork.oss-cn-hangzhou.aliyuncs.com/%E7%99%BE%E4%B8%87%E5%BA%94%E7%94%A8%E5%88%9B%E6%96%B0%E5%85%AC%E5%BC%80%E8%AF%BE.mp4";
 
   // 模拟课程数据
   const courses: Course[] = [
@@ -274,25 +279,35 @@ const CourseDetailPage: React.FC = () => {
               className="relative"
             >
               <div className="relative bg-black rounded-2xl overflow-hidden shadow-2xl">
-                <div className="aspect-video bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="w-20 h-20 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <Play className="w-8 h-8 text-emerald-400" />
+                {showVideo ? (
+                  <VideoPlayer
+                    src={MILLION_DOLLAR_COURSE_VIDEO_URL}
+                    title="价值百万的AI应用公开课"
+                    className="aspect-video"
+                  />
+                ) : (
+                  <>
+                    <div className="aspect-video bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center cursor-pointer" onClick={() => setShowVideo(true)}>
+                      <div className="text-center">
+                        <div className="w-20 h-20 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-4 hover:bg-emerald-500/30 transition-colors">
+                          <Play className="w-8 h-8 text-emerald-400" />
+                        </div>
+                        <p className="text-gray-400">点击观看课程预览视频</p>
+                      </div>
                     </div>
-                    <p className="text-gray-400">课程预览视频</p>
-                  </div>
-                </div>
-                <div className="absolute bottom-4 left-4 right-4 bg-black/50 backdrop-blur-sm rounded-lg p-4">
-                  <div className="flex items-center justify-between text-white">
-                    <div>
-                      <p className="font-semibold">{course.modules[0]?.title}</p>
-                      <p className="text-sm text-gray-300">免费试看</p>
+                    <div className="absolute bottom-4 left-4 right-4 bg-black/50 backdrop-blur-sm rounded-lg p-4">
+                      <div className="flex items-center justify-between text-white">
+                        <div>
+                          <p className="font-semibold">{course.modules[0]?.title}</p>
+                          <p className="text-sm text-gray-300">免费试看</p>
+                        </div>
+                        <div className="text-emerald-400">
+                          <Play className="w-6 h-6" />
+                        </div>
+                      </div>
                     </div>
-                    <div className="text-emerald-400">
-                      <Play className="w-6 h-6" />
-                    </div>
-                  </div>
-                </div>
+                  </>
+                )}
               </div>
             </motion.div>
           </div>
