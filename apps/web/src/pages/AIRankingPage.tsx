@@ -224,6 +224,192 @@ export default function AIRankingPage() {
         </div>
       </section>
 
+      {/* 成功案例展示区域 */}
+      <section className="px-6 mb-12">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-8"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              <span className="text-gradient">🌟 成功案例</span>
+            </h2>
+            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+              这些真实案例证明，普通人也能在AI时代创造奇迹
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Cal AI 案例 */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+              className="bg-gradient-to-br from-emerald-500/10 to-blue-500/10 rounded-2xl border border-emerald-500/30 p-6 hover:border-emerald-500/50 transition-all duration-300"
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 bg-emerald-500/20 rounded-xl flex items-center justify-center">
+                  <span className="text-2xl">📱</span>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-white">Cal AI</h3>
+                  <p className="text-sm text-emerald-400">健康管理</p>
+                </div>
+              </div>
+              
+              <div className="space-y-3 mb-4">
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-400 text-sm">开发者</span>
+                  <span className="text-white font-semibold">两位高中生</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-400 text-sm">开发时间</span>
+                  <span className="text-white font-semibold">8个月</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-400 text-sm">下载量</span>
+                  <span className="text-emerald-400 font-bold">500万+</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-400 text-sm">月收入</span>
+                  <span className="text-emerald-400 font-bold">$100万+</span>
+                </div>
+              </div>
+
+              <div className="bg-emerald-500/10 rounded-lg p-3 mb-4">
+                <p className="text-sm text-emerald-300">
+                  <strong>成功秘诀：</strong>抓住刚需痛点，极简体验，快速验证
+                </p>
+              </div>
+
+              <Button
+                variant="gradient"
+                size="sm"
+                className="w-full"
+                onClick={() => {
+                  const idea = "我想做一个类似Cal AI的AI应用，主要功能包括：拍照识别食物、自动计算卡路里、营养信息分析。目标用户是健身爱好者、减肥人群、健康意识用户。";
+                  window.location.href = `/chat?initialIdea=${encodeURIComponent(idea)}`;
+                }}
+              >
+                分析这个案例
+              </Button>
+            </motion.div>
+
+            {/* Cursor AI 案例 */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-2xl border border-purple-500/30 p-6 hover:border-purple-500/50 transition-all duration-300"
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center">
+                  <span className="text-2xl">💻</span>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-white">Cursor AI</h3>
+                  <p className="text-sm text-purple-400">代码开发</p>
+                </div>
+              </div>
+              
+              <div className="space-y-3 mb-4">
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-400 text-sm">首年收入</span>
+                  <span className="text-purple-400 font-bold">$1亿+</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-400 text-sm">估值</span>
+                  <span className="text-purple-400 font-bold">$90亿</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-400 text-sm">用户数</span>
+                  <span className="text-white font-semibold">36万+</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-400 text-sm">融资轮次</span>
+                  <span className="text-white font-semibold">B轮</span>
+                </div>
+              </div>
+
+              <div className="bg-purple-500/10 rounded-lg p-3 mb-4">
+                <p className="text-sm text-purple-300">
+                  <strong>成功秘诀：</strong>垂直深耕，产品驱动增长，社区力量
+                </p>
+              </div>
+
+              <Button
+                variant="gradient"
+                size="sm"
+                className="w-full"
+                onClick={() => {
+                  const idea = "我想做一个类似Cursor AI的AI应用，主要功能包括：AI代码生成、智能代码补全、代码解释和重构。目标用户是软件开发者、编程学习者、技术团队。";
+                  window.location.href = `/chat?initialIdea=${encodeURIComponent(idea)}`;
+                }}
+              >
+                分析这个案例
+              </Button>
+            </motion.div>
+
+            {/* Remini AI 案例 */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="bg-gradient-to-br from-pink-500/10 to-red-500/10 rounded-2xl border border-pink-500/30 p-6 hover:border-pink-500/50 transition-all duration-300"
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 bg-pink-500/20 rounded-xl flex items-center justify-center">
+                  <span className="text-2xl">📸</span>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-white">Remini AI</h3>
+                  <p className="text-sm text-pink-400">图像生成</p>
+                </div>
+              </div>
+              
+              <div className="space-y-3 mb-4">
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-400 text-sm">两周收入</span>
+                  <span className="text-pink-400 font-bold">$700万</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-400 text-sm">下载量</span>
+                  <span className="text-pink-400 font-bold">4000万+</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-400 text-sm">App Store</span>
+                  <span className="text-white font-semibold">多国榜首</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-400 text-sm">核心功能</span>
+                  <span className="text-white font-semibold">AI写真</span>
+                </div>
+              </div>
+
+              <div className="bg-pink-500/10 rounded-lg p-3 mb-4">
+                <p className="text-sm text-pink-300">
+                  <strong>成功秘诀：</strong>情感需求爆发力，社交传播，Freemium模式
+                </p>
+              </div>
+
+              <Button
+                variant="gradient"
+                size="sm"
+                className="w-full"
+                onClick={() => {
+                  const idea = "我想做一个类似Remini AI的AI应用，主要功能包括：AI写真生成、Baby AI预测、照片修复增强。目标用户是年轻用户、社交媒体用户、情感需求用户。";
+                  window.location.href = `/chat?initialIdea=${encodeURIComponent(idea)}`;
+                }}
+              >
+                分析这个案例
+              </Button>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* 成功因素分析 */}
       {analysis && (
         <section className="px-6 mb-12">

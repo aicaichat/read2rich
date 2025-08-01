@@ -4,9 +4,12 @@ import { motion } from 'framer-motion';
 import { 
   Play, Pause, Volume2, VolumeX, Maximize, Settings,
   ChevronLeft, ChevronRight, BookOpen, CheckCircle,
-  Clock, FileText, MessageCircle, Download, Share2
+  Clock, FileText, MessageCircle, Download, Share2,
+  Presentation
 } from 'lucide-react';
 import Button from '../components/ui/Button';
+import PPTViewer from '../components/PPTViewer';
+import { millionDollarCourseSlides } from '../data/millionDollarCourseSlides';
 
 interface Lesson {
   id: number;
@@ -33,6 +36,7 @@ const CourseLearningPage: React.FC = () => {
   const [duration, setDuration] = useState(0);
   const [showNotes, setShowNotes] = useState(false);
   const [notes, setNotes] = useState('');
+  const [showPPT, setShowPPT] = useState(false);
 
   // 模拟课程数据
   const modules: Module[] = [
@@ -289,6 +293,15 @@ const CourseLearningPage: React.FC = () => {
                 <Button
                   variant="ghost"
                   size="sm"
+                  onClick={() => setShowPPT(true)}
+                  className="text-emerald-400 hover:text-emerald-300"
+                >
+                  <Presentation className="w-4 h-4 mr-2" />
+                  查看PPT
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
                   onClick={() => setShowNotes(!showNotes)}
                   className="text-gray-400 hover:text-white"
                 >
@@ -412,6 +425,14 @@ const CourseLearningPage: React.FC = () => {
           </div>
         </div>
       </div>
+      
+      {/* PPT查看器 */}
+      <PPTViewer
+        isOpen={showPPT}
+        onClose={() => setShowPPT(false)}
+        slides={millionDollarCourseSlides}
+        title="价值百万的AI应用公开课"
+      />
     </div>
   );
 };

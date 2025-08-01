@@ -530,6 +530,263 @@ const aiAppsData: AIApp[] = [
     },
     createdAt: "2021-02-01T00:00:00Z",
     updatedAt: "2024-01-20T00:00:00Z"
+  },
+  // 新增：我们的三个成功案例
+  {
+    id: 101,
+    name: "Cal AI",
+    description: "两位美国高中生开发的AI拍照识别卡路里应用，通过拍照即可自动识别食物热量，8个月实现500万下载量和100万美元月收入。",
+    category: "健康医疗",
+    tags: ["健康管理", "图像识别", "AI拍照", "卡路里计算", "高中生创业"],
+    website: "https://cal.ai",
+    logo: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=100&h=100&fit=crop",
+    screenshots: [
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=400&h=300&fit=crop"
+    ],
+    features: [
+      "拍照识别食物",
+      "自动计算卡路里",
+      "营养信息分析",
+      "健康目标追踪",
+      "社交分享功能",
+      "个性化建议"
+    ],
+    pricing: {
+      free: true,
+      paid: true,
+      pricingModel: "Freemium",
+      priceRange: "$9.99/月"
+    },
+    metrics: {
+      users: "500万+",
+      revenue: "$100万/月",
+      rating: 4.7,
+      reviews: 150000,
+      downloads: "500万+"
+    },
+    technology: {
+      aiModels: ["GPT-4 Vision", "Custom Vision Model"],
+      techStack: ["React Native", "Python", "TensorFlow"],
+      apiIntegrations: ["OpenAI", "Apple Health", "Google Fit"]
+    },
+    businessModel: {
+      type: "移动应用",
+      targetUsers: ["健身爱好者", "减肥人群", "健康意识用户"],
+      valueProposition: "最简单的卡路里追踪方式",
+      monetization: ["Freemium", "订阅制", "高级功能"]
+    },
+    successFactors: {
+      innovation: 8.5,
+      marketFit: 9.2,
+      execution: 9.0,
+      growth: 9.5,
+      overall: 9.1
+    },
+    analysis: {
+      strengths: [
+        "极简用户体验",
+        "刚需痛点解决",
+        "小团队高效执行",
+        "快速市场验证"
+      ],
+      weaknesses: [
+        "功能相对单一",
+        "竞争激烈",
+        "用户粘性挑战"
+      ],
+      opportunities: [
+        "功能扩展",
+        "企业市场",
+        "数据变现"
+      ],
+      threats: [
+        "大厂竞争",
+        "技术门槛降低",
+        "用户流失"
+      ],
+      keyInsights: [
+        "高中生也能创造奇迹",
+        "简单功能解决复杂问题",
+        "快速验证比完美更重要"
+      ]
+    },
+    createdAt: "2023-01-01T00:00:00Z",
+    updatedAt: "2024-01-20T00:00:00Z"
+  },
+  {
+    id: 102,
+    name: "Cursor AI",
+    description: "专为程序员开发的AI辅助编程工具，首年收入突破1亿美元，估值90亿美元，拥有36万开发者用户。",
+    category: "代码开发",
+    tags: ["AI编程", "代码助手", "开发者工具", "PLG模式", "社区驱动"],
+    website: "https://cursor.sh",
+    logo: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=100&h=100&fit=crop",
+    screenshots: [
+      "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=300&fit=crop"
+    ],
+    features: [
+      "AI代码生成",
+      "智能代码补全",
+      "代码解释和重构",
+      "多语言支持",
+      "Git集成",
+      "团队协作"
+    ],
+    pricing: {
+      free: true,
+      paid: true,
+      pricingModel: "Freemium",
+      priceRange: "$20/月"
+    },
+    metrics: {
+      users: "36万+",
+      revenue: "$1亿+",
+      rating: 4.8,
+      reviews: 25000,
+      downloads: "36万+"
+    },
+    latestFunding: {
+      id: 'fund_cursor_2024',
+      date: '2024-01-15T00:00:00Z',
+      round: 'B轮',
+      amount: 500000000,
+      currency: 'USD',
+      investors: ['Sequoia Capital', 'Andreessen Horowitz'],
+      source: 'techcrunch',
+      link: 'https://techcrunch.com/'
+    },
+    technology: {
+      aiModels: ["GPT-4", "Claude", "Custom Code Model"],
+      techStack: ["TypeScript", "Rust", "WebAssembly"],
+      apiIntegrations: ["OpenAI", "Anthropic", "GitHub"]
+    },
+    businessModel: {
+      type: "开发者工具",
+      targetUsers: ["软件开发者", "编程学习者", "技术团队"],
+      valueProposition: "最智能的AI编程助手",
+      monetization: ["Freemium", "订阅制", "企业版"]
+    },
+    successFactors: {
+      innovation: 9.3,
+      marketFit: 9.5,
+      execution: 9.2,
+      growth: 9.8,
+      overall: 9.5
+    },
+    analysis: {
+      strengths: [
+        "垂直深耕程序员群体",
+        "产品驱动增长",
+        "社区口碑传播",
+        "技术领先优势"
+      ],
+      weaknesses: [
+        "用户群体相对小众",
+        "依赖AI模型",
+        "竞争激烈"
+      ],
+      opportunities: [
+        "企业市场扩展",
+        "功能深度开发",
+        "生态建设"
+      ],
+      threats: [
+        "GitHub Copilot竞争",
+        "AI模型成本",
+        "技术更新迭代"
+      ],
+      keyInsights: [
+        "垂直市场蕴藏巨大价值",
+        "PLG模式在开发者工具中有效",
+        "社区驱动增长是关键"
+      ]
+    },
+    createdAt: "2022-06-01T00:00:00Z",
+    updatedAt: "2024-01-20T00:00:00Z"
+  },
+  {
+    id: 103,
+    name: "Remini AI",
+    description: "AI写真和Baby AI功能应用，两周时间实现全球收入700万美元，4000万下载量，多国App Store榜首。",
+    category: "图像生成",
+    tags: ["AI写真", "照片修复", "Baby AI", "情感需求", "社交传播"],
+    website: "https://remini.ai",
+    logo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop",
+    screenshots: [
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&h=300&fit=crop"
+    ],
+    features: [
+      "AI写真生成",
+      "Baby AI预测",
+      "照片修复增强",
+      "老照片修复",
+      "社交分享",
+      "多种滤镜效果"
+    ],
+    pricing: {
+      free: true,
+      paid: true,
+      pricingModel: "Freemium",
+      priceRange: "$9.99/月"
+    },
+    metrics: {
+      users: "4000万+",
+      revenue: "$700万/2周",
+      rating: 4.6,
+      reviews: 500000,
+      downloads: "4000万+"
+    },
+    technology: {
+      aiModels: ["Stable Diffusion", "Custom GAN", "Face Recognition"],
+      techStack: ["React Native", "Python", "PyTorch"],
+      apiIntegrations: ["AWS", "Google Cloud", "Apple App Store"]
+    },
+    businessModel: {
+      type: "移动应用",
+      targetUsers: ["年轻用户", "社交媒体用户", "情感需求用户"],
+      valueProposition: "满足情感与娱乐需求",
+      monetization: ["Freemium", "应用内购", "高级功能"]
+    },
+    successFactors: {
+      innovation: 8.8,
+      marketFit: 9.4,
+      execution: 9.1,
+      growth: 9.9,
+      overall: 9.3
+    },
+    analysis: {
+      strengths: [
+        "情感需求爆发力强",
+        "社交传播效果好",
+        "视觉冲击力强",
+        "变现模式成熟"
+      ],
+      weaknesses: [
+        "功能相对单一",
+        "用户粘性不高",
+        "技术门槛较低"
+      ],
+      opportunities: [
+        "功能扩展",
+        "企业市场",
+        "数据变现"
+      ],
+      threats: [
+        "竞争激烈",
+        "用户兴趣转移",
+        "监管风险"
+      ],
+      keyInsights: [
+        "情感需求是强大驱动力",
+        "社交传播带来指数增长",
+        "Freemium+高频消费模式有效"
+      ]
+    },
+    createdAt: "2023-06-01T00:00:00Z",
+    updatedAt: "2024-01-20T00:00:00Z"
   }
 ];
 

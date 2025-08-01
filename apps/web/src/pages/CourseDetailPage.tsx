@@ -5,9 +5,12 @@ import {
   Play, Clock, Users, Star, CheckCircle, ArrowRight, 
   BookOpen, Code, Zap, Target, Award, TrendingUp,
   Calendar, MapPin, Video, FileText, Download,
-  Heart, Share2, MessageCircle, Eye, ArrowLeft
+  Heart, Share2, MessageCircle, Eye, ArrowLeft,
+  Presentation
 } from 'lucide-react';
 import Button from '../components/ui/Button';
+import PPTViewer from '../components/PPTViewer';
+import { millionDollarCourseSlides } from '../data/millionDollarCourseSlides';
 
 interface CourseModule {
   id: number;
@@ -56,6 +59,7 @@ const CourseDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [activeTab, setActiveTab] = useState('overview');
   const [showEnrollModal, setShowEnrollModal] = useState(false);
+  const [showPPT, setShowPPT] = useState(false);
   const [course, setCourse] = useState<Course | null>(null);
 
   // 模拟课程数据
@@ -245,6 +249,13 @@ const CourseDetailPage: React.FC = () => {
                     {course.isFree ? '免费学习' : '立即报名'}
                   </Button>
                 </Link>
+                <Button
+                  onClick={() => setShowPPT(true)}
+                  className="bg-emerald-500/20 border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/30 px-8 py-4 text-lg font-semibold rounded-xl"
+                >
+                  <Presentation className="w-5 h-5 mr-2" />
+                  查看PPT
+                </Button>
                 <Button
                   variant="ghost"
                   className="border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10 px-8 py-4 text-lg font-semibold rounded-xl"
@@ -661,6 +672,14 @@ const CourseDetailPage: React.FC = () => {
           </motion.div>
         </div>
       )}
+      
+      {/* PPT查看器 */}
+      <PPTViewer
+        isOpen={showPPT}
+        onClose={() => setShowPPT(false)}
+        slides={millionDollarCourseSlides}
+        title="价值百万的AI应用公开课"
+      />
     </div>
   );
 };

@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>价值百万的AI应用公开课 - 世界级演讲</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/reveal.js@4/dist/reset.css" />
+    <link rel="stylesheet" href="https://unpkg.com/reveal.js@4/dist/reveal.css" />
+    <link rel="stylesheet" href="https://unpkg.com/reveal.js@4/dist/theme/night.css" id="theme" />
+    <link rel="stylesheet" href="https://unpkg.com/reveal.js@4/plugin/highlight/monokai.css" />
+
+    <style>
+      /* 世界级PPT大师样式系统 */
+      .reveal {
+        font-size: 28px !important;
+        line-height: 1.3 !important;
+        font-family: 'SF Pro Display', 'Inter', 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif !important;
+        background: 
+          radial-gradient(ellipse 120% 80% at 50% 0%, #0f172a 0%, #020617 50%, #000000 100%),
+          linear-gradient(135deg, #0a0e1a 0%, #1e293b 100%) !important;
+        color: #ffffff !important;
+      }
+      
+      .reveal .backgrounds {
+        background: 
+          radial-gradient(circle at 15% 85%, rgba(16,185,129,0.06) 0%, transparent 50%),
+          radial-gradient(circle at 85% 15%, rgba(139,92,246,0.04) 0%, transparent 50%),
+          radial-gradient(circle at 50% 50%, rgba(59,130,246,0.03) 0%, transparent 60%) !important;
+      }
+      
+      .reveal .slides section {
+        padding: 10px 15px 6px 15px !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+        max-height: 98vh !important;
+        max-height: 95vh !important;
+        max-height: 100vh !important;
+        overflow: hidden !important;
+        max-height: 98vh !important;
+        max-height: 95vh !important;
+        max-height: 100vh !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+        min-height: 95vh !important;
+        overflow-y: auto !important;
+        max-height: 100vh !important;
+      }
+      
+      /* 世界级标题系统 */
+      .reveal h1 {
+        font-size: 0.8em !important;
+        line-height: 1.3 !important;
+        margin-bottom: 0.2em !important;
+        font-weight: 900 !important;
+        text-align: center !important;
+        letter-spacing: 0em !important;
+        background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+        text-shadow: 0 0 60px rgba(255,255,255,0.12) !important;
+      }
+      
+      .reveal h2 {
+        font-size: 0.8em !important;
+        line-height: 1.3 !important;
+        margin-bottom: 0.2em !important;
+        font-weight: 800 !important;
+        text-align: center !important;
+        letter-spacing: 0em !important;
+        color: #ffffff !important;
+        text-shadow: 0 4px 25px rgba(255,255,255,0.1) !important;
+      }
+      
+      /* 世界级冲击数字系统 */
+      .impact-number {
+        font-size: 0.8em !important;
+        font-weight: 900 !important;
+        line-height: 1.3 !important;
+        background: linear-gradient(135deg, #ef4444 0%, #f97316 40%, #eab308 80%, #10b981 100%) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+        filter: drop-shadow(0 0 25px rgba(239,68,68,0.3)) !important;
+        letter-spacing: 0em !important;
+        text-align: center !important;
+        margin: 4px 0 !important;
+      }
+      
+      /* 世界级强调文本系统 */
+      .highlight-text {
+        background: linear-gradient(135deg, #10b981 0%, #06d6a0 25%, #8b5cf6 75%, #a855f7 100%) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+        font-weight: 800 !important;
+        filter: drop-shadow(0 0 25px rgba(16,185,129,0.4)) !important;
+        letter-spacing: 0em !important;
+      }
+      
+      /* 世界级卡片系统 */
+      .world-class-card {
+        background: 
+          linear-gradient(135deg, rgba(15,23,42,0.98) 0%, rgba(30,41,59,0.95) 100%);
+        backdrop-filter: blur(40px);
+        border-radius: 10px;
+        border: 1px solid rgba(255,255,255,0.12);
+        box-shadow: 
+          0 20px 50px rgba(0,0,0,0.35),
+          0 0 0 1px rgba(255,255,255,0.06),
+          inset 0 1px 0 rgba(255,255,255,0.12);
+        padding: 25px 20px;
+        margin: 4px 0;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .world-class-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      }
+      
+      /* 世界级数据展示系统 */
+      .metric-showcase {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 8px;
+        margin: 25px 0;
+      }
+      
+      .metric-card {
+        background: 
+          linear-gradient(135deg, rgba(15,23,42,0.95) 0%, rgba(30,41,59,0.85) 100%);
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 8px;
+        padding: 20px 15px;
+        text-align: center;
+        position: relative;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+      }
+      
+      .metric-card:hover {
+        transform: translateY(-12px) scale(1.03);
+        box-shadow: 0 50px 100px rgba(0,0,0,0.4);
+        border-color: rgba(16,185,129,0.5);
+      }
+      
+      .metric-number {
+        font-size: 1.9em;
+        font-weight: 900;
+        line-height: 1.0;
+        margin-bottom: 10px;
+        background: linear-gradient(135deg, #10b981 0%, #06d6a0 50%, #8b5cf6 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        filter: drop-shadow(0 0 20px rgba(16,185,129,0.3));
+        letter-spacing: -0.02em;
+      }
+      
+      .metric-label {
+        color: #e2e8f0;
+        font-size: 0.8em;
+        font-weight: 600;
+        opacity: 0.9;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      
+      /* 世界级案例展示系统 */
+      .case-study {
+        background: 
+          linear-gradient(135deg, rgba(15,23,42,0.98) 0%, rgba(30,41,59,0.95) 100%);
+        backdrop-filter: blur(40px);
+        border-radius: 10px;
+        padding: 25px 20px;
+        margin: 4px 0;
+        border: 1px solid rgba(255,255,255,0.12);
+        box-shadow: 
+          0 20px 50px rgba(0,0,0,0.25),
+          inset 0 1px 0 rgba(255,255,255,0.12);
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .case-study::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, rgba(16,185,129,0.8), transparent);
+      }
+      
+      .case-title {
+        font-size: 1.0em;
+        font-weight: 800;
+        margin-bottom: 15px;
+        text-align: center;
+        color: #ffffff;
+        letter-spacing: -0.01em;
+      }
+      
+      .case-metrics {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        margin: 4px 0;
+      }
+      
+      .case-metric {
+        text-align: center;
+        padding: 15px 10px;
+        background: rgba(15,23,42,0.6);
+        border-radius: 12px;
+        border: 1px solid rgba(255,255,255,0.08);
+      }
+      
+      .case-metric-number {
+        font-size: 0.95em;
+        font-weight: 900;
+        background: linear-gradient(135deg, #ef4444, #f97316, #eab308);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 8px;
+        line-height: 1.1;
+      }
+      
+      .case-metric-label {
+        color: #94a3b8;
+        font-size: 0.8em;
+        font-weight: 600;
+      }
+      
+      /* 世界级行动号召系统 */
+      .cta-section {
+        background: 
+          linear-gradient(135deg, rgba(16,185,129,0.15) 0%, rgba(139,92,246,0.15) 100%);
+        backdrop-filter: blur(40px);
+        border-radius: 10px;
+        padding: 25px 20px;
+        margin: 4px 0;
+        border: 2px solid rgba(16,185,129,0.4);
+        box-shadow: 
+          0 20px 50px rgba(0,0,0,0.25),
+          inset 0 1px 0 rgba(255,255,255,0.12);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .cta-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #10b981, #06d6a0, #8b5cf6, #a855f7);
+      }
+      
+      .cta-title {
+        font-size: 0.95em;
+        font-weight: 900;
+        margin-bottom: 20px;
+        background: linear-gradient(135deg, #10b981, #8b5cf6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        letter-spacing: -0.02em;
+      }
+      
+      .cta-benefits {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        margin: 4px 0;
+      }
+      
+      .cta-benefit {
+        padding: 15px 12px;
+        background: rgba(15,23,42,0.8);
+        border-radius: 12px;
+        border: 1px solid rgba(255,255,255,0.12);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      }
+      
+      .cta-benefit-icon {
+        font-size: 0.95em;
+        margin-bottom: 10px;
+        filter: drop-shadow(0 0 12px rgba(16,185,129,0.4));
+      }
+      
+      .cta-benefit-title {
+        font-size: 0.8em;
+        font-weight: 700;
+        color: #10b981;
+        margin-bottom: 8px;
+      }
+      
+      .cta-benefit-desc {
+        font-size: 0.75em;
+        color: #94a3b8;
+        line-height: 1.3;
+      }
+      
+      /* 世界级进化路径系统 */
+      .evolution-path {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        margin: 25px 0;
+      }
+      
+      .evolution-stage {
+        text-align: center;
+        padding: 20px 15px;
+        background: 
+          linear-gradient(135deg, rgba(15,23,42,0.95) 0%, rgba(30,41,59,0.9) 100%);
+        border-radius: 8px;
+        border: 2px solid rgba(16,185,129,0.3);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        position: relative;
+        transition: all 0.3s ease;
+      }
+      
+      .evolution-stage:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+        border-color: rgba(16,185,129,0.5);
+      }
+      
+      .evolution-icon {
+        font-size: 1.5em;
+        margin-bottom: 12px;
+        filter: drop-shadow(0 0 12px rgba(16,185,129,0.3));
+      }
+      
+      .evolution-title {
+        font-size: 0.95em;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: #10b981;
+      }
+      
+      .evolution-metric {
+        font-size: 1.5em;
+        font-weight: 900;
+        margin: 6px 0;
+        background: linear-gradient(135deg, #10b981, #8b5cf6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      
+      .evolution-desc {
+        color: #e2e8f0;
+        font-size: 0.75em;
+        line-height: 1.3;
+      }
+      
+      /* 响应式设计优化 */
+      @media (max-width: 1024px) {
+        .reveal .slides section {
+          padding: 12px 20px 8px 20px !important;
+        }
+        
+        .reveal h1 {
+          font-size: 1.2em !important;
+        }
+        
+        .reveal h2 {
+          font-size: 0.8em !important;
+        }
+        
+        .impact-number {
+          font-size: 1.2em !important;
+        }
+      }
+      
+      @media (max-width: 768px) {
+        .reveal {
+          font-size: 16px !important;
+        }
+        
+        .reveal .slides section {
+          padding: 20px 15px 15px 15px !important;
+        }
+        
+        .metric-showcase,
+        .case-metrics,
+        .cta-benefits,
+        .evolution-path {
+          grid-template-columns: 1fr;
+          gap: 15px;
+        }
+        
+        .reveal h1 {
+          font-size: 0.95em !important;
+          margin-bottom: 0.2em !important;
+        }
+        
+        .reveal h2 {
+          font-size: 0.95em !important;
+          margin-bottom: 0.2em !important;
+        }
+        
+        .impact-number {
+          font-size: 0.95em !important;
+          margin: 8px 0 !important;
+        }
+        
+        .world-class-card {
+          padding: 15px 12px;
+          margin: 8px 0;
+        }
+        
+        .metric-number { font-size: 1.2em !important; }
+        
+        .highlight-text {
+          font-size: 0.8em !important;
+        }
+        
+        .cta-title {
+          font-size: 0.95em !important;
+        }
+        
+        .case-title {
+          font-size: 0.8em !important;
+        }
+        
+        .evolution-title {
+          font-size: 0.8em !important;
+        }
+        
+        .evolution-metric {
+          font-size: 0.8em !important;
+        }
+      }
+      
+      @media (max-width: 480px) {
+        .reveal {
+          font-size: 14px !important;
+        }
+        
+        .reveal .slides section {
+          padding: 15px 10px 10px 10px !important;
+        }
+        
+        .reveal h1 {
+          font-size: 0.8em !important;
+        }
+        
+        .reveal h2 {
+          font-size: 0.8em !important;
+        }
+        
+        .impact-number {
+          font-size: 0.95em !important;
+        }
+        
+        .world-class-card {
+          padding: 12px 10px;
+          margin: 10px 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section data-markdown data-separator="\r?\n---\r?\n" data-separator-vertical="\r?\n----\r?\n">
+          <textarea data-template>
+            
+<!-- 世界级震撼开场页面 -->
+<div style="position: relative; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; overflow: hidden;">
+  
+  <!-- 动态背景效果 -->
+  <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: 
+    radial-gradient(circle at 20% 80%, rgba(16,185,129,0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(139,92,246,0.15) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(239,68,68,0.1) 0%, transparent 60%),
+    linear-gradient(135deg, #0a0e1a 0%, #1f2937 50%, #0a0e1a 100%); z-index: -1;"></div>
+  
+  <!-- 浮动粒子效果 -->
+  <div style="position: absolute; top: 20%; left: 15%; width: 4px; height: 4px; background: #10b981; border-radius: 50%; animation: float1 6s ease-in-out infinite; opacity: 0.6;"></div>
+  <div style="position: absolute; top: 60%; right: 20%; width: 6px; height: 6px; background: #8b5cf6; border-radius: 50%; animation: float2 8s ease-in-out infinite; opacity: 0.7;"></div>
+  <div style="position: absolute; bottom: 30%; left: 25%; width: 3px; height: 3px; background: #ef4444; border-radius: 50%; animation: float3 7s ease-in-out infinite; opacity: 0.5;"></div>
+  
+  <!-- 主要内容区域 -->
+  <div style="position: relative; z-index: 10; text-align: center; max-width: 1200px; padding: 40px;">
+    
+    <!-- 演讲者介绍 -->
+    <div style="margin-bottom: 40px; animation: fadeInUp 1s ease-out;">
+      <div style="font-size: 0.2em; color: #9ca3af; margin-bottom: 10px; font-weight: 500;">演讲者</div>
+      <div style="font-size: 0.2em; font-weight: 900; background: linear-gradient(135deg, #10b981, #8b5cf6, #ef4444); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 50px rgba(16,185,129,0.3); letter-spacing: 2px; animation: glow 3s ease-in-out infinite alternate;">栗志果</div>
+    </div>
+    
+    <!-- 主标题 -->
+    <div style="margin-bottom: 50px; animation: fadeInUp 1s ease-out 0.3s both;">
+      <h1 style="font-size: 0.2em; font-weight: 900; color: #ffffff; margin-bottom: 20px; text-shadow: 0 0 30px rgba(255,255,255,0.3); line-height: 1.2;">
+        价值百万的AI应用公开课
+      </h1>
+      <div style="font-size: 0.2em; color: #10b981; font-weight: 700; text-shadow: 0 0 20px rgba(16,185,129,0.5); animation: pulse 2s ease-in-out infinite;">
+        🚀 15分钟，彻底打碎AI焦虑，改变你的认知！
+      </div>
+    </div>
+    
+    <!-- 核心价值主张 -->
+    <div style="background: linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(139,92,246,0.1) 100%); 
+                border: 2px solid rgba(16,185,129,0.3); border-radius: 10px; padding: 40px; 
+                backdrop-filter: blur(20px); margin: 8px 0; position: relative; overflow: hidden;
+                animation: fadeInUp 1s ease-out 0.6s both;">
+      
+      <!-- 背景光效 -->
+      <div style="position: absolute; top: 0; left: -100%; width: 100%; height: 100%; 
+                  background: linear-gradient(90deg, transparent, rgba(16,185,129,0.2), transparent); 
+                  animation: shimmer 3s ease-in-out infinite;"></div>
+      
+      <div style="position: relative; z-index: 2;">
+        <div style="font-size: 0.2em; color: #10b981; font-weight: 800; margin-bottom: 20px; text-shadow: 0 0 25px rgba(16,185,129,0.6);">
+          只讲一件事：如何把百万级红利装进你的口袋
+        </div>
+        <div style="font-size: 0.2em; color: #ffffff; opacity: 0.9; font-weight: 600; margin-bottom: 15px;">
+          抓住AI这辆财富快车，把时代的焦虑变成真正的财富
+        </div>
+      </div>
+    </div>
+    
+    <!-- 紧迫感营造 -->
+    <div style="margin: 8px 0; animation: fadeInUp 1s ease-out 0.9s both;">
+      <div style="font-size: 0.2em; color: #ffffff; font-weight: 600; margin-bottom: 25px; text-shadow: 0 2px 10px rgba(255,255,255,0.3);">
+        如果你曾经错过了房地产、错过了互联网、错过了出海、错过了直播带货...
+      </div>
+      
+      <!-- 强烈行动号召 -->
+      <div style="background: linear-gradient(135deg, rgba(239,68,68,0.2) 0%, rgba(16,185,129,0.2) 100%); 
+                  padding: 30px; border-radius: 15px; border: 2px solid rgba(239,68,68,0.5); 
+                  box-shadow: 0 20px 50px rgba(239,68,68,0.3); position: relative; overflow: hidden;">
+        
+        <div style="position: absolute; top: 0; left: -100%; width: 100%; height: 100%; 
+                    background: linear-gradient(90deg, transparent, rgba(239,68,68,0.2), transparent); 
+                    animation: shimmer 2s ease-in-out infinite;"></div>
+        
+        <div style="position: relative; z-index: 2;">
+          <div style="color: #ef4444; font-size: 0.2em; font-weight: 900; text-shadow: 0 0 30px rgba(239,68,68,0.7); 
+                      margin-bottom: 10px; animation: pulse 1.5s ease-in-out infinite;">
+            这一次，绝不能再错过AI！
+          </div>
+          <div style="color: #ffffff; font-size: 0.2em; opacity: 0.9; font-weight: 600;">
+            此刻，我们正站在一个史无前例的财富风口上
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 权威背书 -->
+    <div style="display: flex; justify-content: center; gap: 15px; margin: 8px 0; flex-wrap: wrap; animation: fadeInUp 1s ease-out 1.2s both;">
+      <div style="text-align: center; padding: 30px; background: linear-gradient(135deg, rgba(16,185,129,0.15) 0%, rgba(16,185,129,0.08) 100%); 
+                  border-radius: 10px; border: 2px solid rgba(16,185,129,0.4); min-width: 150px; 
+                  box-shadow: 0 15px 40px rgba(16,185,129,0.2); backdrop-filter: blur(10px);">
+        <div style="color: #10b981; font-size: 1.9em; font-weight: 900; margin-bottom: 10px; text-shadow: 0 0 25px rgba(16,185,129,0.5);">3</div>
+        <div style="color: #ffffff; font-size: 0.25em; font-weight: 600;">亿级产品</div>
+      </div>
+      <div style="text-align: center; padding: 30px; background: linear-gradient(135deg, rgba(139,92,246,0.15) 0%, rgba(139,92,246,0.08) 100%); 
+                  border-radius: 10px; border: 2px solid rgba(139,92,246,0.4); min-width: 150px; 
+                  box-shadow: 0 15px 40px rgba(139,92,246,0.2); backdrop-filter: blur(10px);">
+        <div style="color: #8b5cf6; font-size: 1.9em; font-weight: 900; margin-bottom: 10px; text-shadow: 0 0 25px rgba(139,92,246,0.5);">100+</div>
+        <div style="color: #ffffff; font-size: 0.25em; font-weight: 600;">发明专利</div>
+      </div>
+      <div style="text-align: center; padding: 30px; background: linear-gradient(135deg, rgba(239,68,68,0.15) 0%, rgba(239,68,68,0.08) 100%); 
+                  border-radius: 10px; border: 2px solid rgba(239,68,68,0.4); min-width: 150px; 
+                  box-shadow: 0 15px 40px rgba(239,68,68,0.2); backdrop-filter: blur(10px);">
+        <div style="color: #ef4444; font-size: 1.9em; font-weight: 900; margin-bottom: 10px; text-shadow: 0 0 25px rgba(239,68,68,0.5);">多个</div>
+        <div style="color: #ffffff; font-size: 0.25em; font-weight: 600;">AI创新项目</div>
+      </div>
+    </div>
+    
+    <!-- 演讲者权威介绍 -->
+    <div style="text-align: center; margin-top: 50px; padding: 30px; 
+                background: linear-gradient(135deg, rgba(17,24,39,0.95) 0%, rgba(31,41,55,0.98) 100%); 
+                border-radius: 10px; border: 2px solid rgba(16,185,129,0.5); 
+                box-shadow: 0 25px 60px rgba(16,185,129,0.2); position: relative; overflow: hidden;
+                animation: fadeInUp 1s ease-out 1.5s both;">
+      
+      <div style="position: absolute; top: 0; left: 0; width: 100%; height: 4px; 
+                  background: linear-gradient(90deg, #10b981, #8b5cf6, #ef4444);"></div>
+      
+      <div style="background: linear-gradient(45deg, #10b981, #8b5cf6); -webkit-background-clip: text; 
+                  -webkit-text-fill-color: transparent; font-size: 0.2em; font-weight: 800; 
+                  text-shadow: 0 0 30px rgba(16,185,129,0.4);">
+        从0到1打造过3款亿级产品，拥有超过100项发明专利，多个AI创新项目发起人
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* 全局字体优化 */
+.reveal {
+  font-size: 28px !important;
+  line-height: 1.3 !important;
+  font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif !important;
+  background: radial-gradient(ellipse at top, #1f2937 0%, #0a0e1a 50%), #0a0e1a !important;
+}
+
+.reveal .backgrounds {
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(16,185,129,0.15) 0%, transparent 60%),
+    radial-gradient(circle at 80% 20%, rgba(139,92,246,0.15) 0%, transparent 60%),
+    radial-gradient(circle at 40% 40%, rgba(255,217,61,0.08) 0%, transparent 60%),
+    radial-gradient(circle at 60% 60%, rgba(16,185,129,0.05) 0%, transparent 70%) !important;
+}
+
+.reveal .slides {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.reveal .slides section {
+  padding: 0 !important;
+  box-sizing: border-box !important;
+        overflow: hidden !important;
+        max-height: 98vh !important;
+        max-height: 95vh !important;
+        max-height: 100vh !important;
+        overflow: hidden !important;
+        max-height: 98vh !important;
+        max-height: 95vh !important;
+        max-height: 100vh !important;
+}
+
+/* 动画效果 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float1 {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(180deg); }
+}
+
+@keyframes float2 {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(-180deg); }
+}
+
+@keyframes float3 {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-25px) rotate(90deg); }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.05); opacity: 1; }
+}
+
+@keyframes glow {
+  0%, 100% { text-shadow: 0 0 50px rgba(16,185,129,0.3); }
+  50% { text-shadow: 0 0 80px rgba(16,185,129,0.6); }
+}
+
+/* 进度条与控制按钮美化 */
+.reveal .progress {
+  height: 6px !important;
+  background: rgba(255,255,255,0.1) !important;
+}
+
+.reveal .progress span {
+  background: linear-gradient(90deg, #10b981 0%, #8b5cf6 100%) !important;
+  border-radius: 3px !important;
+}
+
+.reveal .controls button {
+  color: #10b981 !important;
+  border: 2px solid #10b981 !important;
+  backdrop-filter: blur(6px);
+  background: rgba(255,255,255,0.05) !important;
+}
+
+.reveal .controls button:hover {
+  background: rgba(16,185,129,0.15) !important;
+}
+</style>
+
+---
+## 痛点唤醒：99%的人都在做错事
+
+<div class="impact-number" style="font-size: 0.2em; margin: 4px 0;">
+  99%
+</div>
+
+<div style="text-align: center; color: #ef4444; font-size: 0.2em; font-weight: 700; margin-bottom: 40px;">
+  的人都在做错误的事情！
+</div>
+
+<div class="world-class-card">
+  <div class="highlight-text" style="font-size: 0.2em; margin-bottom: 25px; text-align: center;">
+    过去让我们焦虑的问题<br/>现在都是AI时代的商机
+  </div>
+  <div style="color: #e2e8f0; font-size: 0.2em; text-align: center; line-height: 1.3;">
+    每一个被AI放大的人性需求<br/>都是一座等待挖掘的金矿
+  </div>
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 8px 0;">
+  <div class="world-class-card" style="border: 2px solid rgba(239,68,68,0.4); text-align: center;">
+    <div style="font-size: 1.9em; margin-bottom: 20px;">❌</div>
+    <h3 style="color: #ef4444; font-size: 0.2em; margin-bottom: 20px;">不要做</h3>
+    <div style="font-size: 0.2em; color: #e2e8f0; line-height: 1.4;">
+      <div style="margin: 8px 0;">• 不要做玩具</div>
+      <div style="margin: 8px 0;">• 不要空谈想法</div>
+      <div style="margin: 8px 0;">• 不要沉迷技术</div>
+    </div>
+  </div>
+  
+  <div class="world-class-card" style="border: 2px solid rgba(16,185,129,0.4); text-align: center;">
+    <div style="font-size: 1.9em; margin-bottom: 20px;">✅</div>
+    <h3 style="color: #10b981; font-size: 0.2em; margin-bottom: 20px;">要做到</h3>
+    <div style="font-size: 0.2em; color: #e2e8f0; line-height: 1.4;">
+      <div style="margin: 8px 0;">• 抓住真正需求</div>
+      <div style="margin: 8px 0;">• 打造MVP产品</div>
+      <div style="margin: 8px 0;">• 实现商业价值</div>
+    </div>
+  </div>
+</div>
+
+<div class="world-class-card" style="text-align: center; background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(139,92,246,0.15));">
+  <div style="color: #10b981; font-size: 0.2em; font-weight: 700; margin-bottom: 20px;">
+    AI时代，人类需求指数级增长
+  </div>
+  <div style="color: #e2e8f0; font-size: 0.2em; line-height: 1.3;">
+    从基本的衣食住行，到个性化的情感陪伴、智能助手、创意生成<br/>
+    新技术不是在消灭需求，而是在放大旧痛点，创造新场景
+  </div>
+</div>
+
+---
+## 解决方案：迅速行动的三步法
+
+<div class="impact-number" style="font-size: 0.2em; margin: 4px 0;">
+  别再谈想法了！
+</div>
+
+<div style="text-align: center; color: #ef4444; font-size: 0.2em; font-weight: 700; margin-bottom: 30px;">
+  想法不落地都是空谈，我们要迅速行动！
+</div>
+
+<div class="world-class-card" style="text-align: center;">
+  <div class="highlight-text" style="font-size: 0.2em; margin-bottom: 25px;">
+    Prompt是AI时代的编程新入口
+  </div>
+  <div style="color: #e2e8f0; font-size: 0.2em;">
+    掌握它，你就拥有了AI产品的发动机
+  </div>
+</div>
+
+<div class="world-class-card">
+  <h3 style="color: #10b981; text-align: center; margin-bottom: 30px; font-size: 0.2em;">
+    锁定真需求只需简单三步
+  </h3>
+  
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 20px;">
+    <div style="text-align: center; padding: 20px 15px; background: rgba(16,185,129,0.15); border-radius: 8px; border: 2px solid rgba(16,185,129,0.4);">
+      <div style="font-size: 0.2em; margin-bottom: 12px;">👀</div>
+      <h4 style="color: #10b981; margin-bottom: 12px; font-size: 0.2em;">观察需求</h4>
+      <p style="color: #e2e8f0; font-size: 0.25em; line-height: 1.3;">
+        睁大眼睛，看看身边的人<br/>在为什么而焦虑<br/>在为什么而付费
+      </p>
+    </div>
+    <div style="text-align: center; padding: 20px 15px; background: rgba(139,92,246,0.15); border-radius: 8px; border: 2px solid rgba(139,92,246,0.4);">
+      <div style="font-size: 0.2em; margin-bottom: 12px;">💬</div>
+      <h4 style="color: #8b5cf6; margin-bottom: 12px; font-size: 0.2em;">访谈用户</h4>
+      <p style="color: #e2e8f0; font-size: 0.25em; line-height: 1.3;">
+        不要闭门造车<br/>走出去，和真实用户聊天<br/>验证你的假设
+      </p>
+    </div>
+    <div style="text-align: center; padding: 20px 15px; background: rgba(59,130,246,0.15); border-radius: 8px; border: 2px solid rgba(59,130,246,0.4);">
+      <div style="font-size: 0.2em; margin-bottom: 12px;">⚡</div>
+      <h4 style="color: #3b82f6; margin-bottom: 12px; font-size: 0.2em;">快速验证</h4>
+      <p style="color: #e2e8f0; font-size: 0.25em; line-height: 1.3;">
+        用最小成本<br/>最快速度<br/>证明想法有人买单
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="cta-section">
+  <div style="color: #e2e8f0; font-size: 0.2em; font-weight: 600; margin-bottom: 25px;">
+    高质量Prompt + OpenAI/DeepSeek API + deepneed.com.cn
+  </div>
+  <div class="impact-number" style="font-size: 0.2em; margin: 25px 0;">
+    一个晚上！
+  </div>
+  <div class="highlight-text" style="font-size: 0.2em;">
+    你的产品就可以上线，并且开始收费！
+  </div>
+  <div style="color: #e2e8f0; font-size: 0.2em; margin-top: 20px;">
+    这不是梦想，这是现实！
+  </div>
+</div>
+
+---
+## 进阶路径：系统的产品进化
+
+<div style="text-align: center; margin-bottom: 40px;">
+  <div class="highlight-text" style="font-size: 0.2em; margin-bottom: 25px;">
+    MVP只是开始
+  </div>
+  <div style="color: #e2e8f0; font-size: 0.2em;">
+    要想真正成功，你需要系统的进化路径
+  </div>
+</div>
+
+<div class="evolution-path">
+  <div class="evolution-stage">
+    <div class="evolution-icon">🎯</div>
+    <div class="evolution-title">MVP阶段</div>
+    <div class="evolution-metric">20%</div>
+    <div class="evolution-desc">
+      留存率超过20%<br/>
+      <span style="color: #10b981; font-weight: 700;">证明产品有价值</span>
+    </div>
+  </div>
+  
+  <div class="evolution-stage">
+    <div class="evolution-icon">⚡</div>
+    <div class="evolution-title">Alpha阶段</div>
+    <div class="evolution-metric">30</div>
+    <div class="evolution-desc">
+      NPS推荐指数超过30<br/>
+      <span style="color: #10b981; font-weight: 700;">用户愿意推荐你</span>
+    </div>
+  </div>
+  
+  <div class="evolution-stage">
+    <div class="evolution-icon">💰</div>
+    <div class="evolution-title">Beta阶段</div>
+    <div class="evolution-metric">5%</div>
+    <div class="evolution-desc">
+      付费转化率超过5%<br/>
+      <span style="color: #10b981; font-weight: 700;">商业模式成立</span>
+    </div>
+  </div>
+</div>
+
+<div class="cta-section">
+  <div class="highlight-text" style="font-size: 0.2em; margin-bottom: 25px;">
+    小步快跑，周更迭代，用数据说话
+  </div>
+  <div style="color: #e2e8f0; font-size: 0.2em; font-weight: 600;">
+    这是AI产品进化的不二法则
+  </div>
+  <div class="impact-number" style="font-size: 0.2em; margin: 25px 0;">
+    速度就是一切！
+  </div>
+  <div style="color: #e2e8f0; font-size: 0.2em;">
+    不要追求完美，要追求速度
+  </div>
+</div>
+
+---
+## 商业变现：最核心的问题
+
+<div style="text-align: center; margin-bottom: 40px;">
+  <div class="impact-number" style="font-size: 0.2em; margin: 6px 0;">
+    如何赚钱？
+  </div>
+</div>
+
+<div class="world-class-card" style="text-align: center;">
+  <div class="highlight-text" style="font-size: 0.2em; margin-bottom: 30px;">
+    百万价值公式
+  </div>
+  <div style="font-size: 0.2em; margin: 6px 0; color: #e2e8f0; font-weight: 700; line-height: 1.3;">
+    <span class="highlight-text">收入潜力</span> - <span style="color: #ef4444;">成本结构</span> + <span style="color: #8b5cf6;">竞争壁垒</span>
+  </div>
+  <div style="color: #e2e8f0; font-size: 0.2em; margin-top: 25px; font-weight: 600;">
+    盈利的核心只有一个：
+  </div>
+  <div style="color: #10b981; font-size: 0.2em; margin-top: 20px; font-weight: 700;">
+    AI推理成本必须远低于用户生命周期价值
+  </div>
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 8px 0;">
+  <div class="world-class-card">
+    <h3 style="color: #10b981; margin-bottom: 25px; font-size: 0.2em; text-align: center;">💡 AI产品变现模式</h3>
+    <div style="font-size: 0.2em; color: #e2e8f0; line-height: 1.5;">
+      <div style="margin: 8px 0;">• 订阅制</div>
+      <div style="margin: 8px 0;">• 增值服务</div>
+      <div style="margin: 8px 0;">• API计费</div>
+      <div style="margin: 8px 0;">• 市场分成</div>
+      <div style="margin: 8px 0;">• SaaS白标</div>
+      <div style="margin: 8px 0;">• 数据服务</div>
+    </div>
+  </div>
+  
+  <div class="world-class-card" style="text-align: center;">
+    <h3 style="color: #8b5cf6; margin-bottom: 25px; font-size: 0.2em;">💰 GPT Plus成功案例</h3>
+    <div class="metric-number" style="font-size: 0.2em; margin: 4px 0;">$20</div>
+    <div style="color: #e2e8f0; font-size: 0.25em; margin-bottom: 15px;">每月订阅费</div>
+    <div class="metric-number" style="font-size: 0.2em; margin: 4px 0;">1000万</div>
+    <div style="color: #e2e8f0; font-size: 0.25em; margin-bottom: 15px;">日活用户</div>
+    <div class="metric-number" style="font-size: 0.2em; margin: 4px 0;">$24亿</div>
+    <div style="color: #e2e8f0; font-size: 0.25em;">年收入</div>
+  </div>
+</div>
+
+<div class="world-class-card" style="text-align: center; background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(139,92,246,0.15));">
+  <div class="highlight-text" style="font-size: 0.2em; margin-bottom: 20px;">
+    赚钱的逻辑其实很简单
+  </div>
+  <div style="color: #e2e8f0; font-size: 0.2em; font-weight: 600;">
+    关键在于落地执行
+  </div>
+  <div class="impact-number" style="font-size: 0.2em; margin: 25px 0;">
+    现在就是最好的执行时机！
+  </div>
+</div>
+
+---
+## 流量获取：你自己就是最好的流量源
+
+<div style="text-align: center; margin-bottom: 70px;">
+  <div style="color: #e2e8f0; font-size: 0.2em; font-weight: 600; margin-bottom: 40px;">
+    仅有产品还不够，你还需要源源不断的流量
+  </div>
+  <div class="highlight-text" style="font-size: 3.2em; margin: 8px 0;">
+    在AI时代，你自己就是最好的流量源！
+  </div>
+</div>
+
+<div class="world-class-card">
+  <h3 style="color: #10b981; text-align: center; margin-bottom: 60px; font-size: 1.9em;">
+    流量三件套
+  </h3>
+  
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 60px; margin-top: 60px;">
+    <div style="text-align: center; padding: 50px 40px; background: rgba(16,185,129,0.15); border-radius: 28px; border: 2px solid rgba(16,185,129,0.4);">
+      <div style="font-size: 5em; margin-bottom: 30px;">📱</div>
+      <h4 style="color: #10b981; margin-bottom: 25px; font-size: 0.2em;">短视频</h4>
+      <p style="color: #e2e8f0; font-size: 0.2em;">
+        内容即流量<br/>价值即传播
+      </p>
+    </div>
+    <div style="text-align: center; padding: 50px 40px; background: rgba(139,92,246,0.15); border-radius: 28px; border: 2px solid rgba(139,92,246,0.4);">
+      <div style="font-size: 5em; margin-bottom: 30px;">👥</div>
+      <h4 style="color: #8b5cf6; margin-bottom: 25px; font-size: 0.2em;">社群</h4>
+      <p style="color: #e2e8f0; font-size: 0.2em;">
+        深度连接<br/>精准转化
+      </p>
+    </div>
+    <div style="text-align: center; padding: 50px 40px; background: rgba(59,130,246,0.15); border-radius: 28px; border: 2px solid rgba(59,130,246,0.4);">
+      <div style="font-size: 5em; margin-bottom: 30px;">🤖</div>
+      <h4 style="color: #3b82f6; margin-bottom: 25px; font-size: 0.2em;">自动化营销</h4>
+      <p style="color: #e2e8f0; font-size: 0.2em;">
+        规模化运营<br/>持续增长
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="world-class-card" style="text-align: center;">
+  <div style="color: #e2e8f0; font-size: 0.2em; font-weight: 600; margin-bottom: 40px;">
+    做好个人IP，你必须回答三个问题：
+  </div>
+  <div style="font-size: 0.2em; color: #10b981; line-height: 1.8; margin: 8px 0;">
+    <div style="margin: 6px 0;">我解决谁的什么问题？</div>
+    <div style="margin: 6px 0;">凭什么是我来解决？</div>
+    <div style="margin: 6px 0;">如何长期保持趣味与价值？</div>
+  </div>
+  <div class="highlight-text" style="font-size: 0.2em; margin: 8px 0;">
+    风格 × 能力 × 持续输出 = 个人品牌成功
+  </div>
+  <div style="color: #e2e8f0; font-size: 0.2em; font-weight: 700;">
+    在AI时代，个人品牌就是你最大的护城河！
+  </div>
+</div>
+
+---
+## 成功案例1：Cal AI - 高中生的百万奇迹
+
+<div class="case-study">
+  <div class="case-title">两个美国高中生的百万奇迹</div>
+  
+  <div style="text-align: center; margin: 8px 0;">
+    <div style="color: #10b981; font-size: 0.2em; font-weight: 800; margin-bottom: 30px;">
+      Cal AI - 拍照识别卡路里应用
+    </div>
+    <div style="color: #e2e8f0; font-size: 0.2em;">
+      简单一拍，智能识别食物卡路里
+    </div>
+  </div>
+  
+  <div class="case-metrics">
+    <div class="case-metric">
+      <div class="case-metric-number">8个月</div>
+      <div class="case-metric-label">开发周期</div>
+    </div>
+    <div class="case-metric">
+      <div class="case-metric-number">500万</div>
+      <div class="case-metric-label">下载量</div>
+    </div>
+    <div class="case-metric">
+      <div class="case-metric-number">$100万</div>
+      <div class="case-metric-label">月收入</div>
+    </div>
+  </div>
+  
+  <div class="world-class-card" style="margin: 60px 0;">
+    <h3 style="color: #10b981; text-align: center; margin-bottom: 40px; font-size: 0.2em;">成功秘诀</h3>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
+      <div style="text-align: center;">
+        <div style="font-size: 1.9em; margin-bottom: 20px;">🎯</div>
+        <h4 style="color: #10b981; margin-bottom: 15px;">抓住刚需痛点</h4>
+        <p style="color: #e2e8f0; font-size: 0.2em;">健康管理是永恒需求</p>
+      </div>
+      <div style="text-align: center;">
+        <div style="font-size: 1.9em; margin-bottom: 20px;">⚡</div>
+        <h4 style="color: #8b5cf6; margin-bottom: 15px;">极简体验</h4>
+        <p style="color: #e2e8f0; font-size: 0.2em;">拍照即可，无需复杂操作</p>
+      </div>
+      <div style="text-align: center;">
+        <div style="font-size: 1.9em; margin-bottom: 20px;">🚀</div>
+        <h4 style="color: #3b82f6; margin-bottom: 15px;">快速验证</h4>
+        <p style="color: #e2e8f0; font-size: 0.2em;">小团队也能创造奇迹</p>
+      </div>
+    </div>
+  </div>
+  
+  <div style="text-align: center;">
+    <div class="highlight-text" style="font-size: 1.9em;">
+      这就是AI时代的魅力！
+    </div>
+  </div>
+</div>
+
+---
+## 成功案例2：90亿估值的Cursor AI奇迹
+
+<div class="case-study">
+  <div class="case-title">专业垂直市场的巨大价值</div>
+  
+  <div style="text-align: center; margin: 6px 0;">
+    <div style="color: #8b5cf6; font-size: 0.2em; font-weight: 700; margin-bottom: 20px;">
+      首年收入破1亿美元，估值90亿美元
+    </div>
+  </div>
+  
+  <div class="case-metrics">
+    <div class="case-metric">
+      <div class="case-metric-number">$1亿</div>
+      <div class="case-metric-label">首年收入</div>
+    </div>
+    <div class="case-metric">
+      <div class="case-metric-number">$90亿</div>
+      <div class="case-metric-label">估值</div>
+    </div>
+    <div class="case-metric">
+      <div class="case-metric-number">36万</div>
+      <div class="case-metric-label">开发者用户</div>
+    </div>
+  </div>
+  
+  <div style="text-align: center; margin: 6px 0;">
+    <div class="impact-number" style="font-size: 0.2em; margin: 4px 0;">
+      1亿美元！90亿估值！
+    </div>
+    <div style="color: #e2e8f0; font-size: 0.2em; font-weight: 600;">
+      这不是童话，这是现实！
+    </div>
+  </div>
+  
+  <div class="world-class-card" style="margin: 6px 0;">
+    <h3 style="color: #8b5cf6; text-align: center; margin-bottom: 25px; font-size: 0.2em;">成功秘诀</h3>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px;">
+      <div style="text-align: center;">
+        <div style="font-size: 0.2em; margin-bottom: 15px;">🎯</div>
+        <h4 style="color: #8b5cf6; margin-bottom: 10px; font-size: 0.2em;">垂直深耕</h4>
+        <p style="color: #e2e8f0; font-size: 0.25em;">精准锁定程序员群体核心痛点</p>
+      </div>
+      <div style="text-align: center;">
+        <div style="font-size: 0.2em; margin-bottom: 15px;">🚀</div>
+        <h4 style="color: #10b981; margin-bottom: 10px; font-size: 0.2em;">产品驱动</h4>
+        <p style="color: #e2e8f0; font-size: 0.25em;">PLG模式，让产品自己说话</p>
+      </div>
+      <div style="text-align: center;">
+        <div style="font-size: 0.2em; margin-bottom: 15px;">👥</div>
+        <h4 style="color: #3b82f6; margin-bottom: 10px; font-size: 0.2em;">社区力量</h4>
+        <p style="color: #e2e8f0; font-size: 0.25em;">口碑传播带来指数级增长</p>
+      </div>
+    </div>
+  </div>
+  
+  <div style="text-align: center;">
+    <div class="highlight-text" style="font-size: 0.2em;">
+      专业的垂直市场，蕴藏着巨大的商业价值！
+    </div>
+  </div>
+</div>
+
+---
+## 成功案例3：Remini AI - 情感需求的爆发力
+
+<div class="case-study">
+  <div class="case-title">情感需求的爆发力量</div>
+  
+  <div style="text-align: center; margin: 6px 0;">
+    <div style="color: #ef4444; font-size: 0.2em; font-weight: 700; margin-bottom: 20px;">
+      两周时间，全球收入700万美元
+    </div>
+  </div>
+  
+  <div class="case-metrics">
+    <div class="case-metric">
+      <div class="case-metric-number">2周</div>
+      <div class="case-metric-label">爆发周期</div>
+    </div>
+    <div class="case-metric">
+      <div class="case-metric-number">$700万</div>
+      <div class="case-metric-label">全球收入</div>
+    </div>
+    <div class="case-metric">
+      <div class="case-metric-number">4000万</div>
+      <div class="case-metric-label">下载量</div>
+    </div>
+  </div>
+  
+  <div style="text-align: center; margin: 60px 0;">
+    <div class="impact-number" style="font-size: 3.8em; margin: 8px 0;">
+      两周！700万美元！
+    </div>
+    <div style="color: #ef4444; font-size: 0.2em; font-weight: 700;">
+      这就是情感需求的爆发力！
+    </div>
+  </div>
+  
+  <div class="world-class-card" style="margin: 60px 0;">
+    <h3 style="color: #ef4444; text-align: center; margin-bottom: 40px; font-size: 0.2em;">成功秘诀</h3>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
+      <div style="text-align: center;">
+        <div style="font-size: 1.9em; margin-bottom: 20px;">❤️</div>
+        <h4 style="color: #ef4444; margin-bottom: 15px;">情感需求</h4>
+        <p style="color: #e2e8f0; font-size: 0.2em;">用户愿意为情感类产品付费</p>
+      </div>
+      <div style="text-align: center;">
+        <div style="font-size: 1.9em; margin-bottom: 20px;">📱</div>
+        <h4 style="color: #10b981; margin-bottom: 15px;">社交传播</h4>
+        <p style="color: #e2e8f0; font-size: 0.2em;">视觉冲击力带来自发裂变</p>
+      </div>
+      <div style="text-align: center;">
+        <div style="font-size: 1.9em; margin-bottom: 20px;">💰</div>
+        <h4 style="color: #8b5cf6; margin-bottom: 15px;">变现模式</h4>
+        <p style="color: #e2e8f0; font-size: 0.2em;">Freemium加高频消费完美结合</p>
+      </div>
+    </div>
+  </div>
+  
+  <div style="text-align: center;">
+    <div class="highlight-text" style="font-size: 1.9em;">
+      三个案例，三种路径，但都指向同一个真理：<br/>AI时代，机会无处不在！
+    </div>
+  </div>
+</div>
+
+---
+## 行动号召：AI时代的财富列车已启动
+
+<div style="text-align: center; margin-bottom: 80px;">
+  <div style="color: #e2e8f0; font-size: 0.2em; font-weight: 600; margin-bottom: 50px;">
+    让我们回顾今天的核心要点：
+  </div>
+  <div style="font-size: 0.2em; color: #10b981; line-height: 1.8; margin: 8px 0;">
+    <div style="margin: 6px 0;">• 人类需求指数级增长！</div>
+    <div style="margin: 6px 0;">• AI大幅降低满足需求的成本！</div>
+    <div style="margin: 6px 0;">• 此刻就是红利期，普通人也能抓住百万级商机！</div>
+  </div>
+  <div class="impact-number" style="font-size: 3.2em; margin: 8px 0;">
+    但是，知道不等于做到！
+  </div>
+</div>
+
+<div class="cta-section">
+  <div class="cta-title">
+    AI百万应用创新社群
+  </div>
+  
+  <div class="cta-benefits">
+    <div class="cta-benefit">
+      <div class="cta-benefit-icon">🎯</div>
+      <div class="cta-benefit-title">365天专有信息</div>
+      <div class="cta-benefit-desc">
+        AI全大佬人脉及投资人资源<br/>
+        第一手行业内幕和机会
+      </div>
+    </div>
+    <div class="cta-benefit">
+      <div class="cta-benefit-icon">🚀</div>
+      <div class="cta-benefit-title">线上创新营</div>
+      <div class="cta-benefit-desc">
+        手把手辅导，从需求挖掘到MVP开发<br/>
+        再到商业落地的全流程指导
+      </div>
+    </div>
+    <div class="cta-benefit">
+      <div class="cta-benefit-icon">💎</div>
+      <div class="cta-benefit-title">独家资源包</div>
+      <div class="cta-benefit-desc">
+        私享Prompt模板库<br/>
+        API沙箱额度
+      </div>
+    </div>
+  </div>
+  
+  <div style="margin: 8px 0;">
+    <div class="highlight-text" style="font-size: 0.2em; margin-bottom: 25px;">
+      扫码进入社群
+    </div>
+    <div style="color: #e2e8f0; font-size: 0.2em; font-weight: 600; margin-bottom: 20px;">
+      让你的名字出现在下一个经典案例中！
+    </div>
+    <div style="background: linear-gradient(135deg, rgba(239,68,68,0.2), rgba(16,185,129,0.2)); padding: 25px; border-radius: 10px; border: 2px solid rgba(239,68,68,0.5);">
+      <div style="color: #ef4444; font-size: 0.2em; font-weight: 700; margin-bottom: 15px;">
+        前100名享受专属优惠！
+      </div>
+      <div style="color: #ffffff; font-size: 0.2em;">
+        机会稍纵即逝！
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="text-align: center; margin-top: 40px;">
+  <div class="impact-number" style="font-size: 1.9em; margin: 6px 0;">
+    AI时代的财富列车已经启动！
+  </div>
+  <div class="highlight-text" style="font-size: 0.2em; margin: 25px 0;">
+    祝愿大家今晚就动手<br/>
+    拥抱AI，成就更美好的自己！
+  </div>
+  <div style="color: #e2e8f0; font-size: 0.2em; font-weight: 600; margin-top: 30px;">
+    谢谢大家！
+  </div>
+</div>
+
+          </textarea>
+        </section>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/reveal.js@4/dist/reveal.js"></script>
+    <script src="https://unpkg.com/reveal.js@4/plugin/notes/notes.js"></script>
+    <script src="https://unpkg.com/reveal.js@4/plugin/markdown/markdown.js"></script>
+    <script src="https://unpkg.com/reveal.js@4/plugin/highlight/highlight.js"></script>
+    <script>
+      Reveal.initialize({
+        hash: true,
+        transition: 'fade',
+        transitionSpeed: 'slow',
+        backgroundTransition: 'fade',
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+        markdown: {
+          smartypants: true
+        }
+      });
+    </script>
+  </body>
+</html>

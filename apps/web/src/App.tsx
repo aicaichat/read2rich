@@ -21,6 +21,8 @@ import CourseDetailPage from './pages/CourseDetailPage';
 import CourseLearningPage from './pages/CourseLearningPage';
 import AIRankingPage from './pages/AIRankingPage';
 import AIAppDetailPage from './pages/AIAppDetailPage';
+import PPTTestPage from './pages/PPTTestPage';
+import FullscreenTestPage from './pages/FullscreenTestPage';
 
 // Admin Pages
 import AdminDashboard from './pages/AdminDashboard';
@@ -154,6 +156,14 @@ function App() {
                   </main>
                 </>
               } />
+              <Route path="/fullscreen-test" element={
+                <>
+                  <Navbar />
+                  <main className="relative z-10">
+                    <FullscreenTestPage />
+                  </main>
+                </>
+              } />
               <Route path="/test-prompt-integration" element={
                 <>
                   <Navbar />
@@ -199,6 +209,14 @@ function App() {
                   <Navbar />
                   <main className="relative z-10">
                     <AIRankingPage />
+                  </main>
+                </>
+              } />
+              <Route path="/ppt-test" element={
+                <>
+                  <Navbar />
+                  <main className="relative z-10">
+                    <PPTTestPage />
                   </main>
                 </>
               } />

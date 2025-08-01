@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>价值百万的AI应用公开课 - DeepNeed</title>
+    <link rel="shortcut icon" href="./_static/favicon.ico" />
+    <link rel="stylesheet" href="https://unpkg.com/reveal.js@4/dist/reset.css" />
+    <link rel="stylesheet" href="https://unpkg.com/reveal.js@4/dist/reveal.css" />
+    <link rel="stylesheet" href="https://unpkg.com/reveal.js@4/dist/theme/night.css" id="theme" />
+    <link rel="stylesheet" href="https://unpkg.com/reveal.js@4/plugin/highlight/monokai.css" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section data-markdown data-separator="\r?\n---\r?\n" data-separator-vertical="\r?\n----\r?\n">
+          <textarea data-template>
+            
+# <span style="background: linear-gradient(135deg, #10b981, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 40px rgba(16, 185, 129, 0.7); letter-spacing: 2px; font-weight: 800;">价值百万的AI应用公开课</span>
+## <span style="color: #e5e7eb; text-shadow: 0 0 20px rgba(229, 231, 235, 0.3);">怎样才能抓住AI红利
+
+<div class="" style="background: linear-gradient(135deg, rgba(17,24,39,0.8) 0%, rgba(31,41,55,0.9) 100%); padding: 30px; border-radius: 20px; margin-top: 40px; border: 1px solid rgba(16,185,129,0.3); box-shadow: 0 20px 60px rgba(0,0,0,0.3); position: relative; overflow: hidden; backdrop-filter: blur(20px);">
+<div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(45deg, transparent 30%, rgba(16, 185, 129, 0.1) 50%, transparent 70%); animation: shimmer 3s infinite;"></div>
+<div style="position: relative; z-index: 2; text-align: center;">
+<span style="background: linear-gradient(45deg, #10b981, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 0.8em;">⭐ DeepNeed 独家呈现 🚀</span><br/>
+<span style="color: #ffffff; font-size: 1.2em; margin-top: 20px; display: block;">如果你曾错过房地产、互联网、出海、直播<br/>这一次绝不能再错过AI！</span>
+</div>
+</div>
+
+<style>
+/* 全局字体优化 */
+.reveal {
+  font-size: 28px !important;
+  line-height: 1.5 !important;
+  font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif !important;
+  background: radial-gradient(ellipse at top, #1f2937 0%, #0a0e1a 50%), #0a0e1a !important;
+}
+.reveal .backgrounds {
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(16,185,129,0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(139,92,246,0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(255,217,61,0.05) 0%, transparent 50%) !important;
+}
+.reveal .slides {
+  width: 100% !important;
+  height: 100% !important;
+}
+.reveal .slides section {
+  padding: 30px 40px !important;
+  box-sizing: border-box !important;
+}
+.reveal h1 {
+  font-size: 2.0em !important;
+  line-height: 1.2 !important;
+  margin-bottom: 0.6em !important;
+  font-weight: 800 !important;
+}
+.reveal h2 {
+  font-size: 1.4em !important;
+  line-height: 1.3 !important;
+  margin-bottom: 0.5em !important;
+  font-weight: 700 !important;
+  color: #e5e7eb !important;
+}
+.reveal h3 {
+  font-size: 1.1em !important;
+  line-height: 1.3 !important;
+  margin-bottom: 0.4em !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+}
+.reveal h4 {
+  font-size: 0.95em !important;
+  line-height: 1.3 !important;
+  margin-bottom: 0.3em !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+}
+.reveal p {
+  font-size: 0.8em !important;
+  line-height: 1.5 !important;
+  margin-bottom: 0.6em !important;
+  color: #9ca3af !important;
+}
+.reveal li {
+  font-size: 0.75em !important;
+  line-height: 1.4 !important;
+  margin-bottom: 0.25em !important;
+  color: #9ca3af !important;
+}
+.reveal td, .reveal th {
+  font-size: 0.7em !important;
+  padding: 6px 10px !important;
+  line-height: 1.3 !important;
+}
+.reveal strong {
+  font-weight: 600 !important;
+  color: #10b981 !important;
+}
+
+/* 卡片样式 */
+.card-modern {
+  background: linear-gradient(135deg, rgba(17,24,39,0.8) 0%, rgba(31,41,55,0.9) 100%);
+  border-radius: 16px;
+  border: 1px solid rgba(16,185,129,0.3);
+  box-shadow: 0 10px 30px rgba(16,185,129,0.15);
+  backdrop-filter: blur(20px);
+  /* 移除过渡动画 */
+}
+
+/* 移除悬停动画，保持简洁 */
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+/* 移除不必要的动画关键帧，保持简洁 */
+
+/* 进度条与控制按钮美化 */
+.reveal .progress {
+  height: 6px !important;
+  background: rgba(255,255,255,0.1) !important;
+}
+.reveal .progress span {
+  background: linear-gradient(90deg, #10b981 0%, #8b5cf6 100%) !important;
+  border-radius: 3px !important;
+}
+.reveal .controls button {
+  color: #10b981 !important;
+  border: 2px solid #10b981 !important;
+  backdrop-filter: blur(6px);
+  /* 移除按钮过渡动画 */
+  background: rgba(255,255,255,0.05) !important;
+}
+.reveal .controls button:hover {
+  background: rgba(16,185,129,0.15) !important;
+  /* 移除缩放和阴影动画 */
+}
+
+/* 高亮样式 */
+.highlight {
+  background: linear-gradient(135deg, #10b981, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+
+.highlight-bg {
+  background: linear-gradient(135deg, rgba(16,185,129,0.2), rgba(139,92,246,0.2));
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(16,185,129,0.3);
+  backdrop-filter: blur(10px);
+}
+</style>
+
+---
+## <span style="color: #10b981;">🚫</span> 两个不要，三个要！
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 25px 0; max-width: 900px; margin-left: auto; margin-right: auto;">
+  <div class="card-modern fragment fade-in" style="padding: 30px; min-height: 160px;">
+    <h3 style="color: #ef4444; margin-bottom: 20px;">❌ 不要做</h3>
+    <ul style="list-style: none; padding: 0;">
+      <li style="margin: 15px 0; font-size: 0.9em; color: #ffffff;"><span style="color: #ef4444; margin-right: 8px;">▸</span>不要做玩具</li>
+      <li style="margin: 15px 0; font-size: 0.9em; color: #ffffff;"><span style="color: #ef4444; margin-right: 8px;">▸</span>不要空谈想法</li>
+    </ul>
+  </div>
+  
+  <div class="card-modern fragment fade-in" style="padding: 30px; min-height: 160px;">
+    <h3 style="color: #10b981; margin-bottom: 20px;">✅ 要做到</h3>
+    <ul style="list-style: none; padding: 0;">
+      <li style="margin: 15px 0; font-size: 0.9em; color: #ffffff;"><span style="color: #10b981; margin-right: 8px;">▸</span>要抓住真需求</li>
+      <li style="margin: 15px 0; font-size: 0.9em; color: #ffffff;"><span style="color: #10b981; margin-right: 8px;">▸</span>要打造MVP</li>
+      <li style="margin: 15px 0; font-size: 0.9em; color: #ffffff;"><span style="color: #10b981; margin-right: 8px;">▸</span>要实现商业价值</li>
+    </ul>
+  </div>
+</div>
+
+<div class="fragment fade-up highlight-bg" style="margin-top: 40px; text-align: center;">
+<strong style="color: #ffffff; font-size: 1.1em;">AI时代，人类需求指数级增长</strong><br/>
+<span style="color: #9ca3af;">个性化、情感化需求大量涌现，新技术放大旧痛点</span>
+</div>
+
+---
+## <span style="color: #10b981;">💡</span> 别再谈想法，把想法快速变成MVP
+
+<div class="card-modern fragment fade-in" style="padding: 40px; margin: 30px 0;">
+<h3 style="color: #10b981; margin-bottom: 30px;">锁定真需求只需简单三步：</h3>
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 30px;">
+  <div style="text-align: center;">
+    <div style="font-size: 3em; margin-bottom: 15px;">👀</div>
+    <h4 style="color: #ffffff; margin-bottom: 10px;">观察需求</h4>
+    <p style="color: #9ca3af; font-size: 0.8em;">发现用户痛点</p>
+  </div>
+  <div style="text-align: center;">
+    <div style="font-size: 3em; margin-bottom: 15px;">💬</div>
+    <h4 style="color: #ffffff; margin-bottom: 10px;">访谈用户</h4>
+    <p style="color: #9ca3af; font-size: 0.8em;">验证需求真实性</p>
+  </div>
+  <div style="text-align: center;">
+    <div style="font-size: 3em; margin-bottom: 15px;">⚡</div>
+    <h4 style="color: #ffffff; margin-bottom: 10px;">快速验证</h4>
+    <p style="color: #9ca3af; font-size: 0.8em;">MVP快速上线</p>
+  </div>
+</div>
+</div>
+
+<div class="fragment fade-up highlight-bg" style="margin-top: 40px; text-align: center;">
+<strong style="color: #ffffff; font-size: 1.1em;">利用高质量Prompt + API调用 + deepneed.com.cn</strong><br/>
+<span style="color: #9ca3af;">一个晚上你的产品即可上线并开始收费！</span><br/>
+<span class="highlight" style="font-size: 1.2em; margin-top: 15px; display: block;">Prompt是AI时代的编程新入口</span>
+</div>
+
+---
+## <span style="color: #10b981;">🚀</span> 将MVP升级为真正产品
+
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin: 25px 0; max-width: 900px; margin-left: auto; margin-right: auto;">
+  <div class="card-modern " style="padding: 30px; text-align: center; min-height: 180px;">
+    <div style="font-size: 2.5em; color: #10b981; margin-bottom: 15px;">MVP</div>
+    <h4 style="color: #ffffff; margin-bottom: 10px;">验证核心假设</h4>
+    <div style="color: #10b981; font-weight: 600; font-size: 1.2em;">留存率>20%</div>
+  </div>
+  
+  <div class="card-modern " style="padding: 30px; text-align: center; min-height: 180px;">
+    <div style="font-size: 2.5em; color: #8b5cf6; margin-bottom: 15px;">Alpha</div>
+    <h4 style="color: #ffffff; margin-bottom: 10px;">打磨核心功能</h4>
+    <div style="color: #8b5cf6; font-weight: 600; font-size: 1.2em;">NPS>30</div>
+  </div>
+  
+  <div class="card-modern " style="padding: 30px; text-align: center; min-height: 180px;">
+    <div style="font-size: 2.5em; color: #06b6d4; margin-bottom: 15px;">Beta</div>
+    <h4 style="color: #ffffff; margin-bottom: 10px;">自动化测试</h4>
+    <div style="color: #06b6d4; font-weight: 600; font-size: 1.2em;">转化率>5%</div>
+  </div>
+</div>
+
+<div class="fragment fade-up highlight-bg" style="margin-top: 40px; text-align: center;">
+<strong style="color: #ffffff; font-size: 1.1em;">小步快跑，周更迭代，用数据说话</strong><br/>
+<span style="color: #9ca3af;">这是AI产品进化的不二法则</span>
+</div>
+
+---
+## <span style="color: #10b981;">💰</span> 从产品到真正商业
+
+<div class="card-modern fragment fade-in" style="padding: 40px; margin: 30px 0; text-align: center;">
+<h3 style="color: #10b981; margin-bottom: 30px;">百万价值公式</h3>
+<div style="font-size: 1.5em; margin: 30px 0;">
+  <span class="highlight">收入潜力</span> - <span style="color: #ef4444;">成本结构</span> + <span style="color: #8b5cf6;">竞争壁垒</span>
+</div>
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 30px 0;">
+  <div class="">
+    <h3 style="color: #10b981;">💡 变现模式</h3>
+    <ul style="list-style: none; padding: 0;">
+      <li style="margin: 10px 0; color: #ffffff;"><span style="color: #10b981; margin-right: 8px;">▸</span>订阅制</li>
+      <li style="margin: 10px 0; color: #ffffff;"><span style="color: #10b981; margin-right: 8px;">▸</span>增值服务</li>
+      <li style="margin: 10px 0; color: #ffffff;"><span style="color: #10b981; margin-right: 8px;">▸</span>API计费</li>
+      <li style="margin: 10px 0; color: #ffffff;"><span style="color: #10b981; margin-right: 8px;">▸</span>市场分成</li>
+      <li style="margin: 10px 0; color: #ffffff;"><span style="color: #10b981; margin-right: 8px;">▸</span>SaaS白标</li>
+      <li style="margin: 10px 0; color: #ffffff;"><span style="color: #10b981; margin-right: 8px;">▸</span>数据服务</li>
+    </ul>
+  </div>
+  
+  <div class="card-modern fragment fade-in" style="padding: 30px; text-align: center;">
+    <div style="font-size: 1.2em; margin-bottom: 20px; color: #ffffff;">GPT Plus案例</div>
+    <div style="font-size: 2.5em; font-weight: 700; color: #10b981; margin-bottom: 10px;">$24亿</div>
+    <div style="color: #9ca3af; font-size: 0.9em;">年收入（1000万日活×$20/月）</div>
+  </div>
+</div>
+
+---
+## <span style="color: #10b981;">📈</span> 给商业插上流量的翅膀
+
+<div class="card-modern fragment fade-in" style="padding: 40px; margin: 30px 0;">
+<h3 style="color: #10b981; margin-bottom: 30px;">流量三件套</h3>
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 30px;">
+  <div style="text-align: center;">
+    <div style="font-size: 3em; margin-bottom: 15px;">📱</div>
+    <div class="highlight">短视频</div>
+  </div>
+  <div style="text-align: center;">
+    <div style="font-size: 3em; margin-bottom: 15px;">👥</div>
+    <div class="highlight">社群</div>
+  </div>
+  <div style="text-align: center;">
+    <div style="font-size: 3em; margin-bottom: 15px;">🤖</div>
+    <div class="highlight">自动化营销</div>
+  </div>
+</div>
+</div>
+
+<div class="fragment fade-up highlight-bg" style="margin-top: 40px;">
+<h3 style="margin-bottom: 20px; color: #ffffff;">个人IP三问：</h3>
+<ul style="list-style: none; padding: 0;">
+  <li style="margin: 15px 0; color: #ffffff;"><span style="color: #10b981; margin-right: 8px;">▸</span>我解决谁的什么问题？</li>
+  <li style="margin: 15px 0; color: #ffffff;"><span style="color: #10b981; margin-right: 8px;">▸</span>凭什么是我来解决？</li>
+  <li style="margin: 15px 0; color: #ffffff;"><span style="color: #10b981; margin-right: 8px;">▸</span>如何长期保持趣味与价值？</li>
+</ul>
+<div style="text-align: center; margin-top: 20px;">
+  <span class="highlight" style="font-size: 1.2em;">风格 × 能力 × 持续输出 = 个人品牌成功</span>
+</div>
+</div>
+
+---
+## <span style="color: #10b981;">📊</span> 案例1：Cal AI 拍照识别卡路里
+
+<div class="card-modern fragment fade-in" style="padding: 40px; margin: 30px 0;">
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+  <div>
+    <h3 style="color: #10b981; margin-bottom: 20px;">项目概况</h3>
+    <ul style="list-style: none; padding: 0;">
+      <li style="margin: 15px 0; color: #ffffff;"><span style="color: #10b981; margin-right: 8px;">▸</span><strong>开发者：</strong>两位美国高中生</li>
+      <li style="margin: 15px 0; color: #ffffff;"><span style="color: #10b981; margin-right: 8px;">▸</span><strong>功能：</strong>拍食物照片AI识别热量</li>
+      <li style="margin: 15px 0; color: #ffffff;"><span style="color: #10b981; margin-right: 8px;">▸</span><strong>时间：</strong>8个月</li>
+    </ul>
+  </div>
+  <div style="text-align: center;">
+    <div style="font-size: 2.5em; font-weight: 700; color: #10b981; margin-bottom: 10px;">500万</div>
+    <div style="color: #9ca3af; margin-bottom: 20px;">下载量</div>
+    <div style="font-size: 2em; font-weight: 700; color: #8b5cf6; margin-bottom: 10px;">$100万+</div>
+    <div style="color: #9ca3af;">月收入</div>
+  </div>
+</div>
+</div>
+
+<div class="fragment fade-up highlight-bg" style="margin-top: 40px;">
+<h3 style="color: #ffffff; margin-bottom: 20px;">关键启示</h3>
+<ul style="list-style: none; padding: 0;">
+  <li style="margin: 15px 0; color: #ffffff;"><span style="color: #10b981; margin-right: 8px;">▸</span>抓住用户刚需，简化操作体验</li>
+  <li style="margin: 15px 0; color: #ffffff;"><span style="color: #10b981; margin-right: 8px;">▸</span>微型团队高效执行，迅速市场验证</li>
+  <li style="margin: 15px 0; color: #ffffff;"><span style="color: #10b981; margin-right: 8px;">▸</span>Freemium模式精妙运用</li>
+</ul>
+</div>
+
+---
+## <span style="color: #10b981;">💻</span> 案例2：Cursor AI 程序员效率工具
+
+<div class="card-modern fragment fade-in" style="padding: 40px; margin: 30px 0;">
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+  <div>
+    <h3 style="color: #10b981; margin-bottom: 20px;">项目数据</h3>
+    <ul style="list-style: none; padding: 0;">
+      <li style="margin: 15px 0; color: #ffffff;"><span style="color: #10b981; margin-right: 8px;">▸</span><strong>定位：</strong>AI辅助编程工具</li>
+      <li style="margin: 15px 0; color: #ffffff;"><span style="color: #10b981; margin-right: 8px;">▸</span><strong>用户：</strong>36万+程序员</li>
+      <li style="margin: 15px 0; color: #ffffff;"><span style="color: #10b981; margin-right: 8px;">▸</span><strong>模式：</strong>Freemium + PLG</li>
+    </ul>
+  </div>
+  <div style="text-align: center;">
+    <div style="font-size: 2.5em; font-weight: 700; color: #10b981; margin-bottom: 10px;">$1亿</div>
+    <div style="color: #9ca3af; margin-bottom: 20px;">首年收入</div>
+    <div style="font-size: 2em; font-weight: 700; color: #8b5cf6; margin-bottom: 10px;">$90亿</div>
+    <div style="color: #9ca3af;">估值</div>
+  </div>
+</div>
+</div>
+
+<div class="fragment fade-up highlight-bg" style="margin-top: 40px;">
+<h3 style="color: #ffffff; margin-bottom: 20px;">关键启示</h3>
+<ul style="list-style: none; padding: 0;">
+  <li style="margin: 15px 0; color: #ffffff;"><span style="color: #10b981; margin-right: 8px;">▸</span>精准锁定垂直群体核心痛点</li>
+  <li style="margin: 15px 0; color: #ffffff;"><span style="color: #10b981; margin-right: 8px;">▸</span>产品主导增长（PLG），口碑传播</li>
+  <li style="margin: 15px 0; color: #ffffff;"><span style="color: #10b981; margin-right: 8px;">▸</span>社区驱动，迅速扩散</li>
+</ul>
+</div>
+
+---
+## <span style="color: #10b981;">📸</span> 案例3：Remini AI 写真爆款
+
+<div class="card-modern fragment fade-in" style="padding: 40px; margin: 30px 0;">
+<div style="text-align: center; margin-bottom: 30px;">
+  <div class="highlight" style="font-size: 1.4em;">上传几张旧照，AI修复生成写真</div>
+  <div style="margin-top: 15px; font-size: 1.1em; color: #ffffff;">海外两周收入过700万美元！</div>
+</div>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+  <div>
+    <h3 style="color: #10b981; margin-bottom: 20px;">核心数据</h3>
+    <ul style="list-style: none; padding: 0;">
+      <li style="margin: 15px 0; color: #ffffff;"><span style="color: #10b981; margin-right: 8px;">▸</span><strong>功能：</strong>AI写真 + Baby AI预测</li>
+      <li style="margin: 15px 0; color: #ffffff;"><span style="color: #10b981; margin-right: 8px;">▸</span><strong>下载：</strong>4000万次（2周）</li>
+      <li style="margin: 15px 0; color: #ffffff;"><span style="color: #10b981; margin-right: 8px;">▸</span><strong>收入：</strong>$1143万（应用内购）</li>
+      <li style="margin: 15px 0; color: #ffffff;"><span style="color: #10b981; margin-right: 8px;">▸</span><strong>年收入：</strong>$1.2亿</li>
+    </ul>
+  </div>
+  <div class="highlight-bg">
+    <h3 style="color: #ffffff; margin-bottom: 20px;">关键启示</h3>
+    <ul style="list-style: none; padding: 0;">
+      <li style="margin: 15px 0; color: #ffffff;"><span style="color: #10b981; margin-right: 8px;">▸</span>洞察情感与娱乐需求</li>
+      <li style="margin: 15px 0; color: #ffffff;"><span style="color: #10b981; margin-right: 8px;">▸</span>功能爆点极强，传播快</li>
+      <li style="margin: 15px 0; color: #ffffff;"><span style="color: #10b981; margin-right: 8px;">▸</span>Freemium + 高频消费</li>
+    </ul>
+  </div>
+</div>
+</div>
+
+---
+## <span style="color: #10b981;">🎯</span> 总结 & 行动号召
+
+<div class="card-modern fragment fade-in" style="padding: 40px; margin: 30px 0;">
+<h3 style="text-align: center; margin-bottom: 30px; color: #10b981;">今天的核心要点</h3>
+<ul style="list-style: none; padding: 0; font-size: 1.1em;">
+  <li style="margin: 20px 0; color: #ffffff;"><span style="color: #10b981; margin-right: 8px;">▸</span>人类需求指数级增长</li>
+  <li style="margin: 20px 0; color: #ffffff;"><span style="color: #10b981; margin-right: 8px;">▸</span>AI大幅降低满足需求的成本</li>
+  <li style="margin: 20px 0; color: #ffffff;"><span style="color: #10b981; margin-right: 8px;">▸</span>此刻就是红利期，普通人也能抓住百万商机</li>
+</ul>
+</div>
+
+<div class="fragment fade-up highlight-bg" style="margin-top: 40px; text-align: center;">
+<h3 style="color: #ffffff; margin-bottom: 30px;">🚀 加入"百万应用创造营"</h3>
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 30px;">
+  <div>
+    <div class="highlight" style="font-size: 1.2em;">30天辅导</div>
+    <p style="margin-top: 10px; color: #9ca3af; font-size: 0.9em;">从需求到MVP到商业落地</p>
+  </div>
+  <div>
+    <div class="highlight" style="font-size: 1.2em;">私享资源</div>
+    <p style="margin-top: 10px; color: #9ca3af; font-size: 0.9em;">Prompt模板库 + API额度</p>
+  </div>
+  <div>
+    <div class="highlight" style="font-size: 1.2em;">Demo Day</div>
+    <p style="margin-top: 10px; color: #9ca3af; font-size: 0.9em;">与投资人同台路演</p>
+  </div>
+</div>
+
+<div style="margin-top: 40px;">
+  <div class="highlight" style="font-size: 1.5em;">扫码进入社群</div>
+  <p style="margin-top: 20px; color: #ffffff;">让你的名字出现在下一个经典案例中！</p>
+</div>
+</div>
+
+<div style="text-align: center; margin-top: 40px;">
+<h3 style="color: #10b981;">🌟 祝各位今晚就动手</h3>
+<h3 style="color: #8b5cf6;">拥抱AI，成就更美好的自己！</h3>
+</div>
+
+<!-- PPTT_END --> 
+          </textarea>
+        </section>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/reveal.js@4/dist/reveal.js"></script>
+    <script src="https://unpkg.com/reveal.js@4/plugin/markdown/markdown.js"></script>
+    <script src="https://unpkg.com/reveal.js@4/plugin/highlight/highlight.js"></script>
+    <script src="https://unpkg.com/reveal.js@4/plugin/zoom/zoom.js"></script>
+    <script src="https://unpkg.com/reveal.js@4/plugin/notes/notes.js"></script>
+    <script src="https://unpkg.com/reveal.js@4/plugin/math/math.js"></script>
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'slide', // 简化为基础滑动过渡
+        slideNumber: true,
+        highlight: {
+          highlightOnLoad: false
+        },
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath
+        ]
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal().getQueryHash() || {};
+
+      var options = extend(defaultOptions, {"slideNumber":true,"width":1400,"height":900,"margin":0.05,"progress":true,"controlsTutorial":true,"pdfSeparateFragments":false}, queryOptions);
+    </script>
+
+    <script>
+      Reveal.initialize(options);
+      Reveal.addEventListener('ready', function (event) {
+        const blocks = Reveal.getRevealElement().querySelectorAll('pre code:not(.mermaid)');
+        const hlp = Reveal.getPlugin('highlight');
+        blocks.forEach(hlp.highlightBlock);
+      });
+    </script>
+  </body>
+</html>
