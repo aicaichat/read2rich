@@ -11,6 +11,7 @@ import {
 import Button from '../components/ui/Button';
 import { Link } from 'react-router-dom';
 import CourseEnrollmentModal from '../components/CourseEnrollmentModal';
+import CourseOutlinePDF from '../components/CourseOutlinePDF';
 
 interface LearningOutcome {
   id: number;
@@ -461,7 +462,21 @@ const AITrainingCoursePage: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl font-bold text-white mb-8 text-center">6周密集训练大纲</h2>
+            <div className="flex flex-col items-center mb-8">
+              <h2 className="text-3xl font-bold text-white mb-6 text-center">6周密集训练大纲</h2>
+              <div className="flex gap-4">
+                <CourseOutlinePDF weekModules={weekModules} instructors={instructors} />
+                <Button
+                  variant="secondary"
+                  size="lg"
+                  className="flex items-center gap-2 border-purple-500 text-purple-400 hover:bg-purple-500 hover:text-white"
+                  onClick={() => setActiveTab('instructors')}
+                >
+                  <Users className="w-5 h-5" />
+                  查看讲师团队
+                </Button>
+              </div>
+            </div>
             <div className="space-y-8">
               {weekModules.map((module, index) => (
                 <motion.div
