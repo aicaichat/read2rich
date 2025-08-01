@@ -24,6 +24,24 @@ PROJECT_DIR="/opt/deepneed"
 echo "🚀 DeepNeed 快速部署开始..."
 echo "域名: $DOMAIN"
 
+# 检查环境变量文件
+if [ ! -f ".env" ]; then
+    echo "❌ 未找到 .env 文件"
+    echo "请先配置环境变量："
+    echo "1. 复制 env.example 为 .env"
+    echo "2. 编辑 .env 文件，填入您的API keys"
+    echo "3. 重新运行此脚本"
+    exit 1
+fi
+
+# 检查必需的API key
+if ! grep -q "DEEPSEEK_API_KEY=.*[^[:space:]]" .env; then
+    echo "❌ 请在 .env 文件中设置 DEEPSEEK_API_KEY"
+    exit 1
+fi
+
+echo "✅ 环境变量检查通过"
+
 # 1. 创建项目目录
 echo "📁 创建项目目录..."
 mkdir -p $PROJECT_DIR

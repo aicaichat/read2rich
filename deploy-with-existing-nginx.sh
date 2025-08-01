@@ -34,6 +34,46 @@ API_PORT="8000"
 NGINX_CONF_DIR="/etc/nginx/sites-available"
 NGINX_ENABLED_DIR="/etc/nginx/sites-enabled"
 
+# 检查环境变量文件
+check_env_file() {
+    echo -e "${BLUE}🔍 检查环境变量配置...${NC}"
+    
+    if [ ! -f ".env" ]; then
+        echo -e "${YELLOW}⚠️  未找到 .env 文件${NC}"
+        echo "请按照以下步骤配置环境变量："
+        echo "1. 复制 env.example 为 .env"
+        echo "2. 编辑 .env 文件，填入您的API keys"
+        echo ""
+        echo "是否要现在创建 .env 文件？(y/n)"
+        read -r response
+        if [[ "$response" =~ ^[Yy]$ ]]; then
+            if [ -f "env.example" ]; then
+                cp env.example .env
+                echo -e "${GREEN}✅ 已创建 .env 文件${NC}"
+                echo -e "${YELLOW}⚠️  请编辑 .env 文件，填入您的API keys${NC}"
+                echo "按回车键继续..."
+                read
+            else
+                echo -e "${RED}❌ 未找到 env.example 文件${NC}"
+                exit 1
+            fi
+        else
+            echo -e "${RED}❌ 部署已取消${NC}"
+            exit 1
+        fi
+    else
+        echo -e "${GREEN}✅ 找到 .env 文件${NC}"
+    fi
+    
+    # 检查必需的API key
+    if ! grep -q "DEEPSEEK_API_KEY=.*[^[:space:]]" .env; then
+        echo -e "${RED}❌ 请在 .env 文件中设置 DEEPSEEK_API_KEY${NC}"
+        exit 1
+    fi
+    
+    echo -e "${GREEN}✅ 环境变量检查通过${NC}"
+}
+
 echo -e "${BLUE}📋 部署配置:${NC}"
 echo "  域名: $DOMAIN"
 echo "  前端端口: $WEB_PORT"
@@ -266,6 +306,7 @@ main() {
     echo ""
     
     check_dependencies
+    check_env_file
     setup_project
     deploy_services
     configure_nginx

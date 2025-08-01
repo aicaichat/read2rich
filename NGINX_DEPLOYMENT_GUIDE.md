@@ -6,6 +6,7 @@
 - 服务器已安装 Docker 和 Docker Compose
 - 服务器已安装并运行 nginx
 - 有 sudo 权限的普通用户或 root 用户
+- 已获取必要的API Keys（DeepSeek API Key必需）
 
 ### 用户权限说明
 - **普通用户**：推荐使用，脚本会自动使用sudo处理权限问题
@@ -13,7 +14,16 @@
 
 ### 一键部署
 
-1. **上传项目文件到服务器**
+1. **配置API Keys**
+```bash
+# 复制环境变量示例文件
+cp env.example .env
+
+# 编辑配置文件，填入您的API Keys
+nano .env
+```
+
+2. **上传项目文件到服务器**
 ```bash
 # 在本地打包项目
 tar -czf deepneed.tar.gz .
@@ -27,7 +37,7 @@ tar -xzf deepneed.tar.gz
 cd deepneed
 ```
 
-2. **运行快速部署脚本**
+3. **运行快速部署脚本**
 ```bash
 # 使用您的域名
 ./quick-deploy-nginx.sh your-domain.com
@@ -36,7 +46,7 @@ cd deepneed
 ./quick-deploy-nginx.sh
 ```
 
-3. **访问应用**
+4. **访问应用**
 ```
 http://your-domain.com
 ```
