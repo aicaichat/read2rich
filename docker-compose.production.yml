@@ -1,38 +1,20 @@
 version: '3.8'
 
 services:
-  # Nginx 反向代理
-  nginx:
-    image: nginx:alpine
-    container_name: deepneed-nginx-prod
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./nginx-prod.conf:/etc/nginx/nginx.conf:ro
-      - ./ssl:/etc/nginx/ssl:ro
-      - nginx-logs:/var/log/nginx
-    depends_on:
-      - backend
-    restart: unless-stopped
-    networks:
-      - deepneed-prod
-
   # 前端服务
   frontend:
     build:
       context: ./apps/web
       dockerfile: Dockerfile
     container_name: deepneed-frontend-prod
-    working_dir: /app
     env_file:
       - .env
     environment:
       - NODE_ENV=production
       - VITE_API_URL=${BACKEND_URL}
       - VITE_DOMAIN=${DOMAIN}
-    expose:
-      - "3000"
+    ports:
+      - "3000:3000"
     restart: unless-stopped
     networks:
       - deepneed-prod
@@ -61,15 +43,14 @@ services:
       - BACKEND_URL=${BACKEND_URL}
       - ALLOWED_ORIGINS=${ALLOWED_ORIGINS}
       - ENVIRONMENT=production
-    expose:
-      - "8000"
+    ports:
+      - "8000:8000"
     restart: unless-stopped
     networks:
       - deepneed-prod
 
 volumes:
   backend-data:
-  nginx-logs:
 
 networks:
   deepneed-prod:

@@ -127,10 +127,10 @@ deploy_services() {
     
     # 构建镜像
     echo "构建前端镜像..."
-    docker-compose -f docker-compose.production.yml build web
+    docker-compose -f docker-compose.production.yml build frontend
     
     echo "构建后端镜像..."
-    docker-compose -f docker-compose.production.yml build api
+    docker-compose -f docker-compose.production.yml build backend
     
     # 启动服务
     echo "启动服务..."
