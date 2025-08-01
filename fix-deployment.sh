@@ -84,85 +84,24 @@ fix_nginx_config() {
         echo -e "${GREEN}✅ 已备份当前Nginx配置${NC}"
     fi
     
+    # 检查是否存在SSL证书
+    SSL_CERT_EXISTS=false
+    if [ -f "/etc/letsencrypt/live/$DOMAIN/fullchain.pem" ] && [ -f "/etc/letsencrypt/live/$DOMAIN/privkey.pem" ]; then
+        SSL_CERT_EXISTS=true
+        echo -e "${GREEN}✅ 检测到现有SSL证书${NC}"
+    else
+        echo -e "${YELLOW}⚠️  未检测到SSL证书，将创建HTTP配置${NC}"
+    fi
+    
     # 创建正确的Nginx配置
     cat > "/etc/nginx/conf.d/$DOMAIN.conf" << EOF
-server {
-    server_name $DOMAIN www.$DOMAIN;
-    
-    # 日志配置
-    access_log /var/log/nginx/$DOMAIN.access.log;
-    error_log /var/log/nginx/$DOMAIN.error.log;
+EOF
 
-    # Gzip 压缩
-    gzip on;
-    gzip_vary on;
-    gzip_min_length 1024;
-    gzip_proxied any;
-    gzip_comp_level 6;
-    gzip_types
-        text/plain
-        text/css
-        text/xml
-        text/javascript
-        application/json
-        application/javascript
-        application/xml+rss
-        application/atom+xml
-        image/svg+xml;
-
-    # 前端代理
-    location / {
-        proxy_pass http://localhost:$WEB_PORT;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade \$http_upgrade;
-        proxy_set_header Connection 'upgrade';
-        proxy_set_header Host \$host;
-        proxy_set_header X-Real-IP \$remote_addr;
-        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto \$scheme;
-        proxy_cache_bypass \$http_upgrade;
-        
-        # 安全头
-        add_header X-Frame-Options "SAMEORIGIN" always;
-        add_header X-XSS-Protection "1; mode=block" always;
-        add_header X-Content-Type-Options "nosniff" always;
-        add_header Referrer-Policy "no-referrer-when-downgrade" always;
-        add_header Content-Security-Policy "default-src 'self' http: https: data: blob: 'unsafe-inline'" always;
-    }
-    
-    # API代理
-    location /api/ {
-        proxy_pass http://localhost:$API_PORT/;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade \$http_upgrade;
-        proxy_set_header Connection 'upgrade';
-        proxy_set_header Host \$host;
-        proxy_set_header X-Real-IP \$remote_addr;
-        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto \$scheme;
-        proxy_cache_bypass \$http_upgrade;
-    }
-    
-    # 静态文件缓存
-    location ~* \.(jpg|jpeg|png|gif|ico|css|js|svg|woff|woff2|ttf|eot)$ {
-        expires 1y;
-        add_header Cache-Control "public, immutable";
-        add_header Vary Accept-Encoding;
-    }
-    
-    # 隐藏 Nginx 版本
-    server_tokens off;
-
-    # 404 页面
-    error_page 404 /404.html;
-    location = /404.html {
-        internal;
-    }
-
-    listen 80;
-}
-
-# HTTPS配置（如果存在SSL证书）
+    # 根据SSL证书存在情况生成不同的配置
+    if [ "$SSL_CERT_EXISTS" = true ]; then
+        # HTTPS配置 - 使用现有SSL证书
+        cat >> "/etc/nginx/conf.d/$DOMAIN.conf" << EOF
+# HTTPS配置 - 主服务器
 server {
     server_name $DOMAIN www.$DOMAIN;
     
@@ -243,6 +182,7 @@ server {
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 }
 
+# HTTP重定向到HTTPS
 server {
     if (\$host = www.$DOMAIN) {
         return 301 https://\$host\$request_uri;
@@ -257,6 +197,87 @@ server {
     return 404; # managed by Certbot
 }
 EOF
+    else
+        # HTTP配置
+        cat >> "/etc/nginx/conf.d/$DOMAIN.conf" << EOF
+# HTTP配置（无SSL证书）
+server {
+    server_name $DOMAIN www.$DOMAIN;
+    
+    # 日志配置
+    access_log /var/log/nginx/$DOMAIN.access.log;
+    error_log /var/log/nginx/$DOMAIN.error.log;
+
+    # Gzip 压缩
+    gzip on;
+    gzip_vary on;
+    gzip_min_length 1024;
+    gzip_proxied any;
+    gzip_comp_level 6;
+    gzip_types
+        text/plain
+        text/css
+        text/xml
+        text/javascript
+        application/json
+        application/javascript
+        application/xml+rss
+        application/atom+xml
+        image/svg+xml;
+
+    # 前端代理
+    location / {
+        proxy_pass http://localhost:$WEB_PORT;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade \$http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto \$scheme;
+        proxy_cache_bypass \$http_upgrade;
+        
+        # 安全头
+        add_header X-Frame-Options "SAMEORIGIN" always;
+        add_header X-XSS-Protection "1; mode=block" always;
+        add_header X-Content-Type-Options "nosniff" always;
+        add_header Referrer-Policy "no-referrer-when-downgrade" always;
+        add_header Content-Security-Policy "default-src 'self' http: https: data: blob: 'unsafe-inline'" always;
+    }
+    
+    # API代理
+    location /api/ {
+        proxy_pass http://localhost:$API_PORT/;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade \$http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto \$scheme;
+        proxy_cache_bypass \$http_upgrade;
+    }
+    
+    # 静态文件缓存
+    location ~* \.(jpg|jpeg|png|gif|ico|css|js|svg|woff|woff2|ttf|eot)$ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+        add_header Vary Accept-Encoding;
+    }
+    
+    # 隐藏 Nginx 版本
+    server_tokens off;
+
+    # 404 页面
+    error_page 404 /404.html;
+    location = /404.html {
+        internal;
+    }
+
+    listen 80;
+}
+EOF
+    fi
 
     echo -e "${GREEN}✅ 已创建正确的Nginx配置${NC}"
     
@@ -302,7 +323,16 @@ show_results() {
     echo -e "\n${GREEN}🎉 修复完成！${NC}"
     echo ""
     echo -e "${BLUE}📊 修复信息:${NC}"
-    echo "  域名: https://$DOMAIN"
+    
+    # 检查SSL证书存在情况来显示正确的URL
+    if [ -f "/etc/letsencrypt/live/$DOMAIN/fullchain.pem" ] && [ -f "/etc/letsencrypt/live/$DOMAIN/privkey.pem" ]; then
+        echo "  域名: https://$DOMAIN (SSL已启用)"
+        SITE_URL="https://$DOMAIN"
+    else
+        echo "  域名: http://$DOMAIN (HTTP模式)"
+        SITE_URL="http://$DOMAIN"
+    fi
+    
     echo "  前端端口: $WEB_PORT"
     echo "  后端端口: $API_PORT"
     echo "  项目目录: $PROJECT_DIR"
@@ -314,7 +344,7 @@ show_results() {
     echo "  查看容器: docker-compose -f $PROJECT_DIR/docker-compose.production.yml ps"
     echo ""
     echo -e "${BLUE}📝 下一步:${NC}"
-    echo "  1. 访问 https://$DOMAIN 查看应用"
+    echo "  1. 访问 $SITE_URL 查看应用"
     echo "  2. 如果仍有问题，检查容器日志"
     echo "  3. 确保.env文件配置正确"
 }
