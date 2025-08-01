@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
@@ -16,7 +15,6 @@ import TestAIPage from './pages/TestAIPage';
 import TestPromptIntegrationPage from './pages/TestPromptIntegrationPage';
 import APIStatusPage from './pages/APIStatusPage';
 import CourseListPage from './pages/CourseListPage';
-import CoursePage from './pages/CoursePage';
 import CourseDetailPage from './pages/CourseDetailPage';
 import CourseLearningPage from './pages/CourseLearningPage';
 import AIRankingPage from './pages/AIRankingPage';

@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { authAPI } from '@/lib/api';
-import { mockAuthAPI, USING_MOCK_API } from '@/lib/mock-api';
+import { USING_MOCK_API } from '@/lib/mock-api';
 import { enhancedAuthAPI } from '@/lib/enhanced-mock-api';
 import { optimizedAuthAPI, USING_OPTIMIZED_API } from '@/lib/optimized-mock-api';
 import { ultraFastAuthAPI, USING_ULTRA_FAST_API } from '@/lib/ultra-fast-mock-api';
@@ -68,17 +68,17 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     try {
       if (USING_ULTRA_FAST_API) {
         console.log('🚀 使用超快速登录API');
-        const tokens: AuthTokens = await ultraFastAuthAPI.login(data);
+        await ultraFastAuthAPI.login(data);
         const userData = await ultraFastAuthAPI.getCurrentUser();
         setUser(userData);
       } else if (USING_OPTIMIZED_API) {
         console.log('⚡ 使用优化登录API');
-        const tokens: AuthTokens = await optimizedAuthAPI.login(data);
+        await optimizedAuthAPI.login(data);
         const userData = await optimizedAuthAPI.getCurrentUser();
         setUser(userData);
       } else if (USING_MOCK_API) {
         console.log('🔧 使用增强Mock登录API');
-        const tokens: AuthTokens = await enhancedAuthAPI.login(data);
+        await enhancedAuthAPI.login(data);
         const userData = await enhancedAuthAPI.getCurrentUser();
         setUser(userData);
       } else {

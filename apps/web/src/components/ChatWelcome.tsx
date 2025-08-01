@@ -5,7 +5,6 @@ import {
   Target, 
   Users, 
   Code, 
-  DollarSign, 
   Clock,
   Lightbulb,
   ArrowDown,
@@ -15,7 +14,6 @@ import {
   Send
 } from 'lucide-react';
 import Button from './ui/Button';
-import type { Session } from '@/types';
 
 interface ChatWelcomeProps {
   session: any;

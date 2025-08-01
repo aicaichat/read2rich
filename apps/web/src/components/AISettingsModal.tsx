@@ -6,11 +6,6 @@ import {
   getAIConfig, 
   saveAIConfig, 
   resetAIConfig, 
-  toggleProvider, 
-  setProviderPriority,
-  setProviderAPIKey,
-  getProviderAPIKey,
-  isProviderAPIKeyConfigured,
   type AIConfig 
 } from '../lib/ai-config';
 
@@ -111,7 +106,7 @@ const AISettingsModal: React.FC<AISettingsModalProps> = ({ isOpen, onClose }) =>
     // 保存API密钥到localStorage（加密存储）
     Object.entries(config.providers).forEach(([name, provider]) => {
       if (provider.apiKey) {
-        setProviderAPIKey(name, provider.apiKey);
+        // setProviderAPIKey(name, provider.apiKey);
       }
     });
     

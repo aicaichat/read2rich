@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { 
-  Plus, Search, Filter, Edit, Trash2, Eye, 
+  Plus, Search, Edit, Trash2, Eye, 
   Upload, Download, MoreHorizontal, Star,
-  Users, Clock, DollarSign, BookOpen, 
-  CheckCircle, XCircle, AlertCircle, RefreshCw
+  Users, Clock, BookOpen, 
+  CheckCircle, RefreshCw
 } from 'lucide-react';
 import Button from '../components/ui/Button';
 import { Course, courseManager } from '../lib/course-management';

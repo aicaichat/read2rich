@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
-  Play, Clock, Users, Star, CheckCircle, ArrowRight, 
+  Play, Clock, Users, Star, CheckCircle, 
   BookOpen, Code, Zap, Target, Award, TrendingUp,
-  Calendar, MapPin, Video, FileText, Download,
-  Heart, Share2, MessageCircle, Eye, ArrowLeft,
+  Video, FileText,
+  ArrowLeft,
   Presentation
 } from 'lucide-react';
 import Button from '../components/ui/Button';
@@ -431,7 +431,7 @@ const CourseDetailPage: React.FC = () => {
               transition={{ duration: 0.5 }}
             >
               <div className="space-y-6">
-                {course.modules.map((module, index) => (
+                {course.modules.map((module) => (
                   <div
                     key={module.id}
                     className="bg-white/5 rounded-xl p-6 border border-white/10 hover:border-emerald-500/30 transition-all"

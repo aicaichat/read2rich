@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
   ChevronLeft, ChevronRight, BookOpen, CheckCircle,
-  Clock, FileText, MessageCircle, Download, Share2,
+  FileText, MessageCircle, Download, Share2,
   Presentation
 } from 'lucide-react';
 import Button from '../components/ui/Button';
@@ -30,10 +30,6 @@ interface Module {
 
 const CourseLearningPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(0);
   const [showNotes, setShowNotes] = useState(false);
   const [notes, setNotes] = useState('');
   const [showPPT, setShowPPT] = useState(false);
@@ -250,10 +246,10 @@ const CourseLearningPage: React.FC = () => {
               <VideoPlayer
                 src={currentLesson.videoUrl}
                 title={currentLesson.title}
-                onTimeUpdate={setCurrentTime}
-                onDurationChange={setDuration}
-                onPlay={() => setIsPlaying(true)}
-                onPause={() => setIsPlaying(false)}
+                onTimeUpdate={() => {}}
+                onDurationChange={() => {}}
+                onPlay={() => {}}
+                onPause={() => {}}
                 className="w-full h-full"
               />
             ) : (

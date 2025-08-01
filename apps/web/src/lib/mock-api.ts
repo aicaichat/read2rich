@@ -59,7 +59,8 @@ export const mockAuthAPI = {
     
     return {
       access_token: token,
-      token_type: 'bearer'
+      token_type: 'bearer',
+      refresh_token: 'mock-refresh-' + Date.now()
     };
   },
 

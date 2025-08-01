@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { 
   Play, Pause, Volume2, VolumeX, Maximize, Settings,
-  SkipBack, SkipForward, RotateCcw
+  SkipBack, SkipForward
 } from 'lucide-react';
 
 interface VideoPlayerProps {
@@ -287,7 +287,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
       )}
 
       {/* 自定义样式 */}
-      <style jsx>{`
+      <style>{`
         .slider::-webkit-slider-thumb {
           appearance: none;
           width: 12px;
