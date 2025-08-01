@@ -7,7 +7,7 @@ import {
   AlertCircle, CheckCircle
 } from 'lucide-react';
 import Button from './ui/Button';
-import { Instructor, InstructorFormData, instructorManagerFixed as instructorManager } from '../lib/instructor-management';
+import { Instructor, InstructorFormData, instructorManager } from '../lib/instructor-management';
 
 interface InstructorEditModalProps {
   isOpen: boolean;

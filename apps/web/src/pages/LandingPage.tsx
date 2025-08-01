@@ -38,9 +38,9 @@ export default function LandingPage() {
     },
     {
       icon: BarChart3,
-      title: '5周百万应用创业营',
+      title: '6周百万应用创业营',
       description: '从0到1打造可收费AI应用，实现首批真实营收或50 DAU',
-      metric: '5周变现'
+      metric: '6周训练'
     },
   ];
 
@@ -95,7 +95,7 @@ export default function LandingPage() {
             {/* 副标题 - 强调AI时代的创业机会 */}
             <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
               AI时代，每个人都能成为百万应用的创造者。DeepNeed让创意快速变现，
-              <span className="text-emerald-400 font-semibold">从想法到上线只需30分钟，从0到百万只需5周。</span>
+              <span className="text-emerald-400 font-semibold">从想法到上线只需30分钟，6周完整创业训练营助你成功。</span>
             </p>
             
             {/* 快速价值验证输入 - 重新设计为更吸引人的形式 */}
@@ -173,6 +173,12 @@ export default function LandingPage() {
                 <PlayCircle className="w-5 h-5" />
                 观看2分钟演示
               </Button>
+              <Link to="/ai-training">
+                <Button variant="secondary" size="lg" className="flex items-center gap-2 border-emerald-500 text-emerald-400 hover:bg-emerald-500 hover:text-white">
+                  <BookOpen className="w-5 h-5" />
+                  百万应用培训课程
+                </Button>
+              </Link>
               <button className="text-gray-300 hover:text-white transition-colors underline">
                 查看成功案例 →
               </button>
@@ -237,7 +243,7 @@ export default function LandingPage() {
               为什么DeepNeed是百万应用的必选神器？
             </h2>
             <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              传统方式需要几个月的事情，我们30分钟就能完成，5周就能实现百万价值
+                              传统方式需要几个月的事情，我们30分钟就能完成，6周系统训练助你掌握AI应用开发
             </p>
           </motion.div>
 
@@ -409,7 +415,7 @@ export default function LandingPage() {
                 <div className="w-12 h-12 bg-emerald-500/20 rounded-lg flex items-center justify-center mb-4">
                   <BookOpen className="w-6 h-6 text-emerald-400" />
                 </div>
-                <h3 className="text-lg font-semibold text-white mb-2">5周百万应用创业营</h3>
+                <h3 className="text-lg font-semibold text-white mb-2">6周百万应用创业营</h3>
                 <p className="text-gray-300 text-sm">从0到1打造可收费AI应用，实现首批真实营收</p>
               </div>
               <div className="bg-white/5 rounded-xl p-6 border border-white/10">

@@ -21,6 +21,9 @@ import AIRankingPage from './pages/AIRankingPage';
 import AIAppDetailPage from './pages/AIAppDetailPage';
 import PPTTestPage from './pages/PPTTestPage';
 import FullscreenTestPage from './pages/FullscreenTestPage';
+import AITrainingCoursePage from './pages/AITrainingCoursePage';
+import EnhancedCourseManagement from './pages/EnhancedCourseManagement';
+import InstructorProfilePage from './pages/InstructorProfilePage';
 
 // Admin Pages
 import AdminDashboard from './pages/AdminDashboard';
@@ -186,6 +189,14 @@ function App() {
                   </main>
                 </>
               } />
+              <Route path="/course/1" element={
+                <>
+                  <Navbar />
+                  <main className="relative z-10">
+                    <AITrainingCoursePage />
+                  </main>
+                </>
+              } />
               <Route path="/course/:id" element={
                 <>
                   <Navbar />
@@ -226,6 +237,22 @@ function App() {
                   </main>
                 </>
               } />
+              <Route path="/ai-training" element={
+                <>
+                  <Navbar />
+                  <main className="relative z-10">
+                    <AITrainingCoursePage />
+                  </main>
+                </>
+              } />
+              <Route path="/instructor/:id" element={
+                <>
+                  <Navbar />
+                  <main className="relative z-10">
+                    <InstructorProfilePage />
+                  </main>
+                </>
+              } />
 
               {/* 后台管理路由 */}
               <Route path="/admin/login" element={<AdminLoginPage />} />
@@ -237,6 +264,11 @@ function App() {
               <Route path="/admin/courses" element={
                 <AdminLayout>
                   <AdminCourseManagement />
+                </AdminLayout>
+              } />
+              <Route path="/admin/enhanced-courses" element={
+                <AdminLayout>
+                  <EnhancedCourseManagement />
                 </AdminLayout>
               } />
               <Route path="/admin/instructors" element={

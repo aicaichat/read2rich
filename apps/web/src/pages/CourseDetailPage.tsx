@@ -72,8 +72,8 @@ const CourseDetailPage: React.FC = () => {
     {
       id: 1,
       title: "价值百万的AI应用创新课程",
-      subtitle: "5周创业营：从0到1打造可收费AI应用",
-      description: "免费公开课帮你锁定'真需求'，5周创业营把它变成能赚钱的AI应用。每周3小时工作坊，5周内完成可收费MVP、ROI仪表盘、3分钟Demo+Pitch Deck，实现首批真实营收或50 DAU。",
+      subtitle: "6周创业营：从0到1打造可收费AI应用",
+      description: "免费公开课帮你锁定'真需求'，6周创业营把它变成能赚钱的AI应用。每周3小时工作坊，6周内完成可收费MVP、ROI仪表盘、3分钟Demo+Pitch Deck，实现首批真实营收或50 DAU。",
       instructor: "张教授",
       price: 6499,
       originalPrice: 6999,
@@ -150,7 +150,7 @@ const CourseDetailPage: React.FC = () => {
           name: "张小明",
           avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=1",
           rating: 5,
-          comment: "5周创业营太棒了！我已经成功上线了第一个AI应用，月收入过万！",
+          comment: "6周创业营太棒了！我已经成功上线了第一个AI应用，月收入过万！",
           date: "2024-01-15",
           verified: true
         },

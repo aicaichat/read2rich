@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 import Button from './ui/Button';
 import { Course, CourseFormData, courseManager } from '../lib/course-management';
-import { instructorManagerFixed as instructorManager } from '../lib/instructor-management';
+import { instructorManager } from '../lib/instructor-management';
 
 interface CourseEditModalProps {
   isOpen: boolean;
@@ -37,7 +37,8 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
     isFree: false,
     tags: [],
     image: '',
-    videoUrl: ''
+    videoUrl: '',
+    modules: []
   });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -74,7 +75,8 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
         isFree: course.isFree,
         tags: course.tags,
         image: course.image,
-        videoUrl: course.videoUrl || ''
+        videoUrl: course.videoUrl || '',
+        modules: course.modules || []
       });
     } else {
       setFormData({
@@ -92,7 +94,8 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
         isFree: false,
         tags: [],
         image: '',
-        videoUrl: ''
+        videoUrl: '',
+        modules: []
       });
     }
     setError('');
