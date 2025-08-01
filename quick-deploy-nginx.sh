@@ -63,7 +63,127 @@ docker-compose -f docker-compose.production.yml up -d
 
 # 3. 配置nginx
 echo "🌐 配置nginx..."
-sudo tee /etc/nginx/sites-available/deepneed > /dev/null << EOF
+
+# 检查是否已有deepneed.com.cn配置
+if [ -f "/etc/nginx/conf.d/deepneed.com.cn.conf" ]; then
+    echo "⚠️  检测到现有deepneed.com.cn配置，更新以支持API服务..."
+    
+    # 备份原配置
+    cp /etc/nginx/conf.d/deepneed.com.cn.conf /etc/nginx/conf.d/deepneed.com.cn.conf.backup.$(date +%Y%m%d_%H%M%S)
+    
+    # 更新现有配置，添加API代理
+    cat > /tmp/deepneed_update.conf << EOF
+server {
+    server_name deepneed.com.cn www.deepneed.com.cn;
+    root /var/www/deepneed.com.cn;
+    index index.html index.htm;
+
+    # 日志配置
+    access_log /var/log/nginx/deepneed.com.cn.access.log;
+    error_log /var/log/nginx/deepneed.com.cn.error.log;
+
+    # Gzip 压缩
+    gzip on;
+    gzip_vary on;
+    gzip_min_length 1024;
+    gzip_proxied any;
+    gzip_comp_level 6;
+    gzip_types
+        text/plain
+        text/css
+        text/xml
+        text/javascript
+        application/json
+        application/javascript
+        application/xml+rss
+        application/atom+xml
+        image/svg+xml;
+
+    # 静态文件缓存
+    location ~* \.(jpg|jpeg|png|gif|ico|css|js|svg|woff|woff2|ttf|eot)$ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+        add_header Vary Accept-Encoding;
+    }
+
+    # API代理 - 新增
+    location /api/ {
+        proxy_pass http://localhost:8000/;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade \$http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto \$scheme;
+        proxy_cache_bypass \$http_upgrade;
+    }
+
+    # 主页面
+    location / {
+        try_files \$uri \$uri/ /index.html;
+        
+        # 安全头
+        add_header X-Frame-Options "SAMEORIGIN" always;
+        add_header X-XSS-Protection "1; mode=block" always;
+        add_header X-Content-Type-Options "nosniff" always;
+        add_header Referrer-Policy "no-referrer-when-downgrade" always;
+        add_header Content-Security-Policy "default-src 'self' http: https: data: blob: 'unsafe-inline'" always;
+    }
+     
+    # PPT 演示文稿
+    location /ppt/ {
+        alias /var/www/deepneed.com.cn/ppt/;
+        index index.html slides.html;
+        try_files \$uri \$uri/ /ppt/index.html;
+        
+        # PPT 特殊缓存配置
+        location ~* \.(js|css|woff|woff2|ttf|eot)$ {
+            expires 30d;
+            add_header Cache-Control "public";
+        }
+        
+        # 允许 iframe 嵌入
+        add_header X-Frame-Options "SAMEORIGIN" always;
+    }
+    
+    # 隐藏 Nginx 版本
+    server_tokens off;
+
+    # 404 页面
+    error_page 404 /404.html;
+    location = /404.html {
+        internal;
+    }
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/deepneed.com.cn/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/deepneed.com.cn/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+}
+
+server {
+    if (\$host = www.deepneed.com.cn) {
+        return 301 https://\$host\$request_uri;
+    } # managed by Certbot
+
+    if (\$host = deepneed.com.cn) {
+        return 301 https://\$host\$request_uri;
+    } # managed by Certbot
+
+    listen 80;
+    server_name deepneed.com.cn www.deepneed.com.cn;
+    return 404; # managed by Certbot
+}
+EOF
+    
+    # 更新配置
+    cp /tmp/deepneed_update.conf /etc/nginx/conf.d/deepneed.com.cn.conf
+    echo "✅ 已更新nginx配置"
+else
+    # 创建新的配置文件
+    cat > /etc/nginx/sites-available/deepneed << EOF
 server {
     listen 80;
     server_name $DOMAIN;
@@ -94,8 +214,10 @@ server {
 }
 EOF
 
-# 启用站点
-ln -sf /etc/nginx/sites-available/deepneed /etc/nginx/sites-enabled/
+    # 启用站点
+    ln -sf /etc/nginx/sites-available/deepneed /etc/nginx/sites-enabled/
+fi
+
 nginx -t && systemctl reload nginx
 
 # 4. 创建systemd服务
