@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
-  LayoutDashboard, BookOpen, Users, DollarSign,
+  LayoutDashboard, Users, DollarSign,
   MessageSquare, BarChart3, Settings, FileText,
   Shield, Bell, HelpCircle, LogOut, ChevronLeft,
   ChevronRight, Home, GraduationCap, RefreshCw,
   Zap
 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import LogoMark from '@/assets/logo-mark.svg';
 
 interface NavItem {
   id: string;
@@ -143,10 +144,8 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ isCollapsed, onToggle }) =>
             transition={{ delay: 0.1 }}
             className="flex items-center space-x-2"
           >
-            <div className="w-8 h-8 bg-gradient-to-r from-emerald-500 to-purple-600 rounded-lg flex items-center justify-center">
-              <BookOpen className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-white font-bold text-lg">{typeof window!== 'undefined' ? (window.document?.title?.split(' - ')[0] || 'DeepNeed') : 'DeepNeed'}</span>
+            <img src={LogoMark} alt="logo" className="w-8 h-8" />
+            <span className="text-white font-bold text-lg">deepneed</span>
           </motion.div>
         )}
         <button

@@ -12,8 +12,8 @@ import type {
   MessageCreateForm 
 } from '@/types';
 
-// 真实后端API地址（仅用于聊天和文档功能）
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8001/api';
+// 真实后端API地址
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1';
 
 // 创建 axios 实例
 const api = axios.create({
@@ -47,92 +47,109 @@ api.interceptors.response.use(
   }
 );
 
-// 认证相关 API - 使用Mock API（因为后端没有认证端点）
+// 认证相关 API - 使用真实后端
 export const authAPI = {
   async login(data: LoginForm): Promise<AuthTokens> {
-    // 使用Mock认证，返回模拟令牌
-    const mockToken = `mock-jwt-token-${data.username}-${Date.now()}`;
-    return {
-      access_token: mockToken,
-      refresh_token: `mock-refresh-${data.username}-${Date.now()}`,
-      token_type: 'bearer'
+    // 使用 FormData 格式发送登录请求
+    const formData = new FormData();
+    formData.append('username', data.username);
+    formData.append('password', data.password);
+    
+    const response = await axios.post(`${API_BASE_URL}/auth/login`, formData, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    });
+    
+    const tokens: AuthTokens = {
+      access_token: response.data.access_token,
+      refresh_token: response.data.refresh_token || '',
+      token_type: response.data.token_type
     };
+    
+    // 保存令牌到本地存储
+    localStorage.setItem('access_token', tokens.access_token);
+    if (tokens.refresh_token) {
+      localStorage.setItem('refresh_token', tokens.refresh_token);
+    }
+    
+    return tokens;
   },
 
   async register(data: RegisterForm): Promise<User> {
-    // 使用Mock注册，返回模拟用户
-    const mockUser: User = {
-      id: Date.now(),
-      username: data.username,
-      email: data.email,
-      full_name: data.full_name || data.username,
-      is_active: true,
-      created_at: new Date().toISOString()
-    };
-    return mockUser;
+    const response = await api.post('/auth/register', data);
+    return response.data;
   },
 
   async getCurrentUser(): Promise<User> {
-    // 使用Mock用户数据
-    const mockUser: User = {
-      id: 1,
-      username: 'demo',
-      email: 'demo@deepneed.com',
-      full_name: 'Demo User',
-      is_active: true,
-      created_at: '2024-01-01T00:00:00Z'
-    };
-    return mockUser;
+    const response = await api.get('/auth/me');
+    return response.data;
   },
 
   async refreshToken(refreshToken: string): Promise<AuthTokens> {
-    // 使用Mock刷新令牌
-    const mockToken = `mock-jwt-token-refreshed-${Date.now()}`;
-    return {
-      access_token: mockToken,
-      refresh_token: `mock-refresh-${Date.now()}`,
-      token_type: 'bearer'
+    const response = await api.post('/auth/refresh', {
+      refresh_token: refreshToken
+    });
+    
+    const tokens: AuthTokens = {
+      access_token: response.data.access_token,
+      refresh_token: response.data.refresh_token || refreshToken,
+      token_type: response.data.token_type
     };
+    
+    // 更新本地存储
+    localStorage.setItem('access_token', tokens.access_token);
+    if (tokens.refresh_token) {
+      localStorage.setItem('refresh_token', tokens.refresh_token);
+    }
+    
+    return tokens;
   },
 
   async logout(): Promise<void> {
-    // Mock登出，清除本地存储
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
+    try {
+      await api.post('/auth/logout');
+    } catch (error) {
+      console.warn('Logout API call failed, but clearing local storage');
+    } finally {
+      // 清除本地存储
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('refresh_token');
+    }
   }
 };
 
 // 会话相关 API - 使用真实后端
 export const sessionAPI = {
   async createSession(data: SessionCreateForm): Promise<Session> {
-    const response = await api.post('/chat/sessions', data);
+    const response = await api.post('/sessions', data);
     return response.data;
   },
 
   async getUserSessions(): Promise<Session[]> {
-    const response = await api.get('/chat/sessions');
+    const response = await api.get('/sessions');
     return response.data;
   },
 
   async getSession(sessionId: string): Promise<Session> {
-    const response = await api.get(`/chat/sessions/${sessionId}`);
+    const response = await api.get(`/sessions/${sessionId}`);
     return response.data;
   },
 
   async getMessages(sessionId: string): Promise<Message[]> {
-    const response = await api.get(`/chat/sessions/${sessionId}/messages`);
+    const response = await api.get(`/sessions/${sessionId}/messages`);
     return response.data;
   },
 
   async addMessage(sessionId: string, content: string): Promise<Message> {
-    const response = await api.post(`/chat/sessions/${sessionId}/messages`, {
+    const response = await api.post(`/sessions/${sessionId}/messages`, {
       content,
     });
     return response.data;
   },
 
   async deleteSession(sessionId: string): Promise<void> {
-    await api.delete(`/chat/sessions/${sessionId}`);
+    await api.delete(`/sessions/${sessionId}`);
   },
 };
 
@@ -153,69 +170,54 @@ export const documentAPI = {
   }
 };
 
-// 提示词相关 API - 使用Mock API（因为后端没有这些端点）
+// 提示词相关 API - 使用真实后端
 export const promptAPI = {
   async generatePrompts(sessionId: string): Promise<GeneratedPrompt> {
-    // 使用Mock提示词生成
-    return {
-      id: String(Date.now()),
-      session_id: sessionId,
-      type: 'prd',
-      content: 'Mock PRD prompt content',
-      status: 'draft',
-      created_at: new Date().toISOString()
-    };
+    const response = await api.post('/prompts/generate', {
+      session_id: sessionId
+    });
+    return response.data;
   },
 
   async getSessionPrompts(sessionId: string): Promise<GeneratedPrompt[]> {
-    return [];
+    const response = await api.get('/prompts', {
+      params: { session_id: sessionId }
+    });
+    return response.data;
   },
 
   async getPrompt(promptId: string): Promise<GeneratedPrompt> {
-    return {
-      id: promptId,
-      session_id: 'mock-session',
-      type: 'prd',
-      content: 'Mock prompt content',
-      status: 'draft',
-      created_at: new Date().toISOString()
-    };
+    const response = await api.get(`/prompts/${promptId}`);
+    return response.data;
   },
 
   async confirmPrompt(promptId: string): Promise<{ message: string; prompt_id: string }> {
-    return {
-      message: 'Prompt confirmed successfully',
-      prompt_id: promptId
-    };
+    const response = await api.post(`/prompts/${promptId}/confirm`);
+    return response.data;
   },
 };
 
-// 代码生成相关 API - 使用Mock API
+// 代码生成相关 API - 使用真实后端
 export const generationAPI = {
   async generateCode(promptId: string): Promise<CodeGeneration> {
-    return {
-      id: Date.now(),
-      prompt_id: promptId,
-      type: 'code',
-      content: 'Mock generated code',
-      status: 'completed',
-      created_at: new Date().toISOString()
-    };
+    const response = await api.post('/generation/code', {
+      prompt_id: promptId
+    });
+    return response.data;
   },
 
   async generateProjectPlan(promptId: string): Promise<CodeGeneration> {
-    return {
-      id: Date.now(),
-      prompt_id: promptId,
-      type: 'plan',
-      content: 'Mock project plan',
-      status: 'completed',
-      created_at: new Date().toISOString()
-    };
+    const response = await api.post('/generation/plan', {
+      prompt_id: promptId
+    });
+    return response.data;
   },
 
   async getGenerationResults(promptId: string): Promise<CodeGeneration[]> {
-    return [];
+    const response = await api.get('/generation/results', {
+      params: { prompt_id: promptId }
+    });
+    return response.data;
   }
 };
 
