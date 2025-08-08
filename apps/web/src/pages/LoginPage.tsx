@@ -254,7 +254,7 @@ const LoginPage: React.FC = () => {
               variant="secondary"
               size="lg"
               className="w-full"
-              onClick={() => {/* TODO: 实现 GitHub 登录 */}}
+              onClick={() => window.location.href = '/api/v1/auth/github/login'}
             >
               使用 GitHub 登录
             </Button>
@@ -262,7 +262,7 @@ const LoginPage: React.FC = () => {
               variant="secondary"
               size="lg"
               className="w-full"
-              onClick={() => {/* TODO: 实现 Google 登录 */}}
+              onClick={() => window.location.href = '/api/v1/auth/google/login'}
             >
               使用 Google 登录
             </Button>

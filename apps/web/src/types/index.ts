@@ -3,7 +3,9 @@ export interface User {
   email: string;
   username: string;
   full_name?: string;
+  avatar_url?: string;
   is_active: boolean;
+  oauth_provider?: string;
   created_at: string;
   updated_at?: string;
 }

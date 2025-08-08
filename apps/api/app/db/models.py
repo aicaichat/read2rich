@@ -21,10 +21,17 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String, unique=True, index=True, nullable=False)
     username = Column(String, unique=True, index=True, nullable=False)
-    hashed_password = Column(String, nullable=False)
+    hashed_password = Column(String, nullable=True)  # OAuth 用户可能没有密码
     full_name = Column(String)
+    avatar_url = Column(String)  # 用户头像URL
     is_active = Column(Boolean, default=True)
     is_superuser = Column(Boolean, default=False)
+    
+    # OAuth 相关字段
+    oauth_provider = Column(String)  # github, google
+    oauth_id = Column(String)  # OAuth 提供商返回的用户ID
+    oauth_access_token = Column(String)  # OAuth 访问令牌
+    
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
     

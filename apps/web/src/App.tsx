@@ -38,6 +38,7 @@ import AdminOpportunityFinderPage from './pages/AdminOpportunityFinderPage';
 import OpportunityFinderPage from './pages/OpportunityFinderPage';
 import AnalysisResultsPage from './pages/AnalysisResultsPage';
 import AdminPaymentSettingsPage from './pages/AdminPaymentSettingsPage';
+import OAuthCallbackPage from './pages/OAuthCallbackPage';
 
 // Components
 import Navbar from './components/Navbar';
@@ -104,6 +105,11 @@ function App() {
                     <LoginPage />
                   </main>
                 </>
+              } />
+              <Route path="/oauth-callback" element={
+                <main className="relative z-10">
+                  <OAuthCallbackPage />
+                </main>
               } />
               <Route path="/chat" element={
                 <>

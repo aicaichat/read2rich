@@ -6,10 +6,11 @@ class UserBase(BaseModel):
     email: EmailStr
     username: str
     full_name: Optional[str] = None
+    avatar_url: Optional[str] = None
     is_active: bool = True
 
 class UserCreate(UserBase):
-    password: str
+    password: Optional[str] = None
 
 class UserUpdate(BaseModel):
     email: Optional[EmailStr] = None
