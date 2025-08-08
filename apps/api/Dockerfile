@@ -20,6 +20,9 @@ RUN poetry config virtualenvs.create false
 # 安装依赖
 RUN poetry install --only=main
 
+# 安装额外的必需依赖
+RUN pip install email-validator pycryptodome
+
 # 复制应用代码
 COPY . .
 

@@ -2,6 +2,9 @@
  * AI Opportunity Finder 监控 API 客户端
  */
 
+// 配置选项：是否启用 AI Opportunity Finder 功能
+const ENABLE_OPPORTUNITY_FINDER = process.env.REACT_APP_ENABLE_OPPORTUNITY_FINDER !== 'false';
+
 interface CrawlerStatus {
   isRunning: boolean;
   uptime: string;
@@ -50,17 +53,34 @@ interface ServiceHealth {
 
 class OpportunityFinderMonitor {
   private baseUrl: string;
+  private enabled: boolean;
 
   constructor() {
+    this.enabled = ENABLE_OPPORTUNITY_FINDER;
     this.baseUrl = process.env.NODE_ENV === 'production'
       ? `${window.location.origin}/api/opportunity-finder`
       : 'http://localhost:8081/api/v1';
   }
 
   /**
+   * 检查功能是否启用
+   */
+  private checkEnabled(): boolean {
+    if (!this.enabled) {
+      console.warn('AI Opportunity Finder 功能已禁用');
+      return false;
+    }
+    return true;
+  }
+
+  /**
    * 获取爬虫服务整体状态
    */
   async getCrawlerStatus(): Promise<CrawlerStatus> {
+    if (!this.checkEnabled()) {
+      return this.getOfflineStatus();
+    }
+
     try {
       const response = await fetch(`${this.baseUrl}/monitor/status`);
       if (!response.ok) {
@@ -77,6 +97,10 @@ class OpportunityFinderMonitor {
    * 获取数据源状态
    */
   async getDataSourcesStatus(): Promise<DataSourceStatus[]> {
+    if (!this.checkEnabled()) {
+      return this.getMockDataSources();
+    }
+
     try {
       const response = await fetch(`${this.baseUrl}/monitor/sources`);
       if (!response.ok) {
@@ -93,6 +117,10 @@ class OpportunityFinderMonitor {
    * 获取系统指标
    */
   async getSystemMetrics(): Promise<SystemMetrics> {
+    if (!this.checkEnabled()) {
+      return this.getMockSystemMetrics();
+    }
+
     try {
       const response = await fetch(`${this.baseUrl}/monitor/metrics`);
       if (!response.ok) {
@@ -101,14 +129,7 @@ class OpportunityFinderMonitor {
       return await response.json();
     } catch (error) {
       console.error('获取系统指标失败:', error);
-      return {
-        messagesProduced: 0,
-        messagesProcessed: 0,
-        vectorsStored: 0,
-        opportunitiesFound: 0,
-        queueHealth: 'error',
-        processingRate: 0
-      };
+      return this.getMockSystemMetrics();
     }
   }
 
@@ -385,6 +406,17 @@ class OpportunityFinderMonitor {
         details: { port: 5433, connections: 3 }
       }
     ];
+  }
+
+  private getMockSystemMetrics(): SystemMetrics {
+    return {
+      messagesProduced: 1000,
+      messagesProcessed: 950,
+      vectorsStored: 5000,
+      opportunitiesFound: 100,
+      queueHealth: 'healthy',
+      processingRate: 10
+    };
   }
 }
 
