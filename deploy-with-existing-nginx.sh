@@ -104,21 +104,44 @@ check_dependencies() {
 # 创建项目目录
 setup_project() {
     echo -e "${BLUE}📁 设置项目目录...${NC}"
-    
-    # 创建项目目录
-    mkdir -p /opt/$PROJECT_NAME
-    
+
+    # 解析路径函数（兼容无 realpath 的环境）
+    resolve_path() {
+        local target="$1"
+        if command -v readlink >/dev/null 2>&1; then
+            readlink -f "$target" 2>/dev/null || python3 -c 'import os,sys;print(os.path.realpath(sys.argv[1]))' "$target"
+        else
+            python3 -c 'import os,sys;print(os.path.realpath(sys.argv[1]))' "$target"
+        fi
+    }
+
+    SOURCE_DIR="$(cd "$(dirname "$0")" && pwd)"
+    DEST_DIR="/opt/$PROJECT_NAME"
+
+    mkdir -p "$DEST_DIR"
+
     # 如果是root用户，设置适当的权限
     if [ "$EUID" -eq 0 ]; then
-        # 获取当前用户（如果通过sudo运行）
         ACTUAL_USER=${SUDO_USER:-$USER}
-        chown $ACTUAL_USER:$ACTUAL_USER /opt/$PROJECT_NAME
+        chown "$ACTUAL_USER":"$ACTUAL_USER" "$DEST_DIR"
     fi
-    
-    # 复制项目文件
-    cp -r . /opt/$PROJECT_NAME/
-    cd /opt/$PROJECT_NAME
-    
+
+    SRC_REAL="$(resolve_path "$SOURCE_DIR")"
+    DST_REAL="$(resolve_path "$DEST_DIR")"
+
+    if [ "$SRC_REAL" = "$DST_REAL" ]; then
+        echo -e "${YELLOW}ℹ️  检测到代码已在目标目录，跳过文件复制${NC}"
+    else
+        echo "同步项目文件到 $DEST_DIR ..."
+        if command -v rsync >/dev/null 2>&1; then
+            rsync -a --delete --exclude '.git' --exclude 'node_modules' --exclude 'venv' "$SOURCE_DIR/" "$DEST_DIR/"
+        else
+            cp -a "$SOURCE_DIR/." "$DEST_DIR/"
+        fi
+    fi
+
+    cd "$DEST_DIR"
+
     echo -e "${GREEN}✅ 项目目录设置完成${NC}"
 }
 
