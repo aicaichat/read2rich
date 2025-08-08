@@ -160,7 +160,7 @@ export const millionDollarCourseSlides: Slide[] = [
         
         <div className="bg-gradient-to-r from-emerald-500/10 to-purple-500/10 border border-emerald-500/30 rounded-xl p-6 text-center">
           <div className="text-white text-xl font-semibold mb-4">
-            高质量Prompt + API调用 + deepneed.com.cn
+            高质量Prompt + API调用 + 官网快速搭建
           </div>
           <div className="text-2xl text-emerald-400 font-bold">
             一个晚上你的产品即可上线并开始收费！

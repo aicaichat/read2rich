@@ -297,7 +297,7 @@ const ChatPage: React.FC = () => {
     
     const welcomeMessage = session?.initial_idea 
       ? `我看到您想要：${session.initial_idea}\n\n让我来帮您完善这个想法！首先，我想了解一下这个项目的目标用户是谁？他们会在什么场景下使用您的产品？`
-      : "您好！我是 DeepNeed 的 AI 助手，很高兴为您服务！请告诉我您的项目想法，我会通过提问帮助您完善需求细节。";
+      : "您好！我是你的 AI 助手，很高兴为您服务！请告诉我您的项目想法，我会通过提问帮助您完善需求细节。";
     
     // 模拟AI发送欢迎消息
     const aiMessage = {

@@ -162,7 +162,7 @@ const APIStatusPage: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
         >
           <h1 className="text-3xl font-bold mb-2">🔍 系统状态监控</h1>
-          <p className="text-gray-400">检查DeepNeed AI系统各组件运行状态</p>
+          <p className="text-gray-400">检查AI系统各组件运行状态</p>
         </motion.div>
 
         {/* 总体状态 */}

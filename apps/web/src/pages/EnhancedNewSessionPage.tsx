@@ -225,7 +225,7 @@ const EnhancedNewSessionPage: React.FC = () => {
               <Sparkles className="w-6 h-6 text-white" />
             </motion.div>
             <h1 className="text-4xl font-bold text-white">
-              DeepNeed AI 需求分析
+              AI 需求分析
             </h1>
           </div>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">

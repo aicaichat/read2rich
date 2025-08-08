@@ -12,7 +12,7 @@ const MOCK_USERS: Record<string, User & { password: string }> = {
   'admin': {
     id: 1,
     username: 'admin',
-    email: 'admin@deepneed.com',
+    email: process.env.VITE_ADMIN_EMAIL || 'admin@example.com',
     full_name: 'Administrator',
     password: 'admin123',
     is_active: true,
@@ -21,7 +21,7 @@ const MOCK_USERS: Record<string, User & { password: string }> = {
   'demo': {
     id: 2,
     username: 'demo',
-    email: 'demo@deepneed.com',
+    email: 'demo@example.com',
     full_name: 'Demo User',
     password: 'demo123',
     is_active: true,

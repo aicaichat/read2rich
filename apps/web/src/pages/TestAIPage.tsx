@@ -22,7 +22,7 @@ const TestAIPage: React.FC = () => {
               <h1 className="text-4xl font-bold text-white">AI 功能测试</h1>
             </div>
             <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              测试 DeepNeed 的 AI 服务配置和功能
+              测试 AI 服务配置和功能
             </p>
           </div>
 

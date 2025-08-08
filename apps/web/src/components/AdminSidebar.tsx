@@ -146,7 +146,7 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ isCollapsed, onToggle }) =>
             <div className="w-8 h-8 bg-gradient-to-r from-emerald-500 to-purple-600 rounded-lg flex items-center justify-center">
               <BookOpen className="w-5 h-5 text-white" />
             </div>
-            <span className="text-white font-bold text-lg">DeepNeed</span>
+            <span className="text-white font-bold text-lg">{typeof window!== 'undefined' ? (window.document?.title?.split(' - ')[0] || 'DeepNeed') : 'DeepNeed'}</span>
           </motion.div>
         )}
         <button
@@ -274,7 +274,7 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ isCollapsed, onToggle }) =>
               />
               <div className="flex-1">
                 <p className="text-sm font-medium text-white">管理员</p>
-                <p className="text-xs text-gray-400">admin@deepneed.com</p>
+                <p className="text-xs text-gray-400">{process.env.VITE_ADMIN_EMAIL || 'admin@example.com'}</p>
               </div>
             </div>
           </motion.div>

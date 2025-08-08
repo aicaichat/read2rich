@@ -50,7 +50,7 @@ class OpportunityFinderAPI {
   constructor() {
     // In development, use local API gateway
     this.baseUrl = process.env.NODE_ENV === 'production' 
-      ? 'https://api.deepneed.com/opportunity-finder'
+      ? `${window.location.origin}/api/opportunity-finder`
       : 'http://localhost:8081/api/v1';
   }
 

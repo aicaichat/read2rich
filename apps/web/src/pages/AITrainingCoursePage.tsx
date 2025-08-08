@@ -114,7 +114,7 @@ const AITrainingCoursePage: React.FC = () => {
       title: "MVP实战",
       subtitle: "从Prompt到产品",
       duration: "3小时工作坊",
-      topics: ["DeepNeed API集成", "无代码工具链", "用户体验设计", "快速部署"],
+      topics: ["AI平台 API 集成", "无代码工具链", "用户体验设计", "快速部署"],
       deliverables: ["可用MVP", "10位真实用户反馈", "使用数据报告"],
       highlight: "7天上线你的AI产品"
     },

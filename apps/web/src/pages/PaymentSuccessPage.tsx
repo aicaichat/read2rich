@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { CheckCircle, Download, ArrowLeft, ExternalLink } from 'lucide-react';
 import { useRouter } from 'next/router';
 import Button from '@/components/ui/Button';
+import { APP_CONFIG } from '@/config';
 
 export default function PaymentSuccessPage() {
   const router = useRouter();
@@ -18,7 +19,7 @@ export default function PaymentSuccessPage() {
       // 这里可以调用API获取订单详情
       setOrderInfo({
         orderId: orderId || paymentId,
-        amount: '$29.00',
+        amount: `$${29}.00`,
         status: 'success',
         purchaseDate: new Date().toISOString()
       });
@@ -202,7 +203,7 @@ export default function PaymentSuccessPage() {
               返回机会发现器
             </Button>
             <Button
-              onClick={() => window.open('mailto:support@deepneed.com')}
+              onClick={() => window.open(`mailto:${APP_CONFIG.CONTACT.SUPPORT_EMAIL}`)}
               className="bg-gradient-to-r from-primary-500 to-secondary-500"
             >
               <ExternalLink className="w-4 h-4 mr-2" />

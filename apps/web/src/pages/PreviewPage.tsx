@@ -208,7 +208,7 @@ ${prompts.professional_prompts.project_management.prompt}
 
 ` : '';
 
-    const content = `# DeepNeed 专业提示词完整套件
+    const content = `# 专业提示词完整套件
 ${templateInfo}
 ${professionalPromptsContent}
 ## 📋 基础生成内容

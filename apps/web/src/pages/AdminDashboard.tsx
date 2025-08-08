@@ -134,7 +134,7 @@ const AdminDashboard: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-white">DeepNeed 后台管理</h1>
+              <h1 className="text-2xl font-bold text-white">后台管理</h1>
               <p className="text-gray-400">欢迎回来，管理员</p>
             </div>
             <div className="flex items-center space-x-4">

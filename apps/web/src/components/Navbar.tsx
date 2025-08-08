@@ -4,12 +4,15 @@ import { motion } from 'framer-motion';
 import { LogOut, User, MessageSquare, BarChart3, Github, Settings, BookOpen, Lightbulb } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import AISettingsModal from './AISettingsModal';
+import { useT } from '@/i18n';
+import Logo from '@/assets/logo.svg';
 
 export default function Navbar() {
   const { user, logout, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const [showAISettings, setShowAISettings] = useState(false);
+  const t = useT();
 
   const handleLogout = () => {
     logout();
@@ -29,17 +32,8 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <Link 
-              to="/" 
-              className="flex items-center space-x-2 group"
-            >
-              <motion.div
-                className="text-2xl font-bold text-gradient"
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              >
-                DeepNeed
-              </motion.div>
+            <Link to="/" className="flex items-center space-x-3 group">
+              <img src={Logo} alt="Deepneed logo" className="h-7 w-auto" />
             </Link>
 
             {/* Navigation Links */}
@@ -55,7 +49,7 @@ export default function Navbar() {
                     }`}
                   >
                     <MessageSquare className="w-4 h-4" />
-                    <span>需求澄清</span>
+                    <span>{t('navbar.requirements','需求澄清')}</span>
                   </Link>
                   <Link
                     to="/prompt-library"
@@ -66,7 +60,7 @@ export default function Navbar() {
                     }`}
                   >
                     <Github className="w-4 h-4" />
-                    <span>提示词库</span>
+                    <span>{t('navbar.promptLibrary','提示词库')}</span>
                   </Link>
                   <Link
                     to="/dashboard"
@@ -77,7 +71,7 @@ export default function Navbar() {
                     }`}
                   >
                     <BarChart3 className="w-4 h-4" />
-                    <span>项目面板</span>
+                    <span>{t('navbar.dashboard','项目面板')}</span>
                   </Link>
                   <Link
                     to="/courses"
@@ -88,7 +82,7 @@ export default function Navbar() {
                     }`}
                   >
                     <BookOpen className="w-4 h-4" />
-                    <span>AI课程</span>
+                    <span>{t('navbar.courses','AI课程')}</span>
                   </Link>
                   <Link
                     to="/opportunity-finder"
@@ -99,7 +93,7 @@ export default function Navbar() {
                     }`}
                   >
                     <Lightbulb className="w-4 h-4" />
-                    <span>机会发现器</span>
+                    <span>{t('navbar.opportunityFinder','机会发现器')}</span>
                   </Link>
                   <Link
                     to="/ai-ranking"
@@ -110,7 +104,7 @@ export default function Navbar() {
                     }`}
                   >
                     <BarChart3 className="w-4 h-4" />
-                    <span>AI排行榜</span>
+                    <span>{t('navbar.aiRanking','AI排行榜')}</span>
                   </Link>
                 </>
               ) : (
@@ -123,7 +117,7 @@ export default function Navbar() {
                         : 'text-gray-300 hover:text-white'
                     }`}
                   >
-                    首页
+                    {t('navbar.home','首页')}
                   </Link>
                   <Link
                     to="/courses"
@@ -134,7 +128,7 @@ export default function Navbar() {
                     }`}
                   >
                     <BookOpen className="w-4 h-4" />
-                    <span>AI课程</span>
+                    <span>{t('navbar.courses','AI课程')}</span>
                   </Link>
                   <Link
                     to="/ai-ranking"
@@ -145,7 +139,7 @@ export default function Navbar() {
                     }`}
                   >
                     <BarChart3 className="w-4 h-4" />
-                    <span>AI排行榜</span>
+                    <span>{t('navbar.aiRanking','AI排行榜')}</span>
                   </Link>
                   <Link
                     to="/about"
@@ -155,7 +149,7 @@ export default function Navbar() {
                         : 'text-gray-300 hover:text-white'
                     }`}
                   >
-                    关于我们
+                    {t('navbar.about','关于我们')}
                   </Link>
                 </>
               )}
@@ -181,7 +175,7 @@ export default function Navbar() {
                     title="AI 服务设置"
                   >
                     <Settings className="w-4 h-4" />
-                    <span className="hidden sm:inline">AI设置</span>
+                    <span className="hidden sm:inline">{t('navbar.aiSettings','AI设置')}</span>
                   </motion.button>
                   
                   <motion.button
@@ -191,7 +185,7 @@ export default function Navbar() {
                     whileTap={{ scale: 0.95 }}
                   >
                     <LogOut className="w-4 h-4" />
-                    <span className="hidden sm:inline">退出</span>
+                    <span className="hidden sm:inline">{t('navbar.logout','退出')}</span>
                   </motion.button>
                 </div>
               ) : (
@@ -200,13 +194,13 @@ export default function Navbar() {
                     to="/login"
                     className="px-4 py-2 text-gray-300 hover:text-white transition-colors"
                   >
-                    登录
+                    {t('navbar.login','登录')}
                   </Link>
                   <Link
                     to="/login?mode=register"
                     className="px-4 py-2 bg-primary-500 text-dark-300 rounded-lg hover:bg-primary-600 transition-colors font-medium"
                   >
-                    注册
+                    {t('navbar.register','注册')}
                   </Link>
                 </div>
               )}

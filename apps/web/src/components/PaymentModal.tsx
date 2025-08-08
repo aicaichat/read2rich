@@ -20,6 +20,8 @@ import {
   PaymentStatus,
   type PaymentParams 
 } from '@/lib/paymentService';
+import { useT } from '@/i18n';
+import { APP_CONFIG } from '@/config';
 
 interface PaymentModalProps {
   isOpen: boolean;
@@ -40,6 +42,7 @@ export default function PaymentModal({
   price, 
   onPaymentSuccess 
 }: PaymentModalProps) {
+  const t = useT();
   const [selectedMethod, setSelectedMethod] = useState<PaymentMethod>(PaymentMethod.ALIPAY);
   const [paymentStep, setPaymentStep] = useState<PaymentStep>('selecting');
   const [errorMessage, setErrorMessage] = useState('');
@@ -53,21 +56,21 @@ export default function PaymentModal({
       id: PaymentMethod.ALIPAY,
       name: '支付宝',
       icon: Smartphone,
-      description: '快速安全的移动支付',
+      description: t('pay.method.alipay.desc','快速安全的移动支付'),
       color: 'text-blue-500'
     },
     {
       id: PaymentMethod.WECHAT,
       name: '微信支付',
       icon: Smartphone,
-      description: '便捷的微信钱包支付',
+      description: t('pay.method.wechat.desc','便捷的微信钱包支付'),
       color: 'text-green-500'
     },
     {
       id: PaymentMethod.CREDIT_CARD,
-      name: '信用卡/借记卡',
+      name: t('pay.method.card.name','信用卡/借记卡'),
       icon: CreditCard,
-      description: 'Visa, MasterCard, 银联',
+      description: t('pay.method.card.desc','Visa, MasterCard, 银联'),
       color: 'text-purple-500'
     }
   ];
@@ -81,9 +84,9 @@ export default function PaymentModal({
       const orderId = `order_${opportunityId}_${Date.now()}`;
       const paymentParams: PaymentParams = {
         amount: price,
-        currency: 'USD',
+        currency: APP_CONFIG.COMMERCE.CURRENCY,
         orderId: orderId,
-        description: `购买报告: ${opportunityTitle}`,
+        description: `${t('pay.purchaseTitle','购买完整报告')}: ${opportunityTitle}`,
         notifyUrl: `${window.location.origin}/api/payment/${selectedMethod}/notify`,
         returnUrl: `${window.location.origin}/payment/success`,
         userId: 'user_' + Date.now(),
@@ -96,7 +99,7 @@ export default function PaymentModal({
       const paymentResult = await paymentService.createPayment(selectedMethod, paymentParams);
 
       if (!paymentResult.success) {
-        throw new Error(paymentResult.error || '创建支付订单失败');
+        throw new Error(paymentResult.error || t('pay.createOrderFailed','创建支付订单失败'));
       }
 
       setCurrentPaymentId(paymentResult.paymentId);
@@ -128,7 +131,7 @@ export default function PaymentModal({
     } catch (error) {
       console.error('支付处理失败:', error);
       setPaymentStep('error');
-      setErrorMessage(error instanceof Error ? error.message : '支付失败，请重试或联系客服');
+      setErrorMessage(error instanceof Error ? error.message : t('pay.failedGeneric','支付失败，请重试或联系客服'));
     }
   };
 
@@ -141,12 +144,12 @@ export default function PaymentModal({
           handlePaymentSuccess();
         } else if (status === PaymentStatus.FAILED) {
           setPaymentStep('error');
-          setErrorMessage('支付失败，请重试');
+          setErrorMessage(t('pay.errorTitle','支付失败'));
         }
       },
       () => {
         setPaymentStep('error');
-        setErrorMessage('支付超时，请重试');
+        setErrorMessage(t('pay.timeout','支付超时，请重试'));
       }
     );
   };
@@ -187,19 +190,19 @@ export default function PaymentModal({
         return (
           <>
             <div className="mb-6">
-              <h3 className="text-xl font-bold text-white mb-2">购买完整报告</h3>
+              <h3 className="text-xl font-bold text-white mb-2">{t('pay.purchaseTitle','购买完整报告')}</h3>
               <p className="text-gray-300 text-sm">{opportunityTitle}</p>
               
               <div className="bg-primary-500/10 border border-primary-500/20 rounded-lg p-4 mt-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-white font-medium">总价</span>
+                  <span className="text-white font-medium">{t('pay.totalPrice','总价')}</span>
                   <span className="text-2xl font-bold text-primary-400">${price}</span>
                 </div>
               </div>
             </div>
 
             <div className="mb-6">
-              <h4 className="text-white font-medium mb-3">选择支付方式</h4>
+              <h4 className="text-white font-medium mb-3">{t('pay.selectMethod','选择支付方式')}</h4>
               <div className="space-y-3">
                 {paymentMethods.map((method) => {
                   const IconComponent = method.icon;
@@ -232,13 +235,13 @@ export default function PaymentModal({
             <div className="bg-gray-800/50 rounded-lg p-4 mb-6">
               <h5 className="text-white font-medium mb-2 flex items-center">
                 <Shield className="w-4 h-4 mr-2 text-green-400" />
-                购买保障
+                {t('pay.benefits.title','购买保障')}
               </h5>
               <ul className="space-y-1 text-sm text-gray-300">
-                <li>• 30天无理由退款</li>
-                <li>• 安全加密支付</li>
-                <li>• 即时下载交付</li>
-                <li>• 7x24小时客服支持</li>
+                <li>• {t('pay.benefits.refund','30天无理由退款')}</li>
+                <li>• {t('pay.benefits.secure','安全加密支付')}</li>
+                <li>• {t('pay.benefits.instant','即时下载交付')}</li>
+                <li>• {t('pay.benefits.support','7x24小时客服支持')}</li>
               </ul>
             </div>
 
@@ -248,13 +251,13 @@ export default function PaymentModal({
                 onClick={onClose}
                 className="flex-1"
               >
-                取消
+                {t('pay.cancel','取消')}
               </Button>
               <Button
                 onClick={handlePayment}
                 className="flex-1 bg-gradient-to-r from-primary-500 to-secondary-500"
               >
-                立即支付 ${price}
+                {t('pay.payNow','立即支付')} ${price}
               </Button>
             </div>
           </>
@@ -264,15 +267,15 @@ export default function PaymentModal({
         return (
           <div className="text-center py-8">
             <Loader2 className="w-12 h-12 text-primary-500 mx-auto mb-4 animate-spin" />
-            <h3 className="text-xl font-bold text-white mb-2">等待支付完成...</h3>
+            <h3 className="text-xl font-bold text-white mb-2">{t('pay.waitingTitle','等待支付完成...')}</h3>
             <p className="text-gray-300 mb-4">
-              {selectedMethod === PaymentMethod.ALIPAY && '请在新打开的支付宝页面完成支付'}
-              {selectedMethod === PaymentMethod.CREDIT_CARD && '请在新打开的页面完成信用卡支付'}
-              {selectedMethod === PaymentMethod.WECHAT && '请使用微信扫描二维码完成支付'}
+              {selectedMethod === PaymentMethod.ALIPAY && t('pay.alipayPrompt','请在新打开的支付宝页面完成支付')}
+              {selectedMethod === PaymentMethod.CREDIT_CARD && t('pay.cardPrompt','请在新打开的页面完成信用卡支付')}
+              {selectedMethod === PaymentMethod.WECHAT && t('pay.wechatPrompt','请使用微信扫描二维码完成支付')}
             </p>
             <div className="mt-4 text-sm text-gray-400">
               <Clock className="w-4 h-4 inline mr-1" />
-              支付完成后将自动跳转
+              {t('pay.waitingNote','支付完成后将自动跳转')}
             </div>
           </div>
         );
@@ -280,7 +283,7 @@ export default function PaymentModal({
       case 'qr-code':
         return (
           <div className="text-center py-8">
-            <h3 className="text-xl font-bold text-white mb-4">微信支付</h3>
+            <h3 className="text-xl font-bold text-white mb-4">{t('pay.wechatPay','微信支付')}</h3>
             <div className="bg-white p-6 rounded-lg inline-block mb-4">
               {qrCodeUrl ? (
                 <img 
@@ -294,15 +297,15 @@ export default function PaymentModal({
                 </div>
               )}
             </div>
-            <p className="text-gray-300 mb-2">请使用微信扫描上方二维码</p>
-            <p className="text-sm text-gray-400">扫码后在手机上完成支付</p>
+            <p className="text-gray-300 mb-2">{t('pay.scanWeChat','请使用微信扫描上方二维码')}</p>
+            <p className="text-sm text-gray-400">{t('pay.scanOnPhone','扫码后在手机上完成支付')}</p>
             <div className="mt-6 flex justify-center">
               <Button
                 variant="secondary"
                 onClick={() => setPaymentStep('selecting')}
                 className="mr-3"
               >
-                返回重选
+                {t('pay.backToSelect','返回重选')}
               </Button>
             </div>
           </div>
@@ -312,13 +315,13 @@ export default function PaymentModal({
         return (
           <div className="text-center py-8">
             <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-            <h3 className="text-xl font-bold text-white mb-2">支付成功！</h3>
+            <h3 className="text-xl font-bold text-white mb-2">{t('pay.successTitle','支付成功！')}</h3>
             <p className="text-gray-300 mb-4">
-              您的完整报告正在准备中，即将为您下载
+              {t('pay.successDesc','您的完整报告正在准备中，即将为您下载')}
             </p>
             <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-4">
               <p className="text-green-400 text-sm">
-                感谢您的购买！报告和快速启动工具包将在2秒后自动下载。
+                {t('pay.successToast','感谢您的购买！报告和快速启动工具包将在2秒后自动下载。')}
               </p>
             </div>
           </div>
@@ -328,7 +331,7 @@ export default function PaymentModal({
         return (
           <div className="text-center py-8">
             <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
-            <h3 className="text-xl font-bold text-white mb-2">支付失败</h3>
+            <h3 className="text-xl font-bold text-white mb-2">{t('pay.errorTitle','支付失败')}</h3>
             <p className="text-gray-300 mb-4">{errorMessage}</p>
             
             <div className="space-y-3">
@@ -340,14 +343,14 @@ export default function PaymentModal({
                 }}
                 className="w-full bg-gradient-to-r from-primary-500 to-secondary-500"
               >
-                重新支付
+                {t('pay.retry','重新支付')}
               </Button>
               <Button
                 variant="secondary"
                 onClick={onClose}
                 className="w-full"
               >
-                稍后再试
+                {t('pay.later','稍后再试')}
               </Button>
             </div>
           </div>

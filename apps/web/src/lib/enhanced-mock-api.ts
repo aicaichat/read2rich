@@ -34,7 +34,7 @@ class MockStorage {
     this.users.set('admin', {
       id: 1,
       username: 'admin',
-      email: 'admin@deepneed.com',
+      email: process.env.VITE_ADMIN_EMAIL || 'admin@example.com',
       full_name: 'Administrator',
       password: 'admin123',
       is_active: true,
@@ -44,7 +44,7 @@ class MockStorage {
     this.users.set('demo', {
       id: 2,
       username: 'demo',
-      email: 'demo@deepneed.com',
+      email: 'demo@example.com',
       full_name: 'Demo User',
       password: 'demo123',
       is_active: true,
@@ -145,7 +145,7 @@ class MockStorage {
     const aiMessages = [
       {
         role: 'system',
-        content: `你是 DeepNeed 的 AI 助手，专门帮助用户澄清和完善项目需求。
+        content: `你是 AI 助手，专门帮助用户澄清和完善项目需求。
 
 初始想法：${session?.initial_idea || '未知'}
 

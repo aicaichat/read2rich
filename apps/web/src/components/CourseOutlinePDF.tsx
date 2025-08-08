@@ -280,7 +280,7 @@ const CourseOutlinePDF: React.FC<CourseOutlinePDFProps> = ({ weekModules, instru
     
     doc.setFontSize(12);
     doc.setTextColor(60, 60, 60);
-    doc.text('Official Website: https://deepneed.com.cn', 20, yPosition);
+    doc.text(`Official Website: ${window.location.origin}`, 20, yPosition);
     yPosition += 8;
     doc.text('Course Consultation: Scan QR code or visit website for more details', 20, yPosition);
     

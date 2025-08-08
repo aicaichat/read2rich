@@ -21,12 +21,15 @@ import PaymentModal from '@/components/PaymentModal';
 import NotificationToast from '@/components/NotificationToast';
 import ReportPreview from '@/components/ReportPreview';
 import { opportunityFinderAPI, type UserProfile, type Opportunity } from '@/lib/opportunity-finder-api';
+import { useT } from '@/i18n';
+import { APP_CONFIG } from '@/config';
 
 // Import types from API client
 // interface Opportunity and UserProfile are now imported
 
 export default function OpportunityFinderPage() {
   const { isAuthenticated } = useAuth();
+  const t = useT();
   const [step, setStep] = useState<'profile' | 'opportunities' | 'detail'>('profile');
   const [userProfile, setUserProfile] = useState<UserProfile>({
     skills: [],
@@ -174,13 +177,13 @@ export default function OpportunityFinderPage() {
             className="text-center mb-12"
           >
             <h1 className="text-4xl font-bold text-white mb-4">
-              AI机会发现器
+              {t('opf.title','AI机会发现器')}
               <span className="ml-3 text-2xl">🔍</span>
             </h1>
             <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              基于全球痛点数据，为您推荐最适合的AI创业机会
+              {t('opf.subtitle','基于全球痛点数据，为您推荐最适合的AI创业机会')}
               <br />
-              <span className="text-primary-400 font-medium">60秒获得个性化Top5机会清单</span>
+              <span className="text-primary-400 font-medium">{t('opf.subtitleEmphasis','60秒获得个性化Top5机会清单')}</span>
             </p>
           </motion.div>
 
@@ -190,14 +193,12 @@ export default function OpportunityFinderPage() {
             transition={{ delay: 0.2 }}
             className="bg-dark-300 rounded-2xl p-8"
           >
-            <h2 className="text-2xl font-bold text-white mb-6">告诉我们关于您的背景</h2>
+            <h2 className="text-2xl font-bold text-white mb-6">{t('opf.backgroundTitle','告诉我们关于您的背景')}</h2>
             
             <div className="space-y-6">
               {/* 技能选择 */}
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-3">
-                  您的技能 (选择所有适用的)
-                </label>
+                <label className="block text-sm font-medium text-gray-300 mb-3">{t('opf.skills.label','您的技能 (选择所有适用的)')}</label>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                   {skillOptions.map((skill) => (
                     <button
@@ -224,9 +225,7 @@ export default function OpportunityFinderPage() {
 
               {/* 预算 */}
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-3">
-                  启动预算 (USD)
-                </label>
+                <label className="block text-sm font-medium text-gray-300 mb-3">{t('opf.budget.label','启动预算 (USD)')}</label>
                 <select
                   value={userProfile.budget}
                   onChange={(e) => setUserProfile(prev => ({ ...prev, budget: Number(e.target.value) }))}
@@ -241,9 +240,7 @@ export default function OpportunityFinderPage() {
 
               {/* 时间投入 */}
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-3">
-                  时间投入
-                </label>
+                <label className="block text-sm font-medium text-gray-300 mb-3">{t('opf.time.label','时间投入')}</label>
                 <div className="grid grid-cols-3 gap-3">
                   {[
                     { value: 'part-time', label: '兼职 (10-20h/周)' },
@@ -267,9 +264,7 @@ export default function OpportunityFinderPage() {
 
               {/* 经验水平 */}
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-3">
-                  创业经验
-                </label>
+                <label className="block text-sm font-medium text-gray-300 mb-3">{t('opf.experience.label','创业经验')}</label>
                 <div className="grid grid-cols-3 gap-3">
                   {[
                     { value: 'beginner', label: '新手' },
@@ -299,7 +294,7 @@ export default function OpportunityFinderPage() {
                 className="px-8 py-3 bg-gradient-to-r from-primary-500 to-secondary-500"
               >
                 <Sparkles className="w-5 h-5 mr-2" />
-                发现我的AI机会
+                {t('opf.discover','发现我的AI机会')}
               </Button>
             </div>
           </motion.div>
@@ -323,11 +318,9 @@ export default function OpportunityFinderPage() {
             <>
               <div className="flex items-center justify-between mb-8">
                 <div>
-                  <h1 className="text-3xl font-bold text-white mb-2">
-                    为您推荐的AI创业机会
-                  </h1>
+                  <h1 className="text-3xl font-bold text-white mb-2">{t('opf.recommendedTitle','为您推荐的AI创业机会')}</h1>
                   <p className="text-gray-300">
-                    基于您的技能和偏好，从全球20k+痛点数据中筛选出的Top5机会
+                    {t('opf.recommendedSubtitle','基于您的技能和偏好，从全球20k+痛点数据中筛选出的Top5机会')}
                   </p>
                 </div>
                 
@@ -337,10 +330,10 @@ export default function OpportunityFinderPage() {
                     onChange={(e) => setFilterDifficulty(e.target.value)}
                     className="px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg text-white"
                   >
-                    <option value="all">所有难度</option>
-                    <option value="easy">简单</option>
-                    <option value="medium">中等</option>
-                    <option value="hard">困难</option>
+                    <option value="all">{t('opf.filter.all','所有难度')}</option>
+                    <option value="easy">{t('opf.filter.easy','简单')}</option>
+                    <option value="medium">{t('opf.filter.medium','中等')}</option>
+                    <option value="hard">{t('opf.filter.hard','困难')}</option>
                   </select>
                 </div>
               </div>
@@ -384,7 +377,7 @@ export default function OpportunityFinderPage() {
                         <div className="text-2xl font-bold text-primary-400">
                           {opportunity.totalScore.toFixed(1)}
                         </div>
-                        <div className="text-xs text-gray-400">总分</div>
+                        <div className="text-xs text-gray-400">{t('opf.totalScore','总分')}</div>
                       </div>
                     </div>
 
@@ -404,26 +397,24 @@ export default function OpportunityFinderPage() {
                         <div className="text-lg font-bold text-green-400">
                           {opportunity.estimatedRevenue}
                         </div>
-                        <div className="text-xs text-gray-400">预期收入</div>
+                        <div className="text-xs text-gray-400">{t('opf.expectedRevenue','预期收入')}</div>
                       </div>
                       <div>
                         <div className="text-lg font-bold text-blue-400">
                           {opportunity.timeToMarket}
                         </div>
-                        <div className="text-xs text-gray-400">上市时间</div>
+                        <div className="text-xs text-gray-400">{t('opf.timeToMarket','上市时间')}</div>
                       </div>
                       <div>
                         <div className="text-lg font-bold text-purple-400">
                           {opportunity.aiFitScore.toFixed(1)}/10
                         </div>
-                        <div className="text-xs text-gray-400">AI适配度</div>
+                        <div className="text-xs text-gray-400">{t('opf.aiFit','AI适配度')}</div>
                       </div>
                     </div>
 
                     <div className="flex items-center justify-between">
-                      <div className="text-xs text-gray-400">
-                        数据来源: {opportunity.sources.join(', ')}
-                      </div>
+                      <div className="text-xs text-gray-400">{t('opf.dataSources','数据来源')}: {opportunity.sources.join(', ')}</div>
                       <ChevronRight className="w-5 h-5 text-gray-400" />
                     </div>
                   </motion.div>
@@ -445,7 +436,7 @@ export default function OpportunityFinderPage() {
             className="flex items-center text-gray-400 hover:text-white mb-6 transition-colors"
           >
             <ChevronRight className="w-5 h-5 mr-2 rotate-180" />
-            返回机会列表
+            {t('opf.returnToList','返回机会列表')}
           </button>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -533,11 +524,9 @@ export default function OpportunityFinderPage() {
                 className="bg-gradient-to-br from-primary-500/20 to-secondary-500/20 rounded-2xl p-6 border border-primary-500/30"
               >
                 <div className="text-center mb-4">
-                  <h3 className="text-xl font-bold text-white mb-2">
-                    解锁完整报告 & Quick-Start Kit
-                  </h3>
+                  <h3 className="text-xl font-bold text-white mb-2">{t('opf.unlockTitle','解锁完整报告 & Quick-Start Kit')}</h3>
                   <div className="text-3xl font-bold text-primary-400">
-                    $29
+                    ${APP_CONFIG.COMMERCE.PRICES.PREMIUM_REPORT}
                     <span className="text-sm text-gray-400 font-normal">/次</span>
                   </div>
                 </div>
@@ -561,8 +550,8 @@ export default function OpportunityFinderPage() {
                 {isPurchased(selectedOpportunity.id) ? (
                   <div className="space-y-3">
                     <div className="bg-green-500/20 border border-green-500/30 rounded-lg p-4 text-center">
-                      <div className="text-green-400 font-medium mb-2">✅ 已购买</div>
-                      <p className="text-sm text-green-300">您已拥有此项目的完整报告</p>
+                      <div className="text-green-400 font-medium mb-2">{t('opf.purchased','✅ 已购买')}</div>
+                      <p className="text-sm text-green-300">{t('opf.purchasedDesc','您已拥有此项目的完整报告')}</p>
                     </div>
                     <Button 
                       className="w-full bg-green-600 hover:bg-green-700"
@@ -579,7 +568,7 @@ export default function OpportunityFinderPage() {
                       }}
                     >
                       <Download className="w-4 h-4 mr-2" />
-                      重新下载报告
+                      {t('opf.rebuy','重新下载报告')}
                     </Button>
                   </div>
                 ) : (
@@ -588,13 +577,11 @@ export default function OpportunityFinderPage() {
                     onClick={() => setIsPaymentModalOpen(true)}
                   >
                     <CreditCard className="w-4 h-4 mr-2" />
-                    购买完整报告
+                    {t('opf.buy','购买完整报告')}
                   </Button>
                 )}
                 
-                <p className="text-xs text-gray-400 text-center mt-3">
-                  30天退款保证 • 支持支付宝/微信
-                </p>
+                <p className="text-xs text-gray-400 text-center mt-3">{t('opf.refundNote','30天退款保证 • 支持支付宝/微信')}</p>
               </motion.div>
 
               {/* 数据来源 */}
@@ -623,7 +610,7 @@ export default function OpportunityFinderPage() {
             onClose={() => setIsPaymentModalOpen(false)}
             opportunityId={selectedOpportunity.id}
             opportunityTitle={selectedOpportunity.title}
-            price={29}
+            price={APP_CONFIG.COMMERCE.PRICES.PREMIUM_REPORT}
             onPaymentSuccess={handlePaymentSuccess}
           />
         )}

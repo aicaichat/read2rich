@@ -98,7 +98,7 @@ const AdminLoginPage: React.FC = () => {
             >
               <Shield className="w-8 h-8 text-white" />
             </motion.div>
-            <h1 className="text-2xl font-bold text-white mb-2">DeepNeed 后台管理</h1>
+            <h1 className="text-2xl font-bold text-white mb-2">后台管理</h1>
             <p className="text-gray-400">请输入管理员凭据</p>
           </div>
 
@@ -224,7 +224,7 @@ const AdminLoginPage: React.FC = () => {
         {/* 底部信息 */}
         <div className="mt-8 text-center">
           <p className="text-gray-500 text-sm">
-            © 2024 DeepNeed. 保留所有权利。
+            © 2024 All rights reserved.
           </p>
         </div>
       </div>

@@ -387,7 +387,7 @@ ${js}
 
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2024 ${appSpec.title}. 由DeepNeed AI生成。</p>
+            <p>&copy; 2024 ${appSpec.title}. 由 AI 生成。</p>
         </div>
     </footer>`;
   }

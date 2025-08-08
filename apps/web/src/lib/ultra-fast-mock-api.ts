@@ -80,7 +80,7 @@ class UltraFastMockStorage {
     this.users.set('admin', {
       id: 1,
       username: 'admin',
-      email: 'admin@deepneed.com',
+      email: process.env.VITE_ADMIN_EMAIL || 'admin@example.com',
       full_name: 'Administrator',
       password: 'admin123',
       is_active: true,
@@ -90,7 +90,7 @@ class UltraFastMockStorage {
     this.users.set('demo', {
       id: 2,
       username: 'demo',
-      email: 'demo@deepneed.com',
+      email: 'demo@example.com',
       full_name: 'Demo User',
       password: 'demo123',
       is_active: true,

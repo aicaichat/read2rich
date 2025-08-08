@@ -83,7 +83,7 @@ const LoginPage: React.FC = () => {
             </h1>
             <p className="text-gray-400">
               {isRegisterMode 
-                ? '创建您的 DeepNeed 账户，开始 AI 驱动的开发之旅' 
+                ? '创建您的账户，开始 AI 驱动的开发之旅' 
                 : '登录您的账户，继续您的项目'
               }
             </p>
