@@ -188,3 +188,24 @@ class PromptTemplate(Base):
     usage_count = Column(Integer, default=0)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now()) 
+
+
+class PaymentSettings(Base):
+    __tablename__ = "payment_settings"
+
+    id = Column(Integer, primary_key=True, index=True)
+    # WeChat
+    wechat_app_id = Column(String, default="")
+    wechat_merchant_id = Column(String, default="")
+    wechat_api_key = Column(String, default="")
+    wechat_cert_path = Column(String, default="")
+    wechat_key_path = Column(String, default="")
+    # Alipay
+    alipay_app_id = Column(String, default="")
+    alipay_private_key = Column(Text, default="")
+    alipay_public_key = Column(Text, default="")
+    # Stripe
+    stripe_secret_key = Column(String, default="")
+    stripe_webhook_secret = Column(String, default="")
+    # Metadata
+    updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())

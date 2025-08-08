@@ -22,6 +22,7 @@ import {
   WifiOff,
   Server
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import Button from '@/components/ui/Button';
 import { opportunityFinderMonitor } from '@/lib/opportunity-finder-monitor';
 
@@ -379,6 +380,13 @@ export default function AdminOpportunityFinderPage() {
               <TrendingUp className="w-4 h-4" />
               查看结果
             </Button>
+
+            <Link
+              to="/admin/payment-settings"
+              className="flex items-center gap-2 px-4 py-2 rounded-md bg-emerald-600 hover:bg-emerald-700 text-white"
+            >
+              支付配置
+            </Link>
             
             <Button
               variant="secondary"

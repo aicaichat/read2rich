@@ -37,6 +37,7 @@ import AdminAICrawlerPage from './pages/AdminAICrawlerPage';
 import AdminOpportunityFinderPage from './pages/AdminOpportunityFinderPage';
 import OpportunityFinderPage from './pages/OpportunityFinderPage';
 import AnalysisResultsPage from './pages/AnalysisResultsPage';
+import AdminPaymentSettingsPage from './pages/AdminPaymentSettingsPage';
 
 // Components
 import Navbar from './components/Navbar';
@@ -310,6 +311,11 @@ function App() {
               <Route path="/admin/opportunity-finder" element={
                 <AdminLayout>
                   <AdminOpportunityFinderPage />
+                </AdminLayout>
+              } />
+              <Route path="/admin/payment-settings" element={
+                <AdminLayout>
+                  <AdminPaymentSettingsPage />
                 </AdminLayout>
               } />
               <Route path="/analysis-results" element={

@@ -17,6 +17,10 @@ from Crypto.Hash import SHA256
 from fastapi import APIRouter, HTTPException, Request, Depends
 from pydantic import BaseModel
 import os
+from sqlalchemy.orm import Session
+from ..db.database import get_db
+from ..db.models import PaymentSettings
+from ..core.auth import get_current_active_user
 
 router = APIRouter()
 
@@ -67,6 +71,25 @@ class StripePaymentIntentRequest(BaseModel):
     orderId: str
     description: str
     metadata: Dict[str, Any] = {}
+
+
+class PaymentSettingsSchema(BaseModel):
+    # WeChat
+    wechat_app_id: str = ""
+    wechat_merchant_id: str = ""
+    wechat_api_key: str = ""
+    wechat_cert_path: str = ""
+    wechat_key_path: str = ""
+    # Alipay
+    alipay_app_id: str = ""
+    alipay_private_key: str = ""
+    alipay_public_key: str = ""
+    # Stripe
+    stripe_secret_key: str = ""
+    stripe_webhook_secret: str = ""
+
+    class Config:
+        orm_mode = True
 
 # 工具函数
 def generate_wechat_sign(params: Dict[str, Any], api_key: str) -> str:
@@ -435,3 +458,49 @@ async def verify_payment_callback(request: Request):
         
     except Exception as e:
         return {"verified": False, "error": str(e)}
+
+
+# 管理接口：获取/更新支付配置（需要登录）
+@router.get("/settings", response_model=PaymentSettingsSchema)
+async def get_payment_settings(
+    db: Session = Depends(get_db),
+    user=Depends(get_current_active_user)
+):
+    settings_row = db.query(PaymentSettings).order_by(PaymentSettings.id.desc()).first()
+    if not settings_row:
+        settings_row = PaymentSettings()
+        db.add(settings_row)
+        db.commit()
+        db.refresh(settings_row)
+    return settings_row
+
+
+@router.put("/settings", response_model=PaymentSettingsSchema)
+async def update_payment_settings(
+    payload: PaymentSettingsSchema,
+    db: Session = Depends(get_db),
+    user=Depends(get_current_active_user)
+):
+    settings_row = db.query(PaymentSettings).order_by(PaymentSettings.id.desc()).first()
+    if not settings_row:
+        settings_row = PaymentSettings()
+        db.add(settings_row)
+    # 更新字段
+    for field, value in payload.dict().items():
+        setattr(settings_row, field, value)
+    db.commit()
+    db.refresh(settings_row)
+
+    # 同步到运行时配置（仅内存，进程重启会恢复为环境变量）
+    config.WECHAT_APP_ID = settings_row.wechat_app_id
+    config.WECHAT_MERCHANT_ID = settings_row.wechat_merchant_id
+    config.WECHAT_API_KEY = settings_row.wechat_api_key
+    config.WECHAT_CERT_PATH = settings_row.wechat_cert_path
+    config.WECHAT_KEY_PATH = settings_row.wechat_key_path
+    config.ALIPAY_APP_ID = settings_row.alipay_app_id
+    config.ALIPAY_PRIVATE_KEY = settings_row.alipay_private_key
+    config.ALIPAY_PUBLIC_KEY = settings_row.alipay_public_key
+    config.STRIPE_SECRET_KEY = settings_row.stripe_secret_key
+    config.STRIPE_WEBHOOK_SECRET = settings_row.stripe_webhook_secret
+
+    return settings_row
