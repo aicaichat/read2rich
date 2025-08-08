@@ -34,6 +34,10 @@ API_PORT="8000"
 NGINX_CONF_DIR="/etc/nginx/sites-available"
 NGINX_ENABLED_DIR="/etc/nginx/sites-enabled"
 
+# 是否启用 AI Opportunity Finder 微服务（交互式设置，或通过环境变量 ENABLE_OPF=true 预设）
+OPF_ENABLE=${ENABLE_OPF:-""}
+OPF_API_PORT="8081" # apps/opportunity_finder/api_gateway 对外映射端口
+
 # 检查环境变量文件
 check_env_file() {
     echo -e "${BLUE}🔍 检查环境变量配置...${NC}"
@@ -118,6 +122,70 @@ setup_project() {
     echo -e "${GREEN}✅ 项目目录设置完成${NC}"
 }
 
+# 询问是否部署 Opportunity Finder 微服务
+prompt_opf_enable() {
+    if [ -n "$OPF_ENABLE" ]; then
+        # 已通过环境变量设置
+        if [[ "$OPF_ENABLE" =~ ^(true|TRUE|1|yes|Y)$ ]]; then
+            OPF_ENABLE=true
+        else
+            OPF_ENABLE=false
+        fi
+        echo -e "${BLUE}🧩 Opportunity Finder 微服务：${NC} ${OPF_ENABLE} (来自 ENABLE_OPF 环境变量)"
+        return 0
+    fi
+    echo -e "${BLUE}🧩 是否部署 AI Opportunity Finder 微服务并配置 /opfinder-api/ 反向代理？(y/n)${NC}"
+    read -r response
+    if [[ "$response" =~ ^[Yy]$ ]]; then
+        OPF_ENABLE=true
+    else
+        OPF_ENABLE=false
+    fi
+}
+
+# 部署 Opportunity Finder 微服务集群
+deploy_opf_services() {
+    if [ "$OPF_ENABLE" != true ]; then
+        return 0
+    fi
+    echo -e "${BLUE}🧩 部署 AI Opportunity Finder 微服务...${NC}"
+
+    local OPF_DIR="/opt/$PROJECT_NAME/apps/opportunity_finder"
+    if [ ! -d "$OPF_DIR" ]; then
+        echo -e "${RED}❌ 未找到 $OPF_DIR，确认项目已完整复制${NC}"
+        return 1
+    fi
+
+    pushd "$OPF_DIR" >/dev/null
+
+    # 环境文件
+    if [ ! -f .env ]; then
+        if [ -f env.example ]; then
+            cp env.example .env
+            echo -e "${YELLOW}⚠️  已为 Opportunity Finder 生成默认 .env，请按需修改 ${OPF_DIR}/.env${NC}"
+        else
+            echo -e "${RED}❌ 未找到 ${OPF_DIR}/env.example，请手动创建 .env${NC}"
+            popd >/dev/null
+            return 1
+        fi
+    fi
+
+    # 构建并启动
+    docker-compose up -d --build
+
+    echo -e "${GREEN}✅ Opportunity Finder 微服务已启动${NC}"
+
+    # 基本健康检查：API Gateway
+    sleep 5
+    if curl -fsS http://localhost:${OPF_API_PORT}/monitor/status >/dev/null 2>&1; then
+        echo -e "${GREEN}✅ Opportunity Finder API Gateway 正常 (${OPF_API_PORT})${NC}"
+    else
+        echo -e "${YELLOW}⚠️ Opportunity Finder API Gateway 健康检查失败（端口 ${OPF_API_PORT}），请稍后重试${NC}"
+    fi
+
+    popd >/dev/null
+}
+
 # 构建和启动服务
 deploy_services() {
     echo -e "${BLUE}🐳 构建和启动Docker服务...${NC}"
@@ -163,6 +231,28 @@ configure_nginx() {
             fi
             
             # 根据SSL证书存在情况生成配置
+            # 若启用 OPF，为 nginx 片段准备可选 location 块
+            OPF_LOCATION=""
+            if [ "$OPF_ENABLE" = true ]; then
+read -r -d '' OPF_LOCATION << 'OPFSSL'
+
+    # AI Opportunity Finder API 反向代理
+    location /opfinder-api/ {
+        proxy_pass http://localhost:8081/;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_cache_bypass $http_upgrade;
+    }
+OPFSSL
+                # 转义 $ 以避免 heredoc 展开冲突
+                OPF_LOCATION=${OPF_LOCATION//$/\$}
+            fi
+
             if [ "$SSL_CERT_EXISTS" = true ]; then
                 # HTTPS配置 - 使用现有SSL证书
                 cat > /tmp/deepneed_update.conf << EOF
@@ -223,6 +313,8 @@ server {
         proxy_set_header X-Forwarded-Proto \$scheme;
         proxy_cache_bypass \$http_upgrade;
     }
+
+${OPF_LOCATION}
     
     # 静态文件缓存
     location ~* \.(jpg|jpeg|png|gif|ico|css|js|svg|woff|woff2|ttf|eot)$ {
@@ -263,6 +355,27 @@ server {
 }
 EOF
             else
+                # 若启用 OPF，为 nginx 片段准备可选 location 块（HTTP）
+                OPF_LOCATION_HTTP=""
+                if [ "$OPF_ENABLE" = true ]; then
+read -r -d '' OPF_LOCATION_HTTP << 'OPFHTTP'
+
+    # AI Opportunity Finder API 反向代理
+    location /opfinder-api/ {
+        proxy_pass http://localhost:8081/;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_cache_bypass $http_upgrade;
+    }
+OPFHTTP
+                    OPF_LOCATION_HTTP=${OPF_LOCATION_HTTP//$/\$}
+                fi
+
                 # HTTP配置
                 cat > /tmp/deepneed_update.conf << EOF
 # HTTP配置 - 主服务器
@@ -322,6 +435,8 @@ server {
         proxy_set_header X-Forwarded-Proto \$scheme;
         proxy_cache_bypass \$http_upgrade;
     }
+
+${OPF_LOCATION_HTTP}
     
     # 静态文件缓存
     location ~* \.(jpg|jpeg|png|gif|ico|css|js|svg|woff|woff2|ttf|eot)$ {
@@ -383,6 +498,23 @@ server {
         proxy_set_header X-Forwarded-Proto \$scheme;
         proxy_cache_bypass \$http_upgrade;
     }
+
+$(if [ "$OPF_ENABLE" = true ]; then cat << 'EOI'
+
+    # AI Opportunity Finder API 反向代理
+    location /opfinder-api/ {
+        proxy_pass http://localhost:8081/;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade \$http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto \$scheme;
+        proxy_cache_bypass \$http_upgrade;
+    }
+EOI
+; fi)
     
     # 静态资源缓存
     location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg)$ {
@@ -457,6 +589,38 @@ EOF
     echo -e "${GREEN}✅ systemd服务创建完成${NC}"
 }
 
+# 为 Opportunity Finder 创建独立的 systemd 服务（可选）
+create_systemd_service_opf() {
+    if [ "$OPF_ENABLE" != true ]; then
+        return 0
+    fi
+    echo -e "${BLUE}⚙️ 为 Opportunity Finder 创建 systemd 服务...${NC}"
+
+    cat > /tmp/deepneed-opf.service << EOF
+[Unit]
+Description=DeepNeed Opportunity Finder Services
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/opt/$PROJECT_NAME/apps/opportunity_finder
+ExecStart=/usr/local/bin/docker-compose up -d
+ExecStop=/usr/local/bin/docker-compose down
+TimeoutStartSec=0
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+    cp /tmp/deepneed-opf.service /etc/systemd/system/
+    systemctl daemon-reload
+    systemctl enable deepneed-opf || true
+
+    echo -e "${GREEN}✅ Opportunity Finder systemd 服务创建完成${NC}"
+}
+
 # 健康检查
 health_check() {
     echo -e "${BLUE}🏥 健康检查...${NC}"
@@ -483,6 +647,15 @@ health_check() {
         echo -e "${GREEN}✅ nginx代理正常${NC}"
     else
         echo -e "${RED}❌ nginx代理异常${NC}"
+    fi
+
+    # 检查 Opportunity Finder（如启用）
+    if [ "$OPF_ENABLE" = true ]; then
+        if curl -fsS http://localhost:${OPF_API_PORT}/monitor/status >/dev/null 2>&1; then
+            echo -e "${GREEN}✅ Opportunity Finder /monitor/status 正常${NC}"
+        else
+            echo -e "${YELLOW}⚠️ Opportunity Finder 健康检查失败（可能仍在启动中）${NC}"
+        fi
     fi
 }
 
@@ -514,6 +687,10 @@ show_deployment_info() {
     echo "  重启服务: sudo systemctl restart deepneed"
     echo "  查看日志: sudo journalctl -u deepneed -f"
     echo "  查看容器: docker-compose -f /opt/$PROJECT_NAME/docker-compose.production.yml ps"
+    if [ "$OPF_ENABLE" = true ]; then
+        echo "  OPF服务状态: sudo systemctl status deepneed-opf"
+        echo "  重启OPF: sudo systemctl restart deepneed-opf"
+    fi
     echo ""
     echo -e "${BLUE}📝 下一步:${NC}"
     echo "  1. 访问 $SITE_URL 查看应用"
@@ -523,6 +700,11 @@ show_deployment_info() {
     else
         echo "  2. SSL证书已配置，直接使用HTTPS访问"
         echo "  3. 如有问题，检查Docker容器状态"
+    fi
+    if [ "$OPF_ENABLE" = true ]; then
+        echo ""
+        echo "  Opportunity Finder API: $SITE_URL/opfinder-api/ (通过Nginx反代)"
+        echo "  内部直连: http://localhost:${OPF_API_PORT}/monitor/status"
     fi
     echo ""
 }
@@ -535,10 +717,13 @@ main() {
     check_dependencies
     check_env_file
     setup_project
+    prompt_opf_enable
     deploy_services
+    deploy_opf_services
     configure_nginx
     setup_ssl
     create_systemd_service
+    create_systemd_service_opf
     health_check
     show_deployment_info
 }
