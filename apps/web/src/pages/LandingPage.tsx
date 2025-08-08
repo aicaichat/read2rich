@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, MessageSquare, Sparkles, Code, BarChart3, Users, Clock, TrendingUp, Star, CheckCircle, PlayCircle, BookOpen, Award } from 'lucide-react';
+import { ArrowRight, MessageSquare, Sparkles, Code, BarChart3, Users, Clock, TrendingUp, Star, CheckCircle, PlayCircle, BookOpen, Award, Lightbulb } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import Button from '@/components/ui/Button';
 import { 
@@ -18,6 +18,14 @@ export default function LandingPage() {
   const [quickIdea, setQuickIdea] = useState('');
 
   const features = [
+    {
+      icon: Lightbulb,
+      title: 'AI机会发现器',
+      description: '基于全球痛点数据，60秒筛选出最适合您的AI创业机会',
+      metric: '60秒发现',
+      isNew: true,
+      link: '/opportunity-finder'
+    },
     {
       icon: MessageSquare,
       title: '30分钟想法验证',
@@ -248,30 +256,47 @@ export default function LandingPage() {
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map((feature, index) => (
-              <motion.div
-                key={index}
-                className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-xl rounded-2xl border border-white/10 p-6 hover:border-emerald-500/50 transition-all duration-300 group"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -5 }}
-              >
-                <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-emerald-500/20 rounded-xl flex items-center justify-center group-hover:bg-emerald-500/30 transition-colors">
-                    <feature.icon className="w-6 h-6 text-emerald-400" />
+            {features.map((feature, index) => {
+              const FeatureCard = (
+                <motion.div
+                  key={index}
+                  className={`bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-xl rounded-2xl border border-white/10 p-6 hover:border-emerald-500/50 transition-all duration-300 group relative ${
+                    feature.link ? 'cursor-pointer' : ''
+                  }`}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -5 }}
+                  onClick={() => feature.link && navigate(feature.link)}
+                >
+                  {feature.isNew && (
+                    <div className="absolute -top-2 -right-2 bg-gradient-to-r from-primary-500 to-secondary-500 text-white text-xs px-2 py-1 rounded-full font-medium">
+                      NEW
+                    </div>
+                  )}
+                  <div className="flex items-center mb-4">
+                    <div className="w-12 h-12 bg-emerald-500/20 rounded-xl flex items-center justify-center group-hover:bg-emerald-500/30 transition-colors">
+                      <feature.icon className="w-6 h-6 text-emerald-400" />
+                    </div>
+                    <span className="ml-auto text-emerald-400 font-bold text-sm">{feature.metric}</span>
                   </div>
-                  <span className="ml-auto text-emerald-400 font-bold text-sm">{feature.metric}</span>
-                </div>
-                <h3 className="text-xl font-semibold text-white mb-3">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-300 leading-relaxed">
-                  {feature.description}
-                </p>
-              </motion.div>
-            ))}
+                  <h3 className="text-xl font-semibold text-white mb-3">
+                    {feature.title}
+                  </h3>
+                  <p className="text-gray-300 leading-relaxed">
+                    {feature.description}
+                  </p>
+                  {feature.link && (
+                    <div className="mt-4 flex items-center text-primary-400 text-sm font-medium">
+                      立即体验 <ArrowRight className="w-4 h-4 ml-1" />
+                    </div>
+                  )}
+                </motion.div>
+              );
+              
+              return FeatureCard;
+            })}
           </div>
         </div>
       </section>

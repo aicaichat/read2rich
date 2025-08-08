@@ -1,0 +1,42 @@
+[
+  {
+    "id": "hn_visual_0",
+    "title": "\"I closed MPEG on 2 Jun '20 when I left because obscure forces had hijacked it.\"",
+    "url": "https://leonardo.chiariglione.org/",
+    "source": "hackernews",
+    "platform": "hackernews",
+    "scraped_at": "2025-08-07T19:01:42.074172"
+  },
+  {
+    "id": "hn_visual_1",
+    "title": "We replaced passwords with something worse",
+    "url": "https://blog.danielh.cc/blog/passwords",
+    "source": "hackernews",
+    "platform": "hackernews",
+    "scraped_at": "2025-08-07T19:01:42.078895"
+  },
+  {
+    "id": "hn_visual_2",
+    "title": "New AI Coding Teammate: Gemini CLI GitHub Actions",
+    "url": "https://blog.google/technology/developers/introducing-gemini-cli-github-actions/",
+    "source": "hackernews",
+    "platform": "hackernews",
+    "scraped_at": "2025-08-07T19:01:42.083270"
+  },
+  {
+    "id": "hn_visual_3",
+    "title": "Cracking the Vault: How we found zero-day flaws in HashiCorp Vault",
+    "url": "https://cyata.ai/blog/cracking-the-vault-how-we-found-zero-day-flaws-in-authentication-identity-and-authorization-in-hashicorp-vault/",
+    "source": "hackernews",
+    "platform": "hackernews",
+    "scraped_at": "2025-08-07T19:01:42.086524"
+  },
+  {
+    "id": "hn_visual_4",
+    "title": "Running GPT-OSS-120B at 500 tokens per second on Nvidia GPUs",
+    "url": "https://www.baseten.co/blog/sota-performance-for-gpt-oss-120b-on-nvidia-gpus/",
+    "source": "hackernews",
+    "platform": "hackernews",
+    "scraped_at": "2025-08-07T19:01:42.090199"
+  }
+]

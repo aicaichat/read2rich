@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { LogOut, User, MessageSquare, BarChart3, Github, Settings, BookOpen } from 'lucide-react';
+import { LogOut, User, MessageSquare, BarChart3, Github, Settings, BookOpen, Lightbulb } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import AISettingsModal from './AISettingsModal';
 
@@ -89,6 +89,17 @@ export default function Navbar() {
                   >
                     <BookOpen className="w-4 h-4" />
                     <span>AI课程</span>
+                  </Link>
+                  <Link
+                    to="/opportunity-finder"
+                    className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors ${
+                      isActive('/opportunity-finder') 
+                        ? 'bg-primary-500/20 text-primary-500' 
+                        : 'text-gray-300 hover:text-white hover:bg-white/10'
+                    }`}
+                  >
+                    <Lightbulb className="w-4 h-4" />
+                    <span>机会发现器</span>
                   </Link>
                   <Link
                     to="/ai-ranking"

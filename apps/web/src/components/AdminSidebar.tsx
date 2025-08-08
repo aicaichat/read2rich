@@ -4,7 +4,8 @@ import {
   LayoutDashboard, BookOpen, Users, DollarSign,
   MessageSquare, BarChart3, Settings, FileText,
   Shield, Bell, HelpCircle, LogOut, ChevronLeft,
-  ChevronRight, Home, GraduationCap, RefreshCw
+  ChevronRight, Home, GraduationCap, RefreshCw,
+  Zap
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -105,6 +106,13 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ isCollapsed, onToggle }) =>
       name: 'AI抓取管理',
       icon: RefreshCw,
       path: '/admin/ai-crawler'
+    },
+    {
+      id: 'opportunity-finder',
+      name: '机会发现器监控',
+      icon: Zap,
+      path: '/admin/opportunity-finder',
+      badge: 5
     }
   ];
 

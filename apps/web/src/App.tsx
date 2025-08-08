@@ -34,6 +34,9 @@ import AdminOrderManagement from './pages/AdminOrderManagement';
 import AdminTestPage from './pages/AdminTestPage';
 import AdminLoginPage from './pages/AdminLoginPage';
 import AdminAICrawlerPage from './pages/AdminAICrawlerPage';
+import AdminOpportunityFinderPage from './pages/AdminOpportunityFinderPage';
+import OpportunityFinderPage from './pages/OpportunityFinderPage';
+import AnalysisResultsPage from './pages/AnalysisResultsPage';
 
 // Components
 import Navbar from './components/Navbar';
@@ -213,6 +216,14 @@ function App() {
                   </main>
                 </>
               } />
+              <Route path="/opportunity-finder" element={
+                <>
+                  <Navbar />
+                  <main className="relative z-10">
+                    <OpportunityFinderPage />
+                  </main>
+                </>
+              } />
               <Route path="/ai-ranking" element={
                 <>
                   <Navbar />
@@ -295,6 +306,14 @@ function App() {
                 <AdminLayout>
                   <AdminAICrawlerPage />
                 </AdminLayout>
+              } />
+              <Route path="/admin/opportunity-finder" element={
+                <AdminLayout>
+                  <AdminOpportunityFinderPage />
+                </AdminLayout>
+              } />
+              <Route path="/analysis-results" element={
+                <AnalysisResultsPage />
               } />
             </Routes>
           </div>

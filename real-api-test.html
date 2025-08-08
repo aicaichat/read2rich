@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>真实API测试 - Opportunity Finder监控</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #1a1a1a;
+            color: white;
+            padding: 40px;
+            margin: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .status-running { background: #10b981; }
+        .status-stopped { background: #ef4444; }
+        .status-warning { background: #f59e0b; }
+        .button {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-size: 14px;
+            cursor: pointer;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+        .button:hover { transform: translateY(-2px); }
+        .button:disabled { opacity: 0.6; cursor: not-allowed; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .log-entry {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 6px;
+            padding: 8px 12px;
+            margin: 4px 0;
+            font-size: 12px;
+            font-family: 'Monaco', 'Menlo', monospace;
+        }
+        .log-error { border-left: 3px solid #ef4444; }
+        .log-warning { border-left: 3px solid #f59e0b; }
+        .log-info { border-left: 3px solid #10b981; }
+        .metric {
+            text-align: center;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        .metric-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #10b981;
+        }
+        .metric-label {
+            font-size: 12px;
+            color: #888;
+            margin-top: 5px;
+        }
+        .spinning {
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        h1 { color: #10b981; }
+        h2 { color: #059669; margin-bottom: 15px; }
+        .api-status {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 12px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="api-status" id="apiStatus">
+        🔄 连接API中...
+    </div>
+    
+    <div class="container">
+        <h1>🎯 真实API测试 - AI Opportunity Finder 监控系统</h1>
+        
+        <div class="card">
+            <h2>📡 API连接状态</h2>
+            <div id="connectionStatus">检查中...</div>
+            <button class="button" onclick="refreshAll()">🔄 刷新所有数据</button>
+            <button class="button" onclick="testTriggerCrawl()">🚀 触发抓取</button>
+            <button class="button" onclick="toggleAutoRefresh()" id="autoRefreshBtn">⏸️ 停止自动刷新</button>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h2>🖥️ 系统状态</h2>
+                <div id="systemStatus">加载中...</div>
+            </div>
+
+            <div class="card">
+                <h2>📊 性能指标</h2>
+                <div id="systemMetrics">加载中...</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🌐 数据源状态</h2>
+            <div id="dataSourcesStatus">加载中...</div>
+        </div>
+
+        <div class="card">
+            <h2>📝 系统日志 (最新20条)</h2>
+            <div id="systemLogs">加载中...</div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:8081/api/v1';
+        let autoRefreshInterval;
+        let isAutoRefreshing = true;
+
+        // API调用函数
+        async function callAPI(endpoint, options = {}) {
+            try {
+                const response = await fetch(`${API_BASE}${endpoint}`, options);
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                return await response.json();
+            } catch (error) {
+                console.error(`API调用失败 ${endpoint}:`, error);
+                throw error;
+            }
+        }
+
+        // 更新API状态指示器
+        function updateApiStatus(isConnected, message = '') {
+            const statusEl = document.getElementById('apiStatus');
+            if (isConnected) {
+                statusEl.textContent = `✅ API已连接 ${message}`;
+                statusEl.style.borderColor = '#10b981';
+            } else {
+                statusEl.textContent = `❌ API断开 ${message}`;
+                statusEl.style.borderColor = '#ef4444';
+            }
+        }
+
+        // 获取系统状态
+        async function getSystemStatus() {
+            try {
+                const status = await callAPI('/monitor/status');
+                const statusEl = document.getElementById('systemStatus');
+                
+                statusEl.innerHTML = `
+                    <div style="margin-bottom: 15px;">
+                        <span class="status-indicator ${status.isRunning ? 'status-running' : 'status-stopped'}"></span>
+                        <strong>爬虫服务: ${status.isRunning ? '运行中' : '已停止'}</strong>
+                    </div>
+                    <div>运行时间: ${status.uptime}</div>
+                    <div>错误率: ${status.errorRate}%</div>
+                    <div>成功抓取: ${status.successfulCrawls}/${status.totalCrawls}</div>
+                    <div style="margin-top: 10px;">
+                        <span class="status-indicator ${status.kafkaConnected ? 'status-running' : 'status-stopped'}"></span>
+                        Kafka: ${status.kafkaConnected ? '已连接' : '未连接'}
+                    </div>
+                    <div>
+                        <span class="status-indicator ${status.qdrantConnected ? 'status-running' : 'status-stopped'}"></span>
+                        Qdrant: ${status.qdrantConnected ? '已连接' : '未连接'}
+                    </div>
+                    <div>
+                        <span class="status-indicator ${status.embeddingServiceStatus === 'running' ? 'status-running' : 'status-stopped'}"></span>
+                        Embedding服务: ${status.embeddingServiceStatus}
+                    </div>
+                `;
+                
+                updateApiStatus(true, `(${status.isRunning ? '系统运行中' : '部分服务停止'})`);
+                return true;
+            } catch (error) {
+                document.getElementById('systemStatus').innerHTML = `❌ 无法获取系统状态: ${error.message}`;
+                updateApiStatus(false, error.message);
+                return false;
+            }
+        }
+
+        // 获取性能指标
+        async function getSystemMetrics() {
+            try {
+                const metrics = await callAPI('/monitor/metrics');
+                document.getElementById('systemMetrics').innerHTML = `
+                    <div class="grid" style="grid-template-columns: repeat(2, 1fr); gap: 10px;">
+                        <div class="metric">
+                            <div class="metric-value">${metrics.messagesProduced}</div>
+                            <div class="metric-label">消息生产</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">${metrics.messagesProcessed}</div>
+                            <div class="metric-label">消息处理</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">${metrics.vectorsStored}</div>
+                            <div class="metric-label">向量存储</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">${metrics.opportunitiesFound}</div>
+                            <div class="metric-label">发现机会</div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 10px;">
+                        队列健康: <span class="status-indicator status-${metrics.queueHealth === 'healthy' ? 'running' : 'stopped'}"></span>
+                        ${metrics.queueHealth} | 处理速率: ${metrics.processingRate}/min
+                    </div>
+                `;
+            } catch (error) {
+                document.getElementById('systemMetrics').innerHTML = `❌ 无法获取指标: ${error.message}`;
+            }
+        }
+
+        // 获取数据源状态
+        async function getDataSourcesStatus() {
+            try {
+                const sources = await callAPI('/monitor/sources');
+                const sourcesEl = document.getElementById('dataSourcesStatus');
+                
+                sourcesEl.innerHTML = sources.map(source => `
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; margin: 5px 0; background: rgba(0,0,0,0.3); border-radius: 6px;">
+                        <div>
+                            <strong>${source.name}</strong> (${source.type})
+                            ${source.errorMessage ? `<br><small style="color: #ef4444;">${source.errorMessage}</small>` : ''}
+                        </div>
+                        <div style="text-align: right;">
+                            <span class="status-indicator status-${source.status === 'success' ? 'running' : source.status === 'warning' ? 'warning' : 'stopped'}"></span>
+                            HTTP ${source.httpStatus} | ${source.responseTime}ms
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                document.getElementById('dataSourcesStatus').innerHTML = `❌ 无法获取数据源状态: ${error.message}`;
+            }
+        }
+
+        // 获取系统日志
+        async function getSystemLogs() {
+            try {
+                const logs = await callAPI('/monitor/logs?limit=20');
+                const logsEl = document.getElementById('systemLogs');
+                
+                logsEl.innerHTML = logs.map(log => `
+                    <div class="log-entry log-${log.level.toLowerCase()}">
+                        <small style="color: #888;">${new Date(log.timestamp).toLocaleTimeString()} | ${log.service}</small>
+                        <div>${log.message}</div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                document.getElementById('systemLogs').innerHTML = `❌ 无法获取日志: ${error.message}`;
+            }
+        }
+
+        // 触发抓取
+        async function testTriggerCrawl() {
+            const button = event.target;
+            const originalText = button.textContent;
+            
+            button.disabled = true;
+            button.innerHTML = '🔄 <span class="spinning">触发中...</span>';
+            
+            try {
+                const result = await callAPI('/monitor/trigger-crawl', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({})
+                });
+                
+                if (result.success) {
+                    alert(`✅ ${result.message}`);
+                } else {
+                    alert(`❌ ${result.message}`);
+                }
+            } catch (error) {
+                alert(`❌ 触发抓取失败: ${error.message}`);
+            } finally {
+                button.disabled = false;
+                button.textContent = originalText;
+            }
+        }
+
+        // 刷新所有数据
+        async function refreshAll() {
+            document.getElementById('connectionStatus').textContent = '刷新中...';
+            
+            const isConnected = await getSystemStatus();
+            if (isConnected) {
+                await Promise.all([
+                    getSystemMetrics(),
+                    getDataSourcesStatus(),
+                    getSystemLogs()
+                ]);
+                document.getElementById('connectionStatus').innerHTML = `
+                    ✅ 成功连接到真实API <br>
+                    <small>最后更新: ${new Date().toLocaleTimeString()}</small>
+                `;
+            } else {
+                document.getElementById('connectionStatus').innerHTML = `
+                    ❌ 无法连接到API <br>
+                    <small>请确保后端服务运行在 localhost:8081</small>
+                `;
+            }
+        }
+
+        // 切换自动刷新
+        function toggleAutoRefresh() {
+            const btn = document.getElementById('autoRefreshBtn');
+            
+            if (isAutoRefreshing) {
+                clearInterval(autoRefreshInterval);
+                btn.textContent = '▶️ 开始自动刷新';
+                isAutoRefreshing = false;
+            } else {
+                autoRefreshInterval = setInterval(refreshAll, 10000); // 每10秒刷新
+                btn.textContent = '⏸️ 停止自动刷新';
+                isAutoRefreshing = true;
+            }
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            refreshAll();
+            
+            // 每10秒自动刷新
+            autoRefreshInterval = setInterval(refreshAll, 10000);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test New AI Opportunities</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h1>测试新的AI机会数据</h1>
+    <div id="opportunities"></div>
+    
+    <script type="module">
+        // Copy the mock opportunities data
+        const mockOpportunities = [
+            // 个人成长与心理健康类
+            {
+                id: '1',
+                title: 'AI职业路径规划师 (AI Career Path Finder)',
+                description: '通过深度分析用户的现有技能、性格特质和兴趣偏好，为用户量身定制职业发展路径。将宏大的职业目标分解为具体、可执行的微观学习目标和技能提升任务，解决职业发展迷茫与技能提升焦虑。',
+                painScore: 9.1,
+                tamScore: 8.7,
+                gapScore: 7.8,
+                aiFitScore: 8.5,
+                soloFitScore: 8.2,
+                riskScore: 3.5,
+                totalScore: 8.13,
+                tags: ['AI', 'Career Development', 'Personal Growth', 'Education'],
+                sources: ['LinkedIn Jobs Market', 'Career Forums', 'Educational Platforms'],
+                estimatedRevenue: '$100k-500k/年',
+                timeToMarket: '12-16周',
+                difficulty: 'Medium'
+            },
+            {
+                id: '2',
+                title: 'AI心理倦怠检测器 (AI Mental Burnout Detector)',
+                description: '通过被动且非侵入式的方式，持续监测用户在数字交互中产生的数据，预测心理状态变化。分析语音语调、打字模式、日程安排等数据，在检测到倦怠风险时主动推送个性化干预建议。',
+                painScore: 9.3,
+                tamScore: 7.9,
+                gapScore: 8.5,
+                aiFitScore: 9.2,
+                soloFitScore: 7.1,
+                riskScore: 4.2,
+                totalScore: 7.97,
+                tags: ['AI', 'Mental Health', 'Wellness', 'Monitoring'],
+                sources: ['Mental Health Forums', 'Workplace Research', 'Psychology Studies'],
+                estimatedRevenue: '$200k-1M/年',
+                timeToMarket: '16-24周',
+                difficulty: 'Hard'
+            },
+            {
+                id: '5',
+                title: 'AI服装搭配师 (AI-Based Clothing Matcher)',
+                description: '解决"今天穿什么"这一永恒难题。用户通过拍照上传衣物，应用自动识别类别、颜色、材质等属性。根据天气、场合、心情生成穿搭方案，提供AR虚拟试穿功能，分析衣橱使用情况。',
+                painScore: 8.2,
+                tamScore: 9.1,
+                gapScore: 7.3,
+                aiFitScore: 8.8,
+                soloFitScore: 8.7,
+                riskScore: 3.7,
+                totalScore: 8.07,
+                tags: ['AI', 'Fashion', 'Computer Vision', 'AR', 'E-commerce'],
+                sources: ['Fashion Forums', 'Shopping Apps Reviews', 'Style Communities'],
+                estimatedRevenue: '$150k-750k/年',
+                timeToMarket: '14-20周',
+                difficulty: 'Hard'
+            }
+        ];
+        
+        // Display the opportunities
+        const container = document.getElementById('opportunities');
+        mockOpportunities.forEach((opp, index) => {
+            const div = document.createElement('div');
+            div.style.cssText = 'border: 1px solid #ccc; margin: 10px; padding: 15px; border-radius: 8px;';
+            div.innerHTML = `
+                <h3>#${index + 1} ${opp.title}</h3>
+                <p><strong>总分:</strong> ${opp.totalScore}</p>
+                <p><strong>描述:</strong> ${opp.description}</p>
+                <p><strong>预期收入:</strong> ${opp.estimatedRevenue}</p>
+                <p><strong>上市时间:</strong> ${opp.timeToMarket}</p>
+                <p><strong>难度:</strong> ${opp.difficulty}</p>
+                <p><strong>标签:</strong> ${opp.tags.join(', ')}</p>
+            `;
+            container.appendChild(div);
+        });
+        
+        console.log('Test page loaded with', mockOpportunities.length, 'opportunities');
+    </script>
+</body>
+</html>

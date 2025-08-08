@@ -1,0 +1,152 @@
+[
+  {
+    "id": "hn_0_1754564769",
+    "title": "\"I closed MPEG on 2 Jun '20 when I left because obscure forces had hijacked it.\"",
+    "url": "https://leonardo.chiariglione.org/",
+    "score": 0,
+    "source": "hackernews",
+    "platform": "hackernews",
+    "scraped_at": "2025-08-07T19:06:09.283819",
+    "method": "enhanced_browser"
+  },
+  {
+    "id": "hn_1_1754564769",
+    "title": "New AI Coding Teammate: Gemini CLI GitHub Actions",
+    "url": "https://blog.google/technology/developers/introducing-gemini-cli-github-actions/",
+    "score": 0,
+    "source": "hackernews",
+    "platform": "hackernews",
+    "scraped_at": "2025-08-07T19:06:09.289834",
+    "method": "enhanced_browser"
+  },
+  {
+    "id": "hn_2_1754564769",
+    "title": "We replaced passwords with something worse",
+    "url": "https://blog.danielh.cc/blog/passwords",
+    "score": 0,
+    "source": "hackernews",
+    "platform": "hackernews",
+    "scraped_at": "2025-08-07T19:06:09.295710",
+    "method": "enhanced_browser"
+  },
+  {
+    "id": "hn_3_1754564769",
+    "title": "Cracking the Vault: How we found zero-day flaws in HashiCorp Vault",
+    "url": "https://cyata.ai/blog/cracking-the-vault-how-we-found-zero-day-flaws-in-authentication-identity-and-authorization-in-hashicorp-vault/",
+    "score": 0,
+    "source": "hackernews",
+    "platform": "hackernews",
+    "scraped_at": "2025-08-07T19:06:09.300709",
+    "method": "enhanced_browser"
+  },
+  {
+    "id": "hn_4_1754564769",
+    "title": "About AI",
+    "url": "https://priver.dev/blog/ai/about-ai/",
+    "score": 0,
+    "source": "hackernews",
+    "platform": "hackernews",
+    "scraped_at": "2025-08-07T19:06:09.305155",
+    "method": "enhanced_browser"
+  },
+  {
+    "id": "hn_5_1754564769",
+    "title": "Running GPT-OSS-120B at 500 tokens per second on Nvidia GPUs",
+    "url": "https://www.baseten.co/blog/sota-performance-for-gpt-oss-120b-on-nvidia-gpus/",
+    "score": 0,
+    "source": "hackernews",
+    "platform": "hackernews",
+    "scraped_at": "2025-08-07T19:06:09.309460",
+    "method": "enhanced_browser"
+  },
+  {
+    "id": "hn_6_1754564769",
+    "title": "Claude Code IDE integration for Emacs",
+    "url": "https://github.com/manzaltu/claude-code-ide.el",
+    "score": 0,
+    "source": "hackernews",
+    "platform": "hackernews",
+    "scraped_at": "2025-08-07T19:06:09.314832",
+    "method": "enhanced_browser"
+  },
+  {
+    "id": "hn_7_1754564769",
+    "title": "Debounce",
+    "url": "https://developer.mozilla.org/en-US/docs/Glossary/Debounce",
+    "score": 0,
+    "source": "hackernews",
+    "platform": "hackernews",
+    "scraped_at": "2025-08-07T19:06:09.320110",
+    "method": "enhanced_browser"
+  },
+  {
+    "id": "hn_8_1754564769",
+    "title": "Project Hyperion: Interstellar ship design competition",
+    "url": "https://www.projecthyperion.org",
+    "score": 0,
+    "source": "hackernews",
+    "platform": "hackernews",
+    "scraped_at": "2025-08-07T19:06:09.324230",
+    "method": "enhanced_browser"
+  },
+  {
+    "id": "hn_9_1754564769",
+    "title": "Rules by which a great empire may be reduced to a small one (1773)",
+    "url": "https://founders.archives.gov/documents/Franklin/01-20-02-0213",
+    "score": 0,
+    "source": "hackernews",
+    "platform": "hackernews",
+    "scraped_at": "2025-08-07T19:06:09.327794",
+    "method": "enhanced_browser"
+  },
+  {
+    "id": "hn_10_1754564769",
+    "title": "Show HN: Kitten TTS – 25MB CPU-Only, Open-Source TTS Model",
+    "url": "https://github.com/KittenML/KittenTTS",
+    "score": 0,
+    "source": "hackernews",
+    "platform": "hackernews",
+    "scraped_at": "2025-08-07T19:06:09.332648",
+    "method": "enhanced_browser"
+  },
+  {
+    "id": "hn_11_1754564769",
+    "title": "A candidate giant planet imaged in the habitable zone of α  Cen A",
+    "url": "https://arxiv.org/abs/2508.03814",
+    "score": 0,
+    "source": "hackernews",
+    "platform": "hackernews",
+    "scraped_at": "2025-08-07T19:06:09.340141",
+    "method": "enhanced_browser"
+  },
+  {
+    "id": "hn_12_1754564769",
+    "title": "Litestar is worth a look",
+    "url": "https://www.b-list.org/weblog/2025/aug/06/litestar/",
+    "score": 0,
+    "source": "hackernews",
+    "platform": "hackernews",
+    "scraped_at": "2025-08-07T19:06:09.345195",
+    "method": "enhanced_browser"
+  },
+  {
+    "id": "hn_13_1754564769",
+    "title": "Jules, our asynchronous coding agent",
+    "url": "https://blog.google/technology/google-labs/jules-now-available/",
+    "score": 0,
+    "source": "hackernews",
+    "platform": "hackernews",
+    "scraped_at": "2025-08-07T19:06:09.350503",
+    "method": "enhanced_browser"
+  },
+  {
+    "id": "hn_14_1754564769",
+    "title": "Writing a Rust GPU kernel driver: a brief introduction on how GPU drivers work",
+    "url": "https://www.collabora.com/news-and-blog/blog/2025/08/06/writing-a-rust-gpu-kernel-driver-a-brief-introduction-on-how-gpu-drivers-work/",
+    "score": 0,
+    "source": "hackernews",
+    "platform": "hackernews",
+    "scraped_at": "2025-08-07T19:06:09.354792",
+    "method": "enhanced_browser"
+  }
+]

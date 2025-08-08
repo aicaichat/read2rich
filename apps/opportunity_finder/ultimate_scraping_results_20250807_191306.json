@@ -1,0 +1,191 @@
+{
+  "session_id": "23789ffc731f",
+  "timestamp": "20250807_191306",
+  "total_items": 20,
+  "quality_score": 3.0,
+  "platforms": {
+    "hackernews": 20
+  },
+  "data": [
+    {
+      "id": "hackernews_0_1754565117",
+      "source": "hackernews",
+      "platform": "hackernews",
+      "scraped_at": "2025-08-07T19:11:57.920927",
+      "session_id": "23789ffc731f",
+      "title": "\"I closed MPEG on 2 Jun '20 when I left because obscure forces had hijacked it.\"",
+      "url": "https://reddit.comvote?id=44822637&how=up&goto=news"
+    },
+    {
+      "id": "hackernews_1_1754565117",
+      "source": "hackernews",
+      "platform": "hackernews",
+      "scraped_at": "2025-08-07T19:11:57.935499",
+      "session_id": "23789ffc731f",
+      "title": "New AI Coding Teammate: Gemini CLI GitHub Actions",
+      "url": "https://reddit.comvote?id=44822389&how=up&goto=news"
+    },
+    {
+      "id": "hackernews_2_1754565117",
+      "source": "hackernews",
+      "platform": "hackernews",
+      "scraped_at": "2025-08-07T19:11:57.948455",
+      "session_id": "23789ffc731f",
+      "title": "We replaced passwords with something worse",
+      "url": "https://reddit.comvote?id=44819917&how=up&goto=news"
+    },
+    {
+      "id": "hackernews_3_1754565117",
+      "source": "hackernews",
+      "platform": "hackernews",
+      "scraped_at": "2025-08-07T19:11:57.960983",
+      "session_id": "23789ffc731f",
+      "title": "About AI",
+      "url": "https://reddit.comvote?id=44822258&how=up&goto=news"
+    },
+    {
+      "id": "hackernews_4_1754565117",
+      "source": "hackernews",
+      "platform": "hackernews",
+      "scraped_at": "2025-08-07T19:11:57.973312",
+      "session_id": "23789ffc731f",
+      "title": "Cracking the Vault: How we found zero-day flaws in HashiCorp Vault",
+      "url": "https://reddit.comvote?id=44821434&how=up&goto=news"
+    },
+    {
+      "id": "hackernews_5_1754565117",
+      "source": "hackernews",
+      "platform": "hackernews",
+      "scraped_at": "2025-08-07T19:11:57.987173",
+      "session_id": "23789ffc731f",
+      "title": "Running GPT-OSS-120B at 500 tokens per second on Nvidia GPUs",
+      "url": "https://reddit.comvote?id=44819968&how=up&goto=news"
+    },
+    {
+      "id": "hackernews_6_1754565117",
+      "source": "hackernews",
+      "platform": "hackernews",
+      "scraped_at": "2025-08-07T19:11:57.998728",
+      "session_id": "23789ffc731f",
+      "title": "Claude Code IDE integration for Emacs",
+      "url": "https://reddit.comvote?id=44811567&how=up&goto=news"
+    },
+    {
+      "id": "hackernews_7_1754565118",
+      "source": "hackernews",
+      "platform": "hackernews",
+      "scraped_at": "2025-08-07T19:11:58.011636",
+      "session_id": "23789ffc731f",
+      "title": "Debounce",
+      "url": "https://reddit.comvote?id=44787738&how=up&goto=news"
+    },
+    {
+      "id": "hackernews_8_1754565118",
+      "source": "hackernews",
+      "platform": "hackernews",
+      "scraped_at": "2025-08-07T19:11:58.024356",
+      "session_id": "23789ffc731f",
+      "title": "Project Hyperion: Interstellar ship design competition",
+      "url": "https://reddit.comvote?id=44817539&how=up&goto=news"
+    },
+    {
+      "id": "hackernews_9_1754565118",
+      "source": "hackernews",
+      "platform": "hackernews",
+      "scraped_at": "2025-08-07T19:11:58.035433",
+      "session_id": "23789ffc731f",
+      "title": "Rules by which a great empire may be reduced to a small one (1773)",
+      "url": "https://reddit.comvote?id=44819037&how=up&goto=news"
+    },
+    {
+      "id": "hackernews_10_1754565118",
+      "source": "hackernews",
+      "platform": "hackernews",
+      "scraped_at": "2025-08-07T19:11:58.047421",
+      "session_id": "23789ffc731f",
+      "title": "Show HN: Kitten TTS – 25MB CPU-Only, Open-Source TTS Model",
+      "url": "https://reddit.comvote?id=44807868&how=up&goto=news"
+    },
+    {
+      "id": "hackernews_11_1754565118",
+      "source": "hackernews",
+      "platform": "hackernews",
+      "scraped_at": "2025-08-07T19:11:58.057344",
+      "session_id": "23789ffc731f",
+      "title": "A candidate giant planet imaged in the habitable zone of α  Cen A",
+      "url": "https://reddit.comvote?id=44819738&how=up&goto=news"
+    },
+    {
+      "id": "hackernews_12_1754565118",
+      "source": "hackernews",
+      "platform": "hackernews",
+      "scraped_at": "2025-08-07T19:11:58.068688",
+      "session_id": "23789ffc731f",
+      "title": "Litestar is worth a look",
+      "url": "https://reddit.comvote?id=44816755&how=up&goto=news"
+    },
+    {
+      "id": "hackernews_13_1754565118",
+      "source": "hackernews",
+      "platform": "hackernews",
+      "scraped_at": "2025-08-07T19:11:58.079654",
+      "session_id": "23789ffc731f",
+      "title": "Jules, our asynchronous coding agent",
+      "url": "https://reddit.comvote?id=44813854&how=up&goto=news"
+    },
+    {
+      "id": "hackernews_14_1754565118",
+      "source": "hackernews",
+      "platform": "hackernews",
+      "scraped_at": "2025-08-07T19:11:58.092584",
+      "session_id": "23789ffc731f",
+      "title": "Writing a Rust GPU kernel driver: a brief introduction on how GPU drivers work",
+      "url": "https://reddit.comvote?id=44813789&how=up&goto=news"
+    },
+    {
+      "id": "hackernews_15_1754565118",
+      "source": "hackernews",
+      "platform": "hackernews",
+      "scraped_at": "2025-08-07T19:11:58.103744",
+      "session_id": "23789ffc731f",
+      "title": "Children's movie leads art historian to long-lost Hungarian masterpiece (2014)",
+      "url": "https://reddit.comvote?id=44782097&how=up&goto=news"
+    },
+    {
+      "id": "hackernews_16_1754565118",
+      "source": "hackernews",
+      "platform": "hackernews",
+      "scraped_at": "2025-08-07T19:11:58.116570",
+      "session_id": "23789ffc731f",
+      "title": "Herbie detects inaccurate expressions and finds more accurate replacements",
+      "url": "https://reddit.comvote?id=44777419&how=up&goto=news"
+    },
+    {
+      "id": "hackernews_17_1754565118",
+      "source": "hackernews",
+      "platform": "hackernews",
+      "scraped_at": "2025-08-07T19:11:58.127774",
+      "session_id": "23789ffc731f",
+      "title": "We'd be better off with 9-bit bytes",
+      "url": "https://reddit.comvote?id=44816692&how=up&goto=news"
+    },
+    {
+      "id": "hackernews_18_1754565118",
+      "source": "hackernews",
+      "platform": "hackernews",
+      "scraped_at": "2025-08-07T19:11:58.139571",
+      "session_id": "23789ffc731f",
+      "title": "Did Craigslist decimate newspapers? Legend meets reality",
+      "url": "https://reddit.comvote?id=44780034&how=up&goto=news"
+    },
+    {
+      "id": "hackernews_19_1754565118",
+      "source": "hackernews",
+      "platform": "hackernews",
+      "scraped_at": "2025-08-07T19:11:58.150158",
+      "session_id": "23789ffc731f",
+      "title": "A fast, growable array with stable pointers in C",
+      "url": "https://reddit.comvote?id=44815702&how=up&goto=news"
+    }
+  ]
+}

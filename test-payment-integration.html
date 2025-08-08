@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>支付功能测试 - DeepNeed</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-description {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+        
+        .demo-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .demo-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+            color: white;
+            text-decoration: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            margin: 0 1rem 1rem 0;
+        }
+        
+        .demo-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+        
+        .flow-diagram {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .flow-step {
+            display: flex;
+            align-items: center;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+        
+        .step-number {
+            background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+        
+        .code-block {
+            background: #1a1a2e;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .status-success { background: #22c55e; }
+        .status-warning { background: #f59e0b; }
+        .status-error { background: #ef4444; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔥 微信支付 & 支付宝集成测试</h1>
+            <p>完整的支付解决方案已集成到 DeepNeed 平台</p>
+        </div>
+
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">💳</div>
+                <div class="feature-title">支付宝支付</div>
+                <div class="feature-description">
+                    支持网页跳转支付，用户在新窗口完成支付后自动返回。
+                    包含完整的签名验证和状态轮询机制。
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <div class="feature-title">微信支付</div>
+                <div class="feature-description">
+                    生成二维码供用户扫描支付，实时检测支付状态变化。
+                    支持PC端扫码和移动端直接支付。
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">💎</div>
+                <div class="feature-title">信用卡支付</div>
+                <div class="feature-description">
+                    集成Stripe支付网关，支持全球主流信用卡。
+                    PCI DSS合规，安全可靠。
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2 style="margin-bottom: 2rem;">🎯 体验支付功能</h2>
+            
+            <div class="flow-diagram">
+                <h3 style="margin-bottom: 1rem;">支付流程演示</h3>
+                
+                <div class="flow-step">
+                    <div class="step-number">1</div>
+                    <div>访问机会发现器，选择AI项目</div>
+                </div>
+                
+                <div class="flow-step">
+                    <div class="step-number">2</div>
+                    <div>点击"购买完整报告"按钮</div>
+                </div>
+                
+                <div class="flow-step">
+                    <div class="step-number">3</div>
+                    <div>选择支付方式（支付宝/微信/信用卡）</div>
+                </div>
+                
+                <div class="flow-step">
+                    <div class="step-number">4</div>
+                    <div>完成支付，自动下载报告和工具包</div>
+                </div>
+            </div>
+
+            <div style="margin: 2rem 0;">
+                <a href="http://localhost:5173/opportunity-finder" class="demo-button">
+                    🚀 开始体验支付功能
+                </a>
+                <a href="#" onclick="showPaymentMethods()" class="demo-button">
+                    💳 查看支付方式
+                </a>
+            </div>
+
+            <div id="payment-methods" style="display: none; margin-top: 2rem;">
+                <h3 style="margin-bottom: 1rem;">支持的支付方式</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                    <div style="padding: 1rem; background: rgba(255,255,255,0.1); border-radius: 8px;">
+                        <div style="font-size: 2rem;">💙</div>
+                        <div style="font-weight: bold;">支付宝</div>
+                        <div style="font-size: 0.9rem; opacity: 0.8;">网页跳转支付</div>
+                    </div>
+                    <div style="padding: 1rem; background: rgba(255,255,255,0.1); border-radius: 8px;">
+                        <div style="font-size: 2rem;">💚</div>
+                        <div style="font-weight: bold;">微信支付</div>
+                        <div style="font-size: 0.9rem; opacity: 0.8;">扫码支付</div>
+                    </div>
+                    <div style="padding: 1rem; background: rgba(255,255,255,0.1); border-radius: 8px;">
+                        <div style="font-size: 2rem;">💜</div>
+                        <div style="font-weight: bold;">信用卡</div>
+                        <div style="font-size: 0.9rem; opacity: 0.8;">Stripe托管</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 3rem;">
+            <h2 style="text-align: center; margin-bottom: 2rem;">🔧 技术实现详情</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem;">
+                <div class="feature-card">
+                    <h3 style="margin-bottom: 1rem;">前端集成</h3>
+                    <div class="code-block">
+// PaymentService 使用示例
+const result = await paymentService.createPayment(
+  PaymentMethod.ALIPAY, 
+  {
+    amount: 29,
+    currency: 'USD',
+    orderId: 'order_123',
+    description: '购买AI报告'
+  }
+);
+
+if (result.success) {
+  window.open(result.paymentUrl, '_blank');
+}
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <h3 style="margin-bottom: 1rem;">后端API</h3>
+                    <div class="code-block">
+# FastAPI 支付路由
+@router.post("/alipay/create")
+async def create_alipay_order(params: PaymentParams):
+    # 生成支付宝签名
+    sign = generate_alipay_sign(params)
+    
+    # 构建支付URL
+    payment_url = build_alipay_url(params, sign)
+    
+    return {"success": True, "paymentUrl": payment_url}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 3rem; text-align: center;">
+            <h2 style="margin-bottom: 1rem;">📊 系统状态</h2>
+            <div style="display: inline-block; text-align: left;">
+                <div style="margin: 0.5rem 0;">
+                    <span class="status-indicator status-success"></span>
+                    前端支付界面 - 已集成
+                </div>
+                <div style="margin: 0.5rem 0;">
+                    <span class="status-indicator status-success"></span>
+                    支付服务类 - 已实现
+                </div>
+                <div style="margin: 0.5rem 0;">
+                    <span class="status-indicator status-success"></span>
+                    后端API接口 - 已部署
+                </div>
+                <div style="margin: 0.5rem 0;">
+                    <span class="status-indicator status-warning"></span>
+                    支付配置 - 需要真实密钥
+                </div>
+                <div style="margin: 0.5rem 0;">
+                    <span class="status-indicator status-success"></span>
+                    报告生成 - 已完成
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 3rem; text-align: center; opacity: 0.8;">
+            <p>🎉 恭喜！微信支付和支付宝支付已成功集成到 DeepNeed 平台</p>
+            <p style="margin-top: 0.5rem;">用户现在可以购买完整的AI项目报告和快速启动工具包</p>
+        </div>
+    </div>
+
+    <script>
+        function showPaymentMethods() {
+            const element = document.getElementById('payment-methods');
+            element.style.display = element.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // 添加一些动效
+        window.addEventListener('load', function() {
+            const cards = document.querySelectorAll('.feature-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    card.style.transition = 'all 0.6s ease';
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 100);
+                }, index * 200);
+            });
+        });
+    </script>
+</body>
+</html>

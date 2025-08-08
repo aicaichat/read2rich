@@ -1,0 +1,200 @@
+version: "3.9"
+
+services:
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  zookeeper:
+    image: bitnami/zookeeper:3.9
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    volumes:
+      - zookeeper_data:/bitnami/zookeeper
+    healthcheck:
+      test: ["CMD-SHELL", "echo ruok | nc localhost 2181"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  kafka:
+    image: bitnami/kafka:3.7
+    environment:
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092
+      - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=true
+    ports:
+      - "9092:9092"
+    volumes:
+      - kafka_data:/bitnami/kafka
+    depends_on:
+      zookeeper:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "kafka-topics.sh --bootstrap-server localhost:9092 --list"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  postgres:
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER:-deepneed}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-deepneed}
+      - POSTGRES_DB=${POSTGRES_DB:-deepneed_opf}
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./schemas/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-deepneed}"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant_data:/qdrant/storage
+    environment:
+      - QDRANT__SERVICE__HTTP_PORT=6333
+      - QDRANT__SERVICE__GRPC_PORT=6334
+    healthcheck:
+      test: ["CMD", "sh", "-c", "echo 'Qdrant is running'"]
+      interval: 10s
+      timeout: 5s
+      retries: 2
+
+  ingestion_service:
+    build: 
+      context: ./ingestion_service
+      dockerfile: Dockerfile
+    environment:
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - REDIS_URL=redis://redis:6379/0
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+    volumes:
+      - ./config:/app/config:ro
+    depends_on:
+      kafka:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  processing_service:
+    build: 
+      context: ./processing_service
+      dockerfile: Dockerfile
+    environment:
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - REDIS_URL=redis://redis:6379/1
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+    volumes:
+      - ./config:/app/config:ro
+    depends_on:
+      kafka:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  embedding_service:
+    build: 
+      context: ./embedding_service
+      dockerfile: Dockerfile
+    environment:
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - QDRANT_URL=http://qdrant:6333
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
+      - DEEPSEEK_MODEL=${DEEPSEEK_MODEL:-text-embedding-ada-002}
+      - EMBEDDING_PROVIDER=${EMBEDDING_PROVIDER:-local}
+      - DEVICE=${DEVICE:-cpu}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+    depends_on:
+      kafka:
+        condition: service_healthy
+      qdrant:
+        condition: service_healthy
+    restart: unless-stopped
+
+  scoring_service:
+    build: 
+      context: ./scoring_service
+      dockerfile: Dockerfile
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-deepneed}:${POSTGRES_PASSWORD:-deepneed}@postgres:5432/${POSTGRES_DB:-deepneed_opf}
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - REDIS_URL=redis://redis:6379/2
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  api_gateway:
+    build: 
+      context: ./api_gateway
+      dockerfile: Dockerfile
+    environment:
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/opportunity_finder
+      - REDIS_URL=redis://redis:6379
+      - QDRANT_URL=http://qdrant:6333
+    ports:
+      - "8081:8000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock  # For Docker monitoring
+    depends_on:
+      - postgres
+      - redis
+      - qdrant
+
+    restart: unless-stopped
+    command: uvicorn main_with_monitor:app --host 0.0.0.0 --port 8000 --reload
+
+  reporting_service:
+    build: 
+      context: ./reporting_service
+      dockerfile: Dockerfile
+    environment:
+      - S3_BUCKET=${S3_BUCKET}
+      - S3_REGION=${S3_REGION:-us-east-1}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - REDIS_URL=redis://redis:6379/4
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+    volumes:
+      - ./templates:/app/templates:ro
+    depends_on:
+      api_gateway:
+        condition: service_started
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  kafka_data:
+  zookeeper_data:
+  qdrant_data:
+  redis_data:

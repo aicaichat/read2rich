@@ -1,0 +1,466 @@
+{
+  "session_id": "7d45c6a9605f",
+  "timestamp": "20250807_194422",
+  "total_items": 29,
+  "quality_score": 2.0,
+  "platforms": {
+    "Hacker News": 15,
+    "Dev.to": 14
+  },
+  "categories": {
+    "tech_news": 29
+  },
+  "targets_performance": {
+    "hackernews": {
+      "name": "Hacker News",
+      "success_rate": 1.0,
+      "priority": 1,
+      "category": "tech_news"
+    },
+    "producthunt": {
+      "name": "Product Hunt",
+      "success_rate": 0.6,
+      "priority": 2,
+      "category": "startup"
+    },
+    "indiehackers": {
+      "name": "Indie Hackers",
+      "success_rate": 0.5,
+      "priority": 2,
+      "category": "startup"
+    },
+    "reddit_entrepreneur": {
+      "name": "Reddit - Entrepreneur",
+      "success_rate": 0.30000000000000004,
+      "priority": 3,
+      "category": "social"
+    },
+    "reddit_startups": {
+      "name": "Reddit - Startups",
+      "success_rate": 0.30000000000000004,
+      "priority": 3,
+      "category": "social"
+    },
+    "reddit_saas": {
+      "name": "Reddit - SaaS",
+      "success_rate": 0.30000000000000004,
+      "priority": 3,
+      "category": "social"
+    },
+    "g2_ai": {
+      "name": "G2 - AI Software",
+      "success_rate": 0.4,
+      "priority": 3,
+      "category": "reviews"
+    },
+    "betalist": {
+      "name": "BetaList",
+      "success_rate": 0.5,
+      "priority": 3,
+      "category": "startup"
+    },
+    "devto": {
+      "name": "Dev.to",
+      "success_rate": 0.7999999999999999,
+      "priority": 4,
+      "category": "tech_news"
+    },
+    "techcrunch_startups": {
+      "name": "TechCrunch Startups",
+      "success_rate": 0.4,
+      "priority": 4,
+      "category": "tech_news"
+    },
+    "angellist": {
+      "name": "AngelList/Wellfound",
+      "success_rate": 0.30000000000000004,
+      "priority": 3,
+      "category": "startup"
+    },
+    "trends_vc": {
+      "name": "Trends.vc",
+      "success_rate": 0.19999999999999998,
+      "priority": 4,
+      "category": "newsletter"
+    }
+  },
+  "data": [
+    {
+      "id": "hacker_news_0_1754566746",
+      "source": "hacker_news",
+      "platform": "Hacker News",
+      "category": "tech_news",
+      "priority": 1,
+      "scraped_at": "2025-08-07T19:39:06.525806",
+      "session_id": "7d45c6a9605f",
+      "success_rate": 1.0,
+      "title": "\"I closed MPEG on 2 Jun '20 when I left because obscure forces had hijacked it.\"",
+      "domain": "chiariglione.org",
+      "relevance_score": 0.0
+    },
+    {
+      "id": "hacker_news_1_1754566746",
+      "source": "hacker_news",
+      "platform": "Hacker News",
+      "category": "tech_news",
+      "priority": 1,
+      "scraped_at": "2025-08-07T19:39:06.541331",
+      "session_id": "7d45c6a9605f",
+      "success_rate": 1.0,
+      "title": "New AI Coding Teammate: Gemini CLI GitHub Actions",
+      "domain": "blog.google",
+      "relevance_score": 0.043478260869565216
+    },
+    {
+      "id": "hacker_news_2_1754566746",
+      "source": "hacker_news",
+      "platform": "Hacker News",
+      "category": "tech_news",
+      "priority": 1,
+      "scraped_at": "2025-08-07T19:39:06.552438",
+      "session_id": "7d45c6a9605f",
+      "success_rate": 1.0,
+      "title": "We replaced passwords with something worse",
+      "domain": "danielh.cc",
+      "relevance_score": 0.0
+    },
+    {
+      "id": "hacker_news_3_1754566746",
+      "source": "hacker_news",
+      "platform": "Hacker News",
+      "category": "tech_news",
+      "priority": 1,
+      "scraped_at": "2025-08-07T19:39:06.563400",
+      "session_id": "7d45c6a9605f",
+      "success_rate": 1.0,
+      "title": "About AI",
+      "domain": "priver.dev",
+      "relevance_score": 0.043478260869565216
+    },
+    {
+      "id": "hacker_news_4_1754566746",
+      "source": "hacker_news",
+      "platform": "Hacker News",
+      "category": "tech_news",
+      "priority": 1,
+      "scraped_at": "2025-08-07T19:39:06.574057",
+      "session_id": "7d45c6a9605f",
+      "success_rate": 1.0,
+      "title": "Cracking the Vault: How we found zero-day flaws in HashiCorp Vault",
+      "domain": "cyata.ai",
+      "relevance_score": 0.0
+    },
+    {
+      "id": "hacker_news_5_1754566746",
+      "source": "hacker_news",
+      "platform": "Hacker News",
+      "category": "tech_news",
+      "priority": 1,
+      "scraped_at": "2025-08-07T19:39:06.584107",
+      "session_id": "7d45c6a9605f",
+      "success_rate": 1.0,
+      "title": "Running GPT-OSS-120B at 500 tokens per second on Nvidia GPUs",
+      "domain": "baseten.co",
+      "relevance_score": 0.0
+    },
+    {
+      "id": "hacker_news_6_1754566746",
+      "source": "hacker_news",
+      "platform": "Hacker News",
+      "category": "tech_news",
+      "priority": 1,
+      "scraped_at": "2025-08-07T19:39:06.594311",
+      "session_id": "7d45c6a9605f",
+      "success_rate": 1.0,
+      "title": "Claude Code IDE integration for Emacs",
+      "domain": "github.com/manzaltu",
+      "relevance_score": 0.0
+    },
+    {
+      "id": "hacker_news_7_1754566746",
+      "source": "hacker_news",
+      "platform": "Hacker News",
+      "category": "tech_news",
+      "priority": 1,
+      "scraped_at": "2025-08-07T19:39:06.604215",
+      "session_id": "7d45c6a9605f",
+      "success_rate": 1.0,
+      "title": "Debounce",
+      "domain": "developer.mozilla.org",
+      "relevance_score": 0.0
+    },
+    {
+      "id": "hacker_news_8_1754566746",
+      "source": "hacker_news",
+      "platform": "Hacker News",
+      "category": "tech_news",
+      "priority": 1,
+      "scraped_at": "2025-08-07T19:39:06.614390",
+      "session_id": "7d45c6a9605f",
+      "success_rate": 1.0,
+      "title": "Project Hyperion: Interstellar ship design competition",
+      "domain": "projecthyperion.org",
+      "relevance_score": 0.0
+    },
+    {
+      "id": "hacker_news_9_1754566746",
+      "source": "hacker_news",
+      "platform": "Hacker News",
+      "category": "tech_news",
+      "priority": 1,
+      "scraped_at": "2025-08-07T19:39:06.627200",
+      "session_id": "7d45c6a9605f",
+      "success_rate": 1.0,
+      "title": "Children's movie leads art historian to long-lost Hungarian masterpiece (2014)",
+      "domain": "theguardian.com",
+      "relevance_score": 0.0
+    },
+    {
+      "id": "hacker_news_10_1754566746",
+      "source": "hacker_news",
+      "platform": "Hacker News",
+      "category": "tech_news",
+      "priority": 1,
+      "scraped_at": "2025-08-07T19:39:06.638754",
+      "session_id": "7d45c6a9605f",
+      "success_rate": 1.0,
+      "title": "Rules by which a great empire may be reduced to a small one (1773)",
+      "domain": "archives.gov",
+      "relevance_score": 0.0
+    },
+    {
+      "id": "hacker_news_11_1754566746",
+      "source": "hacker_news",
+      "platform": "Hacker News",
+      "category": "tech_news",
+      "priority": 1,
+      "scraped_at": "2025-08-07T19:39:06.649372",
+      "session_id": "7d45c6a9605f",
+      "success_rate": 1.0,
+      "title": "A candidate giant planet imaged in the habitable zone of α  Cen A",
+      "domain": "arxiv.org",
+      "relevance_score": 0.0
+    },
+    {
+      "id": "hacker_news_12_1754566746",
+      "source": "hacker_news",
+      "platform": "Hacker News",
+      "category": "tech_news",
+      "priority": 1,
+      "scraped_at": "2025-08-07T19:39:06.660463",
+      "session_id": "7d45c6a9605f",
+      "success_rate": 1.0,
+      "title": "Show HN: Kitten TTS – 25MB CPU-Only, Open-Source TTS Model",
+      "domain": "github.com/kittenml",
+      "relevance_score": 0.0
+    },
+    {
+      "id": "hacker_news_13_1754566746",
+      "source": "hacker_news",
+      "platform": "Hacker News",
+      "category": "tech_news",
+      "priority": 1,
+      "scraped_at": "2025-08-07T19:39:06.670378",
+      "session_id": "7d45c6a9605f",
+      "success_rate": 1.0,
+      "title": "Litestar is worth a look",
+      "domain": "b-list.org",
+      "relevance_score": 0.0
+    },
+    {
+      "id": "hacker_news_14_1754566746",
+      "source": "hacker_news",
+      "platform": "Hacker News",
+      "category": "tech_news",
+      "priority": 1,
+      "scraped_at": "2025-08-07T19:39:06.683211",
+      "session_id": "7d45c6a9605f",
+      "success_rate": 1.0,
+      "title": "Did Craigslist decimate newspapers? Legend meets reality",
+      "domain": "poynter.org",
+      "relevance_score": 0.043478260869565216
+    },
+    {
+      "id": "dev.to_1_1754566979",
+      "source": "dev.to",
+      "platform": "Dev.to",
+      "category": "tech_news",
+      "priority": 4,
+      "scraped_at": "2025-08-07T19:42:59.494265",
+      "session_id": "7d45c6a9605f",
+      "success_rate": 0.7,
+      "title": "NewsHub - AI-Powered News Aggregation Platform",
+      "tags": "#redischallenge",
+      "relevance_score": 0.08695652173913043
+    },
+    {
+      "id": "dev.to_2_1754566979",
+      "source": "dev.to",
+      "platform": "Dev.to",
+      "category": "tech_news",
+      "priority": 4,
+      "scraped_at": "2025-08-07T19:42:59.504893",
+      "session_id": "7d45c6a9605f",
+      "success_rate": 0.7,
+      "title": "2025’s API Management Winners: Which Tools Make the List?",
+      "tags": "#webdev",
+      "relevance_score": 0.08695652173913043
+    },
+    {
+      "id": "dev.to_3_1754566979",
+      "source": "dev.to",
+      "platform": "Dev.to",
+      "category": "tech_news",
+      "priority": 4,
+      "scraped_at": "2025-08-07T19:42:59.514184",
+      "session_id": "7d45c6a9605f",
+      "success_rate": 0.7,
+      "title": "Does it Make Sense to Run WordPress in Docker?",
+      "tags": "#wordpress",
+      "relevance_score": 0.0
+    },
+    {
+      "id": "dev.to_4_1754566979",
+      "source": "dev.to",
+      "platform": "Dev.to",
+      "category": "tech_news",
+      "priority": 4,
+      "scraped_at": "2025-08-07T19:42:59.523744",
+      "session_id": "7d45c6a9605f",
+      "success_rate": 0.7,
+      "title": "Getting Started with EVS CLI: Manage Amazon Elastic VMware Service from the Command Line",
+      "tags": "#news",
+      "relevance_score": 0.043478260869565216
+    },
+    {
+      "id": "dev.to_5_1754566979",
+      "source": "dev.to",
+      "platform": "Dev.to",
+      "category": "tech_news",
+      "priority": 4,
+      "scraped_at": "2025-08-07T19:42:59.533069",
+      "session_id": "7d45c6a9605f",
+      "success_rate": 0.7,
+      "title": "OpenTelemetry Tracing on the JVM",
+      "tags": "#opentelemetry",
+      "relevance_score": 0.0
+    },
+    {
+      "id": "dev.to_6_1754566979",
+      "source": "dev.to",
+      "platform": "Dev.to",
+      "category": "tech_news",
+      "priority": 4,
+      "scraped_at": "2025-08-07T19:42:59.542245",
+      "session_id": "7d45c6a9605f",
+      "success_rate": 0.7,
+      "title": "Java Collections: From Lists to Maps with Time Complexity in Mind",
+      "tags": "#java",
+      "relevance_score": 0.0
+    },
+    {
+      "id": "dev.to_7_1754566979",
+      "source": "dev.to",
+      "platform": "Dev.to",
+      "category": "tech_news",
+      "priority": 4,
+      "scraped_at": "2025-08-07T19:42:59.551498",
+      "session_id": "7d45c6a9605f",
+      "success_rate": 0.7,
+      "title": "The 2-2-2 Code Review Method: How Meta Engineers Ship 40% Faster",
+      "tags": "#webdev",
+      "relevance_score": 0.0
+    },
+    {
+      "id": "dev.to_8_1754566979",
+      "source": "dev.to",
+      "platform": "Dev.to",
+      "category": "tech_news",
+      "priority": 4,
+      "scraped_at": "2025-08-07T19:42:59.560572",
+      "session_id": "7d45c6a9605f",
+      "success_rate": 0.7,
+      "title": "🚀🎯 Speak Your Logic, Get Hired: The AI-Powered DSA Prep Aid You Didn’t Know You Needed 🎙️🤖🔥",
+      "tags": "#redischallenge",
+      "relevance_score": 0.043478260869565216
+    },
+    {
+      "id": "dev.to_9_1754566979",
+      "source": "dev.to",
+      "platform": "Dev.to",
+      "category": "tech_news",
+      "priority": 4,
+      "scraped_at": "2025-08-07T19:42:59.569474",
+      "session_id": "7d45c6a9605f",
+      "success_rate": 0.7,
+      "title": "5 Essential React Practices for Building Robust Applications",
+      "tags": "#react",
+      "relevance_score": 0.043478260869565216
+    },
+    {
+      "id": "dev.to_10_1754566979",
+      "source": "dev.to",
+      "platform": "Dev.to",
+      "category": "tech_news",
+      "priority": 4,
+      "scraped_at": "2025-08-07T19:42:59.579063",
+      "session_id": "7d45c6a9605f",
+      "success_rate": 0.7,
+      "title": "I Launched DjangoFixer — Here’s Why",
+      "tags": "#webdev",
+      "relevance_score": 0.043478260869565216
+    },
+    {
+      "id": "dev.to_11_1754566979",
+      "source": "dev.to",
+      "platform": "Dev.to",
+      "category": "tech_news",
+      "priority": 4,
+      "scraped_at": "2025-08-07T19:42:59.587484",
+      "session_id": "7d45c6a9605f",
+      "success_rate": 0.7,
+      "title": "From Bureaucracy to Brilliance: How DevOps Culture Can Transform Cloud Governance",
+      "tags": "#devops",
+      "relevance_score": 0.0
+    },
+    {
+      "id": "dev.to_12_1754566979",
+      "source": "dev.to",
+      "platform": "Dev.to",
+      "category": "tech_news",
+      "priority": 4,
+      "scraped_at": "2025-08-07T19:42:59.596541",
+      "session_id": "7d45c6a9605f",
+      "success_rate": 0.7,
+      "title": "How I Built a GPT-OSS 120B-Parameter Coding Beast That Reviews, Fixes, and Writes Code Like Magic",
+      "tags": "#gptoss",
+      "relevance_score": 0.0
+    },
+    {
+      "id": "dev.to_13_1754566979",
+      "source": "dev.to",
+      "platform": "Dev.to",
+      "category": "tech_news",
+      "priority": 4,
+      "scraped_at": "2025-08-07T19:42:59.605283",
+      "session_id": "7d45c6a9605f",
+      "success_rate": 0.7,
+      "title": "localhost:5173 -The Quiet Hero Behind Vite’s Blazing Dev Experience",
+      "tags": "#webdev",
+      "relevance_score": 0.0
+    },
+    {
+      "id": "dev.to_14_1754566979",
+      "source": "dev.to",
+      "platform": "Dev.to",
+      "category": "tech_news",
+      "priority": 4,
+      "scraped_at": "2025-08-07T19:42:59.614126",
+      "session_id": "7d45c6a9605f",
+      "success_rate": 0.7,
+      "title": "CMake for Complex Projects (Part 1): Building a C++ Game Engine from Scratch for Desktop and WebAssembly",
+      "tags": "#cpp",
+      "relevance_score": 0.0
+    }
+  ]
+}
