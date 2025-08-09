@@ -6,7 +6,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "gen:reports": "node scripts/generate-reports.cjs",
+    "gen:reports": "node --loader ts-node/esm src/scripts/generate-reports.ts",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "test": "vitest"
   },
