@@ -1,14 +1,14 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle, Download, GraduationCap, Sparkles, ExternalLink, ListChecks, FileText, Code, Smartphone } from 'lucide-react';
+import { CheckCircle, Download, GraduationCap, ExternalLink, ListChecks, FileText, Code, Smartphone } from 'lucide-react';
 import { useSearchParams } from 'react-router-dom';
 import Button from '@/components/ui/Button';
-import Input from '@/components/ui/Input';
+
 import GenerationProgress from '@/components/GenerationProgress';
 import { APP_CONFIG } from '@/config';
 import { reportGenerator } from '@/lib/premiumReportGenerator';
 import { getReportUrlFromOSS, getBpRevealUrlFromOSS, openUrlAsInlineHtml, openUrlMobileFriendly } from '@/lib/oss-links';
-import { reportsAPI, customOrderAPI } from '@/lib/api';
+import { reportsAPI } from '@/lib/api';
 import { openWindow, openWindowAsync, openBlobUrl, isMobileDevice } from '@/utils/mobile-window';
 
 export default function PostPurchaseDeliveryPage() {
@@ -232,82 +232,7 @@ export default function PostPurchaseDeliveryPage() {
             </div>
           </motion.div>
 
-          {/* 定制需求预约表单 */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.12 }}
-            className="bg-dark-300 rounded-2xl p-6 border border-gray-700 flex flex-col"
-          >
-            <div className="text-center mb-4">
-              <Sparkles className="w-10 h-10 text-yellow-400 mx-auto mb-2" />
-              <h3 className="text-lg font-bold text-white">预约定制需求</h3>
-              <p className="text-gray-400 text-sm">留下信息，我们将在24小时内与您确认方案</p>
-            </div>
-            <form
-              className="space-y-3 bg-dark-200/40 border border-gray-700 rounded-xl p-4"
-              onSubmit={(e) => {
-                e.preventDefault();
-                const form = e.currentTarget as HTMLFormElement;
-                const formData = new FormData(form);
-                const payload = {
-                  opportunityId,
-                  opportunityTitle,
-                  orderId,
-                  company: String(formData.get('company') || ''),
-                  name: String(formData.get('name') || ''),
-                  contact: String(formData.get('contact') || ''),
-                  requirement: String(formData.get('requirement') || ''),
-                  budgetTimeline: String(formData.get('budgetTimeline') || ''),
-                  ts: Date.now()
-                };
-                try {
-                  const key = 'dn_custom_requests';
-                  const list = JSON.parse(localStorage.getItem(key) || '[]');
-                  list.push(payload);
-                  localStorage.setItem(key, JSON.stringify(list));
-                  // 调用后端生成订单并发邮件
-                  customOrderAPI.create({
-                    project_id: opportunityId,
-                    project_title: opportunityTitle,
-                    company: payload.company,
-                    name: payload.name,
-                    contact: payload.contact,
-                    requirement: payload.requirement,
-                    budget_timeline: String(formData.get('budgetTimeline') || '')
-                  }).then((res) => {
-                    alert('预约已提交，订单号：' + res.order_number + '。我们将尽快联系您（也可添加微信：' + APP_CONFIG.CONTACT.WECHAT_ID + '）');
-                  }).catch(() => {
-                    alert('预约已提交（本地保存）。如需加急，请添加微信：' + APP_CONFIG.CONTACT.WECHAT_ID);
-                  });
-                  form.reset();
-                } catch (err) {
-                  console.error('save request failed', err);
-                  alert('提交成功');
-                }
-              }}
-            >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <Input name="company" placeholder="公司/团队（必填）" required />
-                <Input name="name" placeholder="姓名（必填）" required />
-              </div>
-              <Input name="contact" placeholder="微信/电话（必填）" required />
-              <textarea
-                name="requirement"
-                placeholder="具体需求（必填）"
-                required
-                className="w-full rounded-lg bg-dark-300 border border-gray-700 px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500"
-                rows={3}
-              />
-              <Input name="budgetTimeline" placeholder="期望预算与时间（选填）" />
-              <Button type="submit" className="w-full bg-yellow-500 hover:bg-yellow-600 text-black">
-                <Sparkles className="w-4 h-4 mr-2" /> 提交预约
-              </Button>
-              <div className="text-gray-400 text-xs mt-1 text-center">
-                微信客服：{APP_CONFIG.CONTACT.WECHAT_ID}
-              </div>
-            </form>
-          </motion.div>
+
         </div>
 
         {/* 首周行动清单（简版） */}
