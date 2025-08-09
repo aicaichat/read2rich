@@ -339,8 +339,18 @@ server {
 
 ${OPF_LOCATION}
     
-    # 静态文件缓存
+    # 静态文件缓存（通过上游容器代理，避免本机文件系统404）
     location ~* \.(jpg|jpeg|png|gif|ico|css|js|svg|woff|woff2|ttf|eot)$ {
+        proxy_pass http://localhost:$WEB_PORT;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade \$http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto \$scheme;
+        proxy_cache_bypass \$http_upgrade;
+
         expires 1y;
         add_header Cache-Control "public, immutable";
         add_header Vary Accept-Encoding;
@@ -461,8 +471,18 @@ server {
 
 ${OPF_LOCATION_HTTP}
     
-    # 静态文件缓存
+    # 静态文件缓存（通过上游容器代理，避免本机文件系统404）
     location ~* \.(jpg|jpeg|png|gif|ico|css|js|svg|woff|woff2|ttf|eot)$ {
+        proxy_pass http://localhost:$WEB_PORT;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade \$http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto \$scheme;
+        proxy_cache_bypass \$http_upgrade;
+
         expires 1y;
         add_header Cache-Control "public, immutable";
         add_header Vary Accept-Encoding;
