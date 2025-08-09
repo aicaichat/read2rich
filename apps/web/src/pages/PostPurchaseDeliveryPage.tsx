@@ -7,6 +7,7 @@ import Input from '@/components/ui/Input';
 import GenerationProgress from '@/components/GenerationProgress';
 import { APP_CONFIG } from '@/config';
 import { reportGenerator } from '@/lib/premiumReportGenerator';
+import { getReportUrlFromOSS, getBpRevealUrlFromOSS } from '@/lib/oss-links';
 import { reportsAPI, customOrderAPI } from '@/lib/api';
 
 export default function PostPurchaseDeliveryPage() {
@@ -40,7 +41,6 @@ export default function PostPurchaseDeliveryPage() {
 
   const staticHtmlUrl = useMemo(() => {
     if (!opportunityId || !opportunityTitle) return '';
-    // 优先静态文件路径（本地已批量生成）
     const filename = `${sanitizeTitle(opportunityTitle)}.html`;
     return `/reports/${filename}`;
   }, [opportunityId, opportunityTitle]);
@@ -58,11 +58,15 @@ export default function PostPurchaseDeliveryPage() {
 
   const openHTMLReport = async () => {
     if (!opportunityId) return;
-    // 优先打开静态文件（如已存在）
-    if (staticHtmlUrl) {
-      openInNewTab(staticHtmlUrl);
-      return;
-    }
+    // 1) 优先打开 OSS 直链
+    try {
+      const ossUrl = await getReportUrlFromOSS(opportunityTitle);
+      if (ossUrl) {
+        openInNewTab(ossUrl);
+        return;
+      }
+    } catch {}
+    // 2) 本地静态文件（开发环境）
     // 优先后端生成，失败回退前端渲染
     let html = '';
     try {
@@ -78,9 +82,16 @@ export default function PostPurchaseDeliveryPage() {
     setTimeout(() => URL.revokeObjectURL(url), 10000);
   };
 
-  const openBPWebPPT = () => {
+  const openBPWebPPT = async () => {
     if (!opportunityId || !opportunityTitle) return;
-    // 统一使用 Reveal 专业版
+    // 优先 OSS 直链（Reveal 专业版）
+    try {
+      const oss = await getBpRevealUrlFromOSS(opportunityTitle);
+      if (oss) {
+        openInNewTab(oss);
+        return;
+      }
+    } catch {}
     const filename = `${sanitizeTitle(opportunityTitle)}.reveal.html`;
     openInNewTab(`/bp/${filename}`);
   };

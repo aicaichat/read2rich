@@ -26,6 +26,10 @@ export const APP_CONFIG = {
   PAYMENT: {
     // 支付宝收款码
     ALIPAY_QR: 'https://ssswork.oss-cn-hangzhou.aliyuncs.com/%E6%94%AF%E4%BB%98%E5%AE%9D%E6%94%B6%E6%AC%BE.JPG'
+  },
+  OSS_STATIC: {
+    BASE_BP: 'https://video.sss.work/bp/bp/',
+    BASE_REPORTS: 'https://video.sss.work/reports/reports/'
   }
 } as const;
 

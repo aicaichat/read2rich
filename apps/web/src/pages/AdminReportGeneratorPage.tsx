@@ -4,17 +4,21 @@ import { FileText, ExternalLink, Download, Sparkles, Upload } from 'lucide-react
 import AdminLayout from '@/components/AdminLayout';
 import Button from '@/components/ui/Button';
 import { reportGenerator } from '@/lib/premiumReportGenerator';
+import { getReportUrlFromOSS, getBpRevealUrlFromOSS } from '@/lib/oss-links';
 import { reportsAPI } from '@/lib/api';
 
 const AdminReportGeneratorPage: React.FC = () => {
   const projects = reportGenerator.getAvailableReports();
 
   const openHtml = async (projectId: string, title?: string) => {
-    if (projectId === '5') {
-      window.open('/reports/clothing-matcher.html', '_blank', 'noopener,noreferrer');
-      return;
+    // 优先 OSS 直链
+    if (title) {
+      try {
+        const url = await getReportUrlFromOSS(title);
+        if (url) { window.open(url, '_blank', 'noopener,noreferrer'); return; }
+      } catch {}
     }
-    // 优先调用后端生成；失败则回退前端生成
+    // 后端生成 → 前端回退
     let html = '';
     try {
       html = await reportsAPI.generateHTML(projectId, title, undefined);
@@ -46,8 +50,13 @@ const AdminReportGeneratorPage: React.FC = () => {
     projects.forEach(p => downloadHtml(p.id, p.title));
   };
 
-  const openWebPPT = (projectId: string, title: string) => {
-    const filename = `${title.replace(/[^\w\u4e00-\u9fa5-]/g, '_')}.bp.html`;
+  const openWebPPT = async (projectId: string, title: string) => {
+    // 优先 OSS 直链（Reveal）
+    try {
+      const url = await getBpRevealUrlFromOSS(title);
+      if (url) { window.open(url, '_blank', 'noopener,noreferrer'); return; }
+    } catch {}
+    const filename = `${title.replace(/[^\w\u4e00-\u9fa5-]/g, '_')}.reveal.html`;
     window.open(`/bp/${filename}`, '_blank', 'noopener,noreferrer');
   };
 

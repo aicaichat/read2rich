@@ -19,6 +19,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { reportGenerator } from '@/lib/premiumReportGenerator';
 import { reportsAPI } from '@/lib/api';
+import { getReportUrlFromOSS } from '@/lib/oss-links';
 import Button from '@/components/ui/Button';
 import PaymentModal from '@/components/PaymentModal';
 import NotificationToast from '@/components/NotificationToast';
@@ -541,18 +542,11 @@ export default function OpportunityFinderPage() {
                         onClick={async () => {
                           // 查看HTML完整报告（新标签）
                           if (!selectedOpportunity) return;
-                          if (selectedOpportunity.id === '5') {
-                            window.open('/reports/clothing-matcher.html', '_blank', 'noopener,noreferrer');
-                            return;
-                          }
-                          // 若存在静态报告（本地批量生成），优先打开
-                          const filename = `${selectedOpportunity.title.replace(/[^\\w\\u4e00-\\u9fa5-]/g, '_')}.html`;
-                          const staticUrl = `/reports/${filename}`;
-                          // 尝试预请求静态文件是否存在（HEAD）
+                          // 优先 OSS 直链
                           try {
-                            const r = await fetch(staticUrl, { method: 'HEAD' });
-                            if (r.ok) {
-                              window.open(staticUrl, '_blank', 'noopener,noreferrer');
+                            const url = await getReportUrlFromOSS(selectedOpportunity.title);
+                            if (url) {
+                              window.open(url, '_blank', 'noopener,noreferrer');
                               return;
                             }
                           } catch {}
