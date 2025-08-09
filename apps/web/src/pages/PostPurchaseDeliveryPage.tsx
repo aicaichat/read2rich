@@ -7,7 +7,7 @@ import Input from '@/components/ui/Input';
 import GenerationProgress from '@/components/GenerationProgress';
 import { APP_CONFIG } from '@/config';
 import { reportGenerator } from '@/lib/premiumReportGenerator';
-import { getReportUrlFromOSS, getBpRevealUrlFromOSS, openUrlAsInlineHtml } from '@/lib/oss-links';
+import { getReportUrlFromOSS, getBpRevealUrlFromOSS, openUrlAsInlineHtml, openUrlMobileFriendly } from '@/lib/oss-links';
 import { reportsAPI, customOrderAPI } from '@/lib/api';
 import { openWindow, openWindowAsync, openBlobUrl, isMobileDevice } from '@/utils/mobile-window';
 
@@ -107,6 +107,11 @@ export default function PostPurchaseDeliveryPage() {
       try {
         const oss = await getBpRevealUrlFromOSS(opportunityTitle);
         if (oss) {
+          // 移动端优先使用友好的打开方式
+          if (isMobileDevice()) {
+            const ok = await openUrlMobileFriendly(oss);
+            if (ok) return null; // 已通过移动端友好方式打开，不需要新窗口
+          }
           return oss;
         }
       } catch {}

@@ -77,6 +77,40 @@ export async function getBpBasicUrlFromOSS(opportunityTitle: string): Promise<st
   return `${APP_CONFIG.OSS_STATIC.BASE_BP}${titleKey}.bp.html`;
 }
 
+// 移动端友好的URL打开函数
+export async function openUrlMobileFriendly(url: string): Promise<boolean> {
+  try {
+    // 导入移动端检测函数
+    const { isMobileDevice } = await import('@/utils/mobile-window');
+    const isMobile = isMobileDevice();
+    
+    if (isMobile) {
+      // 移动端：直接在当前页面打开
+      window.location.href = url;
+    } else {
+      // 桌面端：新窗口打开
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+    return true;
+  } catch (error) {
+    console.warn('openUrlMobileFriendly failed:', error);
+    // 回退到默认行为
+    try {
+      const { isMobileDevice } = await import('@/utils/mobile-window');
+      const isMobile = isMobileDevice();
+      
+      if (isMobile) {
+        window.location.href = url;
+      } else {
+        window.open(url, '_blank', 'noopener,noreferrer');
+      }
+    } catch {
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+    return true;
+  }
+}
+
 // 优化的 URL 打开函数，video.sss.work 域名直接打开，其他使用 iframe 代理
 export async function openUrlAsInlineHtml(url: string): Promise<boolean> {
   try {

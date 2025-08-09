@@ -4,7 +4,7 @@ import { FileText, ExternalLink, Download, Sparkles, Upload } from 'lucide-react
 import AdminLayout from '@/components/AdminLayout';
 import Button from '@/components/ui/Button';
 import { reportGenerator } from '@/lib/premiumReportGenerator';
-import { getReportUrlFromOSS, getBpRevealUrlFromOSS, openUrlAsInlineHtml } from '@/lib/oss-links';
+import { getReportUrlFromOSS, getBpRevealUrlFromOSS, openUrlAsInlineHtml, openUrlMobileFriendly } from '@/lib/oss-links';
 import { reportsAPI } from '@/lib/api';
 import { openWindow, openWindowAsync, isMobileDevice } from '@/utils/mobile-window';
 
@@ -76,7 +76,14 @@ const AdminReportGeneratorPage: React.FC = () => {
       // 优先 OSS 直链（Reveal）
       try {
         const url = await getBpRevealUrlFromOSS(title);
-        if (url) return url;
+        if (url) {
+          // 移动端优先使用友好的打开方式
+          if (isMobileDevice()) {
+            const ok = await openUrlMobileFriendly(url);
+            if (ok) return null; // 已通过移动端友好方式打开，不需要新窗口
+          }
+          return url;
+        }
       } catch {}
       
       const filename = `${title.replace(/[^\w\u4e00-\u9fa5-]/g, '_')}.reveal.html`;
