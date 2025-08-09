@@ -22,18 +22,11 @@ export function openWindow(url: string, target: string = '_blank', features: str
   const isMobile = isMobileDevice();
   
   if (isMobile) {
-    // 移动端：创建临时链接并点击，避免弹窗拦截
-    const a = document.createElement('a');
-    a.href = url;
-    a.target = target;
-    a.rel = features;
-    a.style.display = 'none';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    return null; // 移动端无法返回窗口引用
+    // 移动端：直接在当前页面打开，提供更好的用户体验
+    window.location.href = url;
+    return null;
   } else {
-    // 桌面端：使用 window.open
+    // 桌面端：使用 window.open 新窗口
     return window.open(url, target, features);
   }
 }
@@ -67,8 +60,8 @@ export async function openWindowAsync(
     }
     
     if (isMobile) {
-      // 移动端：使用链接点击方式
-      openWindow(url, target, features);
+      // 移动端：直接在当前页面打开
+      window.location.href = url;
     } else {
       // 桌面端：在预开窗口中加载URL
       if (newWindow) {
@@ -112,7 +105,7 @@ export function openBlobUrl(
     a.click();
     document.body.removeChild(a);
   } else {
-    // 普通打开
+    // 移动端：直接在当前页面打开，桌面端：新窗口打开
     openWindow(url, target);
   }
   
