@@ -28,12 +28,9 @@ export const APP_CONFIG = {
     ALIPAY_QR: 'https://ssswork.oss-cn-hangzhou.aliyuncs.com/%E6%94%AF%E4%BB%98%E5%AE%9D%E6%94%B6%E6%AC%BE.JPG'
   },
   OSS_STATIC: {
-    // 使用自定义域名避免强制下载，替换为你的实际自定义域名
-    BASE_BP: 'https://static.ssswork.com/bp/bp/',
-    BASE_REPORTS: 'https://static.ssswork.com/reports/reports/'
-    // 如果暂未配置自定义域名，可临时使用：
-    // BASE_BP: 'https://ssswork.oss-cn-hangzhou.aliyuncs.com/bp/bp/',
-    // BASE_REPORTS: 'https://ssswork.oss-cn-hangzhou.aliyuncs.com/reports/reports/'
+    // 使用可访问的 video.sss.work 域名，避免强制下载
+    BASE_BP: 'http://video.sss.work/bp/bp/',
+    BASE_REPORTS: 'http://video.sss.work/reports/reports/'
   }
 } as const;
 

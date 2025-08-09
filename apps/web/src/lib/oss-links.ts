@@ -77,82 +77,42 @@ export async function getBpBasicUrlFromOSS(opportunityTitle: string): Promise<st
   return `${APP_CONFIG.OSS_STATIC.BASE_BP}${titleKey}.bp.html`;
 }
 
-// 智能处理 OSS URL，自定义域名直接打开，默认域名使用 iframe 代理
+// 优化的 URL 打开函数，video.sss.work 域名直接打开，其他使用 iframe 代理
 export async function openUrlAsInlineHtml(url: string): Promise<boolean> {
   try {
-    // 如果是自定义域名，直接打开（不会强制下载）
-    if (!url.includes('.oss-cn-') && !url.includes('.aliyuncs.com')) {
+    // video.sss.work 域名可以直接打开，不会强制下载
+    if (url.includes('video.sss.work') || (!url.includes('.oss-cn-') && !url.includes('.aliyuncs.com'))) {
       window.open(url, '_blank', 'noopener,noreferrer');
       return true;
     }
     
-    // 如果是 OSS 默认域名，使用 iframe 代理避免强制下载
-    const proxyHtml = `
-<!DOCTYPE html>
+    // 对于其他可能强制下载的域名，使用简化的 iframe 代理
+    const proxyHtml = `<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>查看报告 - DeepNeed</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { 
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-      background: #f5f5f5;
-    }
-    .container { 
-      width: 100vw; height: 100vh; 
-      display: flex; flex-direction: column;
-    }
-    .header {
-      background: #fff; padding: 12px 20px; 
-      border-bottom: 1px solid #e5e5e5;
-      display: flex; align-items: center; justify-content: space-between;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    }
+    body { margin: 0; font-family: system-ui; }
+    .header { background: #fff; padding: 10px 16px; border-bottom: 1px solid #eee; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
     .title { font-size: 14px; color: #333; font-weight: 500; }
-    .loading { 
-      position: absolute; top: 50%; left: 50%; 
-      transform: translate(-50%, -50%);
-      color: #666; font-size: 14px; z-index: 1000;
-      display: flex; align-items: center; gap: 8px;
-    }
-    .spinner {
-      width: 16px; height: 16px; border: 2px solid #e5e5e5;
-      border-top: 2px solid #007AFF; border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    iframe { 
-      flex: 1; width: 100%; border: none; 
-      background: #fff;
-    }
+    iframe { width: 100%; height: calc(100vh - 41px); border: none; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <div class="title">📊 DeepNeed 深度报告</div>
-    </div>
-    <div class="loading">
-      <div class="spinner"></div>
-      <span>正在加载报告...</span>
-    </div>
-    <iframe src="${url}" onload="document.querySelector('.loading').style.display='none'"></iframe>
-  </div>
+  <div class="header"><div class="title">📊 DeepNeed 深度报告</div></div>
+  <iframe src="${url}"></iframe>
 </body>
 </html>`;
     
     const blob = new Blob([proxyHtml], { type: 'text/html;charset=utf-8' });
     const proxyUrl = URL.createObjectURL(blob);
     window.open(proxyUrl, '_blank', 'noopener,noreferrer');
-    
-    // 延迟清理 URL
-    setTimeout(() => URL.revokeObjectURL(proxyUrl), 60000);
+    setTimeout(() => URL.revokeObjectURL(proxyUrl), 30000);
     return true;
   } catch (error) {
     console.warn('openUrlAsInlineHtml failed:', error);
-    // 回退：直接打开原 URL
     window.open(url, '_blank', 'noopener,noreferrer');
     return true;
   }
