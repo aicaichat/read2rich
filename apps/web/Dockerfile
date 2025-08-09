@@ -14,8 +14,8 @@ RUN pnpm install --no-frozen-lockfile
 # 复制源码
 COPY . .
 
-# 构建应用
-RUN pnpm build
+# 先生成静态报告与BP，再构建应用
+RUN pnpm run gen:reports && pnpm build
 
 # 生产环境
 FROM nginx:alpine
