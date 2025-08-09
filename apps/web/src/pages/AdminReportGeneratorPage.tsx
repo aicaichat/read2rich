@@ -6,35 +6,51 @@ import Button from '@/components/ui/Button';
 import { reportGenerator } from '@/lib/premiumReportGenerator';
 import { getReportUrlFromOSS, getBpRevealUrlFromOSS, openUrlAsInlineHtml } from '@/lib/oss-links';
 import { reportsAPI } from '@/lib/api';
+import { openWindow, openWindowAsync, isMobileDevice } from '@/utils/mobile-window';
 
 const AdminReportGeneratorPage: React.FC = () => {
   const projects = reportGenerator.getAvailableReports();
 
   const openHtml = async (projectId: string, title?: string) => {
-    // 优先 OSS 直链
-    if (title) {
+    const success = await openWindowAsync(async () => {
+      // 优先 OSS 直链
+      if (title) {
+        try {
+          const url = await getReportUrlFromOSS(title);
+          if (url) {
+            // 移动端优先 inline 打开，避免直接下载
+            if (isMobileDevice()) {
+              const ok = await openUrlAsInlineHtml(url);
+              if (ok) return null; // 已通过 inline 方式打开，不需要新窗口
+            }
+            return url;
+          }
+        } catch {}
+      }
+      
+      // 后端生成 → 前端回退
+      let html = '';
       try {
-        const url = await getReportUrlFromOSS(title);
-        if (url) {
-          const ok = await openUrlAsInlineHtml(url);
-          if (ok) return;
-          window.open(url, '_blank', 'noopener,noreferrer');
-          return;
-        }
-      } catch {}
+        html = await reportsAPI.generateHTML(projectId, title, undefined);
+      } catch (e) {
+        html = reportGenerator.generateHTMLReportDeep(projectId);
+      }
+      
+      if (!html) return null;
+      
+      // 创建 Blob URL
+      const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      
+      // 延后释放URL
+      setTimeout(() => URL.revokeObjectURL(url), 10000);
+      
+      return url;
+    });
+    
+    if (!success) {
+      console.warn('Failed to open HTML report');
     }
-    // 后端生成 → 前端回退
-    let html = '';
-    try {
-      html = await reportsAPI.generateHTML(projectId, title, undefined);
-    } catch (e) {
-      html = reportGenerator.generateHTMLReportDeep(projectId);
-    }
-    if (!html) return;
-    const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    window.open(url, '_blank', 'noopener,noreferrer');
-    setTimeout(() => URL.revokeObjectURL(url), 10000);
   };
 
   const downloadHtml = (projectId: string, title: string) => {
@@ -56,19 +72,26 @@ const AdminReportGeneratorPage: React.FC = () => {
   };
 
   const openWebPPT = async (projectId: string, title: string) => {
-    // 优先 OSS 直链（Reveal）
-    try {
-      const url = await getBpRevealUrlFromOSS(title);
-      if (url) { window.open(url, '_blank', 'noopener,noreferrer'); return; }
-    } catch {}
-    const filename = `${title.replace(/[^\w\u4e00-\u9fa5-]/g, '_')}.reveal.html`;
-    window.open(`/bp/${filename}`, '_blank', 'noopener,noreferrer');
+    const success = await openWindowAsync(async () => {
+      // 优先 OSS 直链（Reveal）
+      try {
+        const url = await getBpRevealUrlFromOSS(title);
+        if (url) return url;
+      } catch {}
+      
+      const filename = `${title.replace(/[^\w\u4e00-\u9fa5-]/g, '_')}.reveal.html`;
+      return `/bp/${filename}`;
+    });
+    
+    if (!success) {
+      console.warn('Failed to open WebPPT');
+    }
   };
 
   const publishToServer = async (projectId: string, title: string) => {
     const html = reportGenerator.generateHTMLReport(projectId);
     const res = await reportsAPI.publish(projectId, title, html);
-    window.open(res.htmlUrl, '_blank', 'noopener,noreferrer');
+    openWindow(res.htmlUrl);
   };
 
   return (

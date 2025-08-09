@@ -20,6 +20,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { reportGenerator } from '@/lib/premiumReportGenerator';
 import { reportsAPI } from '@/lib/api';
 import { getReportUrlFromOSS, openUrlAsInlineHtml } from '@/lib/oss-links';
+import { openWindow, openWindowAsync, isMobileDevice } from '@/utils/mobile-window';
 import Button from '@/components/ui/Button';
 import PaymentModal from '@/components/PaymentModal';
 import NotificationToast from '@/components/NotificationToast';
@@ -543,74 +544,42 @@ export default function OpportunityFinderPage() {
                           // 查看HTML完整报告（新标签）
                           if (!selectedOpportunity) return;
                           
-                          // 移动端优化：先创建窗口引用，避免异步操作后被拦截
-                          const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-                          let newWindow: Window | null = null;
-                          
-                          if (!isMobile) {
-                            // 桌面端：预先打开空窗口
-                            newWindow = window.open('', '_blank', 'noopener,noreferrer');
-                          }
-                          
-                          // 优先 OSS 直链
-                          try {
-                            const url = await getReportUrlFromOSS(selectedOpportunity.title);
-                            if (url) {
-                              if (isMobile) {
-                                const ok = await openUrlAsInlineHtml(url);
-                                if (ok) return;
-                                // 移动端：创建临时链接并点击
-                                const a = document.createElement('a');
-                                a.href = url;
-                                a.target = '_blank';
-                                a.rel = 'noopener noreferrer';
-                                a.style.display = 'none';
-                                document.body.appendChild(a);
-                                a.click();
-                                document.body.removeChild(a);
-                              } else {
-                                // 桌面端：在预开窗口中加载
-                                if (newWindow) {
-                                  newWindow.location.href = url;
-                                } else {
-                                  window.open(url, '_blank', 'noopener,noreferrer');
+                          const success = await openWindowAsync(async () => {
+                            // 优先 OSS 直链
+                            try {
+                              const url = await getReportUrlFromOSS(selectedOpportunity.title);
+                              if (url) {
+                                // 移动端优先 inline 打开，避免直接下载
+                                if (isMobileDevice()) {
+                                  const ok = await openUrlAsInlineHtml(url);
+                                  if (ok) return null; // 已通过 inline 方式打开，不需要新窗口
                                 }
+                                return url;
                               }
-                              return;
+                            } catch {}
+                            
+                            // 后端生成，失败回退前端渲染
+                            let html = '';
+                            try {
+                              html = await reportsAPI.generateHTML(selectedOpportunity.id, selectedOpportunity.title);
+                            } catch (e) {
+                              html = reportGenerator.generateHTMLReportDeep(selectedOpportunity.id);
                             }
-                          } catch {}
-                          
-                          let html = '';
-                          try {
-                            html = await reportsAPI.generateHTML(selectedOpportunity.id, selectedOpportunity.title);
-                          } catch (e) {
-                            html = reportGenerator.generateHTMLReportDeep(selectedOpportunity.id);
-                          }
-                          if (html) {
+                            
+                            if (!html) return null;
+                            
+                            // 创建 Blob URL
                             const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
                             const url = URL.createObjectURL(blob);
                             
-                            if (isMobile) {
-                              // 移动端：创建临时链接并点击
-                              const a = document.createElement('a');
-                              a.href = url;
-                              a.target = '_blank';
-                              a.rel = 'noopener noreferrer';
-                              a.style.display = 'none';
-                              document.body.appendChild(a);
-                              a.click();
-                              document.body.removeChild(a);
-                            } else {
-                              // 桌面端：在预开窗口中加载
-                              if (newWindow) {
-                                newWindow.location.href = url;
-                              } else {
-                                window.open(url, '_blank', 'noopener,noreferrer');
-                              }
-                            }
+                            // 延后释放URL
                             setTimeout(() => URL.revokeObjectURL(url), 10000);
-                          } else {
-                            if (newWindow) newWindow.close();
+                            
+                            return url;
+                          });
+                          
+                          if (!success) {
+                            console.warn('Failed to open HTML report');
                           }
                         }}
                       >
@@ -621,21 +590,8 @@ export default function OpportunityFinderPage() {
                       onClick={() => {
                         const url = `/delivery?opportunityId=${selectedOpportunity.id}&opportunityTitle=${encodeURIComponent(selectedOpportunity.title)}&order_id=order_${selectedOpportunity.id}_${Date.now()}&score=${selectedOpportunity.totalScore.toFixed(1)}&difficulty=${selectedOpportunity.difficulty}`;
                         
-                        // 移动端优化：使用链接点击方式
-                        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-                        
-                        if (isMobile) {
-                          const a = document.createElement('a');
-                          a.href = url;
-                          a.target = '_blank';
-                          a.rel = 'noopener noreferrer';
-                          a.style.display = 'none';
-                          document.body.appendChild(a);
-                          a.click();
-                          document.body.removeChild(a);
-                        } else {
-                          window.open(url, '_blank', 'noopener,noreferrer');
-                        }
+                        // 使用移动端友好的窗口打开
+                        openWindow(url);
                       }}
                     >
                       <Download className="w-4 h-4 mr-2" /> 打开交付页
