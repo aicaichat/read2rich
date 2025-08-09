@@ -7,7 +7,7 @@ import Input from '@/components/ui/Input';
 import GenerationProgress from '@/components/GenerationProgress';
 import { APP_CONFIG } from '@/config';
 import { reportGenerator } from '@/lib/premiumReportGenerator';
-import { getReportUrlFromOSS, getBpRevealUrlFromOSS } from '@/lib/oss-links';
+import { getReportUrlFromOSS, getBpRevealUrlFromOSS, openUrlAsInlineHtml } from '@/lib/oss-links';
 import { reportsAPI, customOrderAPI } from '@/lib/api';
 
 export default function PostPurchaseDeliveryPage() {
@@ -62,6 +62,9 @@ export default function PostPurchaseDeliveryPage() {
     try {
       const ossUrl = await getReportUrlFromOSS(opportunityTitle);
       if (ossUrl) {
+        // 优先 inline 打开，避免直接下载
+        const ok = await openUrlAsInlineHtml(ossUrl);
+        if (ok) return;
         openInNewTab(ossUrl);
         return;
       }

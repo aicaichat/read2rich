@@ -77,4 +77,20 @@ export async function getBpBasicUrlFromOSS(opportunityTitle: string): Promise<st
   return `${APP_CONFIG.OSS_STATIC.BASE_BP}${titleKey}.bp.html`;
 }
 
+// 优先将 OSS 返回的 HTML 以 inline 的方式打开，避免浏览器下载
+export async function openUrlAsInlineHtml(url: string): Promise<boolean> {
+  try {
+    const resp = await fetch(url, { mode: 'cors' });
+    if (!resp.ok) return false;
+    const html = await resp.text();
+    const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+    const obj = URL.createObjectURL(blob);
+    window.open(obj, '_blank', 'noopener,noreferrer');
+    setTimeout(() => URL.revokeObjectURL(obj), 10000);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 

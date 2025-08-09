@@ -19,7 +19,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { reportGenerator } from '@/lib/premiumReportGenerator';
 import { reportsAPI } from '@/lib/api';
-import { getReportUrlFromOSS } from '@/lib/oss-links';
+import { getReportUrlFromOSS, openUrlAsInlineHtml } from '@/lib/oss-links';
 import Button from '@/components/ui/Button';
 import PaymentModal from '@/components/PaymentModal';
 import NotificationToast from '@/components/NotificationToast';
@@ -546,6 +546,8 @@ export default function OpportunityFinderPage() {
                           try {
                             const url = await getReportUrlFromOSS(selectedOpportunity.title);
                             if (url) {
+                              const ok = await openUrlAsInlineHtml(url);
+                              if (ok) return;
                               window.open(url, '_blank', 'noopener,noreferrer');
                               return;
                             }

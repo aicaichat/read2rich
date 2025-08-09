@@ -4,7 +4,7 @@ import { FileText, ExternalLink, Download, Sparkles, Upload } from 'lucide-react
 import AdminLayout from '@/components/AdminLayout';
 import Button from '@/components/ui/Button';
 import { reportGenerator } from '@/lib/premiumReportGenerator';
-import { getReportUrlFromOSS, getBpRevealUrlFromOSS } from '@/lib/oss-links';
+import { getReportUrlFromOSS, getBpRevealUrlFromOSS, openUrlAsInlineHtml } from '@/lib/oss-links';
 import { reportsAPI } from '@/lib/api';
 
 const AdminReportGeneratorPage: React.FC = () => {
@@ -15,7 +15,12 @@ const AdminReportGeneratorPage: React.FC = () => {
     if (title) {
       try {
         const url = await getReportUrlFromOSS(title);
-        if (url) { window.open(url, '_blank', 'noopener,noreferrer'); return; }
+        if (url) {
+          const ok = await openUrlAsInlineHtml(url);
+          if (ok) return;
+          window.open(url, '_blank', 'noopener,noreferrer');
+          return;
+        }
       } catch {}
     }
     // 后端生成 → 前端回退
