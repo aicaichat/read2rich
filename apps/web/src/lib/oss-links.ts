@@ -77,19 +77,43 @@ export async function getBpBasicUrlFromOSS(opportunityTitle: string): Promise<st
   return `${APP_CONFIG.OSS_STATIC.BASE_BP}${titleKey}.bp.html`;
 }
 
-// 优先将 OSS 返回的 HTML 以 inline 的方式打开，避免浏览器下载
+// 通过创建临时页面的方式打开 OSS HTML，避免浏览器强制下载
 export async function openUrlAsInlineHtml(url: string): Promise<boolean> {
   try {
-    const resp = await fetch(url, { mode: 'cors' });
-    if (!resp.ok) return false;
-    const html = await resp.text();
-    const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
-    const obj = URL.createObjectURL(blob);
-    window.open(obj, '_blank', 'noopener,noreferrer');
-    setTimeout(() => URL.revokeObjectURL(obj), 10000);
+    // 创建一个简单的 HTML 页面，用 iframe 嵌入目标 URL
+    const proxyHtml = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>查看报告</title>
+  <style>
+    body { margin: 0; padding: 0; }
+    iframe { width: 100vw; height: 100vh; border: none; }
+    .loading { 
+      position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      font-family: system-ui; color: #666; z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+  <div class="loading">正在加载报告...</div>
+  <iframe src="${url}" onload="document.querySelector('.loading').style.display='none'"></iframe>
+</body>
+</html>`;
+    
+    const blob = new Blob([proxyHtml], { type: 'text/html;charset=utf-8' });
+    const proxyUrl = URL.createObjectURL(blob);
+    window.open(proxyUrl, '_blank', 'noopener,noreferrer');
+    
+    // 延迟清理 URL
+    setTimeout(() => URL.revokeObjectURL(proxyUrl), 30000);
     return true;
-  } catch {
-    return false;
+  } catch (error) {
+    console.warn('openUrlAsInlineHtml failed:', error);
+    // 回退：直接打开原 URL
+    window.open(url, '_blank', 'noopener,noreferrer');
+    return true;
   }
 }
 
