@@ -9,6 +9,7 @@ import { APP_CONFIG } from '@/config';
 import { reportGenerator } from '@/lib/premiumReportGenerator';
 import { getReportUrlFromOSS, getBpRevealUrlFromOSS, openUrlAsInlineHtml } from '@/lib/oss-links';
 import { reportsAPI, customOrderAPI } from '@/lib/api';
+import { openWindow, openWindowAsync, openBlobUrl, isMobileDevice } from '@/utils/mobile-window';
 
 export default function PostPurchaseDeliveryPage() {
   const [searchParams] = useSearchParams();
@@ -52,51 +53,71 @@ export default function PostPurchaseDeliveryPage() {
   }, [showProgress]);
 
   const openInNewTab = (url: string) => {
-    if (!url) return;
-    window.open(url, '_blank', 'noopener,noreferrer');
+    openWindow(url);
   };
 
   const openHTMLReport = async () => {
     if (!opportunityId) return;
-    // 1) 优先打开 OSS 直链
-    try {
-      const ossUrl = await getReportUrlFromOSS(opportunityTitle);
-      if (ossUrl) {
-        // 优先 inline 打开，避免直接下载
-        const ok = await openUrlAsInlineHtml(ossUrl);
-        if (ok) return;
-        openInNewTab(ossUrl);
-        return;
+    
+    const success = await openWindowAsync(async () => {
+      // 1) 优先打开 OSS 直链
+      try {
+        const ossUrl = await getReportUrlFromOSS(opportunityTitle);
+        if (ossUrl) {
+          // 移动端优先 inline 打开，避免直接下载
+          if (isMobileDevice()) {
+            const ok = await openUrlAsInlineHtml(ossUrl);
+            if (ok) return null; // 已通过 inline 方式打开，不需要新窗口
+          }
+          return ossUrl;
+        }
+      } catch {}
+      
+      // 2) 本地静态文件（开发环境）
+      // 优先后端生成，失败回退前端渲染
+      let html = '';
+      try {
+        html = await reportsAPI.generateHTML(opportunityId, opportunityTitle);
+      } catch (e) {
+        html = reportGenerator.generateHTMLReportDeep(opportunityId);
       }
-    } catch {}
-    // 2) 本地静态文件（开发环境）
-    // 优先后端生成，失败回退前端渲染
-    let html = '';
-    try {
-      html = await reportsAPI.generateHTML(opportunityId, opportunityTitle);
-    } catch (e) {
-      html = reportGenerator.generateHTMLReportDeep(opportunityId);
+      
+      if (!html) return null;
+      
+      // 创建 Blob URL
+      const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      
+      // 延后释放URL（延后，避免立即失效）
+      setTimeout(() => URL.revokeObjectURL(url), 10000);
+      
+      return url;
+    });
+    
+    if (!success) {
+      console.warn('Failed to open HTML report');
     }
-    if (!html) return;
-    const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    openInNewTab(url);
-    // 释放URL（延后，避免立即失效）
-    setTimeout(() => URL.revokeObjectURL(url), 10000);
   };
 
   const openBPWebPPT = async () => {
     if (!opportunityId || !opportunityTitle) return;
-    // 优先 OSS 直链（Reveal 专业版）
-    try {
-      const oss = await getBpRevealUrlFromOSS(opportunityTitle);
-      if (oss) {
-        openInNewTab(oss);
-        return;
-      }
-    } catch {}
-    const filename = `${sanitizeTitle(opportunityTitle)}.reveal.html`;
-    openInNewTab(`/bp/${filename}`);
+    
+    const success = await openWindowAsync(async () => {
+      // 优先 OSS 直链（Reveal 专业版）
+      try {
+        const oss = await getBpRevealUrlFromOSS(opportunityTitle);
+        if (oss) {
+          return oss;
+        }
+      } catch {}
+      
+      const filename = `${sanitizeTitle(opportunityTitle)}.reveal.html`;
+      return `/bp/${filename}`;
+    });
+    
+    if (!success) {
+      console.warn('Failed to open BP WebPPT');
+    }
   };
 
   return (
