@@ -80,9 +80,19 @@ export async function getBpBasicUrlFromOSS(opportunityTitle: string): Promise<st
 // 优化的 URL 打开函数，video.sss.work 域名直接打开，其他使用 iframe 代理
 export async function openUrlAsInlineHtml(url: string): Promise<boolean> {
   try {
+    // 导入移动端检测函数
+    const { isMobileDevice } = await import('@/utils/mobile-window');
+    const isMobile = isMobileDevice();
+    
     // video.sss.work 域名可以直接打开，不会强制下载
     if (url.includes('video.sss.work') || (!url.includes('.oss-cn-') && !url.includes('.aliyuncs.com'))) {
-      window.open(url, '_blank', 'noopener,noreferrer');
+      if (isMobile) {
+        // 移动端：直接在当前页面打开
+        window.location.href = url;
+      } else {
+        // 桌面端：新窗口打开
+        window.open(url, '_blank', 'noopener,noreferrer');
+      }
       return true;
     }
     
@@ -108,12 +118,33 @@ export async function openUrlAsInlineHtml(url: string): Promise<boolean> {
     
     const blob = new Blob([proxyHtml], { type: 'text/html;charset=utf-8' });
     const proxyUrl = URL.createObjectURL(blob);
-    window.open(proxyUrl, '_blank', 'noopener,noreferrer');
+    
+    if (isMobile) {
+      // 移动端：直接在当前页面打开代理页面
+      window.location.href = proxyUrl;
+    } else {
+      // 桌面端：新窗口打开代理页面
+      window.open(proxyUrl, '_blank', 'noopener,noreferrer');
+    }
+    
     setTimeout(() => URL.revokeObjectURL(proxyUrl), 30000);
     return true;
   } catch (error) {
     console.warn('openUrlAsInlineHtml failed:', error);
-    window.open(url, '_blank', 'noopener,noreferrer');
+    // 导入移动端检测函数
+    try {
+      const { isMobileDevice } = await import('@/utils/mobile-window');
+      const isMobile = isMobileDevice();
+      
+      if (isMobile) {
+        window.location.href = url;
+      } else {
+        window.open(url, '_blank', 'noopener,noreferrer');
+      }
+    } catch {
+      // 回退到默认行为
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
     return true;
   }
 }
