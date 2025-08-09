@@ -7,7 +7,7 @@ from contextlib import asynccontextmanager
 
 from .db.database import engine, Base
 from .db import models
-from .routers import auth, sessions, prompts, generation, instructors, courses, payment
+from .routers import auth, sessions, prompts, generation, instructors, courses, payment, reports
 from .core.config import settings
 
 @asynccontextmanager
@@ -42,6 +42,7 @@ app.include_router(generation.router, prefix="/api/v1/generation", tags=["genera
 app.include_router(instructors.router, prefix="/api/v1", tags=["instructors"])
 app.include_router(courses.router, prefix="/api/v1", tags=["courses"])
 app.include_router(payment.router, prefix="/api/payment", tags=["payment"])
+app.include_router(reports.router, tags=["reports"])
 
 @app.get("/")
 async def root():

@@ -75,7 +75,7 @@ const REQUIREMENT_FIELDS: RequirementField[] = [
 ];
 
 const EnhancedNewSessionPage: React.FC = () => {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   
@@ -202,10 +202,22 @@ const EnhancedNewSessionPage: React.FC = () => {
     }
   ];
 
-  if (!user) {
-    navigate('/login');
-    return null;
+  // 未登录时跳转登录（使用副作用，避免渲染期导航导致空白）
+  useEffect(() => {
+    if (!loading && !user) {
+      navigate('/login');
+    }
+  }, [loading, user, navigate]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-gray-300">正在加载...</div>
+      </div>
+    );
   }
+
+  if (!user) return null;
 
   return (
     <div className="min-h-screen pt-20 pb-6">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   X, 
@@ -51,27 +51,27 @@ export default function PaymentModal({
   const [currentPaymentId, setCurrentPaymentId] = useState<string>('');
   const [statusPoller] = useState(new PaymentStatusPoller());
 
+  // 打开即可显示二维码（仅保留支付宝），免费项目直接成功
+  useEffect(() => {
+    if (!isOpen) return;
+    if (opportunityId === '5') {
+      setPaymentStep('success');
+      setTimeout(() => {
+        handlePaymentSuccess();
+      }, 800);
+      return;
+    }
+    setQrCodeUrl(APP_CONFIG.PAYMENT.ALIPAY_QR);
+    setPaymentStep('qr-code');
+  }, [isOpen]);
+
   const paymentMethods = [
     {
       id: PaymentMethod.ALIPAY,
-      name: '支付宝',
+      name: '支付宝（推荐）',
       icon: Smartphone,
-      description: t('pay.method.alipay.desc','快速安全的移动支付'),
+      description: '扫码支付 ¥99，成功后自动解锁',
       color: 'text-blue-500'
-    },
-    {
-      id: PaymentMethod.WECHAT,
-      name: '微信支付',
-      icon: Smartphone,
-      description: t('pay.method.wechat.desc','便捷的微信钱包支付'),
-      color: 'text-green-500'
-    },
-    {
-      id: PaymentMethod.CREDIT_CARD,
-      name: t('pay.method.card.name','信用卡/借记卡'),
-      icon: CreditCard,
-      description: t('pay.method.card.desc','Visa, MasterCard, 银联'),
-      color: 'text-purple-500'
     }
   ];
 
@@ -88,7 +88,7 @@ export default function PaymentModal({
         orderId: orderId,
         description: `${t('pay.purchaseTitle','购买完整报告')}: ${opportunityTitle}`,
         notifyUrl: `${window.location.origin}/api/payment/${selectedMethod}/notify`,
-        returnUrl: `${window.location.origin}/payment/success`,
+        returnUrl: `${window.location.origin}/payment/success?opportunityId=${encodeURIComponent(opportunityId)}&opportunityTitle=${encodeURIComponent(opportunityTitle)}&order_id=${encodeURIComponent(orderId)}`,
         userId: 'user_' + Date.now(),
         metadata: {
           opportunityId: opportunityId,
@@ -98,29 +98,25 @@ export default function PaymentModal({
 
       const paymentResult = await paymentService.createPayment(selectedMethod, paymentParams);
 
-      if (!paymentResult.success) {
-        throw new Error(paymentResult.error || t('pay.createOrderFailed','创建支付订单失败'));
+      // 限时免费逻辑：服装搭配师（id: '5'）直接走成功，不实际支付
+      if (opportunityId === '5') {
+        setPaymentStep('success');
+        setTimeout(() => {
+          handlePaymentSuccess();
+        }, 1000);
+        return;
       }
+
+      // 常规路径：由于采用固定支付宝收款二维码，直接展示二维码并视为待支付
+      setPaymentStep('qr-code');
+      setQrCodeUrl(APP_CONFIG.PAYMENT.ALIPAY_QR);
+      return;
 
       setCurrentPaymentId(paymentResult.paymentId);
 
       // 根据支付方式处理不同流程
       if (selectedMethod === PaymentMethod.ALIPAY) {
         // 支付宝 - 跳转到支付页面
-        if (paymentResult.paymentUrl) {
-          window.open(paymentResult.paymentUrl, '_blank');
-          setPaymentStep('processing');
-          startPaymentStatusPolling(paymentResult.paymentId);
-        }
-      } else if (selectedMethod === PaymentMethod.WECHAT) {
-        // 微信支付 - 显示二维码
-        if (paymentResult.qrCode) {
-          setQrCodeUrl(paymentResult.qrCode);
-          setPaymentStep('qr-code');
-          startPaymentStatusPolling(paymentResult.paymentId);
-        }
-      } else if (selectedMethod === PaymentMethod.CREDIT_CARD) {
-        // 信用卡 - 跳转到Stripe页面
         if (paymentResult.paymentUrl) {
           window.open(paymentResult.paymentUrl, '_blank');
           setPaymentStep('processing');
@@ -283,12 +279,12 @@ export default function PaymentModal({
       case 'qr-code':
         return (
           <div className="text-center py-8">
-            <h3 className="text-xl font-bold text-white mb-4">{t('pay.wechatPay','微信支付')}</h3>
+            <h3 className="text-xl font-bold text-white mb-4">支付宝扫码支付</h3>
             <div className="bg-white p-6 rounded-lg inline-block mb-4">
               {qrCodeUrl ? (
                 <img 
                   src={qrCodeUrl} 
-                  alt="微信支付二维码" 
+                  alt="支付宝收款二维码" 
                   className="w-48 h-48"
                 />
               ) : (
@@ -297,8 +293,8 @@ export default function PaymentModal({
                 </div>
               )}
             </div>
-            <p className="text-gray-300 mb-2">{t('pay.scanWeChat','请使用微信扫描上方二维码')}</p>
-            <p className="text-sm text-gray-400">{t('pay.scanOnPhone','扫码后在手机上完成支付')}</p>
+            <p className="text-gray-300 mb-2">请使用支付宝扫描上方二维码完成支付</p>
+            <p className="text-sm text-gray-400">支付完成后将自动解锁；如未自动跳转，请点击“我已支付”</p>
             <div className="mt-6 flex justify-center">
               <Button
                 variant="secondary"
@@ -306,6 +302,9 @@ export default function PaymentModal({
                 className="mr-3"
               >
                 {t('pay.backToSelect','返回重选')}
+              </Button>
+              <Button onClick={handlePaymentSuccess} className="bg-emerald-600 hover:bg-emerald-700">
+                我已支付，去解锁
               </Button>
             </div>
           </div>

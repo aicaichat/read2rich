@@ -103,7 +103,7 @@ const zhCN = {
   'opf.rebuy': '重新下载报告',
   'opf.purchased': '✅ 已购买',
   'opf.purchasedDesc': '您已拥有此项目的完整报告',
-  'opf.refundNote': '30天退款保证 • 支持支付宝/微信',
+  'opf.refundNote': '',
 
   // Payment Modal
   'pay.purchaseTitle': '购买完整报告',

@@ -216,3 +216,36 @@ class PaymentSettings(Base):
     stripe_webhook_secret = Column(String, default="")
     # Metadata
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+
+
+class CustomOrder(Base):
+    __tablename__ = "custom_orders"
+
+    id = Column(Integer, primary_key=True, index=True)
+    order_number = Column(String, unique=True, index=True, nullable=False)
+    project_id = Column(String, nullable=True)
+    project_title = Column(String, nullable=True)
+    order_source = Column(String, default="custom")
+
+    company = Column(String, nullable=False)
+    name = Column(String, nullable=False)
+    contact = Column(String, nullable=False)  # 微信或电话
+    requirement = Column(Text, nullable=False)
+    budget_timeline = Column(String, default="")
+
+    status = Column(String, default="new")  # new, contacted, in_progress, done, cancelled
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+
+
+class EmailSettings(Base):
+    __tablename__ = "email_settings"
+
+    id = Column(Integer, primary_key=True, index=True)
+    smtp_host = Column(String, default="localhost")
+    smtp_port = Column(Integer, default=25)
+    smtp_user = Column(String, default="")
+    smtp_pass = Column(String, default="")
+    use_tls = Column(Boolean, default=False)
+    from_address = Column(String, default="no-reply@deepneed.com")
+    updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())

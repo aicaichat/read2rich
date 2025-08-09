@@ -76,12 +76,16 @@ const GenerationProgress: React.FC<GenerationProgressProps> = ({
     setTotalDuration(total);
   }, []);
 
-  // 模拟步骤执行
+  // 模拟步骤执行（避免依赖 steps 导致的无限循环）
   useEffect(() => {
-    if (!isVisible || currentStepIndex >= steps.length) return;
+    if (!isVisible) return;
+
+    let cancelled = false;
 
     const executeStep = async (index: number) => {
-      if (index >= steps.length) {
+      if (cancelled) return;
+
+      if (index >= GENERATION_STEPS.length) {
         onComplete();
         return;
       }
@@ -92,9 +96,11 @@ const GenerationProgress: React.FC<GenerationProgressProps> = ({
         status: i === index ? 'processing' : (i < index ? 'completed' : 'pending')
       })));
 
+      const duration = GENERATION_STEPS[index].duration;
+
       // 模拟处理时间
       await new Promise(resolve => {
-        const timer = setTimeout(resolve, steps[index].duration);
+        const timer = setTimeout(resolve, duration);
         
         // 更新已用时间
         const interval = setInterval(() => {
@@ -103,8 +109,10 @@ const GenerationProgress: React.FC<GenerationProgressProps> = ({
 
         setTimeout(() => {
           clearInterval(interval);
-        }, steps[index].duration);
+        }, duration);
       });
+
+      if (cancelled) return;
 
       // 标记步骤为完成
       setSteps(prev => prev.map((step, i) => ({
@@ -118,10 +126,14 @@ const GenerationProgress: React.FC<GenerationProgressProps> = ({
 
     if (currentStepIndex === -1) {
       setCurrentStepIndex(0);
-    } else {
+    } else if (currentStepIndex < GENERATION_STEPS.length) {
       executeStep(currentStepIndex);
     }
-  }, [isVisible, currentStepIndex, steps, onComplete]);
+
+    return () => {
+      cancelled = true;
+    };
+  }, [isVisible, currentStepIndex, onComplete]);
 
   // 计算整体进度
   const overallProgress = Math.min(100, (elapsedTime / totalDuration) * 100);

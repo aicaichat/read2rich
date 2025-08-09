@@ -15,7 +15,10 @@ import {
   Filter,
   Sparkles
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
+import { reportGenerator } from '@/lib/premiumReportGenerator';
+import { reportsAPI } from '@/lib/api';
 import Button from '@/components/ui/Button';
 import PaymentModal from '@/components/PaymentModal';
 import NotificationToast from '@/components/NotificationToast';
@@ -28,6 +31,7 @@ import { APP_CONFIG } from '@/config';
 // interface Opportunity and UserProfile are now imported
 
 export default function OpportunityFinderPage() {
+  const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
   const t = useT();
   const [step, setStep] = useState<'profile' | 'opportunities' | 'detail'>('profile');
@@ -98,38 +102,12 @@ export default function OpportunityFinderPage() {
         isOpen: true,
         type: 'success',
         title: '🎉 购买成功！',
-        message: '完整报告和快速启动工具包即将开始下载'
+        message: '已为你准备交付内容：HTML报告、工具包、Demo等'
       });
       
-      // 自动下载报告
-      setTimeout(() => {
-        const link = document.createElement('a');
-        link.href = reportData.downloadUrl;
-        link.download = `完整报告-${selectedOpportunity.title}.pdf`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        
-        // 下载快速启动工具包
-        setTimeout(() => {
-          const kitLink = document.createElement('a');
-          kitLink.href = reportData.quickStartKitUrl;
-          kitLink.download = `快速启动工具包-${selectedOpportunity.title}.zip`;
-          document.body.appendChild(kitLink);
-          kitLink.click();
-          document.body.removeChild(kitLink);
-          
-          // 显示下载完成通知
-          setTimeout(() => {
-            setNotification({
-              isOpen: true,
-              type: 'info',
-              title: '📥 下载完成',
-              message: '报告和工具包已保存到您的下载文件夹'
-            });
-          }, 500);
-        }, 1000);
-      }, 1000);
+      // 统一：跳转交付页（HTML报告为主），携带评分/难度
+      const orderId = reportData?.reportId || `order_${selectedOpportunity.id}_${Date.now()}`;
+      navigate(`/delivery?opportunityId=${encodeURIComponent(selectedOpportunity.id)}&opportunityTitle=${encodeURIComponent(selectedOpportunity.title)}&order_id=${encodeURIComponent(orderId)}&score=${encodeURIComponent(selectedOpportunity.totalScore.toFixed(1))}&difficulty=${encodeURIComponent(selectedOpportunity.difficulty)}`);
     }
   };
 
@@ -335,6 +313,11 @@ export default function OpportunityFinderPage() {
                     <option value="medium">{t('opf.filter.medium','中等')}</option>
                     <option value="hard">{t('opf.filter.hard','困难')}</option>
                   </select>
+                  {/* 免费体验标识 */}
+                  <div className="hidden md:flex items-center text-sm text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-3 py-1">
+                    <span className="w-2 h-2 bg-emerald-400 rounded-full mr-2" />
+                    AI服装搭配师 本周免费体验高级功能
+                  </div>
                 </div>
               </div>
 
@@ -551,37 +534,70 @@ export default function OpportunityFinderPage() {
                   <div className="space-y-3">
                     <div className="bg-green-500/20 border border-green-500/30 rounded-lg p-4 text-center">
                       <div className="text-green-400 font-medium mb-2">{t('opf.purchased','✅ 已购买')}</div>
-                      <p className="text-sm text-green-300">{t('opf.purchasedDesc','您已拥有此项目的完整报告')}</p>
+                      <p className="text-sm text-green-300">已解锁完整交付：HTML报告、工具包与Demo</p>
                     </div>
+                    <Button 
+                        className="w-full bg-blue-600 hover:bg-blue-700"
+                        onClick={async () => {
+                          // 查看HTML完整报告（新标签）
+                          if (!selectedOpportunity) return;
+                          if (selectedOpportunity.id === '5') {
+                            window.open('/reports/clothing-matcher.html', '_blank', 'noopener,noreferrer');
+                            return;
+                          }
+                          // 若存在静态报告（本地批量生成），优先打开
+                          const filename = `${selectedOpportunity.title.replace(/[^\\w\\u4e00-\\u9fa5-]/g, '_')}.html`;
+                          const staticUrl = `/reports/${filename}`;
+                          // 尝试预请求静态文件是否存在（HEAD）
+                          try {
+                            const r = await fetch(staticUrl, { method: 'HEAD' });
+                            if (r.ok) {
+                              window.open(staticUrl, '_blank', 'noopener,noreferrer');
+                              return;
+                            }
+                          } catch {}
+                          let html = '';
+                          try {
+                            html = await reportsAPI.generateHTML(selectedOpportunity.id, selectedOpportunity.title);
+                          } catch (e) {
+                            html = reportGenerator.generateHTMLReportDeep(selectedOpportunity.id);
+                          }
+                          if (html) {
+                            const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+                            const url = URL.createObjectURL(blob);
+                            window.open(url, '_blank', 'noopener,noreferrer');
+                            setTimeout(() => URL.revokeObjectURL(url), 10000);
+                          }
+                        }}
+                      >
+                        <ExternalLink className="w-4 h-4 mr-2" /> 查看HTML完整报告
+                      </Button>
                     <Button 
                       className="w-full bg-green-600 hover:bg-green-700"
                       onClick={() => {
-                        // 重新下载报告
-                        if (reportData) {
-                          const link = document.createElement('a');
-                          link.href = reportData.downloadUrl;
-                          link.download = `完整报告-${selectedOpportunity.title}.pdf`;
-                          document.body.appendChild(link);
-                          link.click();
-                          document.body.removeChild(link);
-                        }
+                        const url = `/delivery?opportunityId=${selectedOpportunity.id}&opportunityTitle=${encodeURIComponent(selectedOpportunity.title)}&order_id=order_${selectedOpportunity.id}_${Date.now()}&score=${selectedOpportunity.totalScore.toFixed(1)}&difficulty=${selectedOpportunity.difficulty}`;
+                        window.open(url, '_blank', 'noopener,noreferrer');
                       }}
                     >
-                      <Download className="w-4 h-4 mr-2" />
-                      {t('opf.rebuy','重新下载报告')}
+                      <Download className="w-4 h-4 mr-2" /> 打开交付页
                     </Button>
                   </div>
                 ) : (
-                  <Button 
-                    className="w-full bg-gradient-to-r from-primary-500 to-secondary-500"
-                    onClick={() => setIsPaymentModalOpen(true)}
-                  >
-                    <CreditCard className="w-4 h-4 mr-2" />
-                    {t('opf.buy','购买完整报告')}
-                  </Button>
+                  <div className="space-y-2">
+                    {selectedOpportunity.id === '5' && (
+                      <div className="text-center text-emerald-400 text-xs">限时免费 · 付款为0元，直接解锁</div>
+                    )}
+                    <Button 
+                      className="w-full bg-gradient-to-r from-primary-500 to-secondary-500"
+                      onClick={() => setIsPaymentModalOpen(true)}
+                    >
+                      <CreditCard className="w-4 h-4 mr-2" />
+                      {selectedOpportunity.id === '5' ? '免费领取完整报告' : t('opf.buy','购买完整报告')}
+                    </Button>
+                  </div>
                 )}
                 
-                <p className="text-xs text-gray-400 text-center mt-3">{t('opf.refundNote','30天退款保证 • 支持支付宝/微信')}</p>
+                {/* 去掉退款与支付提示 */}
               </motion.div>
 
               {/* 数据来源 */}

@@ -5,7 +5,7 @@ import {
   MessageSquare, BarChart3, Settings, FileText,
   Shield, Bell, HelpCircle, LogOut, ChevronLeft,
   ChevronRight, Home, GraduationCap, RefreshCw,
-  Zap
+  Zap, BookOpen
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import LogoMark from '@/assets/logo-mark.svg';
@@ -74,6 +74,18 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ isCollapsed, onToggle }) =>
       ]
     },
     {
+      id: 'report-generator',
+      name: '报告生成',
+      icon: FileText,
+      path: '/admin/report-generator'
+    },
+    {
+      id: 'custom-orders',
+      name: '定制预约',
+      icon: DollarSign,
+      path: '/admin/custom-orders'
+    },
+    {
       id: 'support',
       name: '客服管理',
       icon: MessageSquare,
@@ -99,7 +111,8 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ isCollapsed, onToggle }) =>
       children: [
         { id: 'settings', name: '系统设置', icon: Settings, path: '/admin/system/settings' },
         { id: 'permissions', name: '权限管理', icon: Shield, path: '/admin/system/permissions' },
-        { id: 'logs', name: '系统日志', icon: FileText, path: '/admin/system/logs' }
+        { id: 'logs', name: '系统日志', icon: FileText, path: '/admin/system/logs' },
+        { id: 'email-settings', name: '邮件配置', icon: Settings, path: '/admin/email-settings' }
       ]
     },
     {

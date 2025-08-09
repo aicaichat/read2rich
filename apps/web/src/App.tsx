@@ -38,7 +38,11 @@ import AdminOpportunityFinderPage from './pages/AdminOpportunityFinderPage';
 import OpportunityFinderPage from './pages/OpportunityFinderPage';
 import AnalysisResultsPage from './pages/AnalysisResultsPage';
 import AdminPaymentSettingsPage from './pages/AdminPaymentSettingsPage';
+import AdminReportGeneratorPage from './pages/AdminReportGeneratorPage';
+import AdminCustomOrdersPage from './pages/AdminCustomOrdersPage';
+import AdminEmailSettingsPage from './pages/AdminEmailSettingsPage';
 import OAuthCallbackPage from './pages/OAuthCallbackPage';
+import PostPurchaseDeliveryPage from './pages/PostPurchaseDeliveryPage';
 
 // Components
 import Navbar from './components/Navbar';
@@ -247,6 +251,22 @@ function App() {
                   </main>
                 </>
               } />
+              <Route path="/payment/success" element={
+                <>
+                  <Navbar />
+                  <main className="relative z-10">
+                    <PostPurchaseDeliveryPage />
+                  </main>
+                </>
+              } />
+              <Route path="/delivery" element={
+                <>
+                  <Navbar />
+                  <main className="relative z-10">
+                    <PostPurchaseDeliveryPage />
+                  </main>
+                </>
+              } />
               <Route path="/ai-app/:id" element={
                 <>
                   <Navbar />
@@ -322,6 +342,21 @@ function App() {
               <Route path="/admin/payment-settings" element={
                 <AdminLayout>
                   <AdminPaymentSettingsPage />
+                </AdminLayout>
+              } />
+              <Route path="/admin/email-settings" element={
+                <AdminLayout>
+                  <AdminEmailSettingsPage />
+                </AdminLayout>
+              } />
+              <Route path="/admin/report-generator" element={
+                <AdminLayout>
+                  <AdminReportGeneratorPage />
+                </AdminLayout>
+              } />
+              <Route path="/admin/custom-orders" element={
+                <AdminLayout>
+                  <AdminCustomOrdersPage />
                 </AdminLayout>
               } />
               <Route path="/analysis-results" element={

@@ -486,7 +486,15 @@ class OpportunityFinderAPI {
 
     // Sort by total score
     filteredOpportunities.sort((a, b) => b.totalScore - a.totalScore);
-    
+
+    // Ensure "AI服装搭配师 (id: 5)" appears first as a limited-time free premium item
+    const freePremiumId = '5';
+    const indexOfFree = filteredOpportunities.findIndex(opp => opp.id === freePremiumId);
+    if (indexOfFree > 0) {
+      const [freeItem] = filteredOpportunities.splice(indexOfFree, 1);
+      filteredOpportunities.unshift(freeItem);
+    }
+
     return filteredOpportunities;
   }
 }

@@ -135,9 +135,6 @@ export default function ReportPreview({ opportunityId, opportunityTitle }: Repor
           <div className="text-primary-400 font-medium">
             原价 $99 → 限时特价 ${29}
           </div>
-          <div className="text-xs text-gray-400">
-            30天退款保证
-          </div>
         </div>
       </div>
     </motion.div>

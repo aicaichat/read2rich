@@ -1,4 +1,4 @@
-import { PremiumReport } from '../premiumReportTemplate';
+import type { PremiumReport } from '../premiumReportTemplate.ts';
 
 export const aiCareerPathFinderReport: PremiumReport = {
   projectId: '1',

@@ -229,4 +229,45 @@ export const healthAPI = {
   }
 };
 
+// 报告生成 API（后端HTML生成接口）
+export const reportsAPI = {
+  async generateHTML(projectId: string, titleZh?: string, titleEn?: string): Promise<string> {
+    // 注意：后端路由未带 /api/v1 前缀的情况下，需拼完整URL；这里api实例已指向 /api/v1
+    const response = await api.post('/reports/html', {
+      project_id: projectId,
+      title_zh: titleZh,
+      title_en: titleEn
+    });
+    return response.data.html as string;
+  },
+  async publish(projectId: string, title: string, html: string): Promise<{ htmlUrl: string; pdfUrl?: string; storage: string }> {
+    const response = await api.post('/reports/publish', {
+      project_id: projectId,
+      title,
+      html
+    });
+    return response.data;
+  }
+};
+
+// 定制订单 API
+export const customOrderAPI = {
+  async create(payload: {
+    project_id?: string;
+    project_title?: string;
+    company: string;
+    name: string;
+    contact: string;
+    requirement: string;
+    budget_timeline?: string;
+  }): Promise<{ order_number: string; status: string }> {
+    const response = await api.post('/orders/custom', payload); // reports.router 挂载在 /api/v1 根下
+    return response.data;
+  },
+  async list(): Promise<Array<{ order_number: string; company: string; name: string; contact: string; status: string; project_title?: string; created_at?: string }>> {
+    const resp = await api.get('/orders/custom');
+    return resp.data;
+  }
+};
+
 export default api; 
