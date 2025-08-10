@@ -14,9 +14,14 @@ import {
   Layers,
   Globe,
   Code,
-  BookOpen
+  BookOpen,
+  Heart,
+  Save,
+  Wand2,
+  Plus
 } from 'lucide-react';
 import Button from '../components/ui/Button';
+import millionAppPrompts from '@/data/prompts/millionAppPrompts';
 import { 
   crawlAllPrompts, 
   searchCrawledPrompts, 
@@ -25,6 +30,7 @@ import {
   GITHUB_PROMPT_SOURCES,
   type CrawledPrompt 
 } from '../lib/github-prompt-crawler';
+import { track } from '@/lib/analytics';
 
 const PromptLibraryPage: React.FC = () => {
   const [crawledPrompts, setCrawledPrompts] = useState<CrawledPrompt[]>([]);
@@ -35,23 +41,45 @@ const PromptLibraryPage: React.FC = () => {
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [expandedPrompt, setExpandedPrompt] = useState<string | null>(null);
   const [stats, setStats] = useState<any>(null);
+  const [favorites, setFavorites] = useState<Record<string, boolean>>(() => {
+    try { return JSON.parse(localStorage.getItem('prompt-favorites-v1') || '{}'); } catch { return {}; }
+  });
+  const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
+  const [filledValues, setFilledValues] = useState<Record<string, Record<string, string>>>({});
 
-  // 页面加载时尝试从本地存储加载
+  // 共创引导表单状态
+  const [coCreateOpen, setCoCreateOpen] = useState(false);
+  const [ccTitle, setCcTitle] = useState('');
+  const [ccCategory, setCcCategory] = useState('business');
+  const [ccTags, setCcTags] = useState('');
+  const [ccVariables, setCcVariables] = useState('');
+  const [ccDescription, setCcDescription] = useState('');
+  const [ccContent, setCcContent] = useState('');
+
+  // 页面加载：官方种子 + 我的提示词 + 抓取库
   useEffect(() => {
+    let merged: CrawledPrompt[] = [...millionAppPrompts];
+    try {
+      const mine = JSON.parse(localStorage.getItem('my-prompts-v1') || '[]');
+      if (Array.isArray(mine)) merged = [...mine, ...merged];
+    } catch {}
     const stored = localStorage.getItem('crawled-prompts');
     if (stored) {
-      const prompts = JSON.parse(stored);
-      setCrawledPrompts(prompts);
-      setFilteredPrompts(prompts);
-      setStats(getCrawlStats(prompts));
+      try { const ext = JSON.parse(stored); merged = [...merged, ...ext]; } catch {}
     }
+    setCrawledPrompts(merged);
+    setFilteredPrompts(merged);
+    setStats(getCrawlStats(merged));
   }, []);
 
   // 搜索和过滤
   useEffect(() => {
-    const filtered = searchCrawledPrompts(crawledPrompts, searchQuery, selectedCategory);
+    let filtered = searchCrawledPrompts(crawledPrompts, searchQuery, selectedCategory);
+    if (showFavoritesOnly) {
+      filtered = filtered.filter(p => favorites[`${p.source}-${p.title}`]);
+    }
     setFilteredPrompts(filtered);
-  }, [crawledPrompts, searchQuery, selectedCategory]);
+  }, [crawledPrompts, searchQuery, selectedCategory, showFavoritesOnly, favorites]);
 
   // 开始爬取
   const handleCrawl = async () => {
@@ -78,6 +106,7 @@ const PromptLibraryPage: React.FC = () => {
     try {
       await navigator.clipboard.writeText(prompt.content);
       setCopiedId(prompt.title);
+      track('prompt_copy', { title: prompt.title });
       setTimeout(() => setCopiedId(null), 2000);
     } catch (error) {
       console.error('复制失败:', error);
@@ -96,6 +125,92 @@ const PromptLibraryPage: React.FC = () => {
     a.download = `${prompt.title.replace(/[^a-zA-Z0-9]/g, '_')}_template.json`;
     a.click();
     URL.revokeObjectURL(url);
+  };
+
+  // 收藏与保存
+  const keyOf = (p: CrawledPrompt) => `${p.source}-${p.title}`;
+  const toggleFavorite = (p: CrawledPrompt) => {
+    const key = keyOf(p);
+    const next = { ...favorites, [key]: !favorites[key] };
+    setFavorites(next);
+    localStorage.setItem('prompt-favorites-v1', JSON.stringify(next));
+  };
+
+  const saveToMyPrompts = (p: CrawledPrompt) => {
+    try {
+      const list = JSON.parse(localStorage.getItem('my-prompts-v1') || '[]');
+      const exists = (list as any[]).some((x: any) => x.title === p.title && x.source === 'local');
+      if (!exists) {
+        (list as any[]).unshift({ ...p, source: 'local', savedAt: Date.now() });
+        localStorage.setItem('my-prompts-v1', JSON.stringify(list));
+        track('prompt_saved', { title: p.title });
+        // 同步到当前视图
+        setCrawledPrompts(prev => [{ ...p, source: 'local' }, ...prev]);
+        // 自动收藏
+        toggleFavorite({ ...p, source: 'local' } as any);
+      }
+      alert('已保存到“我的提示词”');
+    } catch (e) {
+      console.warn('save failed', e);
+    }
+  };
+
+  // 变量填充
+  const keyOf = (p: CrawledPrompt) => `${p.source}-${p.title}`;
+  const fillPromptVariables = (content: string, values: Record<string, string>) => {
+    let result = content;
+    Object.entries(values).forEach(([k, v]) => {
+      const patterns = [
+        new RegExp(`\\{${k}\\}`, 'g'),
+        new RegExp(`\\[${k}\\]`, 'g'),
+        new RegExp(`\\*\\*${k}\\*\\*`, 'g'),
+        new RegExp(`\\*${k}\\*`, 'g'),
+        new RegExp(`\\{\\{${k}\\}\\}`, 'g'),
+        new RegExp(`<${k}>`, 'g'),
+      ];
+      patterns.forEach((re) => { result = result.replace(re, v); });
+    });
+    return result;
+  };
+  const handleFilledCopy = async (p: CrawledPrompt) => {
+    const key = keyOf(p);
+    const vals = filledValues[key] || {};
+    const text = fillPromptVariables(p.content, vals);
+    await navigator.clipboard.writeText(text);
+    setCopiedId(p.title + '-filled');
+    track('prompt_copy_filled', { title: p.title });
+    setTimeout(() => setCopiedId(null), 2000);
+  };
+  const handleCopyJson = async (p: CrawledPrompt) => {
+    const json = JSON.stringify(p, null, 2);
+    await navigator.clipboard.writeText(json);
+    setCopiedId(p.title + '-json');
+    track('prompt_copy_json', { title: p.title });
+    setTimeout(() => setCopiedId(null), 2000);
+  };
+
+  // 共创骨架
+  const buildCcSkeleton = () => {
+    const now = new Date().toISOString().slice(0, 10);
+    const skeleton = `角色: 你是世界级提示词工程与产品运营专家\n目标: 围绕“${ccTitle || '某产品/任务'}”产出一套高质量提示词\n日期: ${now}\n\n约束:\n- 输出结构清晰, 可直接复制使用\n- 所有变量用 {VARIABLE_NAME} 标注\n- 兼顾需求澄清/方案生成/评审优化/上线验证全流程\n\n结构:\n1) 场景与目标\n2) 角色设定\n3) 背景输入清单\n4) 产出格式约束\n5) 步骤化思考链\n6) 质量评估与改进\n\n主提示词:\n请基于以下输入完成任务: {USER_REQUEST}\n- 业务场景: {BUSINESS_CONTEXT}\n- 目标用户: {TARGET_USER}\n- 成功标准: {SUCCESS_CRITERIA}\n- 约束条件: {CONSTRAINTS}\n\n请分步执行并给出: 方案, 风险与权衡, 下一步行动。`;
+    setCcContent(skeleton);
+    if (!ccVariables) setCcVariables('USER_REQUEST,BUSINESS_CONTEXT,TARGET_USER,SUCCESS_CRITERIA,CONSTRAINTS');
+    if (!ccDescription) setCcDescription('围绕目标场景的一体化高质量提示词（含结构与变量）');
+  };
+  const saveCcToMine = () => {
+    const prompt: CrawledPrompt = {
+      title: ccTitle || '未命名提示词',
+      content: ccContent || '请先生成骨架或填写内容',
+      category: ccCategory || 'business',
+      source: 'local',
+      description: ccDescription || '本地共创生成',
+      tags: ccTags ? ccTags.split(',').map(s => s.trim()).filter(Boolean) : [],
+      variables: ccVariables ? ccVariables.split(',').map(s => s.trim()).filter(Boolean) : ['USER_REQUEST']
+    };
+    saveToMyPrompts(prompt);
+    setCoCreateOpen(false);
+    // 清空简单字段
+    setCcTitle(''); setCcContent(''); setCcTags(''); setCcVariables(''); setCcDescription('');
   };
 
   // 获取分类列表
@@ -217,7 +332,7 @@ const PromptLibraryPage: React.FC = () => {
               </div>
             </div>
 
-            {/* 爬取按钮 */}
+            {/* 收藏与爬取 */}
             <Button
               onClick={handleCrawl}
               loading={isLoading}
@@ -225,6 +340,22 @@ const PromptLibraryPage: React.FC = () => {
             >
               <RefreshCw className={`w-4 h-4 ${isLoading ? 'animate-spin' : ''}`} />
               {isLoading ? '爬取中...' : '开始爬取'}
+            </Button>
+            <Button
+              variant="secondary"
+              onClick={() => setShowFavoritesOnly(v => !v)}
+              className={`flex items-center gap-2 ${showFavoritesOnly ? 'border-emerald-500 text-emerald-300' : ''}`}
+            >
+              <Heart className={`w-4 h-4 ${showFavoritesOnly ? 'text-rose-400' : 'text-gray-300'}`} />
+              {showFavoritesOnly ? '只看收藏: 开' : '只看收藏: 关'}
+            </Button>
+            <Button
+              variant="secondary"
+              onClick={() => setCoCreateOpen(v => !v)}
+              className="flex items-center gap-2"
+            >
+              <Wand2 className="w-4 h-4" />
+              共创引导
             </Button>
           </div>
 
@@ -243,6 +374,55 @@ const PromptLibraryPage: React.FC = () => {
             </div>
           </div>
         </motion.div>
+
+        {/* 共创引导 */}
+        <AnimatePresence>
+          {coCreateOpen && (
+            <motion.div
+              className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 mb-8"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm text-gray-400 mb-1">标题</label>
+                  <input value={ccTitle} onChange={e=>setCcTitle(e.target.value)} className="w-full bg-white/5 border border-white/20 rounded-xl px-3 py-2 text-white" placeholder="如：百万级应用需求澄清提示词" />
+                </div>
+                <div>
+                  <label className="block text-sm text-gray-400 mb-1">分类</label>
+                  <select value={ccCategory} onChange={e=>setCcCategory(e.target.value)} className="w-full bg-white/5 border border-white/20 rounded-xl px-3 py-2 text-white">
+                    {['business','development','analysis','design','writing','education','general'].map(x => <option key={x} value={x}>{x}</option>)}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm text-gray-400 mb-1">标签（逗号分隔）</label>
+                  <input value={ccTags} onChange={e=>setCcTags(e.target.value)} className="w-full bg-white/5 border border-white/20 rounded-xl px-3 py-2 text-white" placeholder="product, growth, pm" />
+                </div>
+                <div>
+                  <label className="block text-sm text-gray-400 mb-1">变量（逗号分隔）</label>
+                  <input value={ccVariables} onChange={e=>setCcVariables(e.target.value)} className="w-full bg-white/5 border border-white/20 rounded-xl px-3 py-2 text-white" placeholder="USER_REQUEST,BUSINESS_CONTEXT" />
+                </div>
+                <div className="md:col-span-2">
+                  <label className="block text-sm text-gray-400 mb-1">描述</label>
+                  <input value={ccDescription} onChange={e=>setCcDescription(e.target.value)} className="w-full bg-white/5 border border-white/20 rounded-xl px-3 py-2 text-white" placeholder="一句话描述用途与产出" />
+                </div>
+                <div className="md:col-span-2">
+                  <label className="block text-sm text-gray-400 mb-1">内容</label>
+                  <textarea value={ccContent} onChange={e=>setCcContent(e.target.value)} rows={8} className="w-full bg-white/5 border border-white/20 rounded-xl px-3 py-2 text-white font-mono" placeholder="在此粘贴或生成提示词内容" />
+                </div>
+              </div>
+              <div className="flex gap-3 mt-4">
+                <Button variant="secondary" onClick={buildCcSkeleton} className="flex items-center gap-2">
+                  <Wand2 className="w-4 h-4" /> 一键生成骨架
+                </Button>
+                <Button onClick={saveCcToMine} className="flex items-center gap-2">
+                  <Save className="w-4 h-4" /> 保存到我的提示词
+                </Button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* 提示词列表 */}
         <motion.div
@@ -290,6 +470,26 @@ const PromptLibraryPage: React.FC = () => {
                     </div>
                     
                     <div className="flex items-center gap-2">
+                      {/* 收藏 */}
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        onClick={() => toggleFavorite(prompt)}
+                        className={`hover:text-white ${favorites[keyOf(prompt)] ? 'text-rose-400' : 'text-gray-400'}`}
+                        title={favorites[keyOf(prompt)] ? '取消收藏' : '收藏'}
+                      >
+                        <Heart className="w-4 h-4" />
+                      </Button>
+                      {/* 保存到我的提示词 */}
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        onClick={() => saveToMyPrompts(prompt)}
+                        className="text-gray-400 hover:text-white"
+                        title="保存到我的提示词"
+                      >
+                        <Save className="w-4 h-4" />
+                      </Button>
                       <Button
                         size="sm"
                         variant="ghost"
@@ -365,6 +565,33 @@ const PromptLibraryPage: React.FC = () => {
                                   {`{${variable}}`}
                                 </span>
                               ))}
+                            </div>
+                            {/* 变量填写表单 */}
+                            <div className="mt-3 grid grid-cols-1 md:grid-cols-2 gap-2">
+                              {prompt.variables.map(variable => {
+                                const k = keyOf(prompt);
+                                const current = filledValues[k]?.[variable] || '';
+                                return (
+                                  <input
+                                    key={variable}
+                                    placeholder={`填写 ${variable}`}
+                                    value={current}
+                                    onChange={(e) => setFilledValues(prev => ({
+                                      ...prev,
+                                      [k]: { ...(prev[k]||{}), [variable]: e.target.value }
+                                    }))}
+                                    className="bg-white/5 border border-white/20 rounded-xl px-3 py-2 text-white placeholder-gray-400"
+                                  />
+                                );
+                              })}
+                            </div>
+                            <div className="flex gap-2 mt-3">
+                              <Button size="sm" onClick={() => handleFilledCopy(prompt)} className="flex items-center gap-2">
+                                <Copy className="w-4 h-4" /> 复制填充后的提示词
+                              </Button>
+                              <Button size="sm" variant="secondary" onClick={() => handleCopyJson(prompt)} className="flex items-center gap-2">
+                                <Code className="w-4 h-4" /> 复制JSON
+                              </Button>
                             </div>
                           </div>
                         )}
