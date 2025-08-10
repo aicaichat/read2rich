@@ -165,7 +165,7 @@ export default function OpportunityFinderPage() {
             </h1>
             <p className="text-xl text-gray-300 max-w-2xl mx-auto">
               60秒生成你的Top机会清单，用
-              <span className="text-primary-400 font-semibold"> 19.9元 </span>
+              <span className="text-primary-400 font-semibold"> 29.9元 </span>
               拿到“能看、能讲、能落地”的方案与BP。
             </p>
           </motion.div>
@@ -512,7 +512,7 @@ export default function OpportunityFinderPage() {
                 className="bg-gradient-to-br from-primary-500/20 to-secondary-500/20 rounded-2xl p-6 border border-primary-500/30"
               >
                 <div className="grid grid-cols-1 gap-4">
-                  {/* 第一级：报告+BP 19.9 */}
+                  {/* 第一级：报告+BP 29.9 */}
                   <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
                     <div className="flex items-center justify-between mb-2">
                       <div className="text-white font-semibold">第一级 · 报告 + BP</div>
@@ -683,8 +683,8 @@ export default function OpportunityFinderPage() {
                 <thead>
                   <tr className="text-gray-400">
                     <th className="text-left py-2">权益</th>
-                    <th className="text-center py-2">第一级（¥19.9）</th>
-                    <th className="text-center py-2">第二级（¥299起）</th>
+                    <th className="text-center py-2">第一级（¥29.9）</th>
+                    <th className="text-center py-2">第二级（¥299）</th>
                     <th className="text-center py-2">第三级（¥2999起）</th>
                   </tr>
                 </thead>
@@ -736,7 +736,7 @@ export default function OpportunityFinderPage() {
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-gray-300">
               {[ 
-                '用了19.9的报告+BP，团队当天就开了评审会，决定做MVP。',
+                '用了29.9的报告+BP，团队当天就开了评审会，决定做MVP。',
                 '训练营2周就跑出了可以演示的版本，比我们自己摸索快太多。',
                 '定制版帮我们接入企业微信与内部数据，合规问题也一起解决了。'
               ].map((t,i)=> (
