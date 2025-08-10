@@ -217,20 +217,33 @@ const PromptLibraryPage: React.FC = () => {
   };
 
   // 获取分类列表
-  const categories = ['all', ...new Set(crawledPrompts.map(p => p.category))];
+  const categories = ['all', ...Array.from(new Set(
+    crawledPrompts.map(p => p.category || 'general')
+  ))];
   const metaphysicsTags = Array.from(new Set(crawledPrompts
     .filter(p => p.category === 'metaphysics')
     .flatMap(p => p.tags || [])
   ));
 
-  // 获取分类图标
+  // 获取分类图标（扩展映射）
   const getCategoryIcon = (category: string) => {
     switch (category) {
-      case 'development': return <Code className="w-4 h-4" />;
+      case 'development':
+      case 'engineering': return <Code className="w-4 h-4" />;
+      case 'web-development': return <Code className="w-4 h-4" />;
+      case 'mobile-development': return <Code className="w-4 h-4" />;
+      case 'ai-development': return <Code className="w-4 h-4" />;
       case 'writing': return <BookOpen className="w-4 h-4" />;
-      case 'analysis': return <BarChart3 className="w-4 h-4" />;
+      case 'analysis':
+      case 'data-science': return <BarChart3 className="w-4 h-4" />;
       case 'design': return <Layers className="w-4 h-4" />;
-      case 'business': return <Globe className="w-4 h-4" />;
+      case 'business':
+      case 'growth':
+      case 'capital': return <Globe className="w-4 h-4" />;
+      case 'metaphysics': return <Star className="w-4 h-4 text-yellow-400" />;
+      case 'blockchain': return <Globe className="w-4 h-4" />;
+      case 'iot': return <Globe className="w-4 h-4" />;
+      case 'product': return <BookOpen className="w-4 h-4" />;
       default: return <Star className="w-4 h-4" />;
     }
   };

@@ -239,25 +239,45 @@ const crawlPromptEngineeringRepo = async (source: GitHubPromptSource): Promise<C
   }
 };
 
-// 智能分类提示词
+// 智能分类提示词（扩展覆盖常见专业域）
 const categorizePrompt = (title: string, content: string): string => {
   const text = `${title} ${content}`.toLowerCase();
-  
-  if (text.includes('code') || text.includes('程序') || text.includes('开发') || text.includes('programming')) {
-    return 'development';
-  } else if (text.includes('write') || text.includes('写作') || text.includes('文章') || text.includes('writing')) {
-    return 'writing';
-  } else if (text.includes('analyze') || text.includes('分析') || text.includes('data') || text.includes('数据')) {
-    return 'analysis';
-  } else if (text.includes('design') || text.includes('设计') || text.includes('ui') || text.includes('创意')) {
-    return 'design';
-  } else if (text.includes('business') || text.includes('商业') || text.includes('marketing') || text.includes('营销')) {
-    return 'business';
-  } else if (text.includes('education') || text.includes('教育') || text.includes('学习') || text.includes('teach')) {
-    return 'education';
-  } else {
-    return 'general';
-  }
+
+  // Metaphysics
+  if ([
+    'bazi','八字','紫微','占星','astrology','tarot','塔罗','风水','fengshui','奇门','qimen','六爻','梅花','合盘','synastry'
+  ].some(k => text.includes(k))) return 'metaphysics';
+
+  // Product / PRD
+  if (['prd','产品需求','需求文档','mvp','产品','roadmap','用户故事'].some(k => text.includes(k))) return 'product';
+
+  // Engineering / Development
+  if ([
+    'code','程序','开发','programming','工程','architecture','架构','api','后端','前端','微服务'
+  ].some(k => text.includes(k))) return 'engineering';
+
+  // Growth / Marketing
+  if (['growth','营销','增长','获客','留存','定价','pricing','unit economics'].some(k => text.includes(k))) return 'growth';
+
+  // Capital / Fundraising
+  if (['bp','pitch','融资','投资','募资','term sheet','估值'].some(k => text.includes(k))) return 'capital';
+
+  // AI / Data / Blockchain / IoT / Mobile / Web
+  if (['ai','chatbot','nlp','llm'].some(k => text.includes(k))) return 'ai-development';
+  if (['data','数据','分析','analytics','etl','warehouse','lake'].some(k => text.includes(k))) return 'data-science';
+  if (['blockchain','智能合约','solidity','web3','nft','defi'].some(k => text.includes(k))) return 'blockchain';
+  if (['iot','设备','传感器','mqtt','物联网'].some(k => text.includes(k))) return 'iot';
+  if (['mobile','ios','android','react native','flutter'].some(k => text.includes(k))) return 'mobile-development';
+  if (['web','frontend','前端','vite','react','vue','next.js'].some(k => text.includes(k))) return 'web-development';
+
+  // Writing / Analysis / Design / Business / Education
+  if (['write','写作','文章','writing'].some(k => text.includes(k))) return 'writing';
+  if (['analyze','分析','data','数据','research','研究'].some(k => text.includes(k))) return 'analysis';
+  if (['design','设计','ui','创意','ux'].some(k => text.includes(k))) return 'design';
+  if (['business','商业','marketing','营销','strategy','战略'].some(k => text.includes(k))) return 'business';
+  if (['education','教育','学习','teach','课程'].some(k => text.includes(k))) return 'education';
+
+  return 'general';
 };
 
 // 提取标签
