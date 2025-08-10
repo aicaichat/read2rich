@@ -70,7 +70,7 @@ export default function PaymentModal({
       id: PaymentMethod.ALIPAY,
       name: '支付宝（推荐）',
       icon: Smartphone,
-      description: '扫码支付 ¥99，成功后自动解锁',
+      description: `扫码支付 ¥${APP_CONFIG.COMMERCE.PRICES.PREMIUM_REPORT}，成功后自动解锁（报告+BP）`,
       color: 'text-blue-500'
     }
   ];

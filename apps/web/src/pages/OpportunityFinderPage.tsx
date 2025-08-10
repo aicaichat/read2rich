@@ -501,35 +501,62 @@ export default function OpportunityFinderPage() {
             <div className="space-y-6">
               <ScoreRadar opportunity={selectedOpportunity} />
               
-              {/* 升级选项 */}
+              {/* 升级选项 - 三层商业模型 */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
                 className="bg-gradient-to-br from-primary-500/20 to-secondary-500/20 rounded-2xl p-6 border border-primary-500/30"
               >
-                <div className="text-center mb-4">
-                  <h3 className="text-xl font-bold text-white mb-2">{t('opf.unlockTitle','解锁完整报告 & Quick-Start Kit')}</h3>
-                  <div className="text-3xl font-bold text-primary-400">
-                    ${APP_CONFIG.COMMERCE.PRICES.PREMIUM_REPORT}
-                    <span className="text-sm text-gray-400 font-normal">/次</span>
-                  </div>
-                </div>
-
-                <div className="space-y-3 mb-6">
-                  {[
-                    '完整SWOT分析',
-                    '详细技术实现方案',
-                    '可运行代码模板',
-                    'No-Code原型工具',
-                    '14天PoC开发支持',
-                    'PRD文档模板'
-                  ].map((feature, index) => (
-                    <div key={index} className="flex items-center">
-                      <Star className="w-4 h-4 text-yellow-400 mr-2" />
-                      <span className="text-sm text-gray-300">{feature}</span>
+                <div className="grid grid-cols-1 gap-4">
+                  {/* 第一级：报告+BP 19.9 */}
+                  <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="text-white font-semibold">第一级 · 报告 + BP</div>
+                      <div className="text-2xl font-bold text-emerald-400">¥{APP_CONFIG.COMMERCE.PRICES.PREMIUM_REPORT}</div>
                     </div>
-                  ))}
+                    <div className="text-gray-300 text-sm mb-3">解锁完整HTML报告与商业计划书（WebPPT）</div>
+                    {isPurchased(selectedOpportunity.id) ? (
+                      <div className="text-emerald-400 text-sm">已解锁</div>
+                    ) : (
+                      <Button 
+                        className="w-full bg-gradient-to-r from-primary-500 to-secondary-500"
+                        onClick={() => setIsPaymentModalOpen(true)}
+                      >
+                        <CreditCard className="w-4 h-4 mr-2" /> 立即解锁（报告+BP）
+                      </Button>
+                    )}
+                  </div>
+
+                  {/* 第二级：课程与培训 */}
+                  <div className="rounded-xl border border-blue-500/30 bg-blue-500/10 p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="text-white font-semibold">第二级 · 课程与培训</div>
+                      <div className="text-xl font-bold text-blue-400">¥299 起</div>
+                    </div>
+                    <div className="text-gray-300 text-sm mb-3">系统课程、训练营、实战作业与评审</div>
+                    <Button 
+                      className="w-full bg-blue-600 hover:bg-blue-700"
+                      onClick={() => openWindow('/course/1', '_blank')}
+                    >
+                      <ExternalLink className="w-4 h-4 mr-2" /> 查看课程与训练营
+                    </Button>
+                  </div>
+
+                  {/* 第三级：源码与定制化 */}
+                  <div className="rounded-xl border border-purple-500/30 bg-purple-500/10 p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="text-white font-semibold">第三级 · 源码与定制化</div>
+                      <div className="text-xl font-bold text-purple-400">¥2999 起</div>
+                    </div>
+                    <div className="text-gray-300 text-sm mb-3">完整源码授权、专家定制落地、私有化部署</div>
+                    <Button 
+                      className="w-full bg-purple-600 hover:bg-purple-700"
+                      onClick={() => openWindow('mailto:vip@deepneed.com.cn','_blank')}
+                    >
+                      联系我们获取方案
+                    </Button>
+                  </div>
                 </div>
 
                 {isPurchased(selectedOpportunity.id) ? (
@@ -597,20 +624,7 @@ export default function OpportunityFinderPage() {
                       <Download className="w-4 h-4 mr-2" /> 打开交付页
                     </Button>
                   </div>
-                ) : (
-                  <div className="space-y-2">
-                    {selectedOpportunity.id === '5' && (
-                      <div className="text-center text-emerald-400 text-xs">限时免费 · 付款为0元，直接解锁</div>
-                    )}
-                    <Button 
-                      className="w-full bg-gradient-to-r from-primary-500 to-secondary-500"
-                      onClick={() => setIsPaymentModalOpen(true)}
-                    >
-                      <CreditCard className="w-4 h-4 mr-2" />
-                      {selectedOpportunity.id === '5' ? '免费领取完整报告' : t('opf.buy','购买完整报告')}
-                    </Button>
-                  </div>
-                )}
+                ) : null}
                 
                 {/* 去掉退款与支付提示 */}
               </motion.div>

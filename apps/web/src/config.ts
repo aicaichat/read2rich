@@ -16,7 +16,8 @@ export const APP_CONFIG = {
   COMMERCE: {
     CURRENCY: 'CNY',
     PRICES: {
-      PREMIUM_REPORT: 99,
+      // 第一级：报告 + BP
+      PREMIUM_REPORT: 19.9,
     },
   },
   DEMO: {

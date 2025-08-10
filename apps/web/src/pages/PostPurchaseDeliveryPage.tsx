@@ -187,7 +187,7 @@ export default function PostPurchaseDeliveryPage() {
             <Button 
               onClick={() => {
                 if (isMobileDevice()) {
-                  alert(`移动端不支持完整的WebPPT体验，建议在电脑端访问获得最佳效果。\n\n您也可以将此页面链接发送到电脑：\n${window.location.href}`);
+                  alert(`移动端建议仅预览。要获得完整体验，请在电脑端解锁第一级（报告+BP）后再查看。\n\n您可以将此页面链接发送到电脑：\n${window.location.href}`);
                   return;
                 }
                 openBPWebPPT();
@@ -199,7 +199,7 @@ export default function PostPurchaseDeliveryPage() {
             <Button 
               onClick={() => {
                 if (isMobileDevice()) {
-                  alert(`移动端不支持完整的HTML报告体验，建议在电脑端访问获得最佳效果。\n\n您也可以将此页面链接发送到电脑：\n${window.location.href}`);
+                  alert(`移动端建议仅预览。要获得完整体验，请在电脑端解锁第一级（报告+BP）后再查看。\n\n您可以将此页面链接发送到电脑：\n${window.location.href}`);
                   return;
                 }
                 openHTMLReport();
