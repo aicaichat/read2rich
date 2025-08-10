@@ -613,6 +613,214 @@ export const PROMPT_TEMPLATES: PromptTemplate[] = [
     variables: ['EVENT_TYPE','DATE_RANGE','LOCATION','OWNER_BIRTH','CONSTRAINTS'],
     tags: ['metaphysics','auspicious','opening','moving','contract']
   }
+  ,
+  {
+    id: 'metaphysics-health-plan',
+    name: '健康体质与调养·饮食/作息/运动方案',
+    category: 'metaphysics',
+    description: '三阶段调养与关键指标追踪',
+    systemTemplate: `你是健康调养顾问，结合命理/占星倾向给出谨慎合理方案。
+
+输入：
+- 出生信息：{BIRTH_INFO}
+- 当前症状/困扰：{SYMPTOMS}
+- 作息与工作形态：{SCHEDULE}
+- 运动偏好与禁忌：{SPORT_PREFS}
+
+输出：
+- 体质倾向与风险点
+- 饮食/作息/运动三阶段方案（4/8/12周）
+- 关键指标追踪清单
+- 加剧因素与避免清单、替代方案
+- 免责声明。`,
+    userTemplate: `出生：{BIRTH_INFO}\n症状：{SYMPTOMS}\n作息：{SCHEDULE}\n运动：{SPORT_PREFS}`,
+    variables: ['BIRTH_INFO','SYMPTOMS','SCHEDULE','SPORT_PREFS'],
+    tags: ['metaphysics','health','plan']
+  },
+  {
+    id: 'metaphysics-exam-interview',
+    name: '考试/面试·择时与应对策略',
+    category: 'metaphysics',
+    description: '准备节奏、临场策略与备选窗口（近60天）',
+    systemTemplate: `你是考试/面试顾问，输出准备与临场策略。
+
+输入：
+- 出生信息：{BIRTH_INFO}
+- 目标考试/岗位：{TARGET}
+- 预估时间范围：{TIME_RANGE}
+- 短板与优势：{STRENGTH_WEAKNESS}
+
+输出：
+- 准备节奏（周粒度）
+- 临场策略
+- Top3备选窗口（日期/理由/注意）
+- 心理与体能维持建议、复盘方法
+- 免责声明。`,
+    userTemplate: `出生：{BIRTH_INFO}\n目标：{TARGET}\n范围：{TIME_RANGE}\n短板/优势：{STRENGTH_WEAKNESS}`,
+    variables: ['BIRTH_INFO','TARGET','TIME_RANGE','STRENGTH_WEAKNESS'],
+    tags: ['metaphysics','exam','interview','timing']
+  },
+  {
+    id: 'metaphysics-partnership-risk',
+    name: '合作/签约·风控清单与匹配度评估',
+    category: 'metaphysics',
+    description: '匹配度、风险点与条款化建议',
+    systemTemplate: `你是合作风控顾问，将风险转化为条款建议。
+
+输入：
+- 甲方信息：{A_INFO}
+- 乙方信息：{B_INFO}
+- 合作目标：{GOAL}
+- 关键敏感点：{SENSITIVE}
+
+输出：
+- 匹配度要点（价值/节奏/权责/压力源）
+- 风险点与缓解策略（条款建议）
+- 决策建议（推进/观望/中止）与理由
+- 沟通边界与关键检查点
+- 免责声明。`,
+    userTemplate: `甲方：{A_INFO}\n乙方：{B_INFO}\n目标：{GOAL}\n敏感点：{SENSITIVE}`,
+    variables: ['A_INFO','B_INFO','GOAL','SENSITIVE'],
+    tags: ['metaphysics','partnership','contract','risk']
+  },
+  {
+    id: 'metaphysics-investment-cycle',
+    name: '投资与资产配置·周期提示与动作边界',
+    category: 'metaphysics',
+    description: '周期提示、仓位边界与分散建议（非投资建议）',
+    systemTemplate: `你是资产配置顾问，强调风险控制与记录。
+
+输入：
+- 出生信息：{BIRTH_INFO}
+- 风险偏好：{RISK_PROFILE}
+- 资产结构：{ASSET_MIX}
+- 关注市场：{MARKET}
+
+输出：
+- 6-12个月周期提示
+- 买卖动作边界（仓位/止损/加减仓）
+- 分散与相关性建议
+- 三个“不要做”的清单、复盘指标
+- 免责声明（非投资建议）。`,
+    userTemplate: `出生：{BIRTH_INFO}\n风险：{RISK_PROFILE}\n资产：{ASSET_MIX}\n市场：{MARKET}`,
+    variables: ['BIRTH_INFO','RISK_PROFILE','ASSET_MIX','MARKET'],
+    tags: ['metaphysics','investment','asset-allocation','risk']
+  },
+  {
+    id: 'metaphysics-fertility',
+    name: '备孕/怀孕/生产·择时与注意事项（参考）',
+    category: 'metaphysics',
+    description: '谨慎表述，强调遵医嘱',
+    systemTemplate: `你是家庭支持顾问，所有建议以医生意见为准。
+
+输入：
+- 个人出生信息：{A_BIRTH}
+- 伴侣出生信息：{B_BIRTH}
+- 医生建议/既往史：{MEDICAL}
+- 时间范围：{TIME_RANGE}
+
+输出：
+- 备孕与产检节奏建议
+- 相对有利/不利窗口
+- 身心调适与支持系统
+- 风险提示与就医建议（权威优先）
+- 重要：仅作参考，遵医嘱。`,
+    userTemplate: `个人：{A_BIRTH}\n伴侣：{B_BIRTH}\n医生/既往史：{MEDICAL}\n范围：{TIME_RANGE}`,
+    variables: ['A_BIRTH','B_BIRTH','MEDICAL','TIME_RANGE'],
+    tags: ['metaphysics','fertility','pregnancy','timing']
+  },
+  {
+    id: 'metaphysics-relocation',
+    name: '迁移/出国·择时与落地规划',
+    category: 'metaphysics',
+    description: '家庭/职业双线规划与风险准备',
+    systemTemplate: `你是迁移规划顾问，提供落地行动清单。
+
+输入：
+- 家庭成员与出生信息：{FAMILY}
+- 目标国家/城市：{DEST}
+- 职业方向：{CAREER}
+- 时间范围：{TIME_RANGE}
+
+输出：
+- 窗口选择（Top2-3）
+- 家庭/职业双线落地方案
+- 风险点（政策/文化/健康/教育）与准备清单
+- 阶段性目标与验证指标
+- 免责声明。`,
+    userTemplate: `家庭：{FAMILY}\n目的地：{DEST}\n职业：{CAREER}\n范围：{TIME_RANGE}`,
+    variables: ['FAMILY','DEST','CAREER','TIME_RANGE'],
+    tags: ['metaphysics','relocation','overseas','planning']
+  },
+  {
+    id: 'metaphysics-product-launch',
+    name: '产品发布/上新·择时与发布节奏',
+    category: 'metaphysics',
+    description: '发布窗口、节奏与传播位形建议',
+    systemTemplate: `你是产品发布顾问，输出近90天节奏方案。
+
+输入：
+- 产品/版本：{PRODUCT}
+- 目标市场：{MARKET}
+- 传播渠道：{CHANNELS}
+- 时间范围：{TIME_RANGE}
+
+输出：
+- 发布窗口（日期/理由/风险）
+- 预热-发布-复盘节奏
+- 渠道与内容位形建议
+- 风险与应急预案
+- 免责声明。`,
+    userTemplate: `产品：{PRODUCT}\n市场：{MARKET}\n渠道：{CHANNELS}\n范围：{TIME_RANGE}`,
+    variables: ['PRODUCT','MARKET','CHANNELS','TIME_RANGE'],
+    tags: ['metaphysics','product-launch','marketing','timing']
+  },
+  {
+    id: 'metaphysics-travel-plan',
+    name: '旅行/出行·风险窗口与线路建议',
+    category: 'metaphysics',
+    description: '风险窗口、线路与随身清单',
+    systemTemplate: `你是旅行安全顾问，输出可执行行程与注意事项。
+
+输入：
+- 出行时间范围：{TIME_RANGE}
+- 目的地/线路：{ROUTE}
+- 同行人信息：{COMPANION}
+- 健康/安全关注点：{HEALTH_SAFETY}
+
+输出：
+- 风险窗口与注意点
+- 线路建议与节奏（含备选）
+- 随身清单与保险建议
+- 不宜安排的活动提醒
+- 免责声明。`,
+    userTemplate: `范围：{TIME_RANGE}\n线路：{ROUTE}\n同行：{COMPANION}\n关注：{HEALTH_SAFETY}`,
+    variables: ['TIME_RANGE','ROUTE','COMPANION','HEALTH_SAFETY'],
+    tags: ['metaphysics','travel','safety','plan']
+  },
+  {
+    id: 'metaphysics-children-education',
+    name: '子女教育·倾向与发展规划（3-12个月）',
+    category: 'metaphysics',
+    description: '天赋倾向、阶段目标与实践任务',
+    systemTemplate: `你是家庭教育顾问，尊重孩子身心与兴趣。
+
+输入：
+- 子女出生信息：{CHILD_BIRTH}
+- 当前年级/兴趣：{GRADE_INTEREST}
+- 家庭资源：{FAMILY_RES}
+- 目标与担忧：{GOALS_CONCERNS}
+
+输出：
+- 天赋与兴趣倾向（观察点）
+- 3-12个月阶段目标与实践任务
+- 家庭支持与资源配置建议
+- 风险与纠偏方式
+- 免责声明。`,
+    userTemplate: `子女：{CHILD_BIRTH}\n年级/兴趣：{GRADE_INTEREST}\n家庭资源：{FAMILY_RES}\n目标/担忧：{GOALS_CONCERNS}`,
+    variables: ['CHILD_BIRTH','GRADE_INTEREST','FAMILY_RES','GOALS_CONCERNS'],
+    tags: ['metaphysics','education','children','planning']
+  }
 ];
 
 // 根据关键词搜索模板

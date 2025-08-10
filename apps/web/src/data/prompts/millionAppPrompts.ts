@@ -306,6 +306,152 @@ export const millionAppPrompts: CrawledPrompt[] = [
 4) 备选方案与不宜日提醒
 5) 注意：环境限制={{环境限制（周末/工作日/时段）}}；结论供参考。`
   }
+  ,
+  // —— 扩展：高实用度专业提示词 ——
+  {
+    title: '健康体质与调养·饮食/作息/运动方案',
+    description: '基于命理/占星倾向，定制三阶段调养与指标追踪',
+    source: 'deepneed-seed',
+    repo: 'deepneed-seed',
+    category: 'metaphysics',
+    tags: ['health','wellbeing','plan'],
+    variables: ['出生信息', '当前症状/困扰', '作息与工作形态', '运动偏好与禁忌'],
+    stars: 0,
+    content: `请基于{{出生信息}}与现状（{{当前症状/困扰}}，作息：{{作息与工作形态}}）制定调养方案：
+- 体质倾向与风险点（2-3条）
+- 饮食/作息/运动三阶段方案（4周/8周/12周）
+- 关键指标追踪（睡眠/心率/体重/疼痛/心情等）
+- 加剧因素与避免清单；可替代方案
+- 温馨提示：个体差异显著，结论供参考。`
+  },
+  {
+    title: '考试/面试·择时与应对策略',
+    description: '给出准备节奏、临场策略与备选窗口（近60天）',
+    source: 'deepneed-seed',
+    repo: 'deepneed-seed',
+    category: 'metaphysics',
+    tags: ['exam','interview','timing'],
+    variables: ['出生信息', '目标考试/岗位', '预估时间范围', '短板与优势'],
+    stars: 0,
+    content: `针对“{{目标考试/岗位}}”，在{{预估时间范围}}内给出：
+- 准备节奏（周粒度）与重点
+- 临场策略（开场/节奏/应变）
+- Top3备选窗口（日期/理由/注意）
+- 心理与体能维持建议；复盘方法
+- 备注：短板={{短板与优势}}；仅供参考。`
+  },
+  {
+    title: '合作/签约·风控清单与匹配度评估',
+    description: '从五行/相位互动抽取风险点并转化为条款清单',
+    source: 'deepneed-seed',
+    repo: 'deepneed-seed',
+    category: 'metaphysics',
+    tags: ['partnership','contract','risk'],
+    variables: ['甲方信息', '乙方信息', '合作目标', '关键敏感点'],
+    stars: 0,
+    content: `请就“{{合作目标}}”对甲方={{甲方信息}} 与 乙方={{乙方信息}} 出具：
+- 匹配度要点（价值/节奏/权责/压力源）
+- 风险点与缓解策略（转化为合同条款建议）
+- 决策建议（推进/观望/中止）与理由
+- 沟通边界与关键检查点
+- 附注：关键敏感点={{关键敏感点}}；仅供参考。`
+  },
+  {
+    title: '投资与资产配置·周期提示与动作边界',
+    description: '结合行运/周期，在风险控制下给出动作建议',
+    source: 'deepneed-seed',
+    repo: 'deepneed-seed',
+    category: 'metaphysics',
+    tags: ['investment','asset-allocation','risk'],
+    variables: ['出生信息', '风险偏好', '资产结构', '关注市场'],
+    stars: 0,
+    content: `基于{{出生信息}}、风险偏好={{风险偏好}}、资产={{资产结构}}、市场={{关注市场}}：
+- 未来6-12个月周期提示（强/中/弱）
+- 买卖动作边界（仓位/止损/加减仓条件）
+- 资产分散与相关性建议
+- 三个“不要做”的清单；复盘指标
+- 免责声明：不构成投资建议。`
+  },
+  {
+    title: '备孕/怀孕/生产·择时与注意事项',
+    description: '结合体质倾向与时间窗口给出风险与建议（参考用）',
+    source: 'deepneed-seed',
+    repo: 'deepneed-seed',
+    category: 'metaphysics',
+    tags: ['fertility','pregnancy','timing'],
+    variables: ['个人出生信息', '伴侣出生信息', '医生建议/既往史', '时间范围'],
+    stars: 0,
+    content: `请在{{时间范围}}内，结合个人/伴侣与医生建议，给出：
+- 备孕与产检节奏建议；注意事项
+- 相对有利/不利窗口（谨慎表述）
+- 身心调适与支持系统清单
+- 风险提示与就医建议（权威优先）
+- 重要：仅作参考，遵医嘱。`
+  },
+  {
+    title: '迁移/出国·择时与落地规划',
+    description: '选择窗口、落地风险与资源配置（家庭/职业）',
+    source: 'deepneed-seed',
+    repo: 'deepneed-seed',
+    category: 'metaphysics',
+    tags: ['relocation','overseas','planning'],
+    variables: ['家庭成员与出生信息', '目标国家/城市', '职业方向', '时间范围'],
+    stars: 0,
+    content: `围绕迁移到“{{目标国家/城市}}”，在{{时间范围}}内：
+- 窗口选择（Top2-3）与注意事项
+- 家庭/职业双线落地方案
+- 风险点（政策/文化/健康/教育）与准备清单
+- 阶段性目标与验证指标
+- 备注：仅供参考。`
+  },
+  {
+    title: '产品发布/上新·择时与发布节奏',
+    description: '给出发布窗口、节奏与传播位形（近90天）',
+    source: 'deepneed-seed',
+    repo: 'deepneed-seed',
+    category: 'metaphysics',
+    tags: ['product-launch','marketing','timing'],
+    variables: ['产品/版本', '目标市场', '传播渠道', '时间范围'],
+    stars: 0,
+    content: `请为“{{产品/版本}}”在{{时间范围}}内给出：
+- 发布窗口（日期/理由/风险）
+- 预热-发布-复盘节奏（节点与内容）
+- 渠道与内容位形建议
+- 风险与应急预案
+- 提示：目标市场={{目标市场}}；渠道={{传播渠道}}。`
+  },
+  {
+    title: '旅行/出行·风险窗口与线路建议',
+    description: '标注风险窗口并输出行程与注意事项清单',
+    source: 'deepneed-seed',
+    repo: 'deepneed-seed',
+    category: 'metaphysics',
+    tags: ['travel','safety','plan'],
+    variables: ['出行时间范围', '目的地/线路', '同行人信息', '健康/安全关注点'],
+    stars: 0,
+    content: `针对“{{目的地/线路}}”在{{出行时间范围}}内：
+- 风险窗口与注意点（交通/天气/健康/治安）
+- 线路建议与节奏（含备选）
+- 随身清单与保险建议
+- 不宜安排的活动提醒
+- 注意：信息随时变动，出行前再核验。`
+  },
+  {
+    title: '子女教育·倾向与发展规划（3-12个月）',
+    description: '基于禀赋与兴趣，给出分阶段目标与实践路径',
+    source: 'deepneed-seed',
+    repo: 'deepneed-seed',
+    category: 'metaphysics',
+    tags: ['education','children','planning'],
+    variables: ['子女出生信息', '当前年级/兴趣', '家庭资源', '目标与担忧'],
+    stars: 0,
+    content: `请基于{{子女出生信息}}，结合{{当前年级/兴趣}}与家庭资源：
+- 天赋与兴趣倾向（观察点）
+- 3-12个月阶段目标与实践任务
+- 家庭支持与资源配置建议
+- 风险与纠偏方式
+- 提示：以孩子身心健康与兴趣为先。`
+  }
 ];
 
 export default millionAppPrompts;
