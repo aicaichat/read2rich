@@ -870,8 +870,8 @@ const AITrainingCoursePage: React.FC = () => {
             <div className="flex items-center justify-between mb-4">
               <span className="text-2xl font-bold text-white">统一定价</span>
               <div className="text-right">
-                <div className="text-gray-400 line-through">¥599</div>
-                <div className="text-3xl font-bold text-emerald-400">¥299</div>
+                <div className="text-gray-400 line-through">¥{APP_CONFIG.COMMERCE.COURSE.BASIC + 300}</div>
+                <div className="text-3xl font-bold text-emerald-400">¥{APP_CONFIG.COMMERCE.COURSE.BASIC}</div>
               </div>
             </div>
             <div className="text-gray-400 text-sm">

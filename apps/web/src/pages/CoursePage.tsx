@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { APP_CONFIG } from '@/config';
 import { motion } from 'framer-motion';
 import { 
   Play, Clock, Users, Star, CheckCircle, 
@@ -556,11 +557,11 @@ const CoursePage: React.FC = () => {
             <div className="space-y-4 mb-6">
               <div className="flex justify-between items-center">
                 <span className="text-gray-300">课程价格</span>
-                <span className="text-2xl font-bold text-emerald-400">¥299</span>
+                <span className="text-2xl font-bold text-emerald-400">¥{APP_CONFIG.COMMERCE.COURSE.BASIC}</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-gray-300">优惠价格</span>
-                <span className="text-xl font-bold text-white">¥299</span>
+                <span className="text-xl font-bold text-white">¥{APP_CONFIG.COMMERCE.COURSE.BASIC}</span>
               </div>
             </div>
             

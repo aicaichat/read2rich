@@ -19,6 +19,12 @@ export const APP_CONFIG = {
       // 第一级：报告 + BP（统一为 29.9）
       PREMIUM_REPORT: 29.9,
     },
+    COURSE: {
+      BASIC: 299,
+    },
+    CUSTOM: {
+      MIN: 2999,
+    }
   },
   DEMO: {
     CLOTHING_MATCHER_URL: 'https://wtwt.cn',
