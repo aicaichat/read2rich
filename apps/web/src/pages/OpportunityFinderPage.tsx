@@ -534,15 +534,15 @@ export default function OpportunityFinderPage() {
                   {/* 第二级：课程与培训 */}
                   <div className="rounded-xl border border-blue-500/30 bg-blue-500/10 p-4">
                     <div className="flex items-center justify-between mb-2">
-                      <div className="text-white font-semibold">第二级 · 课程与培训</div>
-                      <div className="text-xl font-bold text-blue-400">¥299 起</div>
+                    <div className="text-white font-semibold">第二级 · 课程与培训</div>
+                    <div className="text-xl font-bold text-blue-400">¥299 起</div>
                     </div>
                     <div className="text-gray-300 text-sm mb-3">把报告变成可落地的执行表：体系课 + 训练营 + 作业评审</div>
                     <Button 
                       className="w-full bg-blue-600 hover:bg-blue-700"
                       onClick={() => openWindow('/course/1', '_blank')}
                     >
-                      <ExternalLink className="w-4 h-4 mr-2" /> 报名训练营（¥299起）
+                      <ExternalLink className="w-4 h-4 mr-2" /> 报名训练营（¥299 起）
                     </Button>
                   </div>
 
