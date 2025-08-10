@@ -56,6 +56,15 @@ const PromptLibraryPage: React.FC = () => {
   const [ccVariables, setCcVariables] = useState('');
   const [ccDescription, setCcDescription] = useState('');
   const [ccContent, setCcContent] = useState('');
+  
+  // 快速分组（Design/Video/Growth/Writing）
+  const QUICK_GROUPS: { key: string; label: string; predicate: (p: CrawledPrompt) => boolean }[] = [
+    { key: 'design', label: 'Design', predicate: (p) => p.category === 'design' },
+    { key: 'video', label: 'Video', predicate: (p) => (p.tags||[]).some(t => ['video','short-video','gen-vid','storyboard'].includes(t)) },
+    { key: 'growth', label: 'Growth', predicate: (p) => p.category === 'growth' },
+    { key: 'writing', label: 'Writing', predicate: (p) => p.category === 'writing' },
+  ];
+  const [activeQuickGroup, setActiveQuickGroup] = useState<string>('');
 
   // 页面加载：官方种子 + 我的提示词 + 抓取库
   useEffect(() => {
@@ -75,7 +84,11 @@ const PromptLibraryPage: React.FC = () => {
 
   // 搜索和过滤
   useEffect(() => {
-    let filtered = searchCrawledPrompts(crawledPrompts, searchQuery, selectedCategory);
+    let base = [...crawledPrompts];
+    if (activeQuickGroup) {
+      base = base.filter(p => QUICK_GROUPS.find(g => g.key === activeQuickGroup)?.predicate(p));
+    }
+    let filtered = searchCrawledPrompts(base, searchQuery, selectedCategory);
     if (showFavoritesOnly) {
       filtered = filtered.filter(p => favorites[`${p.source}-${p.title}`]);
     }
@@ -83,7 +96,7 @@ const PromptLibraryPage: React.FC = () => {
       filtered = filtered.filter(p => p.tags?.includes(selectedTag));
     }
     setFilteredPrompts(filtered);
-  }, [crawledPrompts, searchQuery, selectedCategory, showFavoritesOnly, favorites, selectedTag]);
+  }, [crawledPrompts, searchQuery, selectedCategory, showFavoritesOnly, favorites, selectedTag, activeQuickGroup]);
 
   // 开始爬取
   const handleCrawl = async () => {
@@ -427,6 +440,26 @@ const PromptLibraryPage: React.FC = () => {
               </div>
             </div>
           )}
+
+          {/* 快速分组 */}
+          <div className="mt-4 pt-4 border-t border-white/10">
+            <p className="text-gray-400 text-sm mb-2">快速分组:</p>
+            <div className="flex flex-wrap gap-2">
+              {QUICK_GROUPS.map(g => (
+                <button
+                  key={g.key}
+                  onClick={() => setActiveQuickGroup(prev => prev === g.key ? '' : g.key)}
+                  className={`px-3 py-1 rounded-full text-xs border ${activeQuickGroup === g.key ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40' : 'bg-white/10 text-gray-300 border-white/10 hover:bg-white/20'}`}
+                >{g.label}</button>
+              ))}
+              {activeQuickGroup && (
+                <button
+                  onClick={() => setActiveQuickGroup('')}
+                  className="px-3 py-1 rounded-full text-xs border bg-white/10 text-gray-300 border-white/10 hover:bg-white/20"
+                >清除分组</button>
+              )}
+            </div>
+          </div>
         </motion.div>
 
         {/* 共创引导 */}
@@ -584,6 +617,18 @@ const PromptLibraryPage: React.FC = () => {
                       >
                         <Download className="w-4 h-4" />
                       </Button>
+                      {/* 设计类：示例填充并复制 */}
+                      {prompt.category === 'design' && (
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => exampleFillForDesign(prompt)}
+                          className="text-gray-400 hover:text-white"
+                          title="示例填充并复制"
+                        >
+                          示例
+                        </Button>
+                      )}
                     </div>
                   </div>
 
@@ -656,6 +701,16 @@ const PromptLibraryPage: React.FC = () => {
                               <Button size="sm" variant="secondary" onClick={() => handleCopyJson(prompt)} className="flex items-center gap-2">
                                 <Code className="w-4 h-4" /> 复制JSON
                               </Button>
+                               {(prompt.tags||[]).includes('svg') && (
+                                 <Button size="sm" variant="secondary" onClick={() => downloadExampleSvg()} className="flex items-center gap-2">
+                                   <Code className="w-4 h-4" /> 下载示例SVG
+                                 </Button>
+                               )}
+                               {(prompt.tags||[]).includes('mindmap') && (
+                                 <Button size="sm" variant="secondary" onClick={() => previewExampleMindmap()} className="flex items-center gap-2">
+                                   <Code className="w-4 h-4" /> 预览示例脑图
+                                 </Button>
+                               )}
                             </div>
                           </div>
                         )}
