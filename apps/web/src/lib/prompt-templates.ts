@@ -373,6 +373,105 @@ export const PROMPT_TEMPLATES: PromptTemplate[] = [
       '农业物联网系统，监控土壤、气候、作物状态'
     ]
   }
+  ,
+  // —— 玄学/算命 专业模板 ——
+  {
+    id: 'metaphysics-bazi-pro',
+    name: '八字四柱·专业命理解读（含大运流年）',
+    category: 'metaphysics',
+    description: '四柱、五行、用神、流年大运的结构化解读与建议',
+    systemTemplate: `你是一位严谨、理性的资深命理顾问，输出以参考与建议为主，避免绝对化。
+
+输入：
+- 公历生日：{BIRTH_DATE}
+- 出生时间：{BIRTH_TIME}
+- 出生地点：{BIRTH_PLACE}
+- 性别：{GENDER}
+- 关注主题：{FOCUS_TOPICS}
+
+请基于四柱八字方法，输出Markdown：
+1) 命盘与五行旺衰（天干地支、喜忌用神）
+2) 性格禀赋与潜能（优势/短板）
+3) 事业/财运/感情/健康 分项
+4) 大运流年（近3年重点与时间窗口）
+5) 行动建议（可执行）
+6) 免责声明（仅供参考）。`,
+    userTemplate: `公历生日：{BIRTH_DATE}\n出生时间：{BIRTH_TIME}\n出生地点：{BIRTH_PLACE}\n性别：{GENDER}\n关注主题：{FOCUS_TOPICS}`,
+    variables: ['BIRTH_DATE','BIRTH_TIME','BIRTH_PLACE','GENDER','FOCUS_TOPICS'],
+    tags: ['metaphysics','bazi','fortune'],
+    examples: [
+      'BIRTH_DATE=1992-08-15; BIRTH_TIME=06:30; BIRTH_PLACE=杭州; GENDER=女; FOCUS_TOPICS=事业,财运'
+    ]
+  },
+  {
+    id: 'metaphysics-astrology-natal',
+    name: '西方占星·本命盘专业解读',
+    category: 'metaphysics',
+    description: 'Sun/Moon/ASC、相位与宫位落点的系统化分析',
+    systemTemplate: `你是专业占星顾问，严谨中立，输出为参考建议。
+
+输入：
+- 公历生日：{BIRTH_DATE}
+- 出生时间：{BIRTH_TIME}
+- 出生地点：{BIRTH_PLACE}
+- 关注主题：{FOCUS_TOPICS}
+
+请输出：
+- 太阳/月亮/上升要点
+- 行星落点与宫位解析
+- 关键相位的主题影响
+- 未来一年行运提示（重点月份）
+- 与主题相关的可执行建议。
+`,
+    userTemplate: `公历生日：{BIRTH_DATE}\n出生时间：{BIRTH_TIME}\n出生地点：{BIRTH_PLACE}\n关注主题：{FOCUS_TOPICS}`,
+    variables: ['BIRTH_DATE','BIRTH_TIME','BIRTH_PLACE','FOCUS_TOPICS'],
+    tags: ['metaphysics','astrology','natal-chart','transit']
+  },
+  {
+    id: 'metaphysics-tarot-spread',
+    name: '塔罗牌阵·专业解读（含行动建议）',
+    category: 'metaphysics',
+    description: '三张牌/十字阵，结合问题语境与逆位',
+    systemTemplate: `你是专业塔罗顾问，重视语境与建议的可执行性。
+
+输入：
+- 问题描述：{QUESTION}
+- 牌阵类型：{SPREAD}
+- 抽到的牌（含正逆）：{CARDS}
+
+输出：
+1) 每张牌的牌义（结合正逆与语境）
+2) 总体故事线与因果关系
+3) 行动建议（立刻/短期/长期）
+4) 风险提示与替代方案
+5) 免责声明。`,
+    userTemplate: `问题：{QUESTION}\n牌阵：{SPREAD}\n牌面：{CARDS}`,
+    variables: ['QUESTION','SPREAD','CARDS'],
+    tags: ['metaphysics','tarot','spread']
+  },
+  {
+    id: 'metaphysics-fengshui-home',
+    name: '家居风水·户型诊断与优化',
+    category: 'metaphysics',
+    description: '坐向/明堂/动线/五行/采光等综合优化',
+    systemTemplate: `你是专业风水顾问，输出以合理改善与可验证为主。
+
+输入：
+- 户型图说明：{FLOORPLAN}
+- 朝向：{ORIENTATION}
+- 家庭成员：{FAMILY}
+- 主要诉求：{GOALS}
+
+输出：
+- 风水体检（采光/通风/动线/形煞/五行）
+- 高影响问题（影响×原因）
+- 分区优化建议（玄关/客厅/卧室/厨房/卫生间/书房）
+- 禁忌与注意事项
+- 验证方法与周期。`,
+    userTemplate: `户型：{FLOORPLAN}\n朝向：{ORIENTATION}\n成员：{FAMILY}\n诉求：{GOALS}`,
+    variables: ['FLOORPLAN','ORIENTATION','FAMILY','GOALS'],
+    tags: ['metaphysics','fengshui','home']
+  }
 ];
 
 // 根据关键词搜索模板
