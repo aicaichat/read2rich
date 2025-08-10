@@ -212,7 +212,7 @@ export const millionAppPrompts: CrawledPrompt[] = [
     variables: ['产品/服务', '目标用户', '核心利益点', '证据与案例', '关键异议'],
     stars: 0,
     content: `请输出落地页结构与提示词：\n- 首屏（标题/副标题/CTA/视觉）\n- 利益点（3-5条）与证据（案例/数据/口碑）\n- 异议处理与保障\n- CTA组合与FAQ\n- 英文Prompt：用于自动化生成页面视觉与变体。`
-  }
+  },
   {
     title: 'PRD骨架·MVP验收',
     description: '生成MVP导向的PRD骨架与验收标准',
