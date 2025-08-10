@@ -68,9 +68,9 @@ const CourseEnrollmentModal: React.FC<CourseEnrollmentModalProps> = ({
     {
       id: 'basic',
       name: '基础版',
-      originalPrice: 999,
+      originalPrice: 599,
       currentPrice: 299,
-      discount: 70,
+      discount: 50,
       features: [
         '6周完整课程内容',
         '在线学习平台权限',
@@ -82,9 +82,9 @@ const CourseEnrollmentModal: React.FC<CourseEnrollmentModalProps> = ({
     {
       id: 'premium',
       name: '进阶版',
-      originalPrice: 2999,
-      currentPrice: 1999,
-      discount: 33,
+      originalPrice: 3999,
+      currentPrice: 2999,
+      discount: 25,
       isPopular: true,
       features: [
         '6周完整课程内容',
@@ -105,9 +105,9 @@ const CourseEnrollmentModal: React.FC<CourseEnrollmentModalProps> = ({
     {
       id: 'vip',
       name: 'VIP版',
-      originalPrice: 6999,
-      currentPrice: 4999,
-      discount: 28,
+      originalPrice: 39999,
+      currentPrice: 29999,
+      discount: 25,
       features: [
         '包含进阶版所有内容',
         '1对1导师指导（5次）',

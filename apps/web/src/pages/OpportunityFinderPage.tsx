@@ -516,7 +516,7 @@ export default function OpportunityFinderPage() {
                   <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
                     <div className="flex items-center justify-between mb-2">
                       <div className="text-white font-semibold">第一级 · 报告 + BP</div>
-                      <div className="text-2xl font-bold text-emerald-400">¥{APP_CONFIG.COMMERCE.PRICES.PREMIUM_REPORT}</div>
+                    <div className="text-2xl font-bold text-emerald-400">¥{APP_CONFIG.COMMERCE.PRICES.PREMIUM_REPORT}</div>
                     </div>
                     <div className="text-gray-300 text-sm mb-3">1小时读懂这门生意：深度HTML报告 + 路演版BP（WebPPT）</div>
                     {isPurchased(selectedOpportunity.id) ? (
@@ -526,7 +526,7 @@ export default function OpportunityFinderPage() {
                         className="w-full bg-gradient-to-r from-primary-500 to-secondary-500"
                         onClick={() => setIsPaymentModalOpen(true)}
                       >
-                        <CreditCard className="w-4 h-4 mr-2" /> 19.9元解锁 报告+BP（立即获取）
+                        <CreditCard className="w-4 h-4 mr-2" /> 29.9元解锁 报告+BP（立即获取）
                       </Button>
                     )}
                   </div>
@@ -535,14 +535,14 @@ export default function OpportunityFinderPage() {
                   <div className="rounded-xl border border-blue-500/30 bg-blue-500/10 p-4">
                     <div className="flex items-center justify-between mb-2">
                     <div className="text-white font-semibold">第二级 · 课程与培训</div>
-                    <div className="text-xl font-bold text-blue-400">¥299 起</div>
+                    <div className="text-xl font-bold text-blue-400">¥299</div>
                     </div>
                     <div className="text-gray-300 text-sm mb-3">把报告变成可落地的执行表：体系课 + 训练营 + 作业评审</div>
                     <Button 
                       className="w-full bg-blue-600 hover:bg-blue-700"
                       onClick={() => openWindow('/course/1', '_blank')}
                     >
-                      <ExternalLink className="w-4 h-4 mr-2" /> 报名训练营（¥299 起）
+                      <ExternalLink className="w-4 h-4 mr-2" /> 报名训练营（¥299）
                     </Button>
                   </div>
 

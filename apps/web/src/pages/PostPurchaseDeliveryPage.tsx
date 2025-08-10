@@ -284,7 +284,7 @@ export default function PostPurchaseDeliveryPage() {
           <div className="bg-dark-300 rounded-2xl p-6 border border-gray-700">
             <h3 className="text-white font-semibold mb-2">想更快落地？</h3>
             <p className="text-gray-300 text-sm mb-3">报名训练营，把报告变成执行表，2周做出第一版Demo。</p>
-            <Button className="bg-blue-600 hover:bg-blue-700" onClick={() => window.open('/course/1','_blank','noopener,noreferrer')}>报名训练营（¥299 起）</Button>
+            <Button className="bg-blue-600 hover:bg-blue-700" onClick={() => window.open('/course/1','_blank','noopener,noreferrer')}>报名训练营（¥299）</Button>
           </div>
           <div className="bg-dark-300 rounded-2xl p-6 border border-gray-700">
             <h3 className="text-white font-semibold mb-2">需要企业级交付？</h3>
