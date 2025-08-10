@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { FileText, Lock, Star, TrendingUp, Code, Zap } from 'lucide-react';
 import { reportGenerator } from '@/lib/premiumReportGenerator';
+import { APP_CONFIG } from '@/config';
 
 interface ReportPreviewProps {
   opportunityId: string;
@@ -131,10 +132,8 @@ export default function ReportPreview({ opportunityId, opportunityTitle }: Repor
           <div>• 14天开发支持</div>
         </div>
         
-        <div className="mt-4 flex items-center justify-between">
-          <div className="text-primary-400 font-medium">
-            原价 $99 → 限时特价 ${29}
-          </div>
+        <div className="mt-4 text-primary-400 font-medium">
+          第一级价格：¥{APP_CONFIG.COMMERCE.PRICES.PREMIUM_REPORT}（报告 + BP）
         </div>
       </div>
     </motion.div>
