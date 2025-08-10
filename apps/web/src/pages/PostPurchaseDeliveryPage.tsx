@@ -173,7 +173,7 @@ export default function PostPurchaseDeliveryPage() {
             <div className="text-center mb-4">
               <FileText className="w-10 h-10 text-primary-400 mx-auto mb-2" />
               <h3 className="text-lg font-bold text-white">商业计划书（BP）</h3>
-              <p className="text-gray-400 text-sm">PDF 版本，随时下载与分享</p>
+              <p className="text-gray-400 text-sm">含HTML深度报告与路演版WebPPT（第一级已解锁）</p>
             </div>
             {opportunityId === '5' && (
               <Button 

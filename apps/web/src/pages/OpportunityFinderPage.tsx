@@ -157,13 +157,12 @@ export default function OpportunityFinderPage() {
             className="text-center mb-12"
           >
             <h1 className="text-4xl font-bold text-white mb-4">
-              {t('opf.title','AI机会发现器')}
-              <span className="ml-3 text-2xl">🔍</span>
+              用AI洞察，让好生意不再碰运气 <span className="ml-2">🔍</span>
             </h1>
             <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              {t('opf.subtitle','基于全球痛点数据，为您推荐最适合的AI创业机会')}
-              <br />
-              <span className="text-primary-400 font-medium">{t('opf.subtitleEmphasis','60秒获得个性化Top5机会清单')}</span>
+              60秒生成你的Top机会清单，用
+              <span className="text-primary-400 font-semibold"> 19.9元 </span>
+              拿到“能看、能讲、能落地”的方案与BP。
             </p>
           </motion.div>
 
@@ -515,7 +514,7 @@ export default function OpportunityFinderPage() {
                       <div className="text-white font-semibold">第一级 · 报告 + BP</div>
                       <div className="text-2xl font-bold text-emerald-400">¥{APP_CONFIG.COMMERCE.PRICES.PREMIUM_REPORT}</div>
                     </div>
-                    <div className="text-gray-300 text-sm mb-3">解锁完整HTML报告与商业计划书（WebPPT）</div>
+                    <div className="text-gray-300 text-sm mb-3">1小时读懂这门生意：深度HTML报告 + 路演版BP（WebPPT）</div>
                     {isPurchased(selectedOpportunity.id) ? (
                       <div className="text-emerald-400 text-sm">已解锁</div>
                     ) : (
@@ -523,7 +522,7 @@ export default function OpportunityFinderPage() {
                         className="w-full bg-gradient-to-r from-primary-500 to-secondary-500"
                         onClick={() => setIsPaymentModalOpen(true)}
                       >
-                        <CreditCard className="w-4 h-4 mr-2" /> 立即解锁（报告+BP）
+                        <CreditCard className="w-4 h-4 mr-2" /> 19.9元解锁 报告+BP（立即获取）
                       </Button>
                     )}
                   </div>
@@ -534,12 +533,12 @@ export default function OpportunityFinderPage() {
                       <div className="text-white font-semibold">第二级 · 课程与培训</div>
                       <div className="text-xl font-bold text-blue-400">¥299 起</div>
                     </div>
-                    <div className="text-gray-300 text-sm mb-3">系统课程、训练营、实战作业与评审</div>
+                    <div className="text-gray-300 text-sm mb-3">把报告变成可落地的执行表：体系课 + 训练营 + 作业评审</div>
                     <Button 
                       className="w-full bg-blue-600 hover:bg-blue-700"
                       onClick={() => openWindow('/course/1', '_blank')}
                     >
-                      <ExternalLink className="w-4 h-4 mr-2" /> 查看课程与训练营
+                      <ExternalLink className="w-4 h-4 mr-2" /> 报名训练营（¥299起）
                     </Button>
                   </div>
 
@@ -549,12 +548,12 @@ export default function OpportunityFinderPage() {
                       <div className="text-white font-semibold">第三级 · 源码与定制化</div>
                       <div className="text-xl font-bold text-purple-400">¥2999 起</div>
                     </div>
-                    <div className="text-gray-300 text-sm mb-3">完整源码授权、专家定制落地、私有化部署</div>
+                    <div className="text-gray-300 text-sm mb-3">完整源码授权 + 私有化部署 + 集成改造，里程碑交付</div>
                     <Button 
                       className="w-full bg-purple-600 hover:bg-purple-700"
                       onClick={() => openWindow('mailto:vip@deepneed.com.cn','_blank')}
                     >
-                      联系我们获取方案
+                      获取定制方案（1–2周出MVP）
                     </Button>
                   </div>
                 </div>
