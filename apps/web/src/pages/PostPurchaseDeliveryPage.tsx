@@ -279,6 +279,20 @@ export default function PostPurchaseDeliveryPage() {
           </ul>
         </motion.div>
 
+        {/* 下一步建议 */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+          <div className="bg-dark-300 rounded-2xl p-6 border border-gray-700">
+            <h3 className="text-white font-semibold mb-2">想更快落地？</h3>
+            <p className="text-gray-300 text-sm mb-3">报名训练营，把报告变成执行表，2周做出第一版Demo。</p>
+            <Button className="bg-blue-600 hover:bg-blue-700" onClick={() => window.open('/course/1','_blank','noopener,noreferrer')}>报名训练营（¥299起）</Button>
+          </div>
+          <div className="bg-dark-300 rounded-2xl p-6 border border-gray-700">
+            <h3 className="text-white font-semibold mb-2">需要企业级交付？</h3>
+            <p className="text-gray-300 text-sm mb-3">获取定制方案：源码授权、私有化部署与系统集成，里程碑交付。</p>
+            <Button className="bg-purple-600 hover:bg-purple-700" onClick={() => window.open('mailto:vip@deepneed.com.cn','_blank')}>获取定制方案（1–2周出MVP）</Button>
+          </div>
+        </div>
+
         {/* 客服/返回 */}
         <div className="mt-8 text-center">
           <div className="space-x-3 mb-4">

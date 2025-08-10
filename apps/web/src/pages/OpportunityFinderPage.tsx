@@ -13,7 +13,10 @@ import {
   Download,
   CreditCard,
   Filter,
-  Sparkles
+  Sparkles,
+  CheckCircle,
+  HelpCircle,
+  Quote
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
@@ -667,6 +670,80 @@ export default function OpportunityFinderPage() {
           title={notification.title}
           message={notification.message}
         />
+        
+        {/* 权益对比表 */}
+        <div className="max-w-6xl mx-auto px-6 mt-10">
+          <div className="bg-dark-300 rounded-2xl p-6 border border-gray-700">
+            <h3 className="text-2xl font-bold text-white mb-4 flex items-center">
+              <CheckCircle className="w-6 h-6 text-emerald-400 mr-2" /> 三层权益对比
+            </h3>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="text-gray-400">
+                    <th className="text-left py-2">权益</th>
+                    <th className="text-center py-2">第一级（¥19.9）</th>
+                    <th className="text-center py-2">第二级（¥299起）</th>
+                    <th className="text-center py-2">第三级（¥2999起）</th>
+                  </tr>
+                </thead>
+                <tbody className="text-gray-300">
+                  {[
+                    ['HTML深度报告','✔️','✔️','✔️'],
+                    ['路演版BP（WebPPT）','✔️','✔️','✔️'],
+                    ['10分钟上手课','✔️','✔️','✔️'],
+                    ['体系课/训练营','—','✔️','✔️'],
+                    ['作业评审/复盘','—','✔️','✔️'],
+                    ['源码授权','—','—','✔️'],
+                    ['私有化部署/集成','—','—','✔️'],
+                    ['里程碑交付与验收','—','—','✔️']
+                  ].map((row, i) => (
+                    <tr key={i} className={i % 2 ? 'bg-gray-800/30' : ''}>
+                      <td className="py-2 pr-3">{row[0]}</td>
+                      <td className="text-center">{row[1]}</td>
+                      <td className="text-center">{row[2]}</td>
+                      <td className="text-center">{row[3]}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        {/* FAQ */}
+        <div className="max-w-6xl mx-auto px-6 mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+          {[{
+            q:'为什么先买报告+BP？',a:'降低决策成本。先判断值不值得做、怎么做、先做哪一步，再投入时间与预算。'
+          },{
+            q:'没有技术也能落地吗？',a:'可以。训练营提供路线与模板，第三级可交付可运行版本与私有化部署。'
+          },{
+            q:'多久能看到结果？',a:'一般2周出第一版Demo，4–8周出V1，具体依范围与协作效率。'
+          }].map((item,idx)=> (
+            <div key={idx} className="bg-dark-300 rounded-2xl p-6 border border-gray-700">
+              <h4 className="text-white font-semibold mb-2 flex items-center"><HelpCircle className="w-5 h-5 text-blue-400 mr-2" /> {item.q}</h4>
+              <p className="text-gray-300 text-sm">{item.a}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* 用户见证 */}
+        <div className="max-w-6xl mx-auto px-6 mt-8">
+          <div className="bg-dark-300 rounded-2xl p-6 border border-gray-700">
+            <h3 className="text-2xl font-bold text-white mb-4 flex items-center">
+              <Quote className="w-6 h-6 text-yellow-400 mr-2" /> 用户见证
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-gray-300">
+              {[ 
+                '用了19.9的报告+BP，团队当天就开了评审会，决定做MVP。',
+                '训练营2周就跑出了可以演示的版本，比我们自己摸索快太多。',
+                '定制版帮我们接入企业微信与内部数据，合规问题也一起解决了。'
+              ].map((t,i)=> (
+                <div key={i} className="bg-gray-800/40 rounded-xl p-4 border border-gray-700">“{t}”</div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
