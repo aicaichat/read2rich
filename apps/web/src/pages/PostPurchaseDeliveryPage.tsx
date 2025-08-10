@@ -269,6 +269,47 @@ export default function PostPurchaseDeliveryPage() {
 
         </div>
 
+        {/* 可视化交付预览 */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mt-8 bg-dark-300 rounded-2xl p-6 border border-gray-700"
+        >
+          <h3 className="text-xl font-bold text-white mb-4">可视化交付预览</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* 报告截图占位 - 点击打开HTML报告 */}
+            {[1,2,3].map((idx)=> (
+              <div key={idx} className="relative rounded-xl overflow-hidden border border-gray-700 bg-gradient-to-br from-slate-800 to-slate-900 h-48 flex items-center justify-center cursor-pointer group"
+                   onClick={()=>{ track('preview_click', { kind:'report', id:opportunityId, idx }); openHTMLReport(); }}>
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity bg-white"></div>
+                <div className="text-center">
+                  <FileText className="w-8 h-8 text-primary-400 mx-auto mb-2" />
+                  <div className="text-gray-300 text-sm">报告截图预览 {idx}</div>
+                  <div className="text-gray-500 text-xs">点击查看HTML完整报告</div>
+                </div>
+              </div>
+            ))}
+            {/* WebPPT 预览 - 点击打开BP */}
+            <div className="relative rounded-xl overflow-hidden border border-gray-700 bg-gradient-to-br from-amber-700/20 to-amber-900/20 h-48 flex items-center justify-center cursor-pointer group md:col-span-1">
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity bg-white"></div>
+              <div className="text-center" onClick={()=>{ track('preview_click', { kind:'bp', id:opportunityId }); openBPWebPPT(); }}>
+                <ExternalLink className="w-8 h-8 text-amber-400 mx-auto mb-2" />
+                <div className="text-gray-300 text-sm">WebPPT 预览</div>
+                <div className="text-gray-500 text-xs">点击打开路演版BP</div>
+              </div>
+            </div>
+            {/* Demo QR（仅 5 显示） */}
+            {opportunityId === '5' && (
+              <div className="rounded-xl overflow-hidden border border-gray-700 bg-slate-900 h-48 flex items-center justify-center md:col-span-1">
+                <div className="text-center">
+                  <img src={APP_CONFIG.DEMO.CLOTHING_MATCHER_QR} alt="Demo QR" className="w-24 h-24 mx-auto rounded-md border border-gray-700 mb-2" />
+                  <div className="text-gray-300 text-sm">扫码体验 Demo</div>
+                </div>
+              </div>
+            )}
+          </div>
+        </motion.div>
+
         {/* 首周行动清单（简版） */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
