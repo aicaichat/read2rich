@@ -184,6 +184,94 @@ export const millionAppPrompts: CrawledPrompt[] = [
 - 重名风险提示与域名可用性初筛
 输出表格：候选名/读音/五行与声调/寓意/重名风险/建议场景。`
   }
+  ,
+  // —— 追加：奇门遁甲 / 六爻 / 流年流月细化 / 合盘 ——
+  {
+    title: '奇门遁甲·时空盘策略（决策/择时/布局）',
+    description: '基于时空盘、九宫、九星、八门、九神形成策略建议',
+    source: 'deepneed-seed',
+    repo: 'deepneed-seed',
+    category: 'metaphysics',
+    tags: ['qimen','timing','strategy'],
+    variables: ['起局时间', '地点', '事项主题', '目标与约束'],
+    stars: 0,
+    content: `你是专业奇门顾问，请基于“{{起局时间}} @ {{地点}}”就“{{事项主题}}”给出策略：
+1) 盘面要点（值符/值使、宫位旺衰、吉凶格局）
+2) 最佳方位与行动路径（择时/择方）
+3) 三步方案（先行/协同/验证）
+4) 风险与化解
+5) 注意：为参考建议，不作绝对保证。`
+  },
+  {
+    title: '六爻/梅花易数·断卦（世应/用神/变爻）',
+    description: '起卦、旺衰、用神定位、变爻解读与结论建议',
+    source: 'deepneed-seed',
+    repo: 'deepneed-seed',
+    category: 'metaphysics',
+    tags: ['liuyao','meihua','divination'],
+    variables: ['起卦方式', '卦象', '问题主题', '时间窗口'],
+    stars: 0,
+    content: `你是六爻/梅花易数资深老师，针对“{{问题主题}}”：
+输入：起卦方式={{起卦方式}}；卦象={{卦象}}；时间={{时间窗口}}
+输出：
+- 用神与世应定位、旺衰与冲合
+- 变爻与互卦、错综关系
+- 结论倾向与概率、关键时间点
+- 可执行建议与备选方案
+- 提示：供参考。`
+  },
+  {
+    title: '流年流月·细颗粒趋势与规划（12个月）',
+    description: '按月提示主题与窗口，输出行动规划清单',
+    source: 'deepneed-seed',
+    repo: 'deepneed-seed',
+    category: 'metaphysics',
+    tags: ['annual','monthly','planning'],
+    variables: ['生日信息', '关注主题', '当年年份'],
+    stars: 0,
+    content: `请基于{{生日信息}}，围绕“{{关注主题}}”，对{{当年年份}}的12个月给出：
+- 月度主题与强弱评分
+- 关键窗口与注意事项
+- 行动计划（当月3个要点）
+- 复盘指标（如何验证）
+结尾给出：季度里程碑与资源配置建议。`
+  },
+  {
+    title: '八字合婚·匹配度与关系策略（合盘）',
+    description: '以八字合盘评估匹配与风险，并给出关系建议',
+    source: 'deepneed-seed',
+    repo: 'deepneed-seed',
+    category: 'metaphysics',
+    tags: ['bazi','synastry','relationship'],
+    variables: ['甲方出生信息', '乙方出生信息', '关注焦点'],
+    stars: 0,
+    content: `你是八字合婚顾问，请就关系进行合盘分析：
+输入：甲方={{甲方出生信息}}；乙方={{乙方出生信息}}；关注={{关注焦点}}
+输出：
+- 五行互补与冲克、喜忌互动
+- 关系强弱点：沟通/价值/节奏/压力源
+- 关键时间点与相处策略
+- 风险与修复建议（具体可执行）
+- 提示：结论为参考。`
+  },
+  {
+    title: '占星合盘（Synastry & Composite）·关系洞察',
+    description: '两人盘/组合盘，核心相位、宫位落点与建议',
+    source: 'deepneed-seed',
+    repo: 'deepneed-seed',
+    category: 'metaphysics',
+    tags: ['astrology','synastry','composite'],
+    variables: ['甲方出生信息', '乙方出生信息', '关系疑问'],
+    stars: 0,
+    content: `你是占星关系顾问：
+输入：甲方={{甲方出生信息}}；乙方={{乙方出生信息}}；疑问={{关系疑问}}
+输出：
+- 合盘核心相位的吸引/摩擦点
+- 宫位落点对生活领域的影响
+- 组合盘（Composite）稳定性与主题
+- 沟通与边界建议；阶段性时间窗口
+- 注意：为参考建议。`
+  }
 ];
 
 export default millionAppPrompts;
