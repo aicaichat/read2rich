@@ -43,6 +43,7 @@ import AdminCustomOrdersPage from './pages/AdminCustomOrdersPage';
 import AdminEmailSettingsPage from './pages/AdminEmailSettingsPage';
 import OAuthCallbackPage from './pages/OAuthCallbackPage';
 import PostPurchaseDeliveryPage from './pages/PostPurchaseDeliveryPage';
+import AboutPage from './pages/AboutPage';
 
 // Components
 import Navbar from './components/Navbar';
@@ -240,6 +241,14 @@ function App() {
                   <Navbar />
                   <main className="relative z-10">
                     <AIRankingPage />
+                  </main>
+                </>
+              } />
+              <Route path="/about" element={
+                <>
+                  <Navbar />
+                  <main className="relative z-10">
+                    <AboutPage />
                   </main>
                 </>
               } />
