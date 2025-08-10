@@ -180,21 +180,17 @@ export default function LandingPage() {
               </div>
             )}
             
-            {/* 次要CTA按钮 */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-              <Button variant="secondary" size="lg" className="flex items-center gap-2">
-                <PlayCircle className="w-5 h-5" />
-                {t('hero.secondary.watchDemo', '观看2分钟演示')}
-              </Button>
-              <Link to="/ai-training">
-                <Button variant="secondary" size="lg" className="flex items-center gap-2 border-emerald-500 text-emerald-400 hover:bg-emerald-500 hover:text-white">
-                  <BookOpen className="w-5 h-5" />
-                  {t('hero.secondary.course', '百万应用培训课程')}
-                </Button>
+            {/* 统一CTA条：29.9 / 299 / 2999+ */}
+            <div className="flex flex-col sm:flex-row gap-3 justify-center items-center mb-12">
+              <Link to="/opportunity-finder">
+                <Button className="bg-emerald-600 hover:bg-emerald-700 px-6 py-3">¥{APP_CONFIG.COMMERCE.PRICES.PREMIUM_REPORT} 解锁报告+BP</Button>
               </Link>
-              <button className="text-gray-300 hover:text-white transition-colors underline">
-                {t('hero.secondary.cases', '查看成功案例 →')}
-              </button>
+              <Link to="/course/1">
+                <Button variant="secondary" className="border-blue-500 text-blue-400 hover:bg-blue-600 hover:text-white px-6 py-3">¥{APP_CONFIG.COMMERCE.COURSE.BASIC} 报名训练营</Button>
+              </Link>
+              <a href="mailto:vip@deepneed.com.cn">
+                <Button variant="secondary" className="border-purple-500 text-purple-400 hover:bg-purple-600 hover:text-white px-6 py-3">¥{APP_CONFIG.COMMERCE.CUSTOM.MIN}+ 获取定制方案</Button>
+              </a>
             </div>
 
             {/* 成功数据展示 */}
