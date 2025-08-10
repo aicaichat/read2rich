@@ -120,6 +120,17 @@ export default function Navbar() {
                     {t('navbar.home','首页')}
                   </Link>
                   <Link
+                    to="/prompt-library"
+                    className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors ${
+                      isActive('/prompt-library') 
+                        ? 'bg-primary-500/20 text-primary-500' 
+                        : 'text-gray-300 hover:text-white hover:bg-white/10'
+                    }`}
+                  >
+                    <Github className="w-4 h-4" />
+                    <span>{t('navbar.promptLibrary','提示词库')}</span>
+                  </Link>
+                  <Link
                     to="/courses"
                     className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors ${
                       isActive('/courses') 
@@ -129,6 +140,17 @@ export default function Navbar() {
                   >
                     <BookOpen className="w-4 h-4" />
                     <span>{t('navbar.courses','AI课程')}</span>
+                  </Link>
+                  <Link
+                    to="/opportunity-finder"
+                    className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors ${
+                      isActive('/opportunity-finder') 
+                        ? 'bg-primary-500/20 text-primary-500' 
+                        : 'text-gray-300 hover:text-white hover:bg-white/10'
+                    }`}
+                  >
+                    <Lightbulb className="w-4 h-4" />
+                    <span>{t('navbar.opportunityFinder','机会发现器')}</span>
                   </Link>
                   <Link
                     to="/ai-ranking"
