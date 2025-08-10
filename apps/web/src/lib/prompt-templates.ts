@@ -564,6 +564,55 @@ export const PROMPT_TEMPLATES: PromptTemplate[] = [
     variables: ['A_BIRTH','B_BIRTH','QUESTION'],
     tags: ['metaphysics','synastry','relationship']
   }
+  ,
+  {
+    id: 'metaphysics-career-wealth-timing',
+    name: '事业/财运专项·择时窗口与行动方案',
+    category: 'metaphysics',
+    description: '近90天择时热力图、Top窗口与行动计划',
+    systemTemplate: `你是事业/财运择时顾问，结合命理/占星观点给出可执行计划。
+
+输入：
+- 出生信息：{BIRTH_INFO}
+- 地点：{LOCATION}
+- 目标：{GOAL}
+- 时间范围：{TIME_RANGE}
+- 风险偏好：{RISK_PROFILE}
+
+输出：
+- 时间热力图（周粒度）
+- Top3窗口（日期、主题、注意事项）
+- 行动方案（前置/当日/复盘）
+- 风险控制（阈值/止损/替代）
+- 免责声明。`,
+    userTemplate: `出生：{BIRTH_INFO}\n地点：{LOCATION}\n目标：{GOAL}\n范围：{TIME_RANGE}\n风险：{RISK_PROFILE}`,
+    variables: ['BIRTH_INFO','LOCATION','GOAL','TIME_RANGE','RISK_PROFILE'],
+    tags: ['metaphysics','timing','career','wealth']
+  },
+  {
+    id: 'metaphysics-auspicious-opening-moving-contract',
+    name: '择吉：开业/搬家/签约·专业建议（含禁忌）',
+    category: 'metaphysics',
+    description: '吉日时段、动线方位、主事人注意与备选方案',
+    systemTemplate: `你是专业择吉顾问，给出吉时与执行细则。
+
+输入：
+- 事件类型：{EVENT_TYPE}
+- 候选日期范围：{DATE_RANGE}
+- 地点：{LOCATION}
+- 主事人出生信息：{OWNER_BIRTH}
+- 环境限制：{CONSTRAINTS}
+
+输出：
+- 推荐日期与时段（>=3）与理由
+- 动线与方位建议
+- 主事人与辅助人员注意
+- 备选方案与不宜日
+- 免责声明。`,
+    userTemplate: `类型：{EVENT_TYPE}\n日期：{DATE_RANGE}\n地点：{LOCATION}\n主事人：{OWNER_BIRTH}\n限制：{CONSTRAINTS}`,
+    variables: ['EVENT_TYPE','DATE_RANGE','LOCATION','OWNER_BIRTH','CONSTRAINTS'],
+    tags: ['metaphysics','auspicious','opening','moving','contract']
+  }
 ];
 
 // 根据关键词搜索模板
