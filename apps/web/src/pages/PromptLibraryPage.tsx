@@ -46,6 +46,7 @@ const PromptLibraryPage: React.FC = () => {
   });
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
   const [filledValues, setFilledValues] = useState<Record<string, Record<string, string>>>({});
+  const [selectedTag, setSelectedTag] = useState<string>('all');
 
   // 共创引导表单状态
   const [coCreateOpen, setCoCreateOpen] = useState(false);
@@ -78,8 +79,11 @@ const PromptLibraryPage: React.FC = () => {
     if (showFavoritesOnly) {
       filtered = filtered.filter(p => favorites[`${p.source}-${p.title}`]);
     }
+    if (selectedTag && selectedTag !== 'all') {
+      filtered = filtered.filter(p => p.tags?.includes(selectedTag));
+    }
     setFilteredPrompts(filtered);
-  }, [crawledPrompts, searchQuery, selectedCategory, showFavoritesOnly, favorites]);
+  }, [crawledPrompts, searchQuery, selectedCategory, showFavoritesOnly, favorites, selectedTag]);
 
   // 开始爬取
   const handleCrawl = async () => {
@@ -214,6 +218,10 @@ const PromptLibraryPage: React.FC = () => {
 
   // 获取分类列表
   const categories = ['all', ...new Set(crawledPrompts.map(p => p.category))];
+  const metaphysicsTags = Array.from(new Set(crawledPrompts
+    .filter(p => p.category === 'metaphysics')
+    .flatMap(p => p.tags || [])
+  ));
 
   // 获取分类图标
   const getCategoryIcon = (category: string) => {
@@ -372,6 +380,40 @@ const PromptLibraryPage: React.FC = () => {
               ))}
             </div>
           </div>
+
+          {/* 快捷分类 */}
+          <div className="mt-4 pt-4 border-t border-white/10">
+            <p className="text-gray-400 text-sm mb-2">快捷分类:</p>
+            <div className="flex flex-wrap gap-2">
+              {categories.map(cat => (
+                <button
+                  key={cat}
+                  onClick={() => { setSelectedCategory(cat); setSelectedTag('all'); setSearchQuery(''); }}
+                  className={`px-3 py-1 rounded-full text-xs border ${selectedCategory === cat ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40' : 'bg-white/10 text-gray-300 border-white/10 hover:bg-white/20'}`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* 玄学场景标签（当选择metaphysics时显示） */}
+          {selectedCategory === 'metaphysics' && metaphysicsTags.length > 0 && (
+            <div className="mt-4 pt-4 border-t border-white/10">
+              <p className="text-gray-400 text-sm mb-2">玄学场景:</p>
+              <div className="flex flex-wrap gap-2">
+                {['all', ...metaphysicsTags].map(tag => (
+                  <button
+                    key={tag}
+                    onClick={() => setSelectedTag(tag)}
+                    className={`px-3 py-1 rounded-full text-xs border ${selectedTag === tag ? 'bg-purple-500/20 text-purple-300 border-purple-500/40' : 'bg-white/10 text-gray-300 border-white/10 hover:bg-white/20'}`}
+                  >
+                    {tag}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
         </motion.div>
 
         {/* 共创引导 */}
@@ -510,6 +552,16 @@ const PromptLibraryPage: React.FC = () => {
                         ) : (
                           <Copy className="w-4 h-4" />
                         )}
+                      </Button>
+                      {/* 复制JSON 快捷 */}
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        onClick={() => handleCopyJson(prompt)}
+                        className="text-gray-400 hover:text-white"
+                        title="复制JSON"
+                      >
+                        <Code className="w-4 h-4" />
                       </Button>
                       <Button
                         size="sm"
