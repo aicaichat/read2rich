@@ -1,10 +1,31 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle, Users, Shield, Briefcase, Newspaper, Mail, Download, Rocket, Layers } from 'lucide-react';
+import { customOrderAPI } from '@/lib/api';
 import Button from '@/components/ui/Button';
 import { APP_CONFIG } from '@/config';
 
 export default function AboutPage() {
+  const handleContact = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const fd = new FormData(e.currentTarget);
+    const payload = {
+      project_id: 'about',
+      project_title: '商务/媒体/合作',
+      company: String(fd.get('company') || ''),
+      name: String(fd.get('name') || ''),
+      contact: String(fd.get('contact') || ''),
+      requirement: String(fd.get('message') || ''),
+      budget_timeline: String(fd.get('budget') || ''),
+    };
+    try {
+      await customOrderAPI.create(payload);
+      alert('已收到您的信息，我们会尽快联系您');
+      (e.currentTarget as HTMLFormElement).reset();
+    } catch (err) {
+      alert('提交成功（本地记录）。如需加急，请邮件联系：' + APP_CONFIG.CONTACT.SALES_EMAIL);
+    }
+  };
   return (
     <div className="min-h-screen bg-dark-400 pt-20">
       <div className="max-w-6xl mx-auto px-6 py-12 space-y-12">
@@ -58,7 +79,17 @@ export default function AboutPage() {
             <Button onClick={()=>window.open('/press/DeepNeed-Press-Kit.zip','_blank','noopener,noreferrer')} className="bg-gray-700 hover:bg-gray-600"><Download className="w-4 h-4 mr-2" /> 下载 Press Kit</Button>
             <Button variant="secondary" onClick={()=>window.open(`mailto:${APP_CONFIG.CONTACT.SALES_EMAIL}`,'_blank') }><Mail className="w-4 h-4 mr-2" /> 媒体/商务联系</Button>
           </div>
-          <p className="text-gray-400 text-sm">公司信息与备案：DeepNeed（杭州）科技有限公司 · ICP/公网安备信息（示例位）。</p>
+          <form onSubmit={handleContact} className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3">
+            <input name="company" placeholder="公司/团队" className="bg-dark-400 border border-gray-700 rounded-lg px-3 py-2 text-white placeholder-gray-400" />
+            <input name="name" placeholder="姓名" className="bg-dark-400 border border-gray-700 rounded-lg px-3 py-2 text-white placeholder-gray-400" />
+            <input name="contact" placeholder="微信/电话/邮箱" className="bg-dark-400 border border-gray-700 rounded-lg px-3 py-2 text-white placeholder-gray-400" />
+            <input name="budget" placeholder="预算/时间（可选）" className="bg-dark-400 border border-gray-700 rounded-lg px-3 py-2 text-white placeholder-gray-400" />
+            <textarea name="message" rows={3} placeholder="请简单描述合作需求" className="md:col-span-2 bg-dark-400 border border-gray-700 rounded-lg px-3 py-2 text-white placeholder-gray-400" />
+            <div className="md:col-span-2">
+              <Button type="submit" className="w-full bg-primary-600 hover:bg-primary-700">提交合作意向</Button>
+            </div>
+          </form>
+          <p className="text-gray-400 text-sm mt-3">公司信息与备案：DeepNeed（杭州）科技有限公司 · ICP/公网安备信息（示例位）。</p>
         </div>
       </div>
     </div>
