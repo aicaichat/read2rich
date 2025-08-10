@@ -32,6 +32,7 @@ import ReportPreview from '@/components/ReportPreview';
 import { opportunityFinderAPI, type UserProfile, type Opportunity } from '@/lib/opportunity-finder-api';
 import { useT } from '@/i18n';
 import { APP_CONFIG } from '@/config';
+import { track } from '@/lib/analytics';
 import SEO from '@/components/SEO';
 
 // Import types from API client
@@ -581,7 +582,8 @@ export default function OpportunityFinderPage() {
                           // 查看HTML完整报告（新标签）
                           if (!selectedOpportunity) return;
                           
-                          const success = await openWindowAsync(async () => {
+                        track('report_view_click', { from:'detail_sidebar', id:selectedOpportunity.id });
+                        const success = await openWindowAsync(async () => {
                             // 优先 OSS 直链
                             try {
                               const url = await getReportUrlFromOSS(selectedOpportunity.title);

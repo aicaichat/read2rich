@@ -10,6 +10,7 @@ import { reportGenerator } from '@/lib/premiumReportGenerator';
 import { getReportUrlFromOSS, getBpRevealUrlFromOSS, openUrlAsInlineHtml, openUrlMobileFriendly } from '@/lib/oss-links';
 import { reportsAPI } from '@/lib/api';
 import { openWindow, openWindowAsync, openBlobUrl, isMobileDevice } from '@/utils/mobile-window';
+import { track } from '@/lib/analytics';
 import SEO from '@/components/SEO';
 
 export default function PostPurchaseDeliveryPage() {
@@ -217,7 +218,7 @@ export default function PostPurchaseDeliveryPage() {
             </Button>
             <Button 
               disabled={!quickStartKitUrl}
-              onClick={() => handleMobileDownload(quickStartKitUrl, '工具包ZIP文件')}
+              onClick={() => { track('download_click', { kind:'quickstart', id:opportunityId }); handleMobileDownload(quickStartKitUrl, '工具包ZIP文件'); }}
               className="w-full mt-3 bg-gray-700 hover:bg-gray-600"
             >
               <Download className="w-4 h-4 mr-2" /> 下载工具包

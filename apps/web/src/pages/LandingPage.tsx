@@ -13,6 +13,7 @@ import {
 } from '@/components/MarketingElements';
 import { useT } from '@/i18n';
 import { APP_CONFIG } from '@/config';
+import { track } from '@/lib/analytics';
 
 export default function LandingPage() {
   const { isAuthenticated } = useAuth();
@@ -182,13 +183,13 @@ export default function LandingPage() {
             
             {/* 统一CTA条：29.9 / 299 / 2999+ */}
             <div className="flex flex-col sm:flex-row gap-3 justify-center items-center mb-12">
-              <Link to="/opportunity-finder">
+              <Link to="/opportunity-finder" onClick={()=>track('cta_click', { tier:'report', price:APP_CONFIG.COMMERCE.PRICES.PREMIUM_REPORT })}>
                 <Button className="bg-emerald-600 hover:bg-emerald-700 px-6 py-3">¥{APP_CONFIG.COMMERCE.PRICES.PREMIUM_REPORT} 解锁报告+BP</Button>
               </Link>
-              <Link to="/course/1">
+              <Link to="/course/1" onClick={()=>track('cta_click', { tier:'course', price:APP_CONFIG.COMMERCE.COURSE.BASIC })}>
                 <Button variant="secondary" className="border-blue-500 text-blue-400 hover:bg-blue-600 hover:text-white px-6 py-3">¥{APP_CONFIG.COMMERCE.COURSE.BASIC} 报名训练营</Button>
               </Link>
-              <a href="mailto:vip@deepneed.com.cn">
+              <a href="mailto:vip@deepneed.com.cn" onClick={()=>track('cta_click', { tier:'custom', price:APP_CONFIG.COMMERCE.CUSTOM.MIN })}>
                 <Button variant="secondary" className="border-purple-500 text-purple-400 hover:bg-purple-600 hover:text-white px-6 py-3">¥{APP_CONFIG.COMMERCE.CUSTOM.MIN}+ 获取定制方案</Button>
               </a>
             </div>
