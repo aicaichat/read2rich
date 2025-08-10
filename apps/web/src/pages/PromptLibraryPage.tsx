@@ -18,7 +18,7 @@ import {
   Heart,
   Save,
   Wand2,
-  Plus
+  
 } from 'lucide-react';
 import Button from '../components/ui/Button';
 import millionAppPrompts from '@/data/prompts/millionAppPrompts';
@@ -156,7 +156,6 @@ const PromptLibraryPage: React.FC = () => {
   };
 
   // 变量填充
-  const keyOf = (p: CrawledPrompt) => `${p.source}-${p.title}`;
   const fillPromptVariables = (content: string, values: Record<string, string>) => {
     let result = content;
     Object.entries(values).forEach(([k, v]) => {
