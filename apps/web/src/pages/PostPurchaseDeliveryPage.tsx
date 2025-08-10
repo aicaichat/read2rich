@@ -185,13 +185,25 @@ export default function PostPurchaseDeliveryPage() {
               </Button>
             )}
             <Button 
-              onClick={openBPWebPPT}
+              onClick={() => {
+                if (isMobileDevice()) {
+                  alert(`移动端不支持完整的WebPPT体验，建议在电脑端访问获得最佳效果。\n\n您也可以将此页面链接发送到电脑：\n${window.location.href}`);
+                  return;
+                }
+                openBPWebPPT();
+              }}
               className="w-full mt-3 bg-amber-600 hover:bg-amber-700"
             >
               <ExternalLink className="w-4 h-4 mr-2" /> 打开BP（WebPPT）
             </Button>
             <Button 
-              onClick={openHTMLReport}
+              onClick={() => {
+                if (isMobileDevice()) {
+                  alert(`移动端不支持完整的HTML报告体验，建议在电脑端访问获得最佳效果。\n\n您也可以将此页面链接发送到电脑：\n${window.location.href}`);
+                  return;
+                }
+                openHTMLReport();
+              }}
               className="w-full mt-3 bg-blue-600 hover:bg-blue-700"
             >
               <ExternalLink className="w-4 h-4 mr-2" /> 查看HTML完整报告
