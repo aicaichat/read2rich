@@ -556,15 +556,11 @@ const CoursePage: React.FC = () => {
             <div className="space-y-4 mb-6">
               <div className="flex justify-between items-center">
                 <span className="text-gray-300">课程价格</span>
-                <span className="text-2xl font-bold text-emerald-400">¥999</span>
+                <span className="text-2xl font-bold text-emerald-400">¥299</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-gray-300">优惠价格</span>
-                <span className="text-xl font-bold text-white">¥599</span>
-              </div>
-              <div className="flex justify-between items-center text-emerald-400">
-                <span>节省</span>
-                <span>¥400</span>
+                <span className="text-xl font-bold text-white">¥299</span>
               </div>
             </div>
             
