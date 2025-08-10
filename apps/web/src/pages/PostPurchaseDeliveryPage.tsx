@@ -52,6 +52,11 @@ export default function PostPurchaseDeliveryPage() {
     return () => clearTimeout(timer);
   }, [showProgress]);
 
+  // 确保页面加载时滚动到顶部
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  }, []);
+
   const openInNewTab = (url: string) => {
     openWindow(url);
   };
