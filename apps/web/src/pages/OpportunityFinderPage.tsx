@@ -32,6 +32,7 @@ import ReportPreview from '@/components/ReportPreview';
 import { opportunityFinderAPI, type UserProfile, type Opportunity } from '@/lib/opportunity-finder-api';
 import { useT } from '@/i18n';
 import { APP_CONFIG } from '@/config';
+import SEO from '@/components/SEO';
 
 // Import types from API client
 // interface Opportunity and UserProfile are now imported
@@ -154,6 +155,12 @@ export default function OpportunityFinderPage() {
   if (step === 'profile') {
     return (
       <div className="min-h-screen bg-dark-400 pt-20">
+        <SEO 
+          title="AI机会发现器｜29.9元解锁报告+BP"
+          description="60秒生成Top机会清单，29.9元解锁深度报告+路演BP，配套课程¥299与企业定制¥2999+。"
+          url={typeof window !== 'undefined' ? window.location.href : ''}
+          type="website"
+        />
         <div className="max-w-4xl mx-auto px-6 py-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

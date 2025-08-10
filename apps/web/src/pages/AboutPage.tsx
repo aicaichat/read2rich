@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle, Users, Shield, Briefcase, Newspaper, Mail, Download, Rocket, Layers } from 'lucide-react';
 import { customOrderAPI } from '@/lib/api';
+import SEO from '@/components/SEO';
 import Button from '@/components/ui/Button';
 import { APP_CONFIG } from '@/config';
 
@@ -28,6 +29,22 @@ export default function AboutPage() {
   };
   return (
     <div className="min-h-screen bg-dark-400 pt-20">
+      <SEO 
+        title="关于 DeepNeed｜AI 机会 → 报告BP → 课程 → 定制"
+        description="DeepNeed 提供从机会发现、报告与BP、课程训练营到源码与定制交付的一体化服务。报告¥29.9，课程¥299，定制¥2999+。"
+        url={typeof window !== 'undefined' ? window.location.href : ''}
+        image={APP_CONFIG.CONTACT.WECHAT_QR}
+        type="website"
+        jsonLd={{
+          '@context': 'https://schema.org',
+          '@type': 'Organization',
+          name: 'DeepNeed',
+          url: 'https://deepneed.com.cn',
+          logo: 'https://deepneed.com.cn/_static/images/deepneed-logo.svg',
+          sameAs: ['https://deepneed.com.cn'],
+          contactPoint: [{ '@type': 'ContactPoint', email: APP_CONFIG.CONTACT.SALES_EMAIL, contactType: 'sales' }]
+        }}
+      />
       <div className="max-w-6xl mx-auto px-6 py-12 space-y-12">
         {/* Hero */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center">

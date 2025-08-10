@@ -10,6 +10,7 @@ import { reportGenerator } from '@/lib/premiumReportGenerator';
 import { getReportUrlFromOSS, getBpRevealUrlFromOSS, openUrlAsInlineHtml, openUrlMobileFriendly } from '@/lib/oss-links';
 import { reportsAPI } from '@/lib/api';
 import { openWindow, openWindowAsync, openBlobUrl, isMobileDevice } from '@/utils/mobile-window';
+import SEO from '@/components/SEO';
 
 export default function PostPurchaseDeliveryPage() {
   const [searchParams] = useSearchParams();
@@ -141,6 +142,12 @@ export default function PostPurchaseDeliveryPage() {
 
   return (
     <div className="min-h-screen bg-dark-400 pt-20">
+      <SEO 
+        title={`支付成功 · ${opportunityTitle} · DeepNeed`}
+        description="交付页已解锁：报告/路演BP/课程/工具包。建议PC端下载保存。"
+        url={typeof window !== 'undefined' ? window.location.href : ''}
+        type="website"
+      />
       <GenerationProgress 
         isVisible={showProgress}
         onComplete={() => setShowProgress(false)}
