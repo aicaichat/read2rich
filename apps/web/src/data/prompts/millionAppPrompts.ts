@@ -509,6 +509,84 @@ export const millionAppPrompts: CrawledPrompt[] = [
     stars: 0,
     content: `请围绕“{{产品名称}}”，面向“{{目标人群}}”，将“{{核心卖点（3-5条）}}”可视化：\n- 主视觉图提示词（英文，突出质感/材质/光线/构图）\n- 辅助细节图（2-3张）提示词（功能/场景/对比）\n- 海报排版要素：标题/副标题/卖点bullet/价格位/CTA按钮位/徽标位，版式层级与留白建议\n- 色彩与字体建议（包含品牌主色：{{品牌主色}}）\n- Negative Prompt：{{负面词}}；尺寸与比例：{{尺寸与比例}}。`
   }
+  ,
+  {
+    title: '社媒封面/帖子套件·多平台多比例提示词',
+    description: '针对多平台（B站/抖音/X/Instagram/小红书）批量输出封面与帖子视觉提示词',
+    source: 'deepneed-seed',
+    repo: 'deepneed-seed',
+    category: 'design',
+    tags: ['social','cover','post','bilibili','douyin','instagram','x','xiaohongshu'],
+    variables: ['品牌名', '活动/话题', '主视觉元素', '口号与关键信息', '配色方案', '目标平台', '纵横比列表'],
+    stars: 0,
+    content: `围绕品牌“{{品牌名}}”与话题“{{活动/话题}}”，基于主视觉“{{主视觉元素}}”、配色“{{配色方案}}”，面向平台：{{目标平台}}（比例：{{纵横比列表}}），输出：\n- 封面Prompt（英文，突出识别性与可读性）\n- 帖子主图Prompt（英文，信息层级清晰）\n- 文案位/徽标位/CTA位的版式建议（每平台适配）\n- 负面词（防止低清/文字糊/水印/畸变）\n- 可生成3个方向变体（品牌延展/主题强化/极简传播）`
+  },
+  {
+    title: '短视频脚本·钩子-价值-节奏（B站/抖音）',
+    description: '30-90秒短视频：钩子/价值点/节奏/镜头与字幕/BGM/CTA 一体化',
+    source: 'deepneed-seed',
+    repo: 'deepneed-seed',
+    category: 'design',
+    tags: ['short-video','script','bilibili','douyin','tiktok'],
+    variables: ['主题', '目标受众', '时长（秒）', '关键信息', '风格（科普/测评/剧情/教程）', '旁白与字幕语言', 'BGM风格'],
+    stars: 0,
+    content: `请为“{{主题}}”面向“{{目标受众}}”生成 {{时长（秒）}}s 短视频方案（{{风格（科普/测评/剧情/教程）}}）：\n1) 开场钩子（5-7秒）+价值主张\n2) 内容节奏（3-5段，每段一句话目标）\n3) 镜头级提示词（英文）：Scene/Camera/Lighting/Motion/Negative/Subtitles\n4) 字幕与BGM节奏点（{{旁白与字幕语言}}；BGM={{BGM风格}}）\n5) 结尾CTA（关注/转发/链接）`
+  },
+  {
+    title: '开箱/评测视频·分镜与画面提示词',
+    description: '产品开箱/评测脚本，分镜与镜头提示词，突出卖点与对比',
+    source: 'deepneed-seed',
+    repo: 'deepneed-seed',
+    category: 'design',
+    tags: ['unboxing','review','storyboard','product'],
+    variables: ['产品名称', '核心卖点', '竞品与对比点', '目标受众', '时长（秒）', '风格（理性/感性/实测）'],
+    stars: 0,
+    content: `针对“{{产品名称}}”做开箱/评测：\n- 脚本结构：引入-卖点-对比-实测-结论\n- 分镜表（每镜头5-8秒）：画面/运动/光线/字幕/音效\n- 每镜头英文提示词（Scene/Camera/Lighting/Negative）\n- 竞品对比可视化建议\n- 结论：适用人群/购买建议`
+  },
+  {
+    title: '产品动效·Lottie/AE 关键帧提示词',
+    description: '将交互意图与节奏转为 Lottie/AE 动效结构与关键帧描述',
+    source: 'deepneed-seed',
+    repo: 'deepneed-seed',
+    category: 'design',
+    tags: ['motion','lottie','after-effects','ui-animation'],
+    variables: ['动效目标（引导/反馈/过渡）', '品牌风格', '元素/层列表', '节奏（快/中/慢）', '时长（秒）', '导出规格'],
+    stars: 0,
+    content: `请将“{{动效目标（引导/反馈/过渡）}}”转化为动效方案：\n- 结构：层/组/父子关系；进入/停留/退出\n- 关键帧：位置/缩放/透明/旋转/弹性曲线（ease-in/out/bounce）\n- 品牌风格与色彩/节奏={{节奏（快/中/慢）}}；时长={{时长（秒）}}\n- Lottie 导出注意（矢量/不嵌字体/可交互标记）；AE 参考设置\n- 英文生成提示词：用于图形元素与帧动画描述（含 Negative）`
+  },
+  {
+    title: 'SVG 图标/插画·可访问与可缩放生成提示词',
+    description: '输出干净的 SVG（viewBox、stroke/fill、无栅格、无外链字体），附可读性与对比度约束',
+    source: 'deepneed-seed',
+    repo: 'deepneed-seed',
+    category: 'design',
+    tags: ['svg','icon','illustration','vector','accessibility'],
+    variables: ['主题', '风格（线性/双色/扁平/极简）', '线宽与端点', '配色（HEX）', '视图盒（viewBox）', '尺寸'],
+    stars: 0,
+    content: `请生成“{{主题}}”的 SVG 提示词（英文）：\n- 结构：<svg viewBox="{{视图盒（viewBox）}}" ...>，对象使用 <path>/<rect>/<circle> 等；统一 stroke/fill；线宽与端点={{线宽与端点}}；尺寸={{尺寸}}\n- 风格：{{风格（线性/双色/扁平/极简）}}；颜色={{配色（HEX）}}\n- 可访问性：含 <title> 与 aria-label；良好对比度；避免匀色导致不可读\n- 约束：不包含栅格/外链字体/模糊滤镜；结构语义清晰；便于动画与样式复用\n- Negative：冗余节点/锯齿/位图痕迹/无viewBox。`
+  },
+  {
+    title: '脑图生成·Mermaid Mindmap/JSON 结构化输出',
+    description: '将主题拆解为层级结构，输出 Mermaid mindmap 与 JSON 节点树',
+    source: 'deepneed-seed',
+    repo: 'deepneed-seed',
+    category: 'analysis',
+    tags: ['mindmap','mermaid','diagram','outline'],
+    variables: ['主题', '深度（2-4）', '主分支数', '风格（实用/教学/项目分解/知识纲要）'],
+    stars: 0,
+    content: `请围绕“{{主题}}”生成脑图：\n- Mermaid 语法：mindmap 格式（根-分支-子节点）\n- 同步输出 JSON 节点树（id/title/children），用于前端渲染\n- 深度={{深度（2-4）}}；主分支={{主分支数}}；风格={{风格（实用/教学/项目分解/知识纲要）}}\n- 约束：节点命名短小一致；层级清晰；避免冗余与重复`
+  },
+  {
+    title: '速记/会议纪要·要点提炼与行动清单',
+    description: '快速结构化记录：要点/决策/行动/阻塞/负责人与截止时间（RFC风格）',
+    source: 'deepneed-seed',
+    repo: 'deepneed-seed',
+    category: 'writing',
+    tags: ['notes','minutes','todo','rfc'],
+    variables: ['会议主题/场景', '参与者', '原始要点（可粘贴）', '目标与关注点'],
+    stars: 0,
+    content: `请将以下内容结构化为速记：\n输入：{{原始要点（可粘贴）}}；会议：{{会议主题/场景}}；参与者：{{参与者}}；目标：{{目标与关注点}}\n输出：\n- 要点清单（短句/分组）\n- 决策与结论\n- 行动项（负责人/截止时间/依赖/状态）\n- 风险与阻塞\n- Follow-up 会议建议时间与议题`
+  }
 ];
 
 export default millionAppPrompts;

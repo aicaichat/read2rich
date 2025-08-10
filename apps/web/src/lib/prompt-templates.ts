@@ -873,6 +873,77 @@ export const PROMPT_TEMPLATES: PromptTemplate[] = [
     variables: ['PRODUCT','USP','AUDIENCE','SCENE','STYLE','BRAND_COLOR','SIZE','NEGATIVE'],
     tags: ['design','ecommerce','poster','layout']
   }
+  ,
+  {
+    id: 'design-social-bundle',
+    name: '社媒封面/帖子套件·多平台多比例',
+    category: 'design',
+    description: 'B站/抖音/X/IG/小红书 多平台适配的视觉提示词',
+    systemTemplate: `你是社媒视觉总监，输出跨平台封面与帖子提示词。`,
+    userTemplate: `品牌名：{BRAND}\n活动/话题：{TOPIC}\n主视觉元素：{KEY_VISUAL}\n口号与关键信息：{MESSAGES}\n配色方案：{PALETTE}\n目标平台：{PLATFORMS}\n纵横比列表：{ASPECTS}`,
+    variables: ['BRAND','TOPIC','KEY_VISUAL','MESSAGES','PALETTE','PLATFORMS','ASPECTS'],
+    tags: ['design','social','cover','post']
+  },
+  {
+    id: 'design-short-video',
+    name: '短视频脚本·钩子-价值-节奏',
+    category: 'design',
+    description: '30-90s：脚本/镜头/BGM/字幕/CTA',
+    systemTemplate: `你是短视频导演，输出兼具信息密度与节奏的方案。`,
+    userTemplate: `主题：{TOPIC}\n目标受众：{AUDIENCE}\n时长（秒）：{DURATION}\n关键信息：{KEY_POINTS}\n风格：{STYLE}\n旁白与字幕语言：{VOICE}\nBGM风格：{MUSIC}`,
+    variables: ['TOPIC','AUDIENCE','DURATION','KEY_POINTS','STYLE','VOICE','MUSIC'],
+    tags: ['design','short-video','script']
+  },
+  {
+    id: 'design-unboxing-review',
+    name: '开箱/评测视频·分镜与画面提示词',
+    category: 'design',
+    description: '引入-卖点-对比-实测-结论 + 镜头级Prompt',
+    systemTemplate: `你是测评导演，强调真实可见的卖点呈现。`,
+    userTemplate: `产品名称：{PRODUCT}\n核心卖点：{USP}\n竞品与对比点：{COMPETITORS}\n目标受众：{AUDIENCE}\n时长（秒）：{DURATION}\n风格：{STYLE}`,
+    variables: ['PRODUCT','USP','COMPETITORS','AUDIENCE','DURATION','STYLE'],
+    tags: ['design','unboxing','review','storyboard']
+  },
+  {
+    id: 'design-motion-lottie-ae',
+    name: '产品动效·Lottie/AE 关键帧提示词',
+    category: 'design',
+    description: '结构/关键帧/节奏/导出规格',
+    systemTemplate: `你是UI动效总监，结构化描述帧动画方案。`,
+    userTemplate: `动效目标：{GOAL}\n品牌风格：{BRAND_STYLE}\n元素/层列表：{LAYERS}\n节奏：{TEMPO}\n时长（秒）：{DURATION}\n导出规格：{EXPORT}`,
+    variables: ['GOAL','BRAND_STYLE','LAYERS','TEMPO','DURATION','EXPORT'],
+    tags: ['design','motion','lottie','after-effects']
+  },
+  {
+    id: 'design-svg-generator',
+    name: 'SVG 图标/插画·可访问与可缩放',
+    category: 'design',
+    description: '输出干净的SVG结构与可读性约束',
+    systemTemplate: `你是矢量图形工程师，输出干净可维护的SVG提示词。`,
+    userTemplate: `主题：{SUBJECT}\n风格：{STYLE}\n线宽与端点：{STROKE}\n配色（HEX）：{COLORS}\n视图盒（viewBox）：{VIEWBOX}\n尺寸：{SIZE}`,
+    variables: ['SUBJECT','STYLE','STROKE','COLORS','VIEWBOX','SIZE'],
+    tags: ['design','svg','icon','illustration']
+  },
+  {
+    id: 'analysis-mindmap',
+    name: '脑图生成·Mermaid/JSON 结构化',
+    category: 'analysis',
+    description: 'Mermaid mindmap + JSON 节点树',
+    systemTemplate: `你是结构化表达专家，输出清晰可复用的脑图。`,
+    userTemplate: `主题：{TOPIC}\n深度（2-4）：{DEPTH}\n主分支数：{BRANCHES}\n风格：{STYLE}`,
+    variables: ['TOPIC','DEPTH','BRANCHES','STYLE'],
+    tags: ['analysis','mindmap','mermaid']
+  },
+  {
+    id: 'writing-notes-minutes',
+    name: '速记/会议纪要·要点与行动清单',
+    category: 'writing',
+    description: '要点/决策/行动/阻塞/负责人与截止时间',
+    systemTemplate: `你是会议效率教练，快速提炼结构化纪要。`,
+    userTemplate: `会议主题/场景：{SCENE}\n参与者：{PARTICIPANTS}\n原始要点：{RAW}\n目标与关注点：{GOALS}`,
+    variables: ['SCENE','PARTICIPANTS','RAW','GOALS'],
+    tags: ['writing','notes','minutes','todo']
+  }
 ];
 
 // 根据关键词搜索模板
