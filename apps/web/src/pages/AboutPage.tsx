@@ -92,6 +92,85 @@ export default function AboutPage() {
           <p className="text-gray-400 text-sm mt-3">公司信息与备案：DeepNeed（杭州）科技有限公司 · ICP/公网安备信息（示例位）。</p>
         </div>
       </div>
+      
+      {/* 招聘与投递 */}
+      <div className="max-w-6xl mx-auto px-6 pb-16 space-y-6">
+        <h2 className="text-3xl font-bold text-white">加入我们</h2>
+        <p className="text-gray-300">我们是一支产品+算法+工程+增长多栈融合的小团队，欢迎热爱 AI 与产品落地的你。</p>
+
+        {/* 岗位卡片 */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {[
+            { id:'pm', title:'产品经理（AI方向）', tags:['ToC/ToB','数据驱动','英语可读'], desc:'负责从机会→方案→MVP→指标闭环，推动AI能力在真实场景落地。', salary:'¥20k–35k / 可远程' },
+            { id:'fe', title:'前端工程师（React/TS）', tags:['React','TypeScript','Vite'], desc:'建设高性能前端与可复用组件，优化移动端体验与工程化。', salary:'¥20k–35k / 可远程' },
+            { id:'be', title:'后端工程师（Python/FastAPI）', tags:['FastAPI','SQL','消息队列'], desc:'设计高可用API、任务编排、存储与权限；对接支付/登录/OSS。', salary:'¥22k–38k / 可远程' },
+            { id:'ml', title:'机器学习工程师（LLM/RAG）', tags:['LLM','RAG','评测'], desc:'构建RAG/多智能体/评测体系，追求“可解释、可控、可优化”。', salary:'¥25k–45k / 可远程' },
+            { id:'growth', title:'增长/营销', tags:['内容增长','转化优化','数据分析'], desc:'负责漏斗与文案实验、渠道合作与活动策划，驱动可持续增长。', salary:'¥15k–30k / 可远程' },
+          ].map(job => (
+            <div key={job.id} className="bg-dark-300 rounded-2xl p-6 border border-gray-700">
+              <div className="flex items-start justify-between">
+                <div>
+                  <div className="text-white font-semibold text-lg">{job.title}</div>
+                  <div className="text-gray-400 text-sm mt-1">{job.salary}</div>
+                </div>
+              </div>
+              <div className="flex flex-wrap gap-2 mt-3">
+                {job.tags.map((t,i)=> (
+                  <span key={i} className="px-2 py-1 rounded-full bg-gray-800 text-gray-300 text-xs">{t}</span>
+                ))}
+              </div>
+              <p className="text-gray-300 text-sm mt-3">{job.desc}</p>
+              <div className="mt-4">
+                <Button variant="secondary" onClick={()=>window.open(`mailto:${APP_CONFIG.CONTACT.SALES_EMAIL}?subject=应聘-${encodeURIComponent(job.title)}&body=请附上简历链接/作品集与可入职时间`, '_blank')}>邮件投递</Button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* 简历投递入口（表单） */}
+        <div className="bg-dark-300 rounded-2xl p-6 border border-gray-700">
+          <h3 className="text-xl font-bold text-white mb-4">快捷投递</h3>
+          <form onSubmit={async (e)=>{
+            e.preventDefault();
+            const fd = new FormData(e.currentTarget as HTMLFormElement);
+            const payload = {
+              project_id: 'job-apply',
+              project_title: `招聘投递-${String(fd.get('role')||'')}`,
+              company: String(fd.get('company')||''),
+              name: String(fd.get('name')||''),
+              contact: String(fd.get('contact')||''),
+              requirement: `简历：${String(fd.get('resume')||'')}\n作品集：${String(fd.get('portfolio')||'')}\n备注：${String(fd.get('note')||'')}`,
+              budget_timeline: String(fd.get('available')||'')
+            };
+            try {
+              await customOrderAPI.create(payload);
+              alert('投递成功，我们将尽快联系您');
+              (e.currentTarget as HTMLFormElement).reset();
+            } catch {
+              alert('已提交（本地记录）。如需加急，可邮件至：'+APP_CONFIG.CONTACT.SALES_EMAIL);
+            }
+          }} className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <select name="role" className="bg-dark-400 border border-gray-700 rounded-lg px-3 py-2 text-white">
+              <option value="产品经理（AI方向）">产品经理（AI方向）</option>
+              <option value="前端工程师（React/TS）">前端工程师（React/TS）</option>
+              <option value="后端工程师（Python/FastAPI）">后端工程师（Python/FastAPI）</option>
+              <option value="机器学习工程师（LLM/RAG）">机器学习工程师（LLM/RAG）</option>
+              <option value="增长/营销">增长/营销</option>
+            </select>
+            <input name="name" placeholder="姓名" className="bg-dark-400 border border-gray-700 rounded-lg px-3 py-2 text-white placeholder-gray-400" />
+            <input name="contact" placeholder="微信/电话/邮箱" className="bg-dark-400 border border-gray-700 rounded-lg px-3 py-2 text-white placeholder-gray-400" />
+            <input name="company" placeholder="当前公司/学校（可选）" className="bg-dark-400 border border-gray-700 rounded-lg px-3 py-2 text-white placeholder-gray-400" />
+            <input name="resume" placeholder="简历链接（必填）" className="bg-dark-400 border border-gray-700 rounded-lg px-3 py-2 text-white placeholder-gray-400 md:col-span-2" />
+            <input name="portfolio" placeholder="作品集/Repo（可选）" className="bg-dark-400 border border-gray-700 rounded-lg px-3 py-2 text-white placeholder-gray-400 md:col-span-2" />
+            <input name="available" placeholder="可入职时间（如：两周内）" className="bg-dark-400 border border-gray-700 rounded-lg px-3 py-2 text-white placeholder-gray-400" />
+            <input name="note" placeholder="备注（可选）" className="bg-dark-400 border border-gray-700 rounded-lg px-3 py-2 text-white placeholder-gray-400" />
+            <div className="md:col-span-2">
+              <Button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700">提交简历</Button>
+            </div>
+          </form>
+          <p className="text-gray-400 text-sm mt-3">也可直接邮件至 {APP_CONFIG.CONTACT.SALES_EMAIL}，标题格式“应聘-岗位-姓名”。</p>
+        </div>
+      </div>
     </div>
   );
 }
