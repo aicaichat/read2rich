@@ -821,6 +821,58 @@ export const PROMPT_TEMPLATES: PromptTemplate[] = [
     variables: ['CHILD_BIRTH','GRADE_INTEREST','FAMILY_RES','GOALS_CONCERNS'],
     tags: ['metaphysics','education','children','planning']
   }
+  ,
+  // —— 视觉与视频生成模板 ——
+  {
+    id: 'design-image-unified',
+    name: '图片生成·通用构图与风格提示词器（MJ/SD/FLUX）',
+    category: 'design',
+    description: '主体-修饰-相机-光线-材质-比例-负面词的一体化模板',
+    systemTemplate: `你是一名世界级视觉提示词工程师，请生成高质量图片英文提示词，兼容MJ/SD/FLUX。`,
+    userTemplate: `主题：{SUBJECT}\n要素：{ELEMENTS}\n风格参考：{STYLE_REF}\n光线：{LIGHTING}；色调：{TONE}；镜头：{CAMERA}\n材质/质感：{MATERIAL}\n纵横比：{ASPECT}\n平台/模型：{MODEL}\n负面词：{NEGATIVE}`,
+    variables: ['SUBJECT','ELEMENTS','STYLE_REF','LIGHTING','TONE','CAMERA','MATERIAL','ASPECT','MODEL','NEGATIVE'],
+    tags: ['design','image','midjourney','sdxl','flux']
+  },
+  {
+    id: 'design-logo-brand',
+    name: 'Logo 设计·品牌风格与多变体生成',
+    category: 'design',
+    description: '品牌人格/色板/约束，输出多方向英文提示词',
+    systemTemplate: `你是品牌视觉总监，生成简洁可读可缩放的Logo提示词（英文）。`,
+    userTemplate: `品牌名：{BRAND}\n标语（可选）：{SLOGAN}\n行业：{INDUSTRY}\n品牌人格：{PERSONA}\n色彩偏好：{COLORS}\n禁用元素：{FORBIDDEN}`,
+    variables: ['BRAND','SLOGAN','INDUSTRY','PERSONA','COLORS','FORBIDDEN'],
+    tags: ['design','logo','brand']
+  },
+  {
+    id: 'design-avatar-portrait',
+    name: '头像/人像·高质写真与风格化',
+    category: 'design',
+    description: '个人形象/社交头像/职场形象/二次元化',
+    systemTemplate: `你是资深摄影与风格化提示词专家。`,
+    userTemplate: `性别：{GENDER}\n年龄段：{AGE}\n气质关键词：{VIBES}\n服装与配饰：{WARDROBE}\n背景环境：{BACKGROUND}\n发型与妆容：{HAIR_MAKEUP}\n表情与姿态：{POSE}\n相机与镜头：{CAMERA}\n光线：{LIGHTING}\n比例：{ASPECT}\n负面词：{NEGATIVE}`,
+    variables: ['GENDER','AGE','VIBES','WARDROBE','BACKGROUND','HAIR_MAKEUP','POSE','CAMERA','LIGHTING','ASPECT','NEGATIVE'],
+    tags: ['design','avatar','portrait','headshot']
+  },
+  {
+    id: 'design-video-storyboard',
+    name: '视频生成·脚本/分镜/镜头级提示词',
+    category: 'design',
+    description: '从脚本到镜头级Prompt，兼容Sora/Runway/Pika',
+    systemTemplate: `你是视频导演与分镜提示词专家。`,
+    userTemplate: `题材：{TOPIC}\n目标受众：{AUDIENCE}\n时长（秒）：{DURATION}\n风格：{STYLE}\n旁白语言与语速：{VOICE}\n音乐风格：{MUSIC}\n字幕样式：{SUBTITLE}\n分辨率：{RESOLUTION}\n纵横比：{ASPECT}`,
+    variables: ['TOPIC','AUDIENCE','DURATION','STYLE','VOICE','MUSIC','SUBTITLE','RESOLUTION','ASPECT'],
+    tags: ['design','video','storyboard']
+  },
+  {
+    id: 'design-ecommerce-visual',
+    name: '电商产品图/海报·卖点可视化与排版',
+    category: 'design',
+    description: '主视觉/辅助图/版式层级/字体色彩',
+    systemTemplate: `你是资深电商视觉总监。`,
+    userTemplate: `产品名称：{PRODUCT}\n核心卖点：{USP}\n目标人群：{AUDIENCE}\n场景与道具：{SCENE}\n风格与质感：{STYLE}\n品牌主色：{BRAND_COLOR}\n尺寸与比例：{SIZE}\n负面词：{NEGATIVE}`,
+    variables: ['PRODUCT','USP','AUDIENCE','SCENE','STYLE','BRAND_COLOR','SIZE','NEGATIVE'],
+    tags: ['design','ecommerce','poster','layout']
+  }
 ];
 
 // 根据关键词搜索模板

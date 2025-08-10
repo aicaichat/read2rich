@@ -452,6 +452,63 @@ export const millionAppPrompts: CrawledPrompt[] = [
 - 风险与纠偏方式
 - 提示：以孩子身心健康与兴趣为先。`
   }
+  ,
+  // —— 视觉与视频生成：图片/Logo/头像/视频 ——
+  {
+    title: '图片生成·通用构图与风格提示词器（MJ/SD/FLUX）',
+    description: '一键生成高质量图片生成提示词，含风格/光线/镜头/负面词/比例',
+    source: 'deepneed-seed',
+    repo: 'deepneed-seed',
+    category: 'design',
+    tags: ['image','midjourney','sdxl','flux','photography','illustration'],
+    variables: ['主题', '画面要素', '风格参考（摄影/插画/艺术家）', '光线', '色调', '镜头与相机', '材质与质感', '纵横比', '负面词', '模型/平台'],
+    stars: 0,
+    content: `目标：围绕“{{主题}}”生成高质量图片的英文提示词（兼容 MJ/SD/FLUX）。\n\n画面要素：{{画面要素}}\n风格参考：{{风格参考（摄影/插画/艺术家）}}\n光线：{{光线}}；色调：{{色调}}；镜头：{{镜头与相机}}；材质：{{材质与质感}}\n纵横比：{{纵横比}}；平台/模型：{{模型/平台}}\n\n请输出：\n1) Prompt（英文，<=180词，主体在前，修饰排布清晰，逗号分隔，避免语法噪声）\n2) Parameters（如 --ar, --stylize / SDXL: CFG, steps, sampler）\n3) Negative Prompt（中文→英文，去除瑕疵/多指/畸变/文字/水印/低清等）：{{负面词}}\n4) 变体建议（更写实/更艺术/更简洁 三条）`
+  },
+  {
+    title: 'Logo 设计·品牌风格与多变体生成提示词',
+    description: '围绕品牌名与人格，生成英文Logo提示词与色板/约束',
+    source: 'deepneed-seed',
+    repo: 'deepneed-seed',
+    category: 'design',
+    tags: ['logo','brand','visual-identity','vector','minimal'],
+    variables: ['品牌名', '标语（可选）', '行业', '品牌人格（理性/活力/高端/亲和）', '色彩偏好', '禁用元素'],
+    stars: 0,
+    content: `请基于品牌“{{品牌名}}”（标语：{{标语（可选）}}，行业：{{行业}}），人格：{{品牌人格（理性/活力/高端/亲和）}}，生成英文Logo提示词：\n- Prompt（英文，强调：简洁、可读、可缩放、矢量/网格、留白、负空间、适配深浅底色）\n- 设计约束：需排除{{禁用元素}}；色彩偏好：{{色彩偏好}}（给出HEX）\n- 输出3个风格方向（极简字标/图形标/徽章式），每个方向给出：关键词、形态特征、应用场景\n- Negative Prompt（避免复杂纹理/摄影质感/像素化/低分辨率/多余文字）`
+  },
+  {
+    title: '头像/人像·高质写真与风格化提示词',
+    description: '适用于个人形象/社交头像/职场形象照/二次元化',
+    source: 'deepneed-seed',
+    repo: 'deepneed-seed',
+    category: 'design',
+    tags: ['avatar','portrait','headshot','studio','anime'],
+    variables: ['性别', '年龄段', '气质关键词', '服装与配饰', '背景环境', '发型与妆容', '表情与姿态', '相机与镜头', '光线', '比例', '负面词'],
+    stars: 0,
+    content: `Please craft a high-quality portrait prompt for a {{性别}}, {{年龄段}} with vibes: {{气质关键词}}.\nWardrobe: {{服装与配饰}}; Hair/Makeup: {{发型与妆容}}; Background: {{背景环境}}; Expression/Pose: {{表情与姿态}};\nCamera/Lens: {{相机与镜头}}; Lighting: {{光线}}; Aspect Ratio: {{比例}}.\nReturn: (1) English Prompt (<=150 words); (2) Negative Prompt (remove artifacts/extra fingers/text/logos/lowres): {{负面词}}; (3) 3 style variants (studio/natural/cinematic).`
+  },
+  {
+    title: '视频生成·脚本/分镜/镜头级提示词（Sora/Runway/Pika）',
+    description: '从文案到镜头表与镜头提示词（每镜头5-8秒）',
+    source: 'deepneed-seed',
+    repo: 'deepneed-seed',
+    category: 'design',
+    tags: ['video','storyboard','gen-vid','sora','pika','runway'],
+    variables: ['题材', '目标受众', '时长（秒）', '风格（电影/广告/教程）', '旁白语言与语速', '音乐风格', '字幕样式', '分辨率', '纵横比'],
+    stars: 0,
+    content: `请围绕“{{题材}}”为“{{目标受众}}”生成 {{时长（秒）}}s 视频方案：\n1) 一句话钩子+价值主张\n2) 段落脚本（3-6段，旁白文案简短有力；{{旁白语言与语速}}）\n3) 分镜表（每镜头5-8秒）：镜头号/景别/画面描述/运动/转场/音效/字幕\n4) 每镜头“生成视频提示词”（英文），包含：Scene Prompt、Negative、Camera（焦段/运动）、Lighting、Motion、Duration（秒）、Resolution={{分辨率}}、Aspect={{纵横比}}\n5) BGM建议与节奏点，字幕样式={{字幕样式}}；结尾CTA。`
+  },
+  {
+    title: '电商产品图/海报·卖点可视化与排版提示词',
+    description: '从卖点→主视觉→辅助图→信息层级→版式要素（可输出多版）',
+    source: 'deepneed-seed',
+    repo: 'deepneed-seed',
+    category: 'design',
+    tags: ['ecommerce','poster','product','layout','typography'],
+    variables: ['产品名称', '核心卖点（3-5条）', '目标人群', '场景与道具', '风格与质感', '品牌主色', '尺寸与比例', '负面词'],
+    stars: 0,
+    content: `请围绕“{{产品名称}}”，面向“{{目标人群}}”，将“{{核心卖点（3-5条）}}”可视化：\n- 主视觉图提示词（英文，突出质感/材质/光线/构图）\n- 辅助细节图（2-3张）提示词（功能/场景/对比）\n- 海报排版要素：标题/副标题/卖点bullet/价格位/CTA按钮位/徽标位，版式层级与留白建议\n- 色彩与字体建议（包含品牌主色：{{品牌主色}}）\n- Negative Prompt：{{负面词}}；尺寸与比例：{{尺寸与比例}}。`
+  }
 ];
 
 export default millionAppPrompts;
