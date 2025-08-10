@@ -61,6 +61,15 @@ export default function PostPurchaseDeliveryPage() {
     openWindow(url);
   };
 
+  // 移动端下载提醒
+  const handleMobileDownload = (url: string, fileType: string = '文件') => {
+    if (isMobileDevice()) {
+      alert(`移动端不支持直接下载${fileType}，请在电脑端访问此页面进行下载。\n\n您也可以将此页面链接发送到电脑：\n${window.location.href}`);
+      return;
+    }
+    openWindow(url);
+  };
+
   const openHTMLReport = async () => {
     if (!opportunityId) return;
     
@@ -169,7 +178,7 @@ export default function PostPurchaseDeliveryPage() {
             {opportunityId === '5' && (
               <Button 
                 disabled={!reportUrl}
-                onClick={() => openInNewTab(reportUrl)}
+                onClick={() => handleMobileDownload(reportUrl, 'BP PDF文件')}
                 className="w-full bg-gradient-to-r from-primary-500 to-secondary-500"
               >
                 <Download className="w-4 h-4 mr-2" /> 下载BP
@@ -189,7 +198,7 @@ export default function PostPurchaseDeliveryPage() {
             </Button>
             <Button 
               disabled={!quickStartKitUrl}
-              onClick={() => openInNewTab(quickStartKitUrl)}
+              onClick={() => handleMobileDownload(quickStartKitUrl, '工具包ZIP文件')}
               className="w-full mt-3 bg-gray-700 hover:bg-gray-600"
             >
               <Download className="w-4 h-4 mr-2" /> 下载工具包
