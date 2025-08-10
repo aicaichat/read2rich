@@ -10,6 +10,7 @@ import {
   Clock, 
   Star,
   ChevronRight,
+  ExternalLink,
   Download,
   CreditCard,
   Filter,
