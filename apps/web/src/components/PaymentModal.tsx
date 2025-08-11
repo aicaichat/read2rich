@@ -43,6 +43,7 @@ export default function PaymentModal({
   onPaymentSuccess 
 }: PaymentModalProps) {
   const t = useT();
+  const currencySymbol = APP_CONFIG.COMMERCE.CURRENCY === 'CNY' ? '¥' : '$';
   const [selectedMethod, setSelectedMethod] = useState<PaymentMethod>(PaymentMethod.ALIPAY);
   const [paymentStep, setPaymentStep] = useState<PaymentStep>('selecting');
   const [errorMessage, setErrorMessage] = useState('');
@@ -50,6 +51,7 @@ export default function PaymentModal({
   const [paymentUrl, setPaymentUrl] = useState<string>('');
   const [currentPaymentId, setCurrentPaymentId] = useState<string>('');
   const [statusPoller] = useState(new PaymentStatusPoller());
+  const isWeixin = typeof navigator !== 'undefined' && /MicroMessenger/i.test(navigator.userAgent || '');
 
   // 打开即可显示二维码（仅保留支付宝），免费项目直接成功
   useEffect(() => {
@@ -72,7 +74,14 @@ export default function PaymentModal({
       icon: Smartphone,
       description: `扫码支付 ¥${APP_CONFIG.COMMERCE.PRICES.PREMIUM_REPORT}，成功后自动解锁（报告+BP）`,
       color: 'text-blue-500'
-    }
+    },
+    ...(isWeixin ? [{
+      id: PaymentMethod.WECHAT,
+      name: '微信支付（站内）',
+      icon: Smartphone,
+      description: '在微信内一键调起支付，更流畅',
+      color: 'text-green-500'
+    }] : [])
   ];
 
   const handlePayment = async () => {
@@ -82,6 +91,29 @@ export default function PaymentModal({
     try {
       // 创建支付订单
       const orderId = `order_${opportunityId}_${Date.now()}`;
+      // 微信内优先走JSAPI
+      if (isWeixin && selectedMethod === PaymentMethod.WECHAT && opportunityId !== '5') {
+        const me = await fetch('/api/v1/wx/oauth/me').then(r=>r.json()).catch(()=>({}));
+        const openid = me.openid || '';
+        if (!openid) {
+          setPaymentStep('error');
+          setErrorMessage('未获取到openid');
+          return;
+        }
+        const resp = await fetch('/api/v1/wxpay/jsapi/create', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ amount: Math.round(price * 100), title: opportunityTitle, openid, out_trade_no: orderId })
+        }).then(r=>r.json());
+        const invoke = () => (window as any).WeixinJSBridge?.invoke('getBrandWCPayRequest', resp, (res: any)=>{
+          if (res.err_msg === 'get_brand_wcpay_request:ok') handlePaymentSuccess();
+          else { setPaymentStep('error'); setErrorMessage('支付未完成'); }
+        });
+        if (!(window as any).WeixinJSBridge) {
+          document.addEventListener('WeixinJSBridgeReady', invoke, false);
+        } else { invoke(); }
+        return;
+      }
       const paymentParams: PaymentParams = {
         amount: price,
         currency: APP_CONFIG.COMMERCE.CURRENCY,
@@ -192,7 +224,7 @@ export default function PaymentModal({
               <div className="bg-primary-500/10 border border-primary-500/20 rounded-lg p-4 mt-4">
                 <div className="flex items-center justify-between">
                   <span className="text-white font-medium">{t('pay.totalPrice','总价')}</span>
-                  <span className="text-2xl font-bold text-primary-400">${price}</span>
+                  <span className="text-2xl font-bold text-primary-400">{currencySymbol}{price}</span>
                 </div>
               </div>
             </div>
@@ -253,7 +285,7 @@ export default function PaymentModal({
                 onClick={handlePayment}
                 className="flex-1 bg-gradient-to-r from-primary-500 to-secondary-500"
               >
-                {t('pay.payNow','立即支付')} ${price}
+                {t('pay.payNow','立即支付')} {currencySymbol}{price}
               </Button>
             </div>
           </>
