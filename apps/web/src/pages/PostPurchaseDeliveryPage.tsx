@@ -20,6 +20,11 @@ export default function PostPurchaseDeliveryPage() {
   const opportunityId = searchParams.get('opportunityId') || '';
   const opportunityTitle = searchParams.get('opportunityTitle') || '机会报告';
   const orderId = searchParams.get('order_id') || searchParams.get('payment_id') || '';
+  const source = useMemo(() => {
+    const ua = (navigator.userAgent || '').toLowerCase();
+    if (/micromessenger/.test(ua)) return 'wechat_h5';
+    return 'website';
+  }, []);
   const score = searchParams.get('score');
   const difficulty = searchParams.get('difficulty');
 
@@ -53,6 +58,10 @@ export default function PostPurchaseDeliveryPage() {
     const timer = setTimeout(() => setShowProgress(false), 3200);
     return () => clearTimeout(timer);
   }, [showProgress]);
+
+  useEffect(() => {
+    try { track('delivery_page_open', { opportunityId, orderId, source }); } catch {}
+  }, [opportunityId, orderId, source]);
 
   // 确保页面加载时滚动到顶部
   useEffect(() => {
@@ -164,7 +173,7 @@ export default function PostPurchaseDeliveryPage() {
           <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
           <h1 className="text-3xl font-bold text-white mb-2">支付成功，内容已解锁</h1>
           <p className="text-gray-300">
-            {orderId ? `订单号：${orderId} • ` : ''}已为你启动《{opportunityTitle}》交付流程
+            {orderId ? `订单号：${orderId} • ` : ''}已为你启动《{opportunityTitle}》交付流程（来源：{source === 'wechat_h5' ? '微信内' : '官网'}）
             {score ? ` • 总分: ${score}/10` : ''}
             {difficulty ? ` • 难度: ${difficulty}` : ''}
           </p>

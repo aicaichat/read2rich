@@ -22,6 +22,7 @@ import {
 } from '@/lib/paymentService';
 import { useT } from '@/i18n';
 import { APP_CONFIG } from '@/config';
+import { track } from '@/lib/analytics';
 
 interface PaymentModalProps {
   isOpen: boolean;
@@ -56,6 +57,8 @@ export default function PaymentModal({
   // 打开即可显示二维码（仅保留支付宝），免费项目直接成功
   useEffect(() => {
     if (!isOpen) return;
+    // 埋点：支付弹窗打开
+    try { track('pay_modal_open', { channel: isWeixin ? 'wechat_h5' : 'website', opportunityId, price }); } catch {}
     if (opportunityId === '5') {
       setPaymentStep('success');
       setTimeout(() => {
@@ -91,6 +94,8 @@ export default function PaymentModal({
     try {
       // 创建支付订单
       const orderId = `order_${opportunityId}_${Date.now()}`;
+      setCurrentPaymentId(orderId);
+      try { track('pay_click', { method: isWeixin && selectedMethod === PaymentMethod.WECHAT ? 'wechat_jsapi' : 'alipay_qr', channel: isWeixin ? 'wechat_h5' : 'website', opportunityId, price }); } catch {}
       // 微信内优先走JSAPI
       if (isWeixin && selectedMethod === PaymentMethod.WECHAT && opportunityId !== '5') {
         const me = await fetch('/api/v1/wx/oauth/me').then(r=>r.json()).catch(()=>({}));
@@ -107,7 +112,7 @@ export default function PaymentModal({
         }).then(r=>r.json());
         const invoke = () => (window as any).WeixinJSBridge?.invoke('getBrandWCPayRequest', resp, (res: any)=>{
           if (res.err_msg === 'get_brand_wcpay_request:ok') handlePaymentSuccess();
-          else { setPaymentStep('error'); setErrorMessage('支付未完成'); }
+          else { setPaymentStep('error'); setErrorMessage('支付未完成'); try { track('pay_error', { method: 'wechat_jsapi', reason: res.err_msg }); } catch {} }
         });
         if (!(window as any).WeixinJSBridge) {
           document.addEventListener('WeixinJSBridgeReady', invoke, false);
@@ -160,6 +165,7 @@ export default function PaymentModal({
       console.error('支付处理失败:', error);
       setPaymentStep('error');
       setErrorMessage(error instanceof Error ? error.message : t('pay.failedGeneric','支付失败，请重试或联系客服'));
+      try { track('pay_error', { method: isWeixin && selectedMethod === PaymentMethod.WECHAT ? 'wechat_jsapi' : 'alipay_qr', message: (error as any)?.message || 'unknown' }); } catch {}
     }
   };
 
@@ -183,6 +189,7 @@ export default function PaymentModal({
   };
 
   const handlePaymentSuccess = () => {
+    try { track('pay_success', { channel: isWeixin ? 'wechat_h5' : 'website', opportunityId, orderId: currentPaymentId, price }); } catch {}
     // 生成报告内容
     const reportContent = reportGenerator.generatePDFContent(opportunityId);
     const quickStartKit = reportGenerator.generateQuickStartKit(opportunityId);
