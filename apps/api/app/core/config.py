@@ -43,6 +43,16 @@ class Settings(BaseSettings):
     GOOGLE_CLIENT_ID: str = ""
     GOOGLE_CLIENT_SECRET: str = ""
     GOOGLE_REDIRECT_URI: str = "http://localhost:8000/api/v1/auth/google/callback"
+
+    # WeChat / Weixin 配置（占位，生产请从环境变量注入）
+    WECHAT_APPID: str = ""
+    WECHAT_APPSECRET: str = ""
+    WECHAT_MCHID: str = ""
+    WECHAT_APIv3_KEY: str = ""
+    WECHAT_MCH_SERIAL_NO: str = ""
+    WECHAT_MCH_PRIVATE_KEY_PATH: str = ""  # apiclient_key.pem 路径
+    WECHAT_PLATFORM_CERT_PATH: str = ""     # 微信平台证书路径（可选，自动拉取亦可）
+    WECHAT_NOTIFY_URL: str = "http://localhost:8000/api/v1/wxpay/notify"
     
     class Config:
         env_file = ".env"

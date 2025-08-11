@@ -10,7 +10,7 @@ import smtplib
 from email.mime.text import MIMEText
 from email.utils import formataddr
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 
 STATIC_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'static', 'reports')
 os.makedirs(STATIC_DIR, exist_ok=True)
@@ -197,6 +197,44 @@ async def save_email_settings(req: EmailSettingsRequest, db: Session = Depends(g
     return {"message": "saved"}
 
 
+class AnalyticsEventRequest(BaseModel):
+    name: str
+    ts: Optional[float] = None
+    props: Optional[dict] = None
+
+
+@router.post('/api/v1/analytics')
+async def save_analytics_event(evt: AnalyticsEventRequest, db: Session = Depends(get_db)):
+    try:
+        rec = models.AnalyticsEvent(
+            name=evt.name,
+            props=evt.props or {}
+        )
+        db.add(rec)
+        db.commit()
+        return {"ok": True}
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get('/api/v1/analytics')
+async def list_analytics(days: int = 30, limit: int = 5000, db: Session = Depends(get_db)):
+    try:
+        since = datetime.utcnow() - timedelta(days=days)
+        q = db.query(models.AnalyticsEvent).filter(models.AnalyticsEvent.ts >= since).order_by(models.AnalyticsEvent.ts.desc()).limit(limit)
+        rows = q.all()
+        return [
+            {
+                "id": r.id,
+                "name": r.name,
+                "ts": r.ts.isoformat() if r.ts else None,
+                "props": r.props or {}
+            } for r in rows
+        ]
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 class PublishRequest(BaseModel):
     project_id: str
     title: str
@@ -282,4 +320,43 @@ async def publish_report(req: PublishRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+
+# ===== WeChat OAuth & Pay (占位接口) =====
+from fastapi import Request
+from ..core.config import settings
+
+
+class JsapiOrderReq(BaseModel):
+    amount: int
+    title: str
+    openid: str
+    out_trade_no: Optional[str] = None
+
+
+@router.get("/api/v1/wx/oauth/me")
+async def wechat_oauth_me(code: Optional[str] = None):
+    # TODO: 用 code 调用微信网页授权换取 openid（snsapi_base），此处占位
+    if not code:
+        return {"openid": "test-openid-placeholder"}
+    return {"openid": "test-openid-from-code"}
+
+
+@router.post("/api/v1/wxpay/jsapi/create")
+async def wechat_jsapi_create(req: JsapiOrderReq):
+    # TODO: 调用微信支付V3统一下单（JSAPI），生成 prepay_id 并二次签名
+    return {
+        "appId": settings.WECHAT_APPID,
+        "timeStamp": "1700000000",
+        "nonceStr": "demo-nonce",
+        "package": "prepay_id=demo-prepay-id",
+        "signType": "RSA",
+        "paySign": "demo-sign",
+    }
+
+
+@router.post("/api/v1/wxpay/notify")
+async def wechat_pay_notify(request: Request):
+    # TODO: 校验签名、解密resource、更新订单
+    _ = await request.body()
+    return {"code": "SUCCESS", "message": "OK"}
 
