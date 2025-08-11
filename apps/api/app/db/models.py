@@ -112,6 +112,10 @@ class Order(Base):
     completed_time = Column(DateTime(timezone=True))
     refund_time = Column(DateTime(timezone=True))
     notes = Column(Text)
+    channel = Column(String, default="web")  # web, wechat_h5, weapp, video_channel
+    product_type = Column(String, default="premium_report")  # premium_report, course, custom
+    order_source = Column(String, default="website")  # website, video_channel, weapp
+    raw_notify = Column(JSON, default={})
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
     
@@ -249,3 +253,12 @@ class EmailSettings(Base):
     use_tls = Column(Boolean, default=False)
     from_address = Column(String, default="no-reply@deepneed.com")
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+
+
+class AnalyticsEvent(Base):
+    __tablename__ = "analytics_events"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, index=True)
+    ts = Column(DateTime(timezone=True), server_default=func.now())
+    props = Column(JSON, default={})

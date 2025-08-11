@@ -342,8 +342,29 @@ async def wechat_oauth_me(code: Optional[str] = None):
 
 
 @router.post("/api/v1/wxpay/jsapi/create")
-async def wechat_jsapi_create(req: JsapiOrderReq):
+async def wechat_jsapi_create(req: JsapiOrderReq, db: Session = Depends(get_db)):
     # TODO: 调用微信支付V3统一下单（JSAPI），生成 prepay_id 并二次签名
+    # 占位：写入订单 pending
+    try:
+        order_number = req.out_trade_no or f"WX_{uuid.uuid4().hex[:14]}"
+        db_order = models.Order(
+            order_number=order_number,
+            user_id=0,
+            course_id=0,
+            amount=req.amount / 100.0,
+            original_amount=req.amount / 100.0,
+            discount=0.0,
+            payment_method='wechat',
+            status='pending',
+            notes=req.title,
+            channel='wechat_h5',
+            product_type='premium_report',
+            order_source='website'
+        )
+        db.add(db_order)
+        db.commit()
+    except Exception:
+        db.rollback()
     return {
         "appId": settings.WECHAT_APPID,
         "timeStamp": "1700000000",
@@ -355,8 +376,18 @@ async def wechat_jsapi_create(req: JsapiOrderReq):
 
 
 @router.post("/api/v1/wxpay/notify")
-async def wechat_pay_notify(request: Request):
+async def wechat_pay_notify(request: Request, db: Session = Depends(get_db)):
     # TODO: 校验签名、解密resource、更新订单
-    _ = await request.body()
+    body = await request.body()
+    try:
+        # 占位：将最后一个 pending 订单置为 paid
+        order = db.query(models.Order).order_by(models.Order.created_at.desc()).first()
+        if order:
+            order.status = 'paid'
+            order.payment_time = datetime.utcnow()
+            order.raw_notify = {"raw": body.decode('utf-8', errors='ignore')}
+            db.commit()
+    except Exception:
+        db.rollback()
     return {"code": "SUCCESS", "message": "OK"}
 
