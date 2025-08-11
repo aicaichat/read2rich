@@ -391,3 +391,35 @@ async def wechat_pay_notify(request: Request, db: Session = Depends(get_db)):
         db.rollback()
     return {"code": "SUCCESS", "message": "OK"}
 
+
+# ===== Admin: 订单列表（最近200条） =====
+class AdminOrderItem(BaseModel):
+    order_number: str
+    amount: float
+    payment_method: str
+    status: str
+    channel: Optional[str] = None
+    product_type: Optional[str] = None
+    order_source: Optional[str] = None
+    created_at: Optional[str] = None
+
+
+@router.get('/api/v1/admin/orders')
+async def admin_list_orders(db: Session = Depends(get_db)):
+    try:
+        rows = db.query(models.Order).order_by(models.Order.created_at.desc()).limit(200).all()
+        return [
+            {
+                "order_number": r.order_number,
+                "amount": r.amount,
+                "payment_method": r.payment_method,
+                "status": r.status,
+                "channel": getattr(r, 'channel', None),
+                "product_type": getattr(r, 'product_type', None),
+                "order_source": getattr(r, 'order_source', None),
+                "created_at": r.created_at.isoformat() if r.created_at else None,
+            } for r in rows
+        ]
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
