@@ -1,0 +1,108 @@
+{
+  "common": {
+    "loading": "読み込み中...",
+    "error": "エラー",
+    "success": "成功",
+    "cancel": "キャンセル",
+    "confirm": "確認",
+    "save": "保存",
+    "edit": "編集",
+    "delete": "削除",
+    "search": "検索",
+    "filter": "フィルター"
+  },
+  "nav": {
+    "home": "ホーム",
+    "opportunities": "機会",
+    "about": "概要",
+    "contact": "お問い合わせ",
+    "login": "ログイン",
+    "register": "始める",
+    "dashboard": "ダッシュボード"
+  },
+  "home": {
+    "title": "次の大きなチャンスを発見しよう",
+    "subtitle": "市場トレンドを分析し、あなたの興味と専門知識に合わせた収益性の高いビジネス機会を特定するAI駆動プラットフォームです。",
+    "cta": "探索を開始",
+    "features": {
+      "ai_analysis": "AI駆動分析",
+      "market_insights": "市場インサイト",
+      "personalized": "パーソナライズされた推奨"
+    }
+  },
+  "opportunities": {
+    "title": "ビジネス機会",
+    "subtitle": "市場で最高のビジネス機会を発見し、分析する",
+    "search_placeholder": "機会を検索...",
+    "categories": {
+      "all": "すべて",
+      "technology": "テクノロジー",
+      "healthcare": "ヘルスケア",
+      "finance": "金融",
+      "education": "教育",
+      "retail": "小売"
+    },
+    "details": {
+      "market_size": "市場規模",
+      "difficulty": "難易度",
+      "investment": "投資",
+      "time_to_market": "市場投入時間"
+    },
+    "actions": {
+      "view_details": "詳細を見る",
+      "analyze": "分析"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "おかえりなさい",
+      "subtitle": "続行するにはアカウントにサインインしてください",
+      "email": "メール",
+      "password": "パスワード",
+      "remember_me": "ログイン状態を保持",
+      "forgot_password": "パスワードをお忘れですか？",
+      "login_button": "サインイン",
+      "or": "または",
+      "login_with_github": "GitHubで続行",
+      "login_with_google": "Googleで続行",
+      "no_account": "アカウントをお持ちでないですか？",
+      "register_link": "サインアップ"
+    },
+    "register": {
+      "title": "アカウント作成",
+      "subtitle": "機会を発見する何千人もの起業家に参加しよう",
+      "username": "ユーザー名",
+      "email": "メール",
+      "password": "パスワード",
+      "confirm_password": "パスワード確認",
+      "register_button": "アカウント作成",
+      "or": "または",
+      "register_with_github": "GitHubでサインアップ",
+      "register_with_google": "Googleでサインアップ",
+      "has_account": "すでにアカウントをお持ちですか？",
+      "login_link": "サインイン"
+    }
+  },
+  "contact": {
+    "title": "お問い合わせ",
+    "subtitle": "私たちのチームにご連絡ください",
+    "form": {
+      "name": "名前",
+      "email": "メール",
+      "subject": "件名",
+      "message": "メッセージ",
+      "send": "メッセージを送信"
+    },
+    "info": {
+      "email": "メール",
+      "phone": "電話",
+      "address": "住所"
+    }
+  },
+  "about": {
+    "title": "Read2Richについて",
+    "subtitle": "AI駆動のインサイトで起業家をエンパワー",
+    "mission": "私たちの使命は、ビジネスインテリジェンスへのアクセスを民主化し、世界中の起業家が収益性の高い機会を発見できるよう支援することです。",
+    "vision": "私たちは、野心を持つ誰もがデータ駆動のインサイトを通じて経済的成功への道を見つけることができる世界を目指しています。"
+  }
+}

@@ -270,4 +270,19 @@ export const customOrderAPI = {
   }
 };
 
+export const analyticsAPI = {
+  async track(name: string, props?: Record<string, any>) {
+    try {
+      const res = await fetch('/api/v1/analytics', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, props })
+      });
+      if (!res.ok) throw new Error('track failed');
+    } catch (e) {
+      // ignore
+    }
+  }
+};
+
 export default api; 

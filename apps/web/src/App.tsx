@@ -43,6 +43,7 @@ import AdminCustomOrdersPage from './pages/AdminCustomOrdersPage';
 import AdminEmailSettingsPage from './pages/AdminEmailSettingsPage';
 import OAuthCallbackPage from './pages/OAuthCallbackPage';
 import PostPurchaseDeliveryPage from './pages/PostPurchaseDeliveryPage';
+import AdminAnalyticsPage from './pages/AdminAnalyticsPage';
 import AboutPage from './pages/AboutPage';
 
 // Components
@@ -361,6 +362,11 @@ function App() {
               <Route path="/admin/report-generator" element={
                 <AdminLayout>
                   <AdminReportGeneratorPage />
+                </AdminLayout>
+              } />
+              <Route path="/admin/analytics" element={
+                <AdminLayout>
+                  <AdminAnalyticsPage />
                 </AdminLayout>
               } />
               <Route path="/admin/custom-orders" element={

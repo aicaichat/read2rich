@@ -1,0 +1,108 @@
+{
+  "common": {
+    "loading": "로딩 중...",
+    "error": "오류",
+    "success": "성공",
+    "cancel": "취소",
+    "confirm": "확인",
+    "save": "저장",
+    "edit": "편집",
+    "delete": "삭제",
+    "search": "검색",
+    "filter": "필터"
+  },
+  "nav": {
+    "home": "홈",
+    "opportunities": "기회",
+    "about": "소개",
+    "contact": "연락처",
+    "login": "로그인",
+    "register": "시작하기",
+    "dashboard": "대시보드"
+  },
+  "home": {
+    "title": "다음 큰 기회를 발견하세요",
+    "subtitle": "시장 트렌드를 분석하고 귀하의 관심사와 전문성에 맞는 수익성 있는 비즈니스 기회를 식별하는 AI 기반 플랫폼입니다.",
+    "cta": "탐색 시작",
+    "features": {
+      "ai_analysis": "AI 기반 분석",
+      "market_insights": "시장 통찰력",
+      "personalized": "개인화된 추천"
+    }
+  },
+  "opportunities": {
+    "title": "비즈니스 기회",
+    "subtitle": "시장에서 최고의 비즈니스 기회를 발견하고 분석하세요",
+    "search_placeholder": "기회 검색...",
+    "categories": {
+      "all": "전체",
+      "technology": "기술",
+      "healthcare": "헬스케어",
+      "finance": "금융",
+      "education": "교육",
+      "retail": "소매"
+    },
+    "details": {
+      "market_size": "시장 규모",
+      "difficulty": "난이도",
+      "investment": "투자",
+      "time_to_market": "출시 시간"
+    },
+    "actions": {
+      "view_details": "세부 정보 보기",
+      "analyze": "분석"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "다시 오신 것을 환영합니다",
+      "subtitle": "계속하려면 계정에 로그인하세요",
+      "email": "이메일",
+      "password": "비밀번호",
+      "remember_me": "로그인 상태 유지",
+      "forgot_password": "비밀번호를 잊으셨나요?",
+      "login_button": "로그인",
+      "or": "또는",
+      "login_with_github": "GitHub으로 계속",
+      "login_with_google": "Google로 계속",
+      "no_account": "계정이 없으신가요?",
+      "register_link": "회원가입"
+    },
+    "register": {
+      "title": "계정 생성",
+      "subtitle": "기회를 발견하는 수천 명의 기업가들과 함께하세요",
+      "username": "사용자명",
+      "email": "이메일",
+      "password": "비밀번호",
+      "confirm_password": "비밀번호 확인",
+      "register_button": "계정 생성",
+      "or": "또는",
+      "register_with_github": "GitHub으로 가입",
+      "register_with_google": "Google로 가입",
+      "has_account": "이미 계정이 있으신가요?",
+      "login_link": "로그인"
+    }
+  },
+  "contact": {
+    "title": "문의하기",
+    "subtitle": "저희 팀에 연락하세요",
+    "form": {
+      "name": "이름",
+      "email": "이메일",
+      "subject": "제목",
+      "message": "메시지",
+      "send": "메시지 보내기"
+    },
+    "info": {
+      "email": "이메일",
+      "phone": "전화",
+      "address": "주소"
+    }
+  },
+  "about": {
+    "title": "Read2Rich 소개",
+    "subtitle": "AI 기반 인사이트로 기업가들에게 힘을 실어주기",
+    "mission": "우리의 사명은 비즈니스 인텔리전스에 대한 접근을 민주화하고 전 세계 기업가들이 수익성 있는 기회를 발견할 수 있도록 돕는 것입니다.",
+    "vision": "우리는 야망을 가진 누구나 데이터 기반 인사이트를 통해 재정적 성공의 길을 찾을 수 있는 세상을 꿈꿉니다."
+  }
+}

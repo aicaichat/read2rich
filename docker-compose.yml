@@ -1,83 +1,65 @@
 version: '3.8'
 
 services:
-  postgres:
-    image: ankane/pgvector:latest
-    container_name: deepneed-postgres
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
     environment:
-      POSTGRES_DB: deepneed
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      - REACT_APP_API_URL=http://localhost:8000
+      - REACT_APP_DEFAULT_LANGUAGE=en
+    depends_on:
+      - backend
+
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://read2rich:password@postgres:5432/read2rich
+      - REDIS_URL=redis://redis:6379
+      - KAFKA_BROKERS=kafka:9092
+      - QDRANT_URL=http://qdrant:6333
+    depends_on:
+      - postgres
+      - redis
+      - kafka
+      - qdrant
+
+  postgres:
+    image: postgres:15
+    environment:
+      - POSTGRES_DB=read2rich
+      - POSTGRES_USER=read2rich
+      - POSTGRES_PASSWORD=password
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./infra/sql/init.sql:/docker-entrypoint-initdb.d/init.sql
-    networks:
-      - deepneed-network
 
   redis:
     image: redis:7-alpine
-    container_name: deepneed-redis
     ports:
       - "6379:6379"
-    volumes:
-      - redis_data:/data
-    networks:
-      - deepneed-network
 
-  api:
-    build:
-      context: ./apps/api
-      dockerfile: Dockerfile
-    container_name: deepneed-api
+  kafka:
+    image: bitnami/kafka:3.7
     environment:
-      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/deepneed
-      REDIS_URL: redis://redis:6379
-      DEEPSEEK_API_KEY: sk-dc146c694369404abbc1eb7bac2eb41d
-      CLAUDE_API_KEY: dummy-claude-key
-      OPENAI_API_KEY: dummy-openai-key
-      JWT_SECRET: docker-secret-key
-      JWT_ALGORITHM: HS256
-      JWT_EXPIRE_HOURS: 24
-      ALLOWED_ORIGINS: http://localhost:5173,http://localhost:5174,http://localhost:5175
-      ENVIRONMENT: development
-    ports:
-      - "8000:8000"
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
     depends_on:
-      - postgres
-      - redis
-    volumes:
-      - ./apps/api:/app
-      - /app/__pycache__
-    networks:
-      - deepneed-network
-    restart: unless-stopped
+      - zookeeper
 
-  web:
-    build:
-      context: ./apps/web
-      dockerfile: Dockerfile.dev
-    container_name: deepneed-web
+  zookeeper:
+    image: bitnami/zookeeper:3.9
     environment:
-      VITE_API_URL: http://localhost:8000
+      - ALLOW_ANONYMOUS_LOGIN=yes
+
+  qdrant:
+    image: qdrant/qdrant:latest
     ports:
-      - "5174:5173"
-    volumes:
-      - ./apps/web:/app
-      - /app/node_modules
-    depends_on:
-      - api
-    networks:
-      - deepneed-network
-    restart: unless-stopped
+      - "6333:6333"
 
 volumes:
-  postgres_data:
-    driver: local
-  redis_data:
-    driver: local
-
-networks:
-  deepneed-network:
-    driver: bridge 
+  postgres_data: 

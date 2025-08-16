@@ -1,0 +1,340 @@
+{
+  "common": {
+    "language": "Bahasa Melayu",
+    "loading": "Memuat...",
+    "error": "Ralat telah berlaku",
+    "success": "Berjaya",
+    "cancel": "Batal",
+    "save": "Simpan",
+    "delete": "Padam",
+    "edit": "Sunting",
+    "add": "Tambah",
+    "search": "Cari",
+    "filter": "Penapis",
+    "sort": "Susun",
+    "refresh": "Muat semula",
+    "close": "Tutup",
+    "confirm": "Sahkan",
+    "retry": "Cuba lagi",
+    "view": "Lihat",
+    "download": "Muat turun",
+    "upload": "Muat naik"
+  },
+  "navigation": {
+    "home": "Laman Utama",
+    "opportunities": "Peluang",
+    "about": "Tentang Kami",
+    "contact": "Hubungi Kami",
+    "login": "Log Masuk",
+    "register": "Daftar",
+    "dashboard": "Papan Pemuka",
+    "profile": "Profil",
+    "settings": "Tetapan",
+    "logout": "Log Keluar",
+    "get_recommendations": "Dapatkan Cadangan",
+    "sign_in": "Log Masuk",
+    "get_started": "Mulakan"
+  },
+  "homepage": {
+    "hero": {
+      "title": "Tukar Idea kepada Kekayaan",
+      "subtitle": "Platform penemuan peluang perniagaan berasaskan AI",
+      "description": "Temui peluang • Analisis pasaran • Tumbuhkan kekayaan",
+      "cta_primary": "Dapatkan Cadangan Peribadi",
+      "cta_secondary": "Lihat Semua Peluang",
+      "learnMore": "Ketahui Lebih Lanjut"
+    },
+    "features": {
+      "title": "Mengapa Pilih Read2Rich",
+      "subtitle": "Platform kami menggabungkan teknologi AI terkini dengan analisis pasaran komprehensif untuk memberi anda kelebihan dalam persaingan hari ini.",
+      "ai": "Analisis Berasaskan AI",
+      "ai_desc": "Algoritma AI lanjutan menganalisis trend pasaran dan mengenal pasti peluang yang menguntungkan",
+      "realtime": "Data Masa Nyata",
+      "realtime_desc": "Isyarat pasaran terkini membantu anda bertindak pada masa yang tepat",
+      "insights": "Wawasan Mendalam",
+      "insights_desc": "Data dan wawasan masa nyata membantu anda membuat keputusan yang tepat",
+      "reports": "Laporan Terperinci",
+      "support": "Sokongan 24/7"
+    },
+    "cta2": {
+      "title": "Sedia mencari peluang anda yang seterusnya?",
+      "subtitle": "Sertai ribuan usahawan yang menggunakan Read2Rich untuk menemui peluang perniagaan yang menguntungkan.",
+      "getStarted": "Mula Secara Percuma",
+      "explore": "Terokai Peluang"
+    },
+    "stats": {
+      "title": "Statistik Platform",
+      "users": "Pengguna Aktif",
+      "opportunities": "Peluang Dianalisis",
+      "success": "Kadar Kejayaan",
+      "countries": "Negara Dilayan"
+    }
+  },
+  "opportunities": {
+    "title": "Peluang Perniagaan",
+    "subtitle": "Temui idea juta dolar seterusnya",
+    "search_placeholder": "Cari peluang...",
+    "filter": {
+      "all": "Semua Kategori",
+      "technology": "Teknologi",
+      "healthcare": "Penjagaan Kesihatan",
+      "finance": "Kewangan",
+      "education": "Pendidikan",
+      "retail": "Runcit",
+      "fintech": "Fintech",
+      "ecommerce": "E-dagang",
+      "saas": "SaaS",
+      "marketplace": "Pasaran",
+      "ai": "AI & ML",
+      "other": "Lain-lain"
+    },
+    "sort": {
+      "newest": "Terkini",
+      "oldest": "Tertua",
+      "relevance": "Kerelevanan",
+      "marketSize": "Saiz Pasaran",
+      "difficulty": "Kesukaran"
+    },
+    "card": {
+      "viewDetails": "Lihat Butiran",
+      "analyze": "Analisis",
+      "save": "Simpan",
+      "share": "Kongsi",
+      "marketSize": "Saiz Pasaran",
+      "difficulty": "Kesukaran",
+      "investment": "Pelaburan Diperlukan",
+      "timeToMarket": "Masa ke Pasaran"
+    }
+  },
+  "onboarding": {
+    "title": "Beritahu Kami Tentang Diri Anda",
+    "step": "Langkah {{current}} / {{total}}",
+    "progress": "{{percent}}%",
+    "next": "Seterusnya",
+    "back": "Sebelumnya",
+    "get_recommendations": "Dapatkan Cadangan",
+    "experience": {
+      "title": "Beritahu Kami Tentang Pengalaman Anda",
+      "subtitle": "Membantu kami mencadangkan peluang yang sesuai dengan tahap anda",
+      "beginner": "Pemula",
+      "beginner_desc": "Pemula dalam keusahawanan",
+      "intermediate": "Pertengahan", 
+      "intermediate_desc": "1-3 tahun pengalaman",
+      "advanced": "Lanjutan",
+      "advanced_desc": "3+ tahun, pelbagai pengalaman usaha"
+    },
+    "investment": {
+      "title": "Pelaburan dan Toleransi Risiko",
+      "subtitle": "Membantu kami memahami keupayaan kewangan dan toleransi risiko anda",
+      "range_label": "Julat Pelaburan",
+      "risk_label": "Toleransi Risiko",
+      "low": "$1K - $10K",
+      "low_desc": "Mesra bootstrap",
+      "medium": "$10K - $100K", 
+      "medium_desc": "Pelaburan sederhana",
+      "high": "$100K+",
+      "high_desc": "Usaha bermodal tinggi",
+      "conservative": "Konservatif",
+      "moderate": "Sederhana",
+      "aggressive": "Agresif"
+    },
+    "time": {
+      "title": "Masa dan Ketersediaan",
+      "subtitle": "Berapa banyak masa yang boleh anda luangkan untuk usaha ini?",
+      "part_time": "Separuh Masa",
+      "part_time_desc": "10-20 jam seminggu, kerja sampingan",
+      "full_time": "Sepenuh Masa",
+      "full_time_desc": "40+ jam seminggu, fokus utama",
+      "flexible": "Fleksibel",
+      "flexible_desc": "Jadual berubah-ubah, mengikut keperluan"
+    },
+    "goals": {
+      "title": "Matlamat dan Minat",
+      "subtitle": "Pilih matlamat utama dan industri pilihan anda",
+      "goals_label": "Matlamat Utama (pilih berbilang)",
+      "markets_label": "Pasaran Pilihan",
+      "financial_freedom": "Kebebasan Kewangan",
+      "passive_income": "Pendapatan Pasif",
+      "quick_roi": "ROI Pantas",
+      "long_term_growth": "Pertumbuhan Jangka Panjang",
+      "social_impact": "Impak Sosial",
+      "innovation": "Inovasi",
+      "technology": "Teknologi",
+      "healthcare": "Penjagaan Kesihatan",
+      "finance": "Kewangan",
+      "education": "Pendidikan",
+      "real_estate": "Hartanah",
+      "food_beverage": "Makanan & Minuman",
+      "entertainment": "Hiburan"
+    },
+    "skills": {
+      "title": "Kemahiran dan Sumber",
+      "subtitle": "Beritahu kami tentang kemahiran dan sumber yang tersedia",
+      "skills_label": "Kemahiran Anda",
+      "resources_label": "Sumber Tersedia",
+      "programming": "Pengaturcaraan",
+      "marketing": "Pemasaran",
+      "sales": "Jualan",
+      "design": "Reka Bentuk",
+      "operations": "Operasi",
+      "leadership": "Kepimpinan",
+      "analytics": "Analisis",
+      "has_team": "Saya ada pasukan atau rakan pengasas",
+      "has_technical": "Saya ada keupayaan pembangunan teknikal",
+      "has_marketing": "Saya ada pengalaman pemasaran/jualan"
+    }
+  },
+  "report": {
+    "title": "Laporan Analisis Perniagaan",
+    "back_to_list": "Kembali ke Senarai Peluang",
+    "overall_score": "Skor Keseluruhan: {{score}}/10",
+    "difficulty": "Kesukaran",
+    "expected_revenue": "Pendapatan Dijangka",
+    "time_to_market": "Masa ke Pasaran",
+    "preview": {
+      "title": "Pratonton Laporan",
+      "free_view": "(Pandangan Percuma)",
+      "executive_summary": "Ringkasan Eksekutif",
+      "market_analysis": "Pratonton Analisis Pasaran",
+      "financial_projections": "Unjuran Kewangan",
+      "technical_implementation": "Pelaksanaan Teknikal",
+      "quick_start_kit": "Kit Permulaan Pantas",
+      "complete_report_includes": "Laporan Lengkap Termasuk:",
+      "detailed_business_plan": "• Pelan Perniagaan Terperinci 50+ halaman",
+      "complete_technical_solution": "• Penyelesaian Teknikal Lengkap",
+      "runnable_mvp_code": "• Templat Kod MVP Boleh Dijalankan",
+      "quick_start_toolkit": "• Toolkit Permulaan Pantas",
+      "financial_model": "• Model Unjuran Kewangan 3 Tahun",
+      "competitive_analysis": "• Analisis Persaingan & Strategi Pasaran",
+      "risk_assessment": "• Penilaian Risiko & Langkah Pengurangan",
+      "development_support": "• Sokongan Pembangunan 14 Hari"
+    },
+    "scoring": {
+      "title": "Radar Skor",
+      "market_potential": "Potensi Pasaran",
+      "competitiveness": "Dayasaing", 
+      "ai_readiness": "Kesiapan AI",
+      "personal_fit": "Kesesuaian Peribadi",
+      "risk_level": "Tahap Risiko"
+    },
+    "pricing": {
+      "title": "Dapatkan Laporan Lengkap",
+      "basic_title": "Tahap 1 · Laporan + BP",
+      "basic_price": "RM 150",
+      "basic_desc": "Laporan HTML Terperinci + Pitch Deck (WebPPT)",
+      "unlock_report": "Buka Kunci Laporan+BP dengan RM 150 (Dapatkan Sekarang)"
+    },
+    "core_advantages": "Kelebihan Teras",
+    "potential_challenges": "Cabaran Berpotensi"
+  },
+  "payment": {
+    "title": "Beli Laporan Lengkap",
+    "total_price": "Jumlah Harga",
+    "select_method": "Pilih Kaedah Pembayaran",
+    "alipay": "Alipay (Disyorkan)",
+    "alipay_desc": "Imbas kod QR untuk bayar RM 150, buka kunci automatik selepas berjaya (Laporan+BP)",
+    "wechat": "WeChat Pay (Dalam Aplikasi)",
+    "wechat_desc": "Bayar satu klik dalam WeChat, pengalaman yang lebih lancar",
+    "benefits": {
+      "title": "Jaminan Pembelian",
+      "refund": "Jaminan Bayaran Balik 30 Hari",
+      "secure": "Pembayaran Terkunci Selamat",
+      "instant": "Penghantaran Muat Turun Segera",
+      "support": "Sokongan Pelanggan 24/7"
+    },
+    "cancel": "Batal",
+    "pay_now": "Bayar Sekarang",
+    "processing": "Menunggu pembayaran selesai...",
+    "success_title": "Pembayaran Berjaya!",
+    "success_desc": "Laporan lengkap sedang disediakan dan akan tersedia untuk muat turun tidak lama lagi",
+    "error_title": "Pembayaran Gagal",
+    "retry": "Cuba Bayar Lagi",
+    "later": "Cuba Kemudian"
+  },
+  "auth": {
+    "login": {
+      "title": "Selamat Datang Kembali",
+      "email": "E-mel",
+      "password": "Kata Laluan",
+      "forgotPassword": "Lupa Kata Laluan?",
+      "loginButton": "Log Masuk",
+      "or": "Atau",
+      "loginWithGoogle": "Log Masuk dengan Google",
+      "loginWithGithub": "Log Masuk dengan GitHub",
+      "noAccount": "Tiada akaun?",
+      "registerLink": "Daftar"
+    },
+    "register": {
+      "title": "Buat Akaun",
+      "username": "Nama Pengguna",
+      "email": "E-mel",
+      "password": "Kata Laluan",
+      "confirmPassword": "Sahkan Kata Laluan",
+      "registerButton": "Buat Akaun",
+      "or": "Atau",
+      "registerWithGoogle": "Daftar dengan Google",
+      "registerWithGithub": "Daftar dengan GitHub",
+      "hasAccount": "Sudah ada akaun?",
+      "loginLink": "Log Masuk"
+    }
+  },
+  "footer": {
+    "description": "Platform penemuan peluang perniagaan berasaskan AI",
+    "product": "Produk",
+    "company": "Syarikat",
+    "quick_links": "Pautan Pantas",
+    "support": "Sokongan",
+    "about_us": "Tentang Kami",
+    "careers": "Kerjaya",
+    "blog": "Blog",
+    "documentation": "Dokumentasi",
+    "analytics": "Analitik",
+    "api": "API",
+    "legal": "Perkara Undang-undang",
+    "privacy_policy": "Dasar Privasi",
+    "terms_of_service": "Terma Perkhidmatan",
+    "help_center": "Pusat Bantuan",
+    "contact_us": "Hubungi Kami",
+    "copyright": "© 2024 Read2Rich. Hak cipta terpelihara."
+  }
+  ,
+  "contact": {
+    "title": "Hubungi Kami",
+    "subtitle": "Kami sedia membantu. Hantar mesej dan kami akan balas dalam 24 jam.",
+    "email": "E-mel",
+    "phone": "Telefon",
+    "address": "Alamat",
+    "form": {
+      "name": "Nama Anda",
+      "name_ph": "Ali Bin Abu",
+      "email": "E-mel",
+      "email_ph": "you@example.com",
+      "subject": "Subjek",
+      "subject_ph": "Bagaimana kami boleh bantu?",
+      "message": "Mesej",
+      "message_ph": "Tulis mesej anda di sini...",
+      "send": "Hantar Mesej"
+    },
+    "success": "Mesej berjaya dihantar!",
+    "error": "Penghantaran gagal. Sila cuba lagi."
+  }
+  ,
+  "about": {
+    "title": "Tentang Read2Rich",
+    "subtitle": "Kami membantu usahawan menemui, mengesahkan dan melaksanakan peluang menguntungkan dengan AI.",
+    "mission": { "title": "Misi Kami", "desc": "Membolehkan sesiapa sahaja menukar idea kepada perniagaan mampan melalui alat AI, data dan playbook boleh laksana." },
+    "features": {
+      "title": "Kepercayaan Kami",
+      "aiFirst": { "title": "AI Diutamakan", "desc": "Mempercepat penyelidikan, analisis dan pelaksanaan dengan AI terkini" },
+      "creator": { "title": "Berpusatkan Pencipta", "desc": "Reka khas untuk pengasas solo dan pasukan kecil" },
+      "trust": { "title": "Kepercayaan & Ketelusan", "desc": "Harga jelas, privasi diutamakan, data anda milik anda" },
+      "global": { "title": "Global", "desc": "Sokongan pelbagai bahasa dan mata wang" }
+    },
+    "values": {
+      "title": "Nilai Kami",
+      "speed": { "title": "Kepantasan", "desc": "Hantar pantas, ulang lebih pantas" },
+      "impact": { "title": "Impak", "desc": "Fokus pada hasil yang penting kepada pengguna" },
+      "openness": { "title": "Keterbukaan", "desc": "Utamakan ketelusan dan kerjasama" }
+    }
+  }
+}

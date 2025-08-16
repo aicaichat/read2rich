@@ -1,0 +1,340 @@
+{
+  "common": {
+    "language": "日本語",
+    "loading": "読み込み中...",
+    "error": "エラーが発生しました",
+    "success": "成功",
+    "cancel": "キャンセル",
+    "save": "保存",
+    "delete": "削除",
+    "edit": "編集",
+    "add": "追加",
+    "search": "検索",
+    "filter": "フィルター",
+    "sort": "並び替え",
+    "refresh": "更新",
+    "close": "閉じる",
+    "confirm": "確認",
+    "retry": "再試行",
+    "view": "表示",
+    "download": "ダウンロード",
+    "upload": "アップロード"
+  },
+  "navigation": {
+    "home": "ホーム",
+    "opportunities": "機会",
+    "about": "概要",
+    "contact": "お問い合わせ",
+    "login": "ログイン",
+    "register": "登録",
+    "dashboard": "ダッシュボード",
+    "profile": "プロフィール",
+    "settings": "設定",
+    "logout": "ログアウト",
+    "get_recommendations": "推奨を取得",
+    "sign_in": "サインイン",
+    "get_started": "始める"
+  },
+  "homepage": {
+    "hero": {
+      "title": "アイデアを富に変換",
+      "subtitle": "AI駆動のビジネス機会発見プラットフォーム",
+      "description": "機会を発見 • 市場を分析 • 富を成長",
+      "cta_primary": "パーソナライズされた推奨を取得",
+      "cta_secondary": "すべての機会を閲覧",
+      "learnMore": "詳細を見る"
+    },
+    "features": {
+      "title": "Read2Richを選ぶ理由",
+      "subtitle": "最先端のAI技術と包括的な市場分析を組み合わせ、競争の激しい市場で優位に立つことを支援します。",
+      "ai": "AI駆動分析",
+      "ai_desc": "高度なAIアルゴリズムが市場動向を分析し、収益性の高い機会を特定",
+      "realtime": "リアルタイムデータ",
+      "realtime_desc": "最新の市場シグナルで適切なタイミングで意思決定",
+      "insights": "深い洞察",
+      "insights_desc": "意思決定に役立つリアルタイムデータと洞察",
+      "reports": "詳細レポート",
+      "support": "24/7サポート"
+    },
+    "stats": {
+      "title": "プラットフォーム統計",
+      "users": "アクティブユーザー",
+      "opportunities": "分析された機会",
+      "success": "成功率",
+      "countries": "サービス提供国"
+    }
+  },
+  "homepage.cta2": {
+    "title": "次のビジネスチャンスを見つける準備はできましたか？",
+    "subtitle": "Read2Rich を活用して収益性の高いビジネス機会を発見している何千人もの起業家に参加しましょう。",
+    "getStarted": "無料で始める",
+    "explore": "機会を探索"
+  },
+  "opportunities": {
+    "title": "ビジネス機会",
+    "subtitle": "次の百万ドルのアイデアを発見",
+    "search_placeholder": "機会を検索...",
+    "filter": {
+      "all": "すべてのカテゴリ",
+      "technology": "テクノロジー",
+      "healthcare": "ヘルスケア",
+      "finance": "金融",
+      "education": "教育",
+      "retail": "小売",
+      "fintech": "フィンテック",
+      "ecommerce": "Eコマース",
+      "saas": "SaaS",
+      "marketplace": "マーケットプレイス",
+      "ai": "AI & ML",
+      "other": "その他"
+    },
+    "sort": {
+      "newest": "最新",
+      "oldest": "古い順",
+      "relevance": "関連性",
+      "marketSize": "市場規模",
+      "difficulty": "難易度"
+    },
+    "card": {
+      "viewDetails": "詳細を表示",
+      "analyze": "分析",
+      "save": "保存",
+      "share": "共有",
+      "marketSize": "市場規模",
+      "difficulty": "難易度",
+      "investment": "必要投資額",
+      "timeToMarket": "市場投入時間"
+    }
+  },
+  "onboarding": {
+    "title": "あなたについて教えてください",
+    "step": "ステップ {{current}} / {{total}}",
+    "progress": "{{percent}}%",
+    "next": "次へ",
+    "back": "戻る",
+    "get_recommendations": "推奨を取得",
+    "experience": {
+      "title": "経験について教えてください",
+      "subtitle": "あなたのレベルに合った機会を推奨するのに役立ちます",
+      "beginner": "初心者",
+      "beginner_desc": "起業初心者",
+      "intermediate": "中級者", 
+      "intermediate_desc": "1-3年の経験",
+      "advanced": "上級者",
+      "advanced_desc": "3年以上、複数のベンチャー経験"
+    },
+    "investment": {
+      "title": "投資とリスクの好み",
+      "subtitle": "あなたの財政能力とリスク許容度を理解するのに役立ちます",
+      "range_label": "投資範囲",
+      "risk_label": "リスク許容度",
+      "low": "$1K - $10K",
+      "low_desc": "ブートストラップ向け",
+      "medium": "$10K - $100K", 
+      "medium_desc": "中程度の投資",
+      "high": "$100K+",
+      "high_desc": "高資本ベンチャー",
+      "conservative": "保守的",
+      "moderate": "中程度",
+      "aggressive": "積極的"
+    },
+    "time": {
+      "title": "時間と可用性",
+      "subtitle": "ベンチャーにどれくらいの時間を費やせますか？",
+      "part_time": "パートタイム",
+      "part_time_desc": "週10-20時間、副業",
+      "full_time": "フルタイム",
+      "full_time_desc": "週40時間以上、メインフォーカス",
+      "flexible": "柔軟",
+      "flexible_desc": "可変スケジュール、必要に応じて"
+    },
+    "goals": {
+      "title": "目標と興味",
+      "subtitle": "主要な目標と好みの業界を選択してください",
+      "goals_label": "主要目標（複数選択）",
+      "markets_label": "好みの市場",
+      "financial_freedom": "経済的自由",
+      "passive_income": "受動的収入",
+      "quick_roi": "迅速なROI",
+      "long_term_growth": "長期成長",
+      "social_impact": "社会的影響",
+      "innovation": "イノベーション",
+      "technology": "テクノロジー",
+      "healthcare": "ヘルスケア",
+      "finance": "金融",
+      "education": "教育",
+      "real_estate": "不動産",
+      "food_beverage": "食品・飲料",
+      "entertainment": "エンターテインメント"
+    },
+    "skills": {
+      "title": "スキルとリソース",
+      "subtitle": "あなたのスキルと利用可能なリソースについて教えてください",
+      "skills_label": "あなたのスキル",
+      "resources_label": "利用可能なリソース",
+      "programming": "プログラミング",
+      "marketing": "マーケティング",
+      "sales": "営業",
+      "design": "デザイン",
+      "operations": "運営",
+      "leadership": "リーダーシップ",
+      "analytics": "分析",
+      "has_team": "チームや共同創設者がいます",
+      "has_technical": "技術開発スキルがあります",
+      "has_marketing": "マーケティング/営業経験があります"
+    }
+  },
+  "report": {
+    "title": "ビジネス分析レポート",
+    "back_to_list": "機会に戻る",
+    "overall_score": "総合スコア: {{score}}/10",
+    "difficulty": "難易度",
+    "expected_revenue": "予想収益",
+    "time_to_market": "市場投入時間",
+    "preview": {
+      "title": "レポートプレビュー",
+      "free_view": "（無料表示）",
+      "executive_summary": "エグゼクティブサマリー",
+      "market_analysis": "市場分析プレビュー",
+      "financial_projections": "財務予測",
+      "technical_implementation": "技術実装",
+      "quick_start_kit": "クイックスタートキット",
+      "complete_report_includes": "完全レポートに含まれるもの:",
+      "detailed_business_plan": "• 50ページ以上の詳細なビジネスプラン",
+      "complete_technical_solution": "• 完全な技術実装ソリューション",
+      "runnable_mvp_code": "• 実行可能なMVPコードテンプレート",
+      "quick_start_toolkit": "• クイックスタートツールキット",
+      "financial_model": "• 3年間の財務予測モデル",
+      "competitive_analysis": "• 競合分析と市場戦略",
+      "risk_assessment": "• リスク評価と軽減策",
+      "development_support": "• 14日間の開発サポート"
+    },
+    "scoring": {
+      "title": "スコアレーダー",
+      "market_potential": "市場ポテンシャル",
+      "competitiveness": "競争力", 
+      "ai_readiness": "AI準備度",
+      "personal_fit": "個人適合度",
+      "risk_level": "リスクレベル"
+    },
+    "pricing": {
+      "title": "完全レポートを取得",
+      "basic_title": "レベル1 · レポート + BP",
+      "basic_price": "¥4,500",
+      "basic_desc": "詳細HTMLレポート + ピッチデック（WebPPT）",
+      "unlock_report": "¥4,500でレポート+BPをアンロック（今すぐ取得）"
+    },
+    "core_advantages": "コア優位性",
+    "potential_challenges": "潜在的な課題"
+  },
+  "payment": {
+    "title": "完全レポートを購入",
+    "total_price": "合計価格",
+    "select_method": "支払い方法を選択",
+    "alipay": "アリペイ（推奨）",
+    "alipay_desc": "QRコードをスキャンして¥4,500を支払い、成功後に自動アンロック（レポート+BP）",
+    "wechat": "WeChat Pay（アプリ内）",
+    "wechat_desc": "WeChatでワンクリック支払い、よりスムーズな体験",
+    "benefits": {
+      "title": "購入保証",
+      "refund": "30日間返金保証",
+      "secure": "安全な暗号化支払い",
+      "instant": "即座ダウンロード配信",
+      "support": "24/7カスタマーサポート"
+    },
+    "cancel": "キャンセル",
+    "pay_now": "今すぐ支払う",
+    "processing": "支払い完了を待機中...",
+    "success_title": "支払い成功！",
+    "success_desc": "完全レポートが準備中で、まもなくダウンロードされます",
+    "error_title": "支払い失敗",
+    "retry": "支払い再試行",
+    "later": "後で試す"
+  },
+  "auth": {
+    "login": {
+      "title": "お帰りなさい",
+      "email": "メール",
+      "password": "パスワード",
+      "forgotPassword": "パスワードをお忘れですか？",
+      "loginButton": "ログイン",
+      "or": "または",
+      "loginWithGoogle": "Googleでログイン",
+      "loginWithGithub": "GitHubでログイン",
+      "noAccount": "アカウントをお持ちでないですか？",
+      "registerLink": "サインアップ"
+    },
+    "register": {
+      "title": "アカウント作成",
+      "username": "ユーザー名",
+      "email": "メール",
+      "password": "パスワード",
+      "confirmPassword": "パスワード確認",
+      "registerButton": "アカウント作成",
+      "or": "または",
+      "registerWithGoogle": "Googleでサインアップ",
+      "registerWithGithub": "GitHubでサインアップ",
+      "hasAccount": "すでにアカウントをお持ちですか？",
+      "loginLink": "サインイン"
+    }
+  },
+  "footer": {
+    "description": "AI駆動のビジネス機会発見プラットフォーム",
+    "product": "プロダクト",
+    "company": "会社情報",
+    "quick_links": "クイックリンク",
+    "support": "サポート",
+    "about_us": "私たちについて",
+    "careers": "採用情報",
+    "blog": "ブログ",
+    "documentation": "ドキュメント",
+    "analytics": "アナリティクス",
+    "api": "API",
+    "legal": "法的事項",
+    "privacy_policy": "プライバシーポリシー",
+    "terms_of_service": "利用規約",
+    "help_center": "ヘルプセンター",
+    "contact_us": "お問い合わせ",
+    "copyright": "© 2024 Read2Rich. 全著作権所有。"
+  }
+  ,
+  "contact": {
+    "title": "お問い合わせ",
+    "subtitle": "お気軽にご連絡ください。24時間以内に返信いたします。",
+    "email": "メール",
+    "phone": "電話",
+    "address": "住所",
+    "form": {
+      "name": "お名前",
+      "name_ph": "山田 太郎",
+      "email": "メール",
+      "email_ph": "you@example.com",
+      "subject": "件名",
+      "subject_ph": "どのようなご用件でしょうか？",
+      "message": "メッセージ",
+      "message_ph": "こちらにご記入ください...",
+      "send": "送信"
+    },
+    "success": "送信が完了しました！",
+    "error": "送信に失敗しました。もう一度お試しください。"
+  }
+  ,
+  "about": {
+    "title": "Read2Richについて",
+    "subtitle": "私たちは起業家がAIで収益性の高い機会を発見・検証・実行することを支援します。",
+    "mission": { "title": "ミッション", "desc": "AIツールとデータ、実践的なプレイブックを提供し、誰もがアイデアを持続可能なビジネスへと変換できるようにすること。" },
+    "features": {
+      "title": "私たちの信念",
+      "aiFirst": { "title": "AIファースト", "desc": "最先端AIでリサーチ・分析・実行を加速" },
+      "creator": { "title": "クリエイター中心", "desc": "個人起業家と小規模チームのために設計" },
+      "trust": { "title": "信頼と透明性", "desc": "明確な価格設定、デフォルトでプライベート、データは利用者のもの" },
+      "global": { "title": "グローバル対応", "desc": "多言語・多通貨・世界対応" }
+    },
+    "values": {
+      "title": "価値観",
+      "speed": { "title": "スピード", "desc": "素早く提供し、より速く改善" },
+      "impact": { "title": "インパクト", "desc": "利用者にとって意味のある成果に集中" },
+      "openness": { "title": "オープンネス", "desc": "透明性とコラボレーションを重視" }
+    }
+  }
+}

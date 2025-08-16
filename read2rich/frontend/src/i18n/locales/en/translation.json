@@ -1,0 +1,108 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "search": "Search",
+    "filter": "Filter"
+  },
+  "nav": {
+    "home": "Home",
+    "opportunities": "Opportunities",
+    "about": "About",
+    "contact": "Contact",
+    "login": "Sign In",
+    "register": "Get Started",
+    "dashboard": "Dashboard"
+  },
+  "home": {
+    "title": "Discover Your Next Big Opportunity",
+    "subtitle": "AI-powered platform that analyzes market trends and identifies profitable business opportunities tailored to your interests and expertise.",
+    "cta": "Start Exploring",
+    "features": {
+      "ai_analysis": "AI-Powered Analysis",
+      "market_insights": "Market Insights",
+      "personalized": "Personalized Recommendations"
+    }
+  },
+  "opportunities": {
+    "title": "Business Opportunities",
+    "subtitle": "Discover and analyze the best business opportunities in the market",
+    "search_placeholder": "Search opportunities...",
+    "categories": {
+      "all": "All",
+      "technology": "Technology",
+      "healthcare": "Healthcare",
+      "finance": "Finance",
+      "education": "Education",
+      "retail": "Retail"
+    },
+    "details": {
+      "market_size": "Market Size",
+      "difficulty": "Difficulty",
+      "investment": "Investment",
+      "time_to_market": "Time to Market"
+    },
+    "actions": {
+      "view_details": "View Details",
+      "analyze": "Analyze"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome Back",
+      "subtitle": "Sign in to your account to continue",
+      "email": "Email",
+      "password": "Password",
+      "remember_me": "Remember me",
+      "forgot_password": "Forgot password?",
+      "login_button": "Sign In",
+      "or": "or",
+      "login_with_github": "Continue with GitHub",
+      "login_with_google": "Continue with Google",
+      "no_account": "Don't have an account?",
+      "register_link": "Sign up"
+    },
+    "register": {
+      "title": "Create Account",
+      "subtitle": "Join thousands of entrepreneurs discovering opportunities",
+      "username": "Username",
+      "email": "Email",
+      "password": "Password",
+      "confirm_password": "Confirm Password",
+      "register_button": "Create Account",
+      "or": "or",
+      "register_with_github": "Sign up with GitHub",
+      "register_with_google": "Sign up with Google",
+      "has_account": "Already have an account?",
+      "login_link": "Sign in"
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Get in touch with our team",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "subject": "Subject",
+      "message": "Message",
+      "send": "Send Message"
+    },
+    "info": {
+      "email": "Email",
+      "phone": "Phone",
+      "address": "Address"
+    }
+  },
+  "about": {
+    "title": "About Read2Rich",
+    "subtitle": "Empowering entrepreneurs with AI-driven insights",
+    "mission": "Our mission is to democratize access to business intelligence and help entrepreneurs worldwide discover profitable opportunities.",
+    "vision": "We envision a world where anyone with ambition can find their path to financial success through data-driven insights."
+  }
+}

@@ -18,6 +18,14 @@ export function track(name: string, props?: Record<string, any>): void {
     // eslint-disable-next-line no-console
     console.log('[analytics]', evt);
   }
+  // fire-and-forget to backend
+  try {
+    fetch('/api/v1/analytics', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, props })
+    });
+  } catch {}
 }
 
 export function drain(): AnalyticsEvent[] {

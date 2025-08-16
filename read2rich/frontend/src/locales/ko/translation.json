@@ -1,0 +1,340 @@
+{
+  "common": {
+    "language": "한국어",
+    "loading": "로딩 중...",
+    "error": "오류가 발생했습니다",
+    "success": "성공",
+    "cancel": "취소",
+    "save": "저장",
+    "delete": "삭제",
+    "edit": "편집",
+    "add": "추가",
+    "search": "검색",
+    "filter": "필터",
+    "sort": "정렬",
+    "refresh": "새로고침",
+    "close": "닫기",
+    "confirm": "확인",
+    "retry": "다시 시도",
+    "view": "보기",
+    "download": "다운로드",
+    "upload": "업로드"
+  },
+  "navigation": {
+    "home": "홈",
+    "opportunities": "기회",
+    "about": "소개",
+    "contact": "연락처",
+    "login": "로그인",
+    "register": "회원가입",
+    "dashboard": "대시보드",
+    "profile": "프로필",
+    "settings": "설정",
+    "logout": "로그아웃",
+    "get_recommendations": "추천 받기",
+    "sign_in": "로그인",
+    "get_started": "시작하기"
+  },
+  "homepage": {
+    "hero": {
+      "title": "아이디어를 부로 전환하세요",
+      "subtitle": "AI 기반 비즈니스 기회 발견 플랫폼",
+      "description": "기회 발견 • 시장 분석 • 부 성장",
+      "cta_primary": "맞춤형 추천 받기",
+      "cta_secondary": "모든 기회 둘러보기",
+      "learnMore": "더 알아보기"
+    },
+    "cta2": {
+      "title": "다음 기회를 찾을 준비가 되셨나요?",
+      "subtitle": "수익성 있는 비즈니스 기회를 찾기 위해 Read2Rich를 사용하는 수천 명의 창업가와 함께 하세요.",
+      "getStarted": "무료로 시작하기",
+      "explore": "기회 둘러보기"
+    },
+    "features": {
+      "title": "Read2Rich를 선택하는 이유",
+      "subtitle": "최첨단 AI 기술과 종합적인 시장 분석을 결합하여 경쟁에서 앞서 나가도록 도와드립니다.",
+      "ai": "AI 기반 분석",
+      "ai_desc": "고급 AI 알고리즘이 시장 트렌드를 분석하고 수익성 높은 기회를 발견합니다",
+      "realtime": "실시간 데이터",
+      "realtime_desc": "최신 시장 신호로 적시에 행동할 수 있습니다",
+      "insights": "심층 인사이트",
+      "insights_desc": "의사결정에 도움이 되는 실시간 데이터와 인사이트",
+      "reports": "상세 보고서",
+      "support": "24/7 지원"
+    },
+    "stats": {
+      "title": "플랫폼 통계",
+      "users": "활성 사용자",
+      "opportunities": "분석된 기회",
+      "success": "성공률",
+      "countries": "서비스 국가"
+    }
+  },
+  "opportunities": {
+    "title": "비즈니스 기회",
+    "subtitle": "다음 백만 달러 아이디어를 발견하세요",
+    "search_placeholder": "기회 검색...",
+    "filter": {
+      "all": "모든 카테고리",
+      "technology": "기술",
+      "healthcare": "헬스케어",
+      "finance": "금융",
+      "education": "교육",
+      "retail": "소매",
+      "fintech": "핀테크",
+      "ecommerce": "전자상거래",
+      "saas": "SaaS",
+      "marketplace": "마켓플레이스",
+      "ai": "AI & ML",
+      "other": "기타"
+    },
+    "sort": {
+      "newest": "최신순",
+      "oldest": "오래된순",
+      "relevance": "관련성",
+      "marketSize": "시장 규모",
+      "difficulty": "난이도"
+    },
+    "card": {
+      "viewDetails": "자세히 보기",
+      "analyze": "분석",
+      "save": "저장",
+      "share": "공유",
+      "marketSize": "시장 규모",
+      "difficulty": "난이도",
+      "investment": "필요 투자금",
+      "timeToMarket": "출시 시간"
+    }
+  },
+  "onboarding": {
+    "title": "자신에 대해 알려주세요",
+    "step": "{{current}}/{{total}} 단계",
+    "progress": "{{percent}}%",
+    "next": "다음",
+    "back": "이전",
+    "get_recommendations": "추천 받기",
+    "experience": {
+      "title": "경험에 대해 알려주세요",
+      "subtitle": "귀하의 수준에 맞는 기회를 추천하는 데 도움이 됩니다",
+      "beginner": "초보자",
+      "beginner_desc": "창업 초보",
+      "intermediate": "중급자", 
+      "intermediate_desc": "1-3년 경험",
+      "advanced": "고급자",
+      "advanced_desc": "3년 이상, 다수 벤처 경험"
+    },
+    "investment": {
+      "title": "투자 및 위험 선호도",
+      "subtitle": "귀하의 재정 능력과 위험 성향을 파악하는 데 도움을 주세요",
+      "range_label": "투자 범위",
+      "risk_label": "위험 허용도",
+      "low": "$1천 - $1만",
+      "low_desc": "부트스트랩 친화적",
+      "medium": "$1만 - $10만", 
+      "medium_desc": "중간 투자",
+      "high": "$10만+",
+      "high_desc": "고자본 벤처",
+      "conservative": "보수적",
+      "moderate": "중도",
+      "aggressive": "공격적"
+    },
+    "time": {
+      "title": "시간 및 가용성",
+      "subtitle": "벤처에 얼마나 많은 시간을 투자할 수 있습니까?",
+      "part_time": "파트타임",
+      "part_time_desc": "주 10-20시간, 부업",
+      "full_time": "풀타임",
+      "full_time_desc": "주 40시간 이상, 주력 사업",
+      "flexible": "유연",
+      "flexible_desc": "가변 스케줄, 필요에 따라"
+    },
+    "goals": {
+      "title": "목표 및 관심사",
+      "subtitle": "주요 목표와 선호하는 산업을 선택하세요",
+      "goals_label": "주요 목표 (복수 선택)",
+      "markets_label": "선호 시장",
+      "financial_freedom": "재정 자유",
+      "passive_income": "수동 소득",
+      "quick_roi": "빠른 투자 수익",
+      "long_term_growth": "장기 성장",
+      "social_impact": "사회적 영향",
+      "innovation": "혁신",
+      "technology": "기술",
+      "healthcare": "헬스케어",
+      "finance": "금융",
+      "education": "교육",
+      "real_estate": "부동산",
+      "food_beverage": "식음료",
+      "entertainment": "엔터테인먼트"
+    },
+    "skills": {
+      "title": "기술 및 자원",
+      "subtitle": "귀하의 기술과 이용 가능한 자원에 대해 알려주세요",
+      "skills_label": "귀하의 기술",
+      "resources_label": "이용 가능한 자원",
+      "programming": "프로그래밍",
+      "marketing": "마케팅",
+      "sales": "영업",
+      "design": "디자인",
+      "operations": "운영",
+      "leadership": "리더십",
+      "analytics": "분석",
+      "has_team": "팀이나 공동 창업자가 있습니다",
+      "has_technical": "기술 개발 능력이 있습니다",
+      "has_marketing": "마케팅/영업 경험이 있습니다"
+    }
+  },
+  "report": {
+    "title": "비즈니스 분석 보고서",
+    "back_to_list": "기회로 돌아가기",
+    "overall_score": "종합 점수: {{score}}/10",
+    "difficulty": "난이도",
+    "expected_revenue": "예상 수익",
+    "time_to_market": "출시 시간",
+    "preview": {
+      "title": "보고서 미리보기",
+      "free_view": "(무료 보기)",
+      "executive_summary": "경영진 요약",
+      "market_analysis": "시장 분석 미리보기",
+      "financial_projections": "재무 예측",
+      "technical_implementation": "기술 구현",
+      "quick_start_kit": "빠른 시작 키트",
+      "complete_report_includes": "완전한 보고서 포함 내용:",
+      "detailed_business_plan": "• 50페이지 이상의 상세한 사업 계획서",
+      "complete_technical_solution": "• 완전한 기술 구현 방안",
+      "runnable_mvp_code": "• 실행 가능한 MVP 코드 템플릿",
+      "quick_start_toolkit": "• 빠른 시작 툴킷",
+      "financial_model": "• 3년 재무 예측 모델",
+      "competitive_analysis": "• 경쟁 분석 및 시장 전략",
+      "risk_assessment": "• 위험 평가 및 완화 방안",
+      "development_support": "• 14일 개발 지원"
+    },
+    "scoring": {
+      "title": "점수 레이더",
+      "market_potential": "시장 잠재력",
+      "competitiveness": "경쟁력", 
+      "ai_readiness": "AI 준비도",
+      "personal_fit": "개인 적합도",
+      "risk_level": "위험 수준"
+    },
+    "pricing": {
+      "title": "완전한 보고서 받기",
+      "basic_title": "레벨 1 · 보고서 + BP",
+      "basic_price": "₩39,900",
+      "basic_desc": "심층 HTML 보고서 + 피치 덱 (WebPPT)",
+      "unlock_report": "₩39,900 보고서+BP 잠금 해제 (지금 받기)"
+    },
+    "core_advantages": "핵심 장점",
+    "potential_challenges": "잠재적 도전"
+  },
+  "payment": {
+    "title": "완전한 보고서 구매",
+    "total_price": "총 가격",
+    "select_method": "결제 방법 선택",
+    "alipay": "알리페이 (추천)",
+    "alipay_desc": "QR 코드 스캔하여 ₩39,900 결제, 성공 후 자동 잠금 해제 (보고서+BP)",
+    "wechat": "위챗페이 (앱 내)",
+    "wechat_desc": "위챗에서 원클릭 결제, 더 부드러운 경험",
+    "benefits": {
+      "title": "구매 보장",
+      "refund": "30일 환불 보장",
+      "secure": "안전한 암호화 결제",
+      "instant": "즉시 다운로드 배송",
+      "support": "24/7 고객 지원"
+    },
+    "cancel": "취소",
+    "pay_now": "지금 결제",
+    "processing": "결제 완료 대기 중...",
+    "success_title": "결제 성공!",
+    "success_desc": "완전한 보고서가 준비 중이며 곧 다운로드됩니다",
+    "error_title": "결제 실패",
+    "retry": "결제 재시도",
+    "later": "나중에 시도"
+  },
+  "auth": {
+    "login": {
+      "title": "다시 오신 것을 환영합니다",
+      "email": "이메일",
+      "password": "비밀번호",
+      "forgotPassword": "비밀번호를 잊으셨나요?",
+      "loginButton": "로그인",
+      "or": "또는",
+      "loginWithGoogle": "Google로 로그인",
+      "loginWithGithub": "GitHub로 로그인",
+      "noAccount": "계정이 없으신가요?",
+      "registerLink": "회원가입"
+    },
+    "register": {
+      "title": "계정 만들기",
+      "username": "사용자명",
+      "email": "이메일",
+      "password": "비밀번호",
+      "confirmPassword": "비밀번호 확인",
+      "registerButton": "계정 만들기",
+      "or": "또는",
+      "registerWithGoogle": "Google로 가입",
+      "registerWithGithub": "GitHub로 가입",
+      "hasAccount": "이미 계정이 있으신가요?",
+      "loginLink": "로그인"
+    }
+  },
+  "footer": {
+    "description": "AI 기반 비즈니스 기회 발견 플랫폼",
+    "product": "제품",
+    "company": "회사",
+    "quick_links": "빠른 링크",
+    "support": "지원",
+    "about_us": "회사 소개",
+    "careers": "채용",
+    "blog": "블로그",
+    "documentation": "문서",
+    "analytics": "분석",
+    "api": "API",
+    "legal": "법적 고지",
+    "privacy_policy": "개인정보 처리방침",
+    "terms_of_service": "서비스 약관",
+    "help_center": "도움말 센터",
+    "contact_us": "문의하기",
+    "copyright": "© 2024 Read2Rich. 모든 권리 보유."
+  }
+  ,
+  "contact": {
+    "title": "문의하기",
+    "subtitle": "언제든지 메시지를 보내주세요. 24시간 내에 답변드리겠습니다.",
+    "email": "이메일",
+    "phone": "전화",
+    "address": "주소",
+    "form": {
+      "name": "이름",
+      "name_ph": "홍길동",
+      "email": "이메일",
+      "email_ph": "you@example.com",
+      "subject": "제목",
+      "subject_ph": "무엇을 도와드릴까요?",
+      "message": "메시지",
+      "message_ph": "여기에 메시지를 작성하세요...",
+      "send": "메시지 보내기"
+    },
+    "success": "메시지가 성공적으로 전송되었습니다!",
+    "error": "전송에 실패했습니다. 다시 시도해주세요."
+  }
+  ,
+  "about": {
+    "title": "Read2Rich 소개",
+    "subtitle": "우리는 창업가가 AI로 수익성 있는 기회를 발견하고 검증하며 실행하도록 돕습니다.",
+    "mission": { "title": "우리의 미션", "desc": "AI 도구와 데이터, 실행 가능한 플레이북을 제공하여 누구나 아이디어를 지속 가능한 비즈니스로 전환하도록 돕습니다." },
+    "features": {
+      "title": "우리의 신념",
+      "aiFirst": { "title": "AI 우선", "desc": "최신 AI로 리서치, 분석, 실행을 가속화" },
+      "creator": { "title": "창작자 중심", "desc": "솔로 창업가와 소규모 팀을 위해 설계" },
+      "trust": { "title": "신뢰와 투명성", "desc": "명확한 가격, 기본 비공개, 데이터는 사용자 소유" },
+      "global": { "title": "글로벌 지향", "desc": "다국어/다통화/글로벌 지원" }
+    },
+    "values": {
+      "title": "핵심 가치",
+      "speed": { "title": "속도", "desc": "빠르게 출시하고 더 빠르게 개선" },
+      "impact": { "title": "임팩트", "desc": "사용자에게 중요한 결과에 집중" },
+      "openness": { "title": "개방성", "desc": "투명성과 협업을 기본으로" }
+    }
+  }
+}

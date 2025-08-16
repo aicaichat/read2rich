@@ -1,0 +1,1 @@
+from pydantic_settings import BaseSettings class Settings(BaseSettings): KAFKA_BROKERS: str = "localhost:9092" REDIS_URL: str = "redis://localhost:6379" DATABASE_URL: str = "postgresql://read2rich:password@localhost:5432/read2rich" SCRAPING_INTERVAL: int = 3600  # 1 hour MAX_RETRIES: int = 3 REQUEST_TIMEOUT: int = 30 class Config: env_file = ".env" settings = Settings()
