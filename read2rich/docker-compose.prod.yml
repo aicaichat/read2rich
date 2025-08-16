@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: read2rich-frontend
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+    depends_on:
+      - backend
+    networks:
+      - read2rich-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: read2rich-backend
+    ports:
+      - "8001:8000"
+    restart: unless-stopped
+    environment:
+      - PYTHONPATH=/app
+      - ENVIRONMENT=production
+    volumes:
+      - ./backend/data:/app/data
+    networks:
+      - read2rich-network
+
+networks:
+  read2rich-network:
+    driver: bridge
