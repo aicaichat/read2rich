@@ -66,6 +66,25 @@ const AboutPage: React.FC = () => {
             ))}
           </div>
         </div>
+
+        {/* Company Info */}
+        <div className="card">
+          <h3 className="text-lg font-semibold text-white mb-4">{t('about.company.title')}</h3>
+          <div className="space-y-3 text-white/70">
+            <p>
+              <span className="text-white font-medium">{t('about.company.name')}</span> {t('about.company.nameValue')}
+            </p>
+            <p>
+              <span className="text-white font-medium">{t('about.company.founded')}</span> {t('about.company.foundedValue')}
+            </p>
+            <p>
+              <span className="text-white font-medium">{t('about.company.location')}</span> {t('about.company.locationValue')}
+            </p>
+            <p className="leading-relaxed">
+              {t('about.company.description')}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );

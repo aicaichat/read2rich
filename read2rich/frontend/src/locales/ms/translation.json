@@ -335,6 +335,16 @@
       "speed": { "title": "Kepantasan", "desc": "Hantar pantas, ulang lebih pantas" },
       "impact": { "title": "Impak", "desc": "Fokus pada hasil yang penting kepada pengguna" },
       "openness": { "title": "Keterbukaan", "desc": "Utamakan ketelusan dan kerjasama" }
+    },
+    "company": {
+      "title": "Maklumat Syarikat",
+      "name": "Syarikat:",
+      "nameValue": "Deepneed Inc",
+      "founded": "Ditubuhkan:",
+      "foundedValue": "2024",
+      "location": "Lokasi:",
+      "locationValue": "Global (Kerja Jauh Diutamakan)",
+      "description": "Deepneed Inc adalah syarikat teknologi yang memfokuskan pada mendemokrasikan akses kepada kecerdasan perniagaan dan wawasan didorong AI. Kami percaya bahawa setiap orang harus mempunyai akses kepada alat dan data yang diperlukan untuk membina perniagaan yang berjaya, tanpa mengira latar belakang atau sumber mereka."
     }
   }
 }

@@ -344,6 +344,16 @@
       "speed": { "title": "Speed", "desc": "Ship fast, iterate faster." },
       "impact": { "title": "Impact", "desc": "Focus on outcomes that matter to our users." },
       "openness": { "title": "Openness", "desc": "Default to transparency and collaboration." }
+    },
+    "company": {
+      "title": "Company Information",
+      "name": "Company:",
+      "nameValue": "Deepneed Inc",
+      "founded": "Founded:",
+      "foundedValue": "2024",
+      "location": "Location:",
+      "locationValue": "Global (Remote-first)",
+      "description": "Deepneed Inc is a technology company focused on democratizing access to business intelligence and AI-powered insights. We believe that everyone should have access to the tools and data needed to build successful businesses, regardless of their background or resources."
     }
   }
 }
